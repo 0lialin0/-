@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/main_toop"
+        layout="@layout/toolbar_other" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y1"
+        android:background="#b2b2b2" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="vertical"
+        android:fillViewport="false"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/gray2"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/title_bg"
+                android:text="@string/green_car_info" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/electron_outer_linearLayout">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/green_car_num" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/ed_car_num"
+                            style="@style/electron_ed_content"
+                            android:hint="@string/please_input" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_check_unit" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/ed_check_unit"
+                            style="@style/electron_ed_content" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_check_time" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_check_time"
+                            style="@style/electron_ed_content" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_charge_num" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/ed_charge_num"
+                            style="@style/electron_ed_content"
+                            android:hint="@string/please_input" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_charge_name" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/ed_charge_name"
+                            style="@style/electron_ed_content"
+                            android:hint="@string/please_input" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_classes" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_classes"
+                            style="@style/electron_ed_content"
+                            android:hint="@string/please_input" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/x43"
+                        android:src="@drawable/right_btn" />
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_class_name" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/ed_class_name"
+                            style="@style/electron_ed_content"
+                            android:hint="@string/please_input" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                style="@style/title_bg"
+                android:text="@string/increment_charge_info" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_type" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_increment_type"
+                            style="@style/electron_ed_content" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/x43"
+                        android:src="@drawable/right_btn" />
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_entrance_loca" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_entrance_loca"
+                            style="@style/electron_ed_content" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/x43"
+                        android:src="@drawable/right_btn" />
+                </RelativeLayout>
+
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_entrance_type" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_entrance_type"
+                            style="@style/electron_ed_content" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/x43"
+                        android:src="@drawable/right_btn" />
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_exit_type" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_exit_type"
+                            style="@style/electron_ed_content" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/x43"
+                        android:src="@drawable/right_btn" />
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_shi_money" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/ed_shi_money"
+                            style="@style/electron_ed_content"
+                            android:hint="@string/please_input"
+                            android:numeric="decimal" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <View style="@style/view_line" />
+
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/increment_zeng_money" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_member_address"
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/ed_zeng_money"
+                            style="@style/electron_ed_content"
+                            android:hint="@string/please_input"
+                            android:numeric="decimal" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_zhoushu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/increment_zhou_shuo" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/ed_zhoushou"
+                                style="@style/electron_ed_content"
+                                android:hint="@string/please_input"
+                                android:numeric="decimal" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_dunshuo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/increment_dun_shuo" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/ed_dunshuo"
+                                style="@style/electron_ed_content"
+                                android:hint="@string/please_input"
+                                android:numeric="decimal" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View style="@style/view_line" />
+
+                <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:layout_height="@dimen/y200"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/green_remark" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y200"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:hint="@string/please_input"
+                            android:textSize="@dimen/x20" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/view_line" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginTop="@dimen/y21"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/comit_button"
+                    style="@style/button_layout"
+                    android:background="@drawable/selector_psersoal_bt_bg"
+                    android:text="提交"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

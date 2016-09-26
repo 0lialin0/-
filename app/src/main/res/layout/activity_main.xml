@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".views.activity.MainActivity">
+
+    <include
+        android:id="@+id/main_toop"
+        layout="@layout/toolbar_start" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_start_recy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="@dimen/x112"
+        android:layout_marginTop="@dimen/y110" />
+
+</LinearLayout>

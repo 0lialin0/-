@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/x350"
+    android:layout_height="wrap_content"
+    android:background="@color/solide_blue">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/down_menu_list"
+        android:layout_width="@dimen/x350"
+        android:layout_height="@dimen/x350" />
+</LinearLayout>

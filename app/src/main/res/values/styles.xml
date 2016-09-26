@@ -1,0 +1,136 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="actionOverflowMenuStyle">@style/MenuStyle</item>
+    </style>
+
+
+    <style name="MenuStyle" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:popupBackground">?attr/colorPrimary</item>
+        <item name="android:dropDownVerticalOffset">0dip</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="electron_outer_linearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y86</item>
+        <item name="android:layout_marginLeft">@dimen/x34</item>
+    </style>
+
+    <style name="electron_tv_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/x28</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textColor">@color/gray3</item>
+
+    </style>
+
+    <style name="electron_linearLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/x15</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+
+    <style name="view_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y1</item>
+        <item name="android:background">#eeeeee</item>
+    </style>
+
+    <style name="electron_ed_content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/x20</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="button_layout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/x32</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginLeft">@dimen/x35</item>
+        <item name="android:layout_marginRight">@dimen/x35</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+    <style name="radio_rad_bg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/x20</item>
+        <item name="android:drawableLeft">@drawable/selector_redio_rad</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/ight_gray</item>
+        <item name="android:drawablePadding">@dimen/x16</item>
+    </style>
+
+    <style name="title_bg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/x65</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x26</item>
+        <item name="android:layout_marginLeft">@dimen/x35</item>
+        <item name="android:textColor">@color/gray3</item>
+    </style>
+
+
+    <style name="list_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxEms">18</item>
+        <item name="android:textColor">#505050</item>
+        <item name="android:textSize">@dimen/x32</item>
+    </style>
+
+    <style name="list_sub_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxEms">18</item>
+        <item name="android:textColor">#949494</item>
+        <item name="android:textSize">@dimen/x32</item>
+    </style>
+
+    <style name="list_sub_bottom">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#505050</item>
+        <item name="android:textSize">@dimen/x26</item>
+    </style>
+
+
+    <style name="PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+</resources>

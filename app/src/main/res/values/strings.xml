@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">收费稽查</string>
+
+
+    <string name="login_user">用户名</string>
+    <string name="login_pwd">密码</string>
+    <string name="login_copyright">版权所有©2016</string>
+    <string name="login_copyright2">安徽皖通科技股份有限公司</string>
+
+    <string name="please_input">请输入</string>
+
+    <string name="green_name">绿通档案</string>
+    <string name="green_car_info">车辆信息</string>
+    <string name="green_jianyan_info">检验信息</string>
+    <string name="green_photo">上传照片</string>
+    <string name="green_car_num">车牌号</string>
+    <string name="green_car_type">车辆类型</string>
+    <string name="green_factory">厂牌型号</string>
+    <string name="green_rongji">有效容积率(%)</string>
+    <string name="green_zhoushou">轴数(轴)</string>
+    <string name="green_dunwei">吨位(吨)</string>
+    <string name="green_entrance">入口站址</string>
+    <string name="green_car_dao">车道号</string>
+    <string name="green_charge">收费员</string>
+    <string name="green_class">班长</string>
+    <string name="green_type">绿通类型</string>
+    <string name="green_jianmian">是否减免</string>
+    <string name="green_jianmian_yes">是</string>
+    <string name="green_jianmian_no">否</string>
+    <string name="green_jianmian_money">减免金额</string>
+    <string name="green_goods_name">货物名称</string>
+    <string name="green_hun_goods_name">混合货物名称</string>
+    <string name="green_heding">核定载重量(吨)</string>
+    <string name="green_remark">备注</string>
+
+    <string name="green_edit">编辑</string>
+    <string name="green_submit">提交</string>
+
+
+    <string name="increment_name">增收信息</string>
+    <string name="increment_entrance">入口站</string>
+    <string name="increment_entrance_type">入口判型</string>
+    <string name="increment_exit_type">出口判型</string>
+    <string name="increment_inspect_time">查处时间</string>
+    <string name="increment_inspect_unit">查处单位</string>
+    <string name="increment_total_money">合计金额</string>
+
+    <string name="increment_add_name">添加增收</string>
+    <string name="increment_check_unit">查处单位</string>
+    <string name="increment_check_time">查处时间</string>
+    <string name="increment_charge_num">收费员工号</string>
+    <string name="increment_charge_name">收费员工姓名</string>
+    <string name="increment_classes">班次</string>
+    <string name="increment_class_name">班长姓名</string>
+    <string name="increment_charge_info">收费信息</string>
+    <string name="increment_type">堵漏增收类型</string>
+    <string name="increment_entrance_loca">入口站址</string>
+    <string name="increment_shi_money">实收金额(元)</string>
+    <string name="increment_zeng_money">增收金额(元)</string>
+    <string name="increment_zhou_shuo">轴数(轴)</string>
+    <string name="increment_dun_shuo">吨数(吨)</string>
+
+    <string name="name_roll_title">添加名单</string>
+    <string name="name_roll_color">车辆颜色</string>
+    <string name="name_roll_car_color">车身颜色</string>
+    <string name="name_roll_car_type">车辆类别</string>
+    <string name="name_roll_carx_type">车型类别</string>
+    <string name="name_roll_info">违章信息</string>
+    <string name="name_roll_tongxi">通行卡号</string>
+    <string name="name_roll_weizhang">违章时间</string>
+    <string name="name_roll_weizhang_type">违章类型</string>
+    <string name="name_roll_weizhang_addr">违章地点</string>
+    <string name="name_roll_xingshi">行驶区间</string>
+    <string name="name_roll_qingkuang">情况说明</string>
+</resources>
