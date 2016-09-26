@@ -13,7 +13,7 @@ import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
  * Created by lxg on 2015/11/5.
  */
 public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordListView> implements
-        GreenRecordListPresenter, OnItemClickListener {
+        GreenRecordListPresenter {
 
 
     private Context context;
@@ -31,8 +31,5 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
     }
 
 
-    @Override
-    public void onItemClick(String tags) {
 
-    }
 }

@@ -7,6 +7,7 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.MainView;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
 import cn.wtkj.charge_inspect.views.activity.GreenRecordActivity;
 import cn.wtkj.charge_inspect.views.activity.IncrementListActivity;
 import cn.wtkj.charge_inspect.views.activity.LawsNewsActivity;
@@ -17,7 +18,7 @@ import cn.wtkj.charge_inspect.views.activity.NameRollAddActivity;
  * Created by lxg on 2015/11/5.
  */
 public class MainPresenterImpl extends MvpBasePresenter<MainView> implements MainPresenter,
-        OnItemClickListener {
+        OnItemClickListener2 {
 
     private String[] items;
     private int[] imgs;

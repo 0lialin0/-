@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.IncrementAddPresenter;
@@ -85,6 +86,9 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     private DropDownMenu dropDownMenu4;
     private DropDownMenu dropDownMenu5;
 
+    List<ConstAllData.MData.info> entranList = new ArrayList<>();
+    private JCEscapeBookData data;
+
     @Override
     protected IncrementAddPresenter createPresenter() {
         return new IncrementAddPresenterImpl();
@@ -144,26 +148,39 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         tvEntranceLoca.setText(rkLoca.get(0).getName());
 
         //入口判型
-        List<ConstAllData.MData.info> entranList = presenter.getConstByType(5);
+        entranList = presenter.getConstByType(5);
         dropDownMenu4 = new DropDownMenu(this, entranList);
         dropDownMenu4.setId(1);
         dropDownMenu4.setOnItemClickListener(this);
         tvEntranceType.setText(entranList.get(0).getName());
 
+        showExitList(0,4);
 
-        //出口判型
-        List<ConstAllData.MData.info> exitList = new ArrayList<>();
-        for (int i = 0; i < entranList.size(); i++) {
-            if (i < 4) {
-                //exitList.add(new KeyValueData(entranList.get(i).getId(), entranList.get(i).getValue()));
-            }
-        }
-        dropDownMenu5 = new DropDownMenu(this, exitList);
-        dropDownMenu5.setId(1);
-        dropDownMenu5.setOnItemClickListener(this);
-        tvExitType.setText(exitList.get(0).getName());
     }
 
+
+    public void showExitList(int start,int end) {
+        //出口判型
+        if (entranList.size() > 0) {
+            List<ConstAllData.MData.info> exitList = new ArrayList<>();
+            ConstAllData data = new ConstAllData();
+            ConstAllData.MData mData = data.new MData();
+            for (int i = 0; i < entranList.size(); i++) {
+                if (entranList.get(i).getCode()>=start && end < entranList.get(i).getCode()) {
+                    ConstAllData.MData.info info = mData.new info();
+                    info.setName(entranList.get(i).getName());
+                    info.setCode(entranList.get(i).getCode());
+                    info.setType(entranList.get(i).getType());
+                    exitList.add(info);
+                }
+            }
+            dropDownMenu5 = new DropDownMenu(this, exitList);
+            dropDownMenu5.setId(1);
+            dropDownMenu5.setOnItemClickListener(this);
+            tvExitType.setText(exitList.get(0).getName());
+        }
+
+    }
 
     @Override
     public void showLoding() {
@@ -231,15 +248,26 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
                     showMes("增收金额不能为空！");
                     return;
                 }
+                getShowData();
+                presenter.submitData(data);
                 break;
         }
     }
 
+    public void getShowData(){
+        data.setCreateDT("");
+    }
     @Override
-    public void onItemClick(int code,int type,String name) {
+    public void onItemClick(int code, int type, String name) {
         switch (type) {
-            case 1:
-                //tvClasses.setText("早班");
+            case 5:
+                if (code == 0 || code == 1 || code == 2 || code == 3 || code == 4) {
+                    showExitList(0,4);
+                }else if(code == 11 || code == 12 || code == 13 || code == 14 || code==15){
+                    showExitList(4,9);
+                    llZhoushu.setVisibility(View.VISIBLE);
+                    llDunshuo.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }

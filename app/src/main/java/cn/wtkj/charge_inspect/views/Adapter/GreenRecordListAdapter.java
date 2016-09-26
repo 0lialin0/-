@@ -21,7 +21,7 @@ import cn.wtkj.charge_inspect.R;
 public class GreenRecordListAdapter extends RecyclerView.Adapter<GreenRecordListAdapter.ShedViewHolder> {
     private Context context;
     private List<String> patrolProjectDatas;
-    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener2 onItemClickListener;
 
     public GreenRecordListAdapter(Context context, List<String> patrolProjectDatas) {
         this.context = context;
@@ -53,7 +53,7 @@ public class GreenRecordListAdapter extends RecyclerView.Adapter<GreenRecordList
         return patrolProjectDatas.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener2 onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 

@@ -19,9 +19,9 @@ public class MainRecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private String[] items;
     private int[] imgs;
     private Context context;
-    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener2 onItemClickListener;
 
-    public MainRecyAdapter(Context context, String[] items, int[] imgs, OnItemClickListener onItemClickListener){
+    public MainRecyAdapter(Context context, String[] items, int[] imgs, OnItemClickListener2 onItemClickListener){
         this.context = context;
         this.imgs = imgs;
         this.items = items;

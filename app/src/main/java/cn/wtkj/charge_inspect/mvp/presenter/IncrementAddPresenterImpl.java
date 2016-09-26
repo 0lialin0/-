@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
@@ -43,6 +44,11 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
         return list_type;
     }
 
+    @Override
+    public void submitData(JCEscapeBookData data) {
+
+    }
+
 
     @Override
     public void startPresenter() {
@@ -54,6 +60,7 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
         String unit = organizationDb.getCheckUnit(Setting.ORGID, Setting.ORGLEVEL);
         getView().setView(unit);
     }
+
 
 
 

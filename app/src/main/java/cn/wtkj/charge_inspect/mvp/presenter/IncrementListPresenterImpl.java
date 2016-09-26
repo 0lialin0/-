@@ -13,7 +13,7 @@ import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
  * Created by lxg on 2015/11/5.
  */
 public class IncrementListPresenterImpl extends MvpBasePresenter<IncrementListView> implements
-        IncrementListPresenter, OnItemClickListener {
+        IncrementListPresenter {
 
 
     private Context context;
@@ -31,8 +31,5 @@ public class IncrementListPresenterImpl extends MvpBasePresenter<IncrementListVi
     }
 
 
-    @Override
-    public void onItemClick(String tags) {
 
-    }
 }

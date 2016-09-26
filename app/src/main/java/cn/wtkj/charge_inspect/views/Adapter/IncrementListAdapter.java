@@ -20,7 +20,7 @@ import cn.wtkj.charge_inspect.R;
 public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdapter.ShedViewHolder> {
     private Context context;
     private List<String> patrolProjectDatas;
-    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener2 onItemClickListener;
 
     public IncrementListAdapter(Context context, List<String> patrolProjectDatas) {
         this.context = context;
@@ -52,7 +52,7 @@ public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdap
         return patrolProjectDatas.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener2 onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 

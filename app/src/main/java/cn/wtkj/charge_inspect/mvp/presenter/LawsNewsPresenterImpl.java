@@ -13,7 +13,7 @@ import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
  * Created by lxg on 2015/11/5.
  */
 public class LawsNewsPresenterImpl extends MvpBasePresenter<LawsNewsView> implements
-        LawsNewsPresenter, OnItemClickListener {
+        LawsNewsPresenter {
 
 
 
@@ -32,8 +32,5 @@ public class LawsNewsPresenterImpl extends MvpBasePresenter<LawsNewsView> implem
     }
 
 
-    @Override
-    public void onItemClick(String tags) {
 
-    }
 }
