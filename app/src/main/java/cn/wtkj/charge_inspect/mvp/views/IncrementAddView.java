@@ -24,7 +24,7 @@ public interface IncrementAddView extends MvpView {
     void hideLoging();
 
     //跳转到下一个页面
-    void nextView(String phone);
+    void nextView();
 
     //提示错误信息
     void showMes(String msg);

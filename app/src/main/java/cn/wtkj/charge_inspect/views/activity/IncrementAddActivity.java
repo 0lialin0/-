@@ -1,5 +1,7 @@
 package cn.wtkj.charge_inspect.views.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,7 +28,9 @@ import cn.wtkj.charge_inspect.mvp.presenter.IncrementAddPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.IncrementAddPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.IncrementAddView;
 import cn.wtkj.charge_inspect.util.ResponeUtils;
+import cn.wtkj.charge_inspect.util.Setting;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
 import cn.wtkj.charge_inspect.views.custom.DateTimePickerDialog;
 import cn.wtkj.charge_inspect.views.custom.DropDownKeyValue;
 import cn.wtkj.charge_inspect.views.custom.DropDownMenu;
@@ -36,7 +41,7 @@ import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
  * Created by ghj on 2016/9/21.
  */
 public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter> implements
-        IncrementAddView, View.OnClickListener, OnItemClickListener {
+        IncrementAddView, View.OnClickListener, OnItemClickListener, OnItemClickListener2 {
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -74,6 +79,15 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     EditText edShiMoney;
     @Bind(R.id.ed_zeng_money)
     EditText edZengMoney;
+    @Bind(R.id.ed_class_name)
+    EditText edClassName;
+    @Bind(R.id.ed_zhoushou)
+    EditText edZhoushou;
+    @Bind(R.id.ed_dunshuo)
+    EditText edDunshuo;
+
+    @Bind(R.id.ed_remark)
+    EditText edRemark;
 
     @Bind(R.id.ll_zhoushu)
     LinearLayout llZhoushu;
@@ -88,6 +102,12 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     List<ConstAllData.MData.info> entranList = new ArrayList<>();
     private JCEscapeBookData data;
+    private int shiftID;
+    private int peccancyTypeID;
+    private int inStationID;
+    private int inDecision;
+    private int outDecision;
+    private ProgressDialog progressDialog;
 
     @Override
     protected IncrementAddPresenter createPresenter() {
@@ -115,12 +135,16 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     public void initView() {
         showView();
+        progressDialog = new ProgressDialog(this);
     }
 
+    //班次
     @Override
     public void setClasses(List<KeyValueData> list) {
         downKeyValue = new DropDownKeyValue(this, list);
         downKeyValue.setId("1");
+        downKeyValue.setOnItemClickListener(this);
+        shiftID = 1;
         tvClasses.setText(list.get(0).getValue());
     }
 
@@ -134,49 +158,62 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     @Override
     public void showView() {
         //1：站址, 5：车型类别, 9：堵漏增收信息,
+
+        //堵漏增收信息
         List<ConstAllData.MData.info> dlType = presenter.getConstByType(9);
         dropDownMenu2 = new DropDownMenu(this, dlType);
-        dropDownMenu2.setId(1);
+        //dropDownMenu2.setId(1);
         dropDownMenu2.setOnItemClickListener(this);
-        tvIncrementType.setText(dlType.get(0).getName());
+        if (dlType.size() > 0) {
+            peccancyTypeID = dlType.get(0).getCode();
+            tvIncrementType.setText(dlType.get(0).getName());
+        }
 
-        //入口站址
+
+        //入口站址(站址)
         List<ConstAllData.MData.info> rkLoca = presenter.getConstByType(1);
         dropDownMenu3 = new DropDownMenu(this, rkLoca);
-        dropDownMenu3.setId(1);
+        //dropDownMenu3.setId(1);
         dropDownMenu3.setOnItemClickListener(this);
-        tvEntranceLoca.setText(rkLoca.get(0).getName());
+        if (rkLoca.size() > 0) {
+            inStationID=rkLoca.get(0).getCode();
+            tvEntranceLoca.setText(rkLoca.get(0).getName());
+        }
 
-        //入口判型
+
+        //入口判型(车型类别)
         entranList = presenter.getConstByType(5);
         dropDownMenu4 = new DropDownMenu(this, entranList);
-        dropDownMenu4.setId(1);
+        //dropDownMenu4.setId(1);
         dropDownMenu4.setOnItemClickListener(this);
-        tvEntranceType.setText(entranList.get(0).getName());
-
-        showExitList(0,4);
+        if(entranList.size()>0){
+            inDecision=entranList.get(0).getCode();
+            tvEntranceType.setText(entranList.get(0).getName());
+        }
+        showExitList(0, 4);
 
     }
 
 
-    public void showExitList(int start,int end) {
+    public void showExitList(int start, int end) {
         //出口判型
         if (entranList.size() > 0) {
             List<ConstAllData.MData.info> exitList = new ArrayList<>();
             ConstAllData data = new ConstAllData();
             ConstAllData.MData mData = data.new MData();
             for (int i = 0; i < entranList.size(); i++) {
-                if (entranList.get(i).getCode()>=start && end < entranList.get(i).getCode()) {
+                if (entranList.get(i).getCode() >= start && end < entranList.get(i).getCode()) {
                     ConstAllData.MData.info info = mData.new info();
                     info.setName(entranList.get(i).getName());
                     info.setCode(entranList.get(i).getCode());
-                    info.setType(entranList.get(i).getType());
+                    info.setType(55);
                     exitList.add(info);
                 }
             }
             dropDownMenu5 = new DropDownMenu(this, exitList);
-            dropDownMenu5.setId(1);
+            //dropDownMenu5.setId(1);
             dropDownMenu5.setOnItemClickListener(this);
+            outDecision=exitList.get(0).getCode();
             tvExitType.setText(exitList.get(0).getName());
         }
 
@@ -184,17 +221,22 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     @Override
     public void showLoding() {
-
+        progressDialog.setMessage("正在保存，请等待..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
     public void hideLoging() {
-
+        progressDialog.hide();
     }
 
     @Override
-    public void nextView(String phone) {
-
+    public void nextView() {
+        this.finish();
+        Intent intent=new Intent();
+        intent.setClass(this,IncrementListActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -203,28 +245,32 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     }
 
 
-    @OnClick({R.id.tv_check_time, R.id.tv_classes, R.id.tv_increment_type, R.id.tv_entrance_loca,
-            R.id.tv_entrance_type, R.id.tv_exit_type, R.id.comit_button})
+    @OnClick({R.id.iv_left,R.id.tv_check_time, R.id.rl_classes, R.id.rl_increment_type,
+            R.id.rl_entrance_loca,
+            R.id.rl_entrance_type, R.id.rl_exit_type, R.id.comit_button})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_left:
+                this.finish();
+                break;
             case R.id.tv_check_time:
                 DateTimePickerDialog dateTimePickerDialog = new DateTimePickerDialog(this);
                 dateTimePickerDialog.dateTimePicKDialog(tvCheckTime, 0);
                 break;
-            case R.id.tv_classes:
+            case R.id.rl_classes:
                 downKeyValue.setDownValue(tvClasses, "");
                 break;
-            case R.id.tv_increment_type:
+            case R.id.rl_increment_type:
                 dropDownMenu2.setDownValue(tvIncrementType, "");
                 break;
-            case R.id.tv_entrance_loca:
+            case R.id.rl_entrance_loca:
                 dropDownMenu3.setDownValue(tvEntranceLoca, "");
                 break;
-            case R.id.tv_entrance_type:
+            case R.id.rl_entrance_type:
                 dropDownMenu4.setDownValue(tvEntranceType, "");
                 break;
-            case R.id.tv_exit_type:
+            case R.id.rl_exit_type:
                 dropDownMenu5.setDownValue(tvExitType, "");
                 break;
             case R.id.comit_button:
@@ -254,21 +300,72 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         }
     }
 
-    public void getShowData(){
-        data.setCreateDT("");
+    public void getShowData() {
+        data = new JCEscapeBookData();
+        String uuid = UUID.randomUUID().toString();
+        data.setEscapeBookID(uuid);
+        data.setUserID(Setting.USERID);
+        data.setOperType(1);//1：新增 2：修改
+        data.setOrgID(Setting.ORGID);
+        data.setOrgLevel(Setting.ORGLEVEL);
+
+        data.setVehPlate(edCarNum.getText().toString());
+        data.setFindDT(tvCheckTime.getText().toString());
+        data.setOprID(edChargeNum.getText().toString());
+        data.setOprName(edChargeName.getText().toString());
+        data.setShiftID(shiftID);
+        if (!TextUtils.isEmpty(edClassName.getText())) {
+            data.setMonitor(edClassName.getText().toString());
+        }
+        data.setPeccancyTypeID(peccancyTypeID);
+        data.setInStationID(inStationID);
+        data.setInDecision(inDecision);
+        data.setOutDecision(outDecision);
+
+        data.setRealityMoney(edShiMoney.getText()+"");
+        data.setEscapeMoney(edZengMoney.getText()+"");
+
+        if(!edZhoushou.getText().toString().replaceAll(" ","").equals("")){
+            data.setAxleNumber(Integer.valueOf(edZhoushou.getText().toString()));
+        }
+        if(!edDunshuo.getText().toString().replaceAll(" ","").equals("")){
+            data.setWeight(edDunshuo.getText().toString());
+        }
+
+        if(!TextUtils.isEmpty(edRemark.getText())){
+            data.setRemark(edRemark.getText().toString());
+        }
+        //data.setCreateDT("");
     }
+
     @Override
     public void onItemClick(int code, int type, String name) {
         switch (type) {
             case 5:
                 if (code == 0 || code == 1 || code == 2 || code == 3 || code == 4) {
-                    showExitList(0,4);
-                }else if(code == 11 || code == 12 || code == 13 || code == 14 || code==15){
-                    showExitList(4,9);
+                    showExitList(0, 4);
+                } else if (code == 11 || code == 12 || code == 13 || code == 14 || code == 15) {
+                    showExitList(4, 9);
                     llZhoushu.setVisibility(View.VISIBLE);
                     llDunshuo.setVisibility(View.VISIBLE);
                 }
+                inDecision=code;
+                break;
+            case 55: //出口判型
+                outDecision=code;
+                break;
+            case 9:
+                peccancyTypeID = code;
+                break;
+            case 1:
+                inStationID=code;
                 break;
         }
+    }
+
+    //班次
+    @Override
+    public void onItemClick(String tags) {
+        shiftID = Integer.parseInt(tags);
     }
 }

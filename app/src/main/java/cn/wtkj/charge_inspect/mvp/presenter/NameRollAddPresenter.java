@@ -7,6 +7,7 @@ import android.content.Intent;
 import java.io.File;
 import java.util.List;
 
+import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.mvp.MvpPresenter;
 import cn.wtkj.charge_inspect.mvp.views.GreenRecordView;
 import cn.wtkj.charge_inspect.mvp.views.NameRollAddView;
@@ -16,4 +17,5 @@ import cn.wtkj.charge_inspect.mvp.views.NameRollAddView;
  */
 public interface NameRollAddPresenter extends MvpPresenter<NameRollAddView> {
     void startPresenter(List<File> files);
+    List<ConstAllData.MData.info> getConstByType(int type);
 }

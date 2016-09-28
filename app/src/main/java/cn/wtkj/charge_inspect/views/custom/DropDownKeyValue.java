@@ -55,6 +55,8 @@ public class DropDownKeyValue {
                 .inflate(R.layout.down_menu_layout, null);
         RecyclerView recyclerView = (RecyclerView) linearLayout.findViewById(R.id.down_menu_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.addItemDecoration(new DividerItemDecoration(mContext,
+                DividerItemDecoration.VERTICAL_LIST));
         DownKeyValueAdapter adapter = new DownKeyValueAdapter(list, mContext);
         recyclerView.setAdapter(adapter);
         if (popupwindow != null && popupwindow.isShowing()) {
@@ -71,7 +73,7 @@ public class DropDownKeyValue {
             @Override
             public void onItemClick(String tags) {
                 id = list.get(Integer.parseInt(tags)).getId();
-                // textView.setText(list.get(Integer.parseInt(tags)).getValue());
+                 textView.setText(list.get(Integer.parseInt(tags)).getValue());
                 if (popupwindow != null && popupwindow.isShowing()) {
                     popupwindow.dismiss();
                 }

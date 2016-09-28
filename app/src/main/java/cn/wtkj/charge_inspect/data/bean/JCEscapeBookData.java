@@ -9,19 +9,19 @@ import java.io.Serializable;
 public class JCEscapeBookData implements Serializable {
 
     private String EscapeBookID;
-    private int ShiftID;
-    private int PeccancyTypeID;
-    private String FindDT;
+    private int ShiftID; //班次ID
+    private int PeccancyTypeID;//堵漏增收类型ID
+    private String FindDT; //查处时间
     private int OrgID;
-    private String OprID;
-    private String OprName;
-    private int InDecision;
-    private int OutDecision;
-    private String RealityMoney;
-    private String EscapeMoney;
-    private String Monitor;
-    private String VehPlate;
-    private String Remark;
+    private String OprID; //收费员工号
+    private String OprName; //收费员姓名
+    private int InDecision; //入口判型ID
+    private int OutDecision; //出口判型ID
+    private String RealityMoney;//实收金额(元)
+    private String EscapeMoney;//增收金额(元)
+    private String Monitor; //值班长姓名
+    private String VehPlate; //车牌号
+    private String Remark; //备注
     private int IsUpLoad;
     private String ListInfo;
     private int IsDeleted;
@@ -30,14 +30,32 @@ public class JCEscapeBookData implements Serializable {
     private String CreateUserID;
     private String CreateDT;
     private int CreateFlag;
-    private int InStationID;
-    private int AxleNumber;
-    private String Weight;
+    private int InStationID;//入口站址ID
+    private int AxleNumber; //轴数(轴)
+    private String Weight; //吨数(吨)
     private String MoneyBefore;
     private String MoneyAfter;
     private int IsChecked;
     private String OrgLevel;
+    private int OperType;////1：新增 2：修改
+    private String userID;
 
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public int getOperType() {
+        return OperType;
+    }
+
+    public void setOperType(int operType) {
+        OperType = operType;
+    }
 
     public String getLastOprUser() {
         return LastOprUser;

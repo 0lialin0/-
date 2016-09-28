@@ -128,7 +128,7 @@ public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements
 
         switch (view.getId()) {
             case R.id.login_comit_bnt:
-                /*if (TextUtils.isEmpty(etUser.getText())) {
+                if (TextUtils.isEmpty(etUser.getText())) {
                     showMes("用户名不能为空！");
                     return;
                 }
@@ -136,8 +136,8 @@ public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements
                     showMes("密码不能为空！");
                     return;
                 }
-                presenter.login(etUser.getText().toString(), etPwd.getText().toString());*/
-                nextView();
+                presenter.login(etUser.getText().toString(), etPwd.getText().toString());
+                //nextView();
                 break;
         }
     }

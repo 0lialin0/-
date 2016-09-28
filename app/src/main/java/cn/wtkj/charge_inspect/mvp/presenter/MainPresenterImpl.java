@@ -58,6 +58,7 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
             case readCard:
                 break;
             case checkCar:
+                getView().showMes("正在开发中.....");
                 break;
             case greenInfo://绿通
                 intent.setClass(context, GreenRecordActivity.class);

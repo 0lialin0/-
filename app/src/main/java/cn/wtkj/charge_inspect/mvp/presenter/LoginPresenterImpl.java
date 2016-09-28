@@ -42,6 +42,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
     private ConstAllDb constAllDb;
     private OrganizationDb organizationDb;
     private Map<String, String> map;
+    private SharedPreferences setting;
 
     public LoginPresenterImpl(Context context) {
         this.context = context;
@@ -96,12 +97,11 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
 
     @Override
     public void checkUpdate() {
-        SharedPreferences setting = context.getSharedPreferences(SHARE_APP_TAG, 0);
+        setting = context.getSharedPreferences(SHARE_APP_TAG, 0);
         Boolean user_first = setting.getBoolean("FIRST", true);
         if (user_first) {//第一次
-            setting.edit().putBoolean("FIRST", false).commit();
             if (new NetUtils().isThereInternetConnection(context)) {
-                getView().showLoding();
+                setting.edit().putBoolean("FIRST", false).commit();
                 checkConstAll();
             } else {
                 getView().hideLoging();
@@ -111,6 +111,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
             getView().hideLoging();
             getView().nextView();
         }
+
     }
 
     //检查用户数据是否需要更新
@@ -121,7 +122,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
                 if (constAllData.getMData().getState() == constAllData.SUCCESS) {
                     List<ConstAllData.MData.info> data = constAllData.getMData().getInfo();
                     for (int i = 0; i < data.size(); i++) {
-                        constAllDb.inertConst(data.get(i));
+                        constAllDb.updateConst(data.get(i));
                     }
                     checkOrganization();
                 }else{
@@ -133,6 +134,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
 
             @Override
             public void failure(RetrofitError error) {
+                setting.edit().putBoolean("FIRST", true).commit();
                 getView().hideLoging();
                 getView().showMes(ResponeData.NET_ERROR);
             }
@@ -153,7 +155,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
                 if (viewOrganizationData.getMData().getState() == viewOrganizationData.SUCCESS) {
                     List<ViewOrganizationData.MData.info> data = viewOrganizationData.getMData().getInfo();
                     for (int i = 0; i < data.size(); i++){
-                        organizationDb.inertOrg(data.get(i));
+                        organizationDb.updateOrg(data.get(i));
                     }
                     getView().hideLoging();
                     getView().nextView();
@@ -164,6 +166,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
 
             @Override
             public void failure(RetrofitError error) {
+                setting.edit().putBoolean("FIRST", true).commit();
                 getView().hideLoging();
                 getView().showMes(ResponeData.NET_ERROR);
             }

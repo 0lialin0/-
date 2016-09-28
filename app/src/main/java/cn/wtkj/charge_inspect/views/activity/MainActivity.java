@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,6 +18,8 @@ import cn.wtkj.charge_inspect.mvp.presenter.MainPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.MainPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.MainView;
 import cn.wtkj.charge_inspect.views.Adapter.MainRecyAdapter;
+
+import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
 
 public class MainActivity extends MvpBaseActivity<MainPresenter> implements MainView{
 
@@ -78,6 +81,6 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements Main
 
     @Override
     public void showMes(String msg) {
-
+        show(this, msg, Toast.LENGTH_LONG);
     }
 }

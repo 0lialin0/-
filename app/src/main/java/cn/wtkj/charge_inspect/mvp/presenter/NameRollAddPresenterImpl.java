@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.ResponeData;
 import cn.wtkj.charge_inspect.data.rest.NameRollAddDataImpl;
@@ -30,10 +32,12 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     List<File> files;
     List<String> fileName;
     private NameRollAddDataImpl nameRollAddData;
+    private ConstAllDb constAllDb;
 
     public NameRollAddPresenterImpl(Context context) {
         this.context = context;
         nameRollAddData=new NameRollAddDataImpl(context);
+        constAllDb = new ConstAllDb(context);
     }
 
     @Override
@@ -68,6 +72,11 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         });
     }
 
+    @Override
+    public List<ConstAllData.MData.info> getConstByType(int type) {
+        List<ConstAllData.MData.info> list_type=constAllDb.getConstList(type);
+        return list_type;
+    }
 
 
 }

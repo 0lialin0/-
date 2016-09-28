@@ -1,7 +1,10 @@
 package cn.wtkj.charge_inspect.data;
 
+import java.util.concurrent.TimeUnit;
+
 import cn.wtkj.charge_inspect.data.net.DangerousApi;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 
 /**
  * Created by Administrator on 2016/1/28.
@@ -9,6 +12,7 @@ import retrofit.RestAdapter;
 public class SeApiManager {
 
     public static DangerousApi apiMangerAdapter() {
+
         RestAdapter dangerousAdapter = new RestAdapter.Builder()
                 .setEndpoint(DangerousApi.END_POINT)
                 .build();

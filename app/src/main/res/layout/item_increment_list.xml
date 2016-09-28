@@ -26,10 +26,10 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/active_title"
+                    android:id="@+id/active_vehPlate"
                     style="@style/list_title"
                     android:layout_marginBottom="@dimen/y28"
-                    android:text="aaaaaaa" />
+                    android:text="车牌号" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                         android:text="@string/increment_entrance" />
 
                     <TextView
-                        android:id="@+id/active_entrance"
+                        android:id="@+id/active_entrance_loca"
                         style="@style/list_sub_title"
                         android:layout_below="@+id/active_title"
                         android:layout_marginBottom="@dimen/y33"
@@ -94,7 +94,7 @@
                         android:text="@string/increment_inspect_time" />
 
                     <TextView
-                        android:id="@+id/active_inspect_time"
+                        android:id="@+id/active_time"
                         style="@style/list_sub_title"
                         android:layout_below="@+id/active_content"
                         android:layout_marginBottom="@dimen/y33"
@@ -112,7 +112,7 @@
                         android:text="@string/increment_inspect_unit" />
 
                     <TextView
-                        android:id="@+id/active_inspect_unit"
+                        android:id="@+id/active_unit"
                         style="@style/list_sub_title"
                         android:layout_below="@+id/active_content"
                         android:layout_marginBottom="@dimen/y33"
@@ -174,8 +174,56 @@
                     android:text="@string/increment_total_money" />
 
                 <TextView
+                    android:id="@+id/active_money"
                     style="@style/list_sub_bottom"
                     android:text="50.00" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/x15"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x15"
+                    android:src="@drawable/delete_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x35"
+                    android:text="@string/iv_delete" />
+
+                <ImageView
+                    android:id="@+id/iv_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x15"
+                    android:src="@drawable/edit_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x35"
+                    android:text="@string/green_edit" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x15"
+                    android:src="@drawable/submit_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/green_submit" />
             </LinearLayout>
 
 

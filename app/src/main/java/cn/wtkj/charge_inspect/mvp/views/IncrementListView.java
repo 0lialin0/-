@@ -1,6 +1,9 @@
 package cn.wtkj.charge_inspect.mvp.views;
 
 
+import java.util.List;
+
+import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
 
 /**
@@ -17,11 +20,11 @@ public interface IncrementListView extends MvpView {
     void hideLoging();
 
     //跳转到下一个页面
-    void nextView(String phone);
+    void nextView();
 
     //提示错误信息
     void showMes(String msg);
 
-    void setList();
+    void setList(List<JCEscapeBookData> list);
 
 }

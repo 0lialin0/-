@@ -10,6 +10,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
+import cn.wtkj.charge_inspect.data.dataBase.EscapeBookDb;
 import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.IncrementAddView;
@@ -29,6 +30,8 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
     private Intent intent;
     private OrganizationDb organizationDb;
     private ConstAllDb constAllDb;
+    private EscapeBookDb escapeBookDb;
+    private boolean isNumber = true;//控制上传频率
 
     @Override
     public void attachContextIntent(Context context, Intent intent) {
@@ -36,6 +39,7 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
         this.intent = intent;
         organizationDb = new OrganizationDb(context);
         constAllDb = new ConstAllDb(context);
+        escapeBookDb=new EscapeBookDb(context);
     }
 
     @Override
@@ -46,7 +50,13 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
 
     @Override
     public void submitData(JCEscapeBookData data) {
-
+        if (isNumber) {
+            getView().showLoding();
+            escapeBookDb.updateEscapBook(data);
+            getView().hideLoging();
+            getView().nextView();
+        }
+        isNumber = !isNumber;//控制上传时间间隔
     }
 
 

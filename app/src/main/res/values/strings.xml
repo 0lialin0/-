@@ -35,15 +35,16 @@
 
     <string name="green_edit">编辑</string>
     <string name="green_submit">提交</string>
+    <string name="iv_delete">删除</string>
 
 
     <string name="increment_name">增收信息</string>
-    <string name="increment_entrance">入口站</string>
-    <string name="increment_entrance_type">入口判型</string>
-    <string name="increment_exit_type">出口判型</string>
-    <string name="increment_inspect_time">查处时间</string>
-    <string name="increment_inspect_unit">查处单位</string>
-    <string name="increment_total_money">合计金额</string>
+    <string name="increment_entrance">入口站：</string>
+    <string name="increment_entrance_type">入口判型：</string>
+    <string name="increment_exit_type">出口判型：</string>
+    <string name="increment_inspect_time">查处时间：</string>
+    <string name="increment_inspect_unit">查处单位：</string>
+    <string name="increment_total_money">合计金额：</string>
 
     <string name="increment_add_name">添加增收</string>
     <string name="increment_check_unit">查处单位</string>
@@ -54,6 +55,8 @@
     <string name="increment_class_name">班长姓名</string>
     <string name="increment_charge_info">收费信息</string>
     <string name="increment_type">堵漏增收类型</string>
+    <string name="increment_entrance_pan">入口判型</string>
+    <string name="increment_exit_pan">出口判型</string>
     <string name="increment_entrance_loca">入口站址</string>
     <string name="increment_shi_money">实收金额(元)</string>
     <string name="increment_zeng_money">增收金额(元)</string>
@@ -61,7 +64,7 @@
     <string name="increment_dun_shuo">吨数(吨)</string>
 
     <string name="name_roll_title">添加名单</string>
-    <string name="name_roll_color">车辆颜色</string>
+    <string name="name_roll_color">车牌颜色</string>
     <string name="name_roll_car_color">车身颜色</string>
     <string name="name_roll_car_type">车辆类别</string>
     <string name="name_roll_carx_type">车型类别</string>
@@ -72,4 +75,5 @@
     <string name="name_roll_weizhang_addr">违章地点</string>
     <string name="name_roll_xingshi">行驶区间</string>
     <string name="name_roll_qingkuang">情况说明</string>
+    <string name="name_roll_photo">上传照片/视频</string>
 </resources>

@@ -33,18 +33,18 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(organizationSql);
 
         String escapebookSql = String
-                .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s int, %s int, %s VARCHAR(120)," +
+                .format("Create TABLE %s(%s VARCHAR(100), %s int, %s int, %s VARCHAR(120)," +
                                 " %s int,%s VARCHAR(120),%s VARCHAR(120),%s int, %s int,  %s VARCHAR(120)," +
                                 "%s VARCHAR(120), %s VARCHAR(220), %s VARCHAR(120),  %s VARCHAR(120),%s int, " +
                                 "%s VARCHAR(120), %s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120),  " +
                                 "%s VARCHAR(120), %s int, %s int, %s int,%s VARCHAR(120), %s VARCHAR(120), " +
-                                "%s VARCHAR(120), %s int, %s VARCHAR(120))",
+                                "%s VARCHAR(120), %s int, %s VARCHAR(120), %s int, %s VARCHAR(120))",
                         JC_ESCAPEBOOK, "EscapeBookID", "ShiftID", "PeccancyTypeID", "FindDT",
                         "OrgID", "OprID", "OprName", "InDecision", "OutDecision", "RealityMoney",
                         "EscapeMoney", "Monitor", "VehPlate", "Remark", "IsUpLoad", "ListInfo",
                         "IsDeleted", "LastOprUser", "LastOprDT", "CreateUserID", "CreateDT", "CreateFlag",
                         "InStationID", "AxleNumber", "Weight", "MoneyBefore", "MoneyAfter",
-                        "IsChecked", "OrgLevel");
+                        "IsChecked", "OrgLevel","OperType","userID");
         db.execSQL(escapebookSql);
 
     }
@@ -86,7 +86,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
         if (!exits(JC_ESCAPEBOOK, db)) {
             String escapebookSql = String
-                    .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s int, %s int, %s VARCHAR(120)," +
+                    .format("Create TABLE %s(%s VARCHAR(100), %s int, %s int, %s VARCHAR(120)," +
                                     " %s int,%s VARCHAR(120),%s VARCHAR(120),%s int, %s int,  %s VARCHAR(120)," +
                                     "%s VARCHAR(120), %s VARCHAR(220), %s VARCHAR(120),  %s VARCHAR(120),%s int, " +
                                     "%s VARCHAR(120), %s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120),  " +

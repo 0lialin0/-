@@ -13,5 +13,5 @@ import cn.wtkj.charge_inspect.mvp.views.IncrementListView;
  */
 public interface IncrementListPresenter extends MvpPresenter<IncrementListView> {
     void startPresenter();
-    void attachContextIntent(Context context, Intent intent);
+    void attachContextIntent(Context context);
 }

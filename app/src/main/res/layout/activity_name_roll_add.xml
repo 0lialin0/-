@@ -50,7 +50,7 @@
                         <EditText
                             android:id="@+id/ed_car_num"
                             style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                            android:hint="@string/please_input" />
 
                     </LinearLayout>
 
@@ -67,17 +67,26 @@
                         style="@style/electron_tv_title"
                         android:text="@string/name_roll_color" />
 
-                    <LinearLayout
-                        style="@style/electron_linearLayout"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_car_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                        <EditText
-                            android:id="@+id/ed_name"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_car_color"
+                                style="@style/electron_ed_content" />
 
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <View style="@style/view_line" />
@@ -97,7 +106,7 @@
                         <EditText
                             android:id="@+id/ed_mobile"
                             style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                            android:hint="@string/please_input" />
 
                     </LinearLayout>
 
@@ -113,20 +122,29 @@
                         style="@style/electron_tv_title"
                         android:text="@string/name_roll_car_color" />
 
-                    <LinearLayout
-                        style="@style/electron_linearLayout"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_car_body_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                        <EditText
-                            android:id="@+id/ed_rongji"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_car_body_color"
+                                style="@style/electron_ed_content" />
 
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <View style="@style/view_line" />
@@ -140,17 +158,26 @@
                         style="@style/electron_tv_title"
                         android:text="@string/name_roll_car_type" />
 
-                    <LinearLayout
-                        style="@style/electron_linearLayout"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_car_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                        <EditText
-                            android:id="@+id/ed_zhoushou"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_car_type"
+                                style="@style/electron_ed_content" />
 
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <View style="@style/view_line" />
@@ -165,20 +192,27 @@
                         style="@style/electron_tv_title"
                         android:text="@string/name_roll_carx_type" />
 
-                    <LinearLayout
-                        style="@style/electron_linearLayout"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_veh_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                        <EditText
-                            android:id="@+id/ed_age"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/tv_veh_type"
+                                style="@style/electron_ed_content" />
 
-                    </LinearLayout>
+                        </LinearLayout>
 
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
+                    </RelativeLayout>
                 </RelativeLayout>
-
 
             </LinearLayout>
 
@@ -211,7 +245,7 @@
                         <EditText
                             android:id="@+id/ed_phone"
                             style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                            android:hint="@string/please_input" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -230,10 +264,9 @@
                         style="@style/electron_linearLayout"
                         android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/ed_community_name"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <TextView
+                            android:id="@+id/tv_weizhang_time"
+                            style="@style/electron_ed_content" />
 
                     </LinearLayout>
 
@@ -250,17 +283,26 @@
                         style="@style/electron_tv_title"
                         android:text="@string/name_roll_weizhang_type" />
 
-                    <LinearLayout
-                        style="@style/electron_linearLayout"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_weizhang_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                        <EditText
-                            android:id="@+id/ed_email"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_weizhang_type"
+                                style="@style/electron_ed_content" />
 
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <View style="@style/view_line" />
@@ -273,17 +315,26 @@
                         style="@style/electron_tv_title"
                         android:text="@string/name_roll_weizhang_addr" />
 
-                    <LinearLayout
-                        style="@style/electron_linearLayout"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_weizhang_addr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                        <EditText
-                            android:id="@+id/ed_id_number"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_weizhang_addr"
+                                style="@style/electron_ed_content" />
 
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <View style="@style/view_line" />
@@ -300,10 +351,9 @@
                         style="@style/electron_linearLayout"
                         android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/ed_address"
-                            style="@style/electron_ed_content"
-                            android:hint="皖A32222" />
+                        <TextView
+                            android:id="@+id/tv_qujian_start"
+                            style="@style/electron_ed_content" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -311,7 +361,28 @@
                             android:layout_gravity="right|center_vertical"
                             android:layout_marginLeft="@dimen/x15"
                             android:layout_marginRight="@dimen/x15"
-                            android:src="@drawable/right_btn" />
+                            android:src="@drawable/bottom" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x20"
+                            android:layout_marginRight="@dimen/x30"
+                            android:text="至"
+                            android:textColor="@color/black2"
+                            android:textSize="@dimen/x28" />
+
+                        <TextView
+                            android:id="@+id/tv_qujian_end"
+                            style="@style/electron_ed_content" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_marginLeft="@dimen/x15"
+                            android:layout_marginRight="@dimen/x15"
+                            android:src="@drawable/bottom" />
 
                     </LinearLayout>
 
@@ -322,6 +393,7 @@
 
                 <RelativeLayout
                     style="@style/electron_outer_linearLayout"
+                    android:layout_height="@dimen/y200"
                     android:orientation="horizontal">
 
                     <TextView
@@ -333,25 +405,14 @@
                         style="@style/electron_linearLayout"
                         android:orientation="horizontal">
 
-                        <RadioGroup
-                            android:id="@+id/rg_gender"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <RadioButton
-                                android:id="@+id/rb_gender_yes"
-                                style="@style/radio_rad_bg"
-                                android:text="@string/green_jianmian_yes" />
-
-                            <RadioButton
-                                android:id="@+id/rb_gender_no"
-                                style="@style/radio_rad_bg"
-                                android:layout_marginLeft="@dimen/x50"
-                                android:checked="true"
-                                android:text="@string/green_jianmian_no" />
-                        </RadioGroup>
-
+                        <EditText
+                            android:id="@+id/ed_remark"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y200"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:hint="@string/please_input"
+                            android:textSize="@dimen/x28" />
 
                     </LinearLayout>
 
@@ -371,7 +432,7 @@
 
                 <TextView
                     style="@style/title_bg"
-                    android:text="@string/green_photo" />
+                    android:text="@string/name_roll_photo" />
 
                 <cn.wtkj.charge_inspect.views.custom.MyPhotos
                     android:id="@+id/myphoto"

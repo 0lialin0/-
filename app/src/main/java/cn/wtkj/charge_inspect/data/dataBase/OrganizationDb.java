@@ -41,6 +41,33 @@ public class OrganizationDb {
         }
     }
 
+    public void updateOrg(ViewOrganizationData.MData.info info){
+        if(getCount(info.getOrgCode())>0){
+            String sql = String.format(
+                    "UPDATE %s SET OrgCode='%s',OrgLevel='%s',Name='%s',ShortName='%s'," +
+                            "Viewcode='%s',EffectTime='%s',Lvs='%s',Leaf='%s',Businesslineid='%s'" +
+                            ",Status='%s',Orgversion='%s'",
+                    tableName,info.getOrgCode(),info.getOrgLevel(),info.getName(),
+                    info.getShortName(),info.getViewcode(),info.getEffectTime(),info.getLvs(),
+                    info.getLeaf(),info.getBusinesslineid(),info.getStatus(),info.getOrgversion());
+            SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+            database.execSQL(sql);
+            DatabaseManager.getInstance().closeDatabase();
+        }else{
+            inertOrg(info);
+        }
+    }
+
+    public int getCount(int OrgCode) {
+        String sql = String.format("SELECT * FROM %s WHERE OrgCode = "+OrgCode+" ",
+                tableName);
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        Cursor cur = database.rawQuery(sql, null);
+        int num = cur.getCount();
+        cur.close();
+        DatabaseManager.getInstance().closeDatabase();
+        return num;
+    }
 
     public String getCheckUnit(int orgId,String OrgLevel){
         /*String sql = String.format("SELECT ShortName FROM %s WHERE OrgCode = "+orgId+" " +
