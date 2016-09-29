@@ -21,7 +21,7 @@ import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 public class DownKeyValueAdapter extends RecyclerView.Adapter<DownKeyValueAdapter.ViewHolder> {
     private List<KeyValueData> mList;
     private Context mContext;
-    private OnItemClickListener2 onItemClickListener;
+    private OnItemClickListener3 onItemClickListener;
 
     public DownKeyValueAdapter(List<KeyValueData> mList, Context context){
         this.mList = mList;
@@ -39,7 +39,7 @@ public class DownKeyValueAdapter extends RecyclerView.Adapter<DownKeyValueAdapte
         holder.tvItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick(position + "");
+                onItemClickListener.onItemClick("",position);
             }
         });
     }
@@ -49,7 +49,7 @@ public class DownKeyValueAdapter extends RecyclerView.Adapter<DownKeyValueAdapte
         return mList.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener2 onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener3 onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 

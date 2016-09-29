@@ -29,10 +29,12 @@ public class EscapeBookDb {
                             "OprName,InDecision,OutDecision,RealityMoney,EscapeMoney,Monitor," +
                             "VehPlate,Remark,IsUpLoad,ListInfo,IsDeleted,LastOprUser,LastOprDT," +
                             "CreateUserID,CreateDT,CreateFlag,InStationID,AxleNumber,Weight," +
-                            "MoneyBefore,MoneyAfter,IsChecked,OrgLevel,OperType,userID)  " +
+                            "MoneyBefore,MoneyAfter,IsChecked,OrgLevel,OperType,userID,ShiftName," +
+                            "PeccancyTypeName, UnitName,InDecisionName,OutDecisionName," +
+                            "InStationName,AxleNumberName)  " +
                             "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
                             "'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
-                            "'%s','%s','%s','%s','%s')",
+                            "'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
                             tablename,data.getEscapeBookID(),
                             data.getShiftID(),data.getPeccancyTypeID(),data.getFindDT(),
                             data.getOrgID(),data.getOprID(),data.getOprName(),data.getInDecision(),
@@ -42,7 +44,10 @@ public class EscapeBookDb {
                             data.getLastOprDT(),data.getCreateUserID(),data.getCreateDT(),
                             data.getCreateFlag(),data.getInStationID(),data.getAxleNumber(),
                             data.getWeight(),data.getMoneyBefore(),data.getMoneyAfter(),
-                            data.getIsChecked(),data.getOrgLevel(),data.getOperType(),data.getUserID());
+                            data.getIsChecked(),data.getOrgLevel(),data.getOperType(),data.getUserID(),
+                            data.getShiftName(),data.getPeccancyTypeName(),data.getUnitName(),
+                            data.getInDecisionName(),data.getOutDecisionName(),data.getInStationName(),
+                            data.getAxleNumberName());
 
             db = dataBaseHelper.getWritableDatabase();
             db.execSQL(sql);
@@ -65,7 +70,9 @@ public class EscapeBookDb {
                             "IsDeleted='%s',LastOprUser='%s',LastOprDT='%s',CreateUserID='%s'," +
                             "CreateDT='%s',CreateFlag='%s',InStationID='%s',AxleNumber='%s'," +
                             "Weight='%s',MoneyBefore='%s',MoneyAfter='%s',IsChecked='%s'," +
-                            "OrgLevel='%s',OperType='%s',userID='%s'",
+                            "OrgLevel='%s',OperType='%s',userID='%s',ShiftName='%s',PeccancyTypeName='%s'," +
+                            "UnitName='%s',InDecisionName='%s',OutDecisionName='%s',InStationName='%s'," +
+                            "AxleNumberName='%s'",
                     tablename,data.getShiftID(),
                     data.getPeccancyTypeID(),data.getFindDT(),
                     data.getOrgID(),data.getOprID(),data.getOprName(),data.getInDecision(),
@@ -75,7 +82,10 @@ public class EscapeBookDb {
                     data.getLastOprDT(),data.getCreateUserID(),data.getCreateDT(),
                     data.getCreateFlag(),data.getInStationID(),data.getAxleNumber(),
                     data.getWeight(),data.getMoneyBefore(),data.getMoneyAfter(),
-                    data.getIsChecked(),data.getOrgLevel(),data.getOperType(),data.getUserID());
+                    data.getIsChecked(),data.getOrgLevel(),data.getOperType(),data.getUserID(),
+                    data.getShiftName(),data.getPeccancyTypeName(),data.getUnitName(),
+                    data.getInDecisionName(),data.getOutDecisionName(),data.getInStationName(),
+                    data.getAxleNumberName());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
             DatabaseManager.getInstance().closeDatabase();
@@ -98,9 +108,10 @@ public class EscapeBookDb {
     public List<JCEscapeBookData> getEscapeBook(String userId) {
         ArrayList<JCEscapeBookData> list = new ArrayList<JCEscapeBookData>();
         JCEscapeBookData data;
-        String col[] = {"EscapeBookID","ShiftID", "PeccancyTypeID", "FindDT", "OrgID","OrgLevel",
-                "OprID", "OprName", "InDecision", "OutDecision", "RealityMoney",
-                "EscapeMoney","Monitor","VehPlate", "Remark", "InStationID",
+        String col[] = {"EscapeBookID","ShiftName", "PeccancyTypeName", "FindDT",
+                "UnitName","OrgLevel",
+                "OprID", "OprName", "InDecisionName", "OutDecisionName", "RealityMoney",
+                "EscapeMoney","Monitor","VehPlate", "Remark", "InStationName",
                 "AxleNumber","Weight", "PeccancyTypeID"};
         db = dataBaseHelper.getReadableDatabase();
         Cursor cur = db.query(tablename, col, "userID= ?",
@@ -109,21 +120,21 @@ public class EscapeBookDb {
             for (int i = 0; i < cur.getCount(); i++) {
                 data = new JCEscapeBookData();
                 data.setEscapeBookID(cur.getString(0));
-                data.setShiftID(cur.getInt(1));
-                data.setPeccancyTypeID(cur.getInt(2));
+                data.setShiftName(cur.getString(1));
+                data.setPeccancyTypeName(cur.getString(2));
                 data.setFindDT(cur.getString(3));
-                data.setOrgID(cur.getInt(4));
+                data.setUnitName(cur.getString(4));
                 data.setOrgLevel(cur.getString(5));
                 data.setOprID(cur.getString(6));
                 data.setOprName(cur.getString(7));
-                data.setInDecision(cur.getInt(8));
-                data.setOutDecision(cur.getInt(9));
+                data.setInDecisionName(cur.getString(8));
+                data.setOutDecisionName(cur.getString(9));
                 data.setRealityMoney(cur.getString(10));
                 data.setEscapeMoney(cur.getString(11));
                 data.setMonitor(cur.getString(12));
                 data.setVehPlate(cur.getString(13));
                 data.setRemark(cur.getString(14));
-                data.setInStationID(cur.getInt(15));
+                data.setInStationName(cur.getString(15));
                 data.setAxleNumber(cur.getInt(16));
                 data.setWeight(cur.getString(17));
                 data.setPeccancyTypeID(cur.getInt(18));

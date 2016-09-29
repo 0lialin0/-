@@ -11,9 +11,9 @@ import cn.wtkj.charge_inspect.mvp.MvpView;
  */
 public interface IncrementAddView extends MvpView {
 
-    void setView(String unit);
+    void setView();
 
-    void setClasses(List<KeyValueData> list);
+    void setDropDown(List<KeyValueData> classes,List<KeyValueData> zhoushuo);
 
     void showView();
 

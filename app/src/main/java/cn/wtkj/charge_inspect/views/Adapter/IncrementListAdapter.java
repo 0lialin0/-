@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
+import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
 
 /**
  * Created by lxg on 2015/9/21.
@@ -22,13 +23,16 @@ import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdapter.ShedViewHolder> {
     private Context context;
     private List<JCEscapeBookData> dataList;
-    private OnItemClickListener2 onItemClickListener;
+    private OnItemClickListener onItemClickListener;
     private ConstAllDb constAllDb;
+    private OrganizationDb organizationDb;
+    private String but="0";
 
     public IncrementListAdapter(Context context, List<JCEscapeBookData> patrolProjectDatas) {
         this.context = context;
         this.dataList = patrolProjectDatas;
         constAllDb=new ConstAllDb(context);
+        organizationDb=new OrganizationDb(context);
     }
 
     @Override
@@ -41,23 +45,52 @@ public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdap
     public void onBindViewHolder(ShedViewHolder holder, final int position) {
 
         holder.tvVehplate.setText(dataList.get(position).getVehPlate());
-        String loca=constAllDb.getConstName(dataList.get(position).getInStationID(),1);
-        holder.tvEntranceLoca.setText(loca);
-        String entrance=constAllDb.getConstName(dataList.get(position).getInDecision(),5);
-        holder.tvEntranceType.setText(entrance);
-        String out=constAllDb.getConstName(dataList.get(position).getOutDecision(),5);
-        holder.tvExitType.setText(out);
+        //String loca=constAllDb.getConstName(dataList.get(position).getInStationID(),1);
+        holder.tvEntranceLoca.setText(dataList.get(position).getInStationName());
+        //String entrance=constAllDb.getConstName(dataList.get(position).getInDecision(),5);
+        holder.tvEntranceType.setText(dataList.get(position).getInDecisionName());
+        //String out=constAllDb.getConstName(dataList.get(position).getOutDecision(),5);
+        holder.tvExitType.setText(dataList.get(position).getOutDecisionName());
         holder.tvTime.setText(dataList.get(position).getFindDT());
-        holder.tvUnit.setText(dataList.get(position).getOrgLevel());
+        //String unit=organizationDb.getCheckUnit(dataList.get(position).getOrgID(),dataList.get(position).getOrgLevel());
+        holder.tvUnit.setText(dataList.get(position).getUnitName());
         holder.tvMoney.setText(dataList.get(position).getRealityMoney());
-        String zsType=constAllDb.getConstName(dataList.get(position).getPeccancyTypeID(),9);
-        holder.tvStatus.setText(zsType);
+        //String zsType=constAllDb.getConstName(dataList.get(position).getPeccancyTypeID(),9);
+        holder.tvStatus.setText(dataList.get(position).getPeccancyTypeName());
 
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //删除
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position,0,"del");
+                }
+            }
+        });
+        holder.tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //编辑
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position,0,"edit");
+                }
+            }
+        });
+        holder.tvSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //提交
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position,0,"submit");
+                }
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position + "");
+                    onItemClickListener.onItemClick(position,0,"");
                 }
             }
         });
@@ -68,7 +101,7 @@ public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdap
         return dataList.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener2 onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -89,6 +122,13 @@ public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdap
         TextView tvMoney;
         @Bind(R.id.active_status)
         TextView tvStatus;
+        @Bind(R.id.tv_delete)
+        TextView tvDelete;
+        @Bind(R.id.tv_edit)
+        TextView tvEdit;
+        @Bind(R.id.tv_submit)
+        TextView tvSubmit;
+
 
 
         public ShedViewHolder(View itemView) {

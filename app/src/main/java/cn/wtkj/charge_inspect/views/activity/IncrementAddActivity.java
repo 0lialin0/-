@@ -23,6 +23,7 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.IncrementAddPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.IncrementAddPresenterImpl;
@@ -31,6 +32,7 @@ import cn.wtkj.charge_inspect.util.ResponeUtils;
 import cn.wtkj.charge_inspect.util.Setting;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 import cn.wtkj.charge_inspect.views.custom.DateTimePickerDialog;
 import cn.wtkj.charge_inspect.views.custom.DropDownKeyValue;
 import cn.wtkj.charge_inspect.views.custom.DropDownMenu;
@@ -41,7 +43,7 @@ import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
  * Created by ghj on 2016/9/21.
  */
 public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter> implements
-        IncrementAddView, View.OnClickListener, OnItemClickListener, OnItemClickListener2 {
+        IncrementAddView, View.OnClickListener, OnItemClickListener, OnItemClickListener3 {
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -82,7 +84,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     @Bind(R.id.ed_class_name)
     EditText edClassName;
     @Bind(R.id.ed_zhoushou)
-    EditText edZhoushou;
+    TextView edZhoushou;
     @Bind(R.id.ed_dunshuo)
     EditText edDunshuo;
 
@@ -95,6 +97,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     LinearLayout llDunshuo;
 
     private DropDownKeyValue downKeyValue;
+    private DropDownKeyValue downKeyValue2;
     private DropDownMenu dropDownMenu2;
     private DropDownMenu dropDownMenu3;
     private DropDownMenu dropDownMenu4;
@@ -103,11 +106,21 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     List<ConstAllData.MData.info> entranList = new ArrayList<>();
     private JCEscapeBookData data;
     private int shiftID;
+    private String shiftName;
+    private int axleNumber;
+    private String axleNumberName;
     private int peccancyTypeID;
+    private String peccancyTypeName;
     private int inStationID;
+    private String inStationName;
     private int inDecision;
+    private String inDecisionName;
     private int outDecision;
+    private String outDecisionName;
     private ProgressDialog progressDialog;
+    private ConstAllDb constAllDb;
+    private String shortName;
+    private int type = 1;
 
     @Override
     protected IncrementAddPresenter createPresenter() {
@@ -121,6 +134,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         ButterKnife.bind(this);
         presenter.attachContextIntent(this, this.getIntent());
         presenter.startPresenter();
+        constAllDb = new ConstAllDb(this);
         initToolBar();
         initView();
     }
@@ -134,29 +148,73 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     }
 
     public void initView() {
-        showView();
+        setView();
         progressDialog = new ProgressDialog(this);
     }
 
     //班次
     @Override
-    public void setClasses(List<KeyValueData> list) {
-        downKeyValue = new DropDownKeyValue(this, list);
-        downKeyValue.setId("1");
+    public void setDropDown(List<KeyValueData> classes, List<KeyValueData> zhoushuo) {
+        downKeyValue = new DropDownKeyValue(this, classes);
+        downKeyValue.setId(1);
         downKeyValue.setOnItemClickListener(this);
         shiftID = 1;
-        tvClasses.setText(list.get(0).getValue());
+        tvClasses.setText(classes.get(0).getValue());
+
+        downKeyValue2 = new DropDownKeyValue(this, zhoushuo);
+        downKeyValue2.setId(1);
+        downKeyValue2.setOnItemClickListener(this);
+        axleNumberName = zhoushuo.get(0).getValue();
+        axleNumber = Integer.valueOf(zhoushuo.get(0).getId());
+        edZhoushou.setText(zhoushuo.get(0).getValue());
     }
 
+    //如果是修改页面传来的数据的时候，把页面的值赋上
     @Override
-    public void setView(String unit) {
-        edCheckUnit.setText(unit);
-        tvCheckTime.setText(ResponeUtils.getTime());
+    public void setView() {
+        JCEscapeBookData data = (JCEscapeBookData) getIntent().getSerializableExtra(IncrementListActivity.DATA_TAG);
+        if (data != null) {
+            showViewData(data);
+            type = 2;
+        } else {
+            showView();
+            type = 1;
+        }
+
+    }
+
+
+    //显示值在页面上
+    private void showViewData(JCEscapeBookData data) {
+        edCarNum.setText(data.getVehPlate());
+        String shortname = presenter.getOrgShortName(data.getOrgID(), data.getOrgLevel());
+        edCheckUnit.setText(shortname);
+        tvCheckTime.setText(data.getFindDT());
+        edChargeNum.setText(data.getOprID());
+        edChargeName.setText(data.getOprName());
+        tvClasses.setText(data.getShiftName());
+        edClassName.setText(data.getMonitor());
+        //String zsType = constAllDb.getConstName(data.getPeccancyTypeID(), 9);
+        tvIncrementType.setText(data.getPeccancyTypeName());
+        //String rkzz = constAllDb.getConstName(data.getInStationID(), 1);
+        tvEntranceLoca.setText(data.getInStationName());
+        //String rkpz = constAllDb.getConstName(data.getInDecision(), 5);
+        tvEntranceType.setText(data.getInDecisionName());
+        //String ckpz = constAllDb.getConstName(data.getOutDecision(), 5);
+        tvExitType.setText(data.getOutDecisionName());
+        edShiMoney.setText(data.getRealityMoney());
+        edZengMoney.setText(data.getEscapeMoney());
+        edZhoushou.setText(data.getAxleNumberName());
+        edDunshuo.setText(data.getWeight());
     }
 
 
     @Override
     public void showView() {
+        shortName = presenter.getOrgShortName(Setting.ORGID, Setting.ORGLEVEL);
+        edCheckUnit.setText(shortName);
+        tvCheckTime.setText(ResponeUtils.getTime());
+
         //1：站址, 5：车型类别, 9：堵漏增收信息,
 
         //堵漏增收信息
@@ -166,6 +224,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         dropDownMenu2.setOnItemClickListener(this);
         if (dlType.size() > 0) {
             peccancyTypeID = dlType.get(0).getCode();
+            peccancyTypeName = dlType.get(0).getName();
             tvIncrementType.setText(dlType.get(0).getName());
         }
 
@@ -176,7 +235,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         //dropDownMenu3.setId(1);
         dropDownMenu3.setOnItemClickListener(this);
         if (rkLoca.size() > 0) {
-            inStationID=rkLoca.get(0).getCode();
+            inStationID = rkLoca.get(0).getCode();
+            inStationName = rkLoca.get(0).getName();
             tvEntranceLoca.setText(rkLoca.get(0).getName());
         }
 
@@ -186,8 +246,9 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         dropDownMenu4 = new DropDownMenu(this, entranList);
         //dropDownMenu4.setId(1);
         dropDownMenu4.setOnItemClickListener(this);
-        if(entranList.size()>0){
-            inDecision=entranList.get(0).getCode();
+        if (entranList.size() > 0) {
+            inDecision = entranList.get(0).getCode();
+            inDecisionName = entranList.get(0).getName();
             tvEntranceType.setText(entranList.get(0).getName());
         }
         showExitList(0, 4);
@@ -213,7 +274,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             dropDownMenu5 = new DropDownMenu(this, exitList);
             //dropDownMenu5.setId(1);
             dropDownMenu5.setOnItemClickListener(this);
-            outDecision=exitList.get(0).getCode();
+            outDecision = exitList.get(0).getCode();
+            outDecisionName = exitList.get(0).getName();
             tvExitType.setText(exitList.get(0).getName());
         }
 
@@ -234,8 +296,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     @Override
     public void nextView() {
         this.finish();
-        Intent intent=new Intent();
-        intent.setClass(this,IncrementListActivity.class);
+        Intent intent = new Intent();
+        intent.setClass(this, IncrementListActivity.class);
         startActivity(intent);
     }
 
@@ -245,8 +307,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     }
 
 
-    @OnClick({R.id.iv_left,R.id.tv_check_time, R.id.rl_classes, R.id.rl_increment_type,
-            R.id.rl_entrance_loca,
+    @OnClick({R.id.iv_left, R.id.tv_check_time, R.id.rl_classes, R.id.rl_zhoushuo,
+            R.id.rl_increment_type, R.id.rl_entrance_loca,
             R.id.rl_entrance_type, R.id.rl_exit_type, R.id.comit_button})
     @Override
     public void onClick(View v) {
@@ -260,6 +322,9 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
                 break;
             case R.id.rl_classes:
                 downKeyValue.setDownValue(tvClasses, "");
+                break;
+            case R.id.rl_zhoushuo:
+                downKeyValue2.setDownValue(edZhoushou, "");
                 break;
             case R.id.rl_increment_type:
                 dropDownMenu2.setDownValue(tvIncrementType, "");
@@ -302,10 +367,16 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     public void getShowData() {
         data = new JCEscapeBookData();
-        String uuid = UUID.randomUUID().toString();
-        data.setEscapeBookID(uuid);
+        if (type == 1) {
+            String uuid = UUID.randomUUID().toString();
+            data.setEscapeBookID(uuid);
+            data.setUnitName(shortName);
+        } else if (type == 2) {
+            data.setEscapeBookID(data.getEscapeBookID());
+            data.setUnitName(data.getUnitName());
+        }
         data.setUserID(Setting.USERID);
-        data.setOperType(1);//1：新增 2：修改
+        data.setOperType(type);//1：新增 2：修改
         data.setOrgID(Setting.ORGID);
         data.setOrgLevel(Setting.ORGLEVEL);
 
@@ -314,27 +385,36 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         data.setOprID(edChargeNum.getText().toString());
         data.setOprName(edChargeName.getText().toString());
         data.setShiftID(shiftID);
+        data.setShiftName(shiftName);
         if (!TextUtils.isEmpty(edClassName.getText())) {
             data.setMonitor(edClassName.getText().toString());
         }
         data.setPeccancyTypeID(peccancyTypeID);
+        data.setPeccancyTypeName(peccancyTypeName);
         data.setInStationID(inStationID);
+        data.setInStationName(inStationName);
         data.setInDecision(inDecision);
+        data.setInDecisionName(inDecisionName);
         data.setOutDecision(outDecision);
+        data.setOutDecisionName(outDecisionName);
 
-        data.setRealityMoney(edShiMoney.getText()+"");
-        data.setEscapeMoney(edZengMoney.getText()+"");
+        data.setRealityMoney(edShiMoney.getText() + "");
+        data.setEscapeMoney(edZengMoney.getText() + "");
 
-        if(!edZhoushou.getText().toString().replaceAll(" ","").equals("")){
-            data.setAxleNumber(Integer.valueOf(edZhoushou.getText().toString()));
-        }
-        if(!edDunshuo.getText().toString().replaceAll(" ","").equals("")){
+           /* if (!edZhoushou.getText().toString().replaceAll(" ", "").equals("")) {
+                data.setAxleNumber(Integer.valueOf(edZhoushou.getText().toString()));
+            }*/
+        data.setAxleNumber(axleNumber);
+        data.setAxleNumberName(axleNumberName);
+        if (!edDunshuo.getText().toString().replaceAll(" ", "").equals("")) {
             data.setWeight(edDunshuo.getText().toString());
         }
 
-        if(!TextUtils.isEmpty(edRemark.getText())){
+        if (!TextUtils.isEmpty(edRemark.getText())) {
             data.setRemark(edRemark.getText().toString());
         }
+
+
         //data.setCreateDT("");
     }
 
@@ -349,23 +429,34 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
                     llZhoushu.setVisibility(View.VISIBLE);
                     llDunshuo.setVisibility(View.VISIBLE);
                 }
-                inDecision=code;
+                inDecision = code;
+                inDecisionName = name;
                 break;
             case 55: //出口判型
-                outDecision=code;
+                outDecision = code;
+                outDecisionName = name;
                 break;
             case 9:
                 peccancyTypeID = code;
+                peccancyTypeName = name;
                 break;
             case 1:
-                inStationID=code;
+                inStationID = code;
+                inStationName = name;
                 break;
         }
     }
 
-    //班次
+
+    //班次,吨数
     @Override
-    public void onItemClick(String tags) {
-        shiftID = Integer.parseInt(tags);
+    public void onItemClick(String name, int id) {
+        if (name.equals("早班") || name.equals("中班") || name.equals("晚班")) {
+            shiftID = id;
+            shiftName = name;
+        } else {
+            axleNumber = id;
+            axleNumberName = name;
+        }
     }
 }

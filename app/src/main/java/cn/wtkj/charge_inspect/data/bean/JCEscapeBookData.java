@@ -10,13 +10,18 @@ public class JCEscapeBookData implements Serializable {
 
     private String EscapeBookID;
     private int ShiftID; //班次ID
+    private String ShiftName; //班次
     private int PeccancyTypeID;//堵漏增收类型ID
+    private String PeccancyTypeName;//堵漏增收类型ID
     private String FindDT; //查处时间
     private int OrgID;
+    private String UnitName; //查处单位
     private String OprID; //收费员工号
     private String OprName; //收费员姓名
     private int InDecision; //入口判型ID
+    private String InDecisionName; //入口判型
     private int OutDecision; //出口判型ID
+    private String OutDecisionName; //出口判型
     private String RealityMoney;//实收金额(元)
     private String EscapeMoney;//增收金额(元)
     private String Monitor; //值班长姓名
@@ -31,7 +36,9 @@ public class JCEscapeBookData implements Serializable {
     private String CreateDT;
     private int CreateFlag;
     private int InStationID;//入口站址ID
+    private String InStationName;//入口站址
     private int AxleNumber; //轴数(轴)
+    private String AxleNumberName; //轴数(轴)
     private String Weight; //吨数(吨)
     private String MoneyBefore;
     private String MoneyAfter;
@@ -40,6 +47,61 @@ public class JCEscapeBookData implements Serializable {
     private int OperType;////1：新增 2：修改
     private String userID;
 
+    public String getAxleNumberName() {
+        return AxleNumberName;
+    }
+
+    public void setAxleNumberName(String axleNumberName) {
+        AxleNumberName = axleNumberName;
+    }
+
+    public String getShiftName() {
+        return ShiftName;
+    }
+
+    public void setShiftName(String shiftName) {
+        ShiftName = shiftName;
+    }
+
+    public String getPeccancyTypeName() {
+        return PeccancyTypeName;
+    }
+
+    public void setPeccancyTypeName(String peccancyTypeName) {
+        PeccancyTypeName = peccancyTypeName;
+    }
+
+    public String getUnitName() {
+        return UnitName;
+    }
+
+    public void setUnitName(String unitName) {
+        UnitName = unitName;
+    }
+
+    public String getInDecisionName() {
+        return InDecisionName;
+    }
+
+    public void setInDecisionName(String inDecisionName) {
+        InDecisionName = inDecisionName;
+    }
+
+    public String getOutDecisionName() {
+        return OutDecisionName;
+    }
+
+    public void setOutDecisionName(String outDecisionName) {
+        OutDecisionName = outDecisionName;
+    }
+
+    public String getInStationName() {
+        return InStationName;
+    }
+
+    public void setInStationName(String inStationName) {
+        InStationName = inStationName;
+    }
 
     public String getUserID() {
         return userID;

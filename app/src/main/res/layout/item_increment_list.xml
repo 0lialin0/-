@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/y15"
     android:background="@drawable/corners_house_bg"
     android:clickable="false"
     android:orientation="vertical">
@@ -196,6 +197,7 @@
                     android:src="@drawable/delete_img" />
 
                 <TextView
+                    android:id="@+id/tv_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x35"
@@ -209,6 +211,7 @@
                     android:src="@drawable/edit_img" />
 
                 <TextView
+                    android:id="@+id/tv_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x35"
@@ -221,6 +224,7 @@
                     android:src="@drawable/submit_img" />
 
                 <TextView
+                    android:id="@+id/tv_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/green_submit" />

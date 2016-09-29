@@ -43,6 +43,12 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
     }
 
     @Override
+    public String getOrgShortName(int orgId,String orgLevel) {
+        String unit = organizationDb.getCheckUnit(orgId,orgLevel);
+        return unit;
+    }
+
+    @Override
     public List<ConstAllData.MData.info> getConstByType(int type) {
         List<ConstAllData.MData.info> list_type=constAllDb.getConstList(type);
         return list_type;
@@ -66,9 +72,15 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
         list.add(new KeyValueData("1","早班"));
         list.add(new KeyValueData("2","中班"));
         list.add(new KeyValueData("3","晚班"));
-        getView().setClasses(list);
-        String unit = organizationDb.getCheckUnit(Setting.ORGID, Setting.ORGLEVEL);
-        getView().setView(unit);
+
+        List<KeyValueData> zhoushuo=new ArrayList<>();
+        zhoushuo.add(new KeyValueData("2","2轴"));
+        zhoushuo.add(new KeyValueData("3","3轴"));
+        zhoushuo.add(new KeyValueData("4","4轴"));
+        zhoushuo.add(new KeyValueData("5","5轴"));
+        zhoushuo.add(new KeyValueData("6","6轴"));
+        zhoushuo.add(new KeyValueData("7","7轴"));
+        getView().setDropDown(list,zhoushuo);
     }
 
 

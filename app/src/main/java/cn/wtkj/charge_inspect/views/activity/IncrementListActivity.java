@@ -19,12 +19,14 @@ import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
+import cn.wtkj.charge_inspect.mvp.presenter.IncrementAddPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.IncrementListPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.IncrementListPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.IncrementListView;
 import cn.wtkj.charge_inspect.util.Convert;
 import cn.wtkj.charge_inspect.views.Adapter.GreenRecordListAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.IncrementListAdapter;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
 import cn.wtkj.charge_inspect.views.custom.RecyClerRefresh;
 
@@ -35,7 +37,7 @@ import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
  */
 public class IncrementListActivity extends MvpBaseActivity<IncrementListPresenter> implements
         IncrementListView, SwipeRefreshLayout.OnRefreshListener,
-        RecyClerRefresh.RefreshData, View.OnClickListener, OnItemClickListener2 {
+        RecyClerRefresh.RefreshData, View.OnClickListener, OnItemClickListener {
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -55,6 +57,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
 
     private IncrementListAdapter adapter;
     private List<JCEscapeBookData> mList;
+    public static final String DATA_TAG = "DataInfo";
 
 
     @Override
@@ -162,9 +165,22 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
         }
     }
 
+
     @Override
-    public void onItemClick(String tags) {
-        JCEscapeBookData data = mList.get(Integer.valueOf(tags));
+    public void onItemClick(int code, int type, String name) {
+        if (name.equals("del")) {
+            showMes("删除");
+        } else if (name.equals("edit")) {
+            showMes("编辑");
+        } else if (name.equals("submit")) {
+            showMes("提交");
+        } else {
+            Intent intent = new Intent(this, IncrementAddActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(DATA_TAG, mList.get(code));
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
 
     }
 }

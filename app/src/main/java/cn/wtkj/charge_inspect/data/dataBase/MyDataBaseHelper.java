@@ -38,13 +38,16 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                                 "%s VARCHAR(120), %s VARCHAR(220), %s VARCHAR(120),  %s VARCHAR(120),%s int, " +
                                 "%s VARCHAR(120), %s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120),  " +
                                 "%s VARCHAR(120), %s int, %s int, %s int,%s VARCHAR(120), %s VARCHAR(120), " +
-                                "%s VARCHAR(120), %s int, %s VARCHAR(120), %s int, %s VARCHAR(120))",
+                                "%s VARCHAR(120), %s int, %s VARCHAR(120), %s int, %s VARCHAR(120), " +
+                        "%s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), " +
+                        "%s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120))",
                         JC_ESCAPEBOOK, "EscapeBookID", "ShiftID", "PeccancyTypeID", "FindDT",
                         "OrgID", "OprID", "OprName", "InDecision", "OutDecision", "RealityMoney",
                         "EscapeMoney", "Monitor", "VehPlate", "Remark", "IsUpLoad", "ListInfo",
                         "IsDeleted", "LastOprUser", "LastOprDT", "CreateUserID", "CreateDT", "CreateFlag",
                         "InStationID", "AxleNumber", "Weight", "MoneyBefore", "MoneyAfter",
-                        "IsChecked", "OrgLevel","OperType","userID");
+                        "IsChecked", "OrgLevel","OperType","userID","ShiftName","PeccancyTypeName",
+                        "UnitName","InDecisionName","OutDecisionName","InStationName","AxleNumberName");
         db.execSQL(escapebookSql);
 
     }
@@ -91,13 +94,16 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                                     "%s VARCHAR(120), %s VARCHAR(220), %s VARCHAR(120),  %s VARCHAR(120),%s int, " +
                                     "%s VARCHAR(120), %s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120),  " +
                                     "%s VARCHAR(120), %s int, %s int, %s int,%s VARCHAR(120), %s VARCHAR(120), " +
-                                    "%s VARCHAR(120), %s int, %s VARCHAR(120))",
+                                    "%s VARCHAR(120), %s int, %s VARCHAR(120), %s VARCHAR(120)," +
+                            " %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120)," +
+                            " %s VARCHAR(120))",
                             "EscapeBookID", "ShiftID", "PeccancyTypeID", "FindDT",
                             "OrgID", "OprID", "OprName", "InDecision", "OutDecision", "RealityMoney",
                             "EscapeMoney", "Monitor", "VehPlate", "Remark", "IsUpLoad", "ListInfo",
                             "IsDeleted", "LastOprUser", "LastOprDT", "CreateUserID", "CreateDT", "CreateFlag",
                             "InStationID", "AxleNumber", "Weight", "MoneyBefore", "MoneyAfter",
-                            "IsChecked", "OrgLevel");
+                            "IsChecked", "OrgLevel","userID","ShiftName","PeccancyTypeName",
+                            "UnitName","InDecisionName","OutDecisionName","InStationName");
             db.execSQL(escapebookSql);
         }
 

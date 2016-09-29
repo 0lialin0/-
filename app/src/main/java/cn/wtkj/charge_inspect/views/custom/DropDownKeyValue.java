@@ -16,6 +16,7 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.views.Adapter.DownKeyValueAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 
 
 /**
@@ -24,24 +25,24 @@ import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
 public class DropDownKeyValue {
     private Context mContext;
     private List<KeyValueData> list;
-    private String id;
-    private OnItemClickListener2 onItemClickListener;
+    private int id;
+    private OnItemClickListener3 onItemClickListener;
 
-    public OnItemClickListener2 getOnItemClickListener() {
+    public OnItemClickListener3 getOnItemClickListener() {
         return onItemClickListener;
     }
 
-    public void setOnItemClickListener(OnItemClickListener2 onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener3 onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     private PopupWindow popupwindow;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,16 +70,17 @@ public class DropDownKeyValue {
             popupwindow.setFocusable(true);
             popupwindow.showAsDropDown(textView, 5, 5);
         }
-        adapter.setOnItemClickListener(new OnItemClickListener2() {
+        adapter.setOnItemClickListener(new OnItemClickListener3() {
             @Override
-            public void onItemClick(String tags) {
-                id = list.get(Integer.parseInt(tags)).getId();
-                 textView.setText(list.get(Integer.parseInt(tags)).getValue());
+            public void onItemClick(String name,int ids) {
+                id = Integer.valueOf(list.get(ids).getId());
+                String value=list.get(ids).getValue();
+                 textView.setText(value);
                 if (popupwindow != null && popupwindow.isShowing()) {
                     popupwindow.dismiss();
                 }
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(id);
+                    onItemClickListener.onItemClick(value,id);
                 }
             }
         });
