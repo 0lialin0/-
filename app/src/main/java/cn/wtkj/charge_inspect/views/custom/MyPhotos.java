@@ -32,6 +32,7 @@ import java.util.List;
 
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.views.activity.TestBasicVideo;
+import cn.wtkj.charge_inspect.views.custom.videocapture.VideoRecordActivity;
 
 /**
  * Created by lxg on 2015/9/18.
@@ -114,7 +115,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                     //startActivityForResult (intent, VIDEO_WITH_CAMERA);
                     fragment.startActivityForResult(intentTakeVideo, VIDEO_WITH_CAMERA);*/
                     Intent intentTakeVideo =  new Intent();
-                    intentTakeVideo.setClass(mContext, TestBasicVideo.class);
+                    intentTakeVideo.setClass(mContext, VideoRecordActivity.class);
                     fragment.startActivityForResult(intentTakeVideo, VIDEO_WITH_CAMERA);
                     break;
                 default:

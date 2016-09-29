@@ -121,6 +121,7 @@ public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements
     @OnClick({R.id.login_comit_bnt})
     @Override
     public void onClick(View view) {
+        nextView();
         if (System.currentTimeMillis() - lastTime < 1 * 1000) {
             return;
         }

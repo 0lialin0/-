@@ -50,6 +50,10 @@
         <activity
             android:name=".views.activity.TestBasicVideo"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.custom.videocapture.VideoRecordActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 
