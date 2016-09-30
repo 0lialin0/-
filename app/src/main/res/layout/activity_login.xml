@@ -50,11 +50,12 @@
 
                 <EditText
                     android:id="@+id/et_user"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/x36"
                     android:layout_toRightOf="@+id/iv_user"
+                    android:background="@null"
                     android:hint="@string/login_user" />
 
             </RelativeLayout>
@@ -76,11 +77,12 @@
 
                 <EditText
                     android:id="@+id/et_pwd"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/x36"
                     android:layout_toRightOf="@+id/iv_pwd"
+                    android:background="@null"
                     android:hint="@string/login_pwd" />
 
             </RelativeLayout>
