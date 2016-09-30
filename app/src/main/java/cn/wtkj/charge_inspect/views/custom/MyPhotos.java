@@ -47,6 +47,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     public static final int RESULT_PHOTO = 0;
     public static final int RESULT_FILE = 1;
     public static final int VIDEO_WITH_CAMERA = 2;
+    public static final int VIDEO_FILE = 3;
     private Activity fragment;
     private File tempFile;
     private LinearLayoutManager manager;
@@ -104,10 +105,9 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                     fragment.startActivityForResult(intent, RESULT_PHOTO);
                     break;
                 case R.id.btn_pick_photo:
-                    Intent intent1 = new Intent(Intent.ACTION_PICK);
-                    intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                            "image/*");
-                    fragment.startActivityForResult(intent1, RESULT_FILE);
+                    Intent intentPickPhoto = new Intent(Intent.ACTION_PICK);
+                    intentPickPhoto.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                    fragment.startActivityForResult(intentPickPhoto, RESULT_FILE);
                     break;
                 case R.id.btn_take_video:
                    /* Intent intentTakeVideo =  new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -118,6 +118,12 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                     Intent intentTakeVideo =  new Intent();
                     intentTakeVideo.setClass(mContext, VideoRecordActivity.class);
                     fragment.startActivityForResult(intentTakeVideo, VIDEO_WITH_CAMERA);
+                    break;
+                case R.id.btn_pick_video:
+                    Intent intentPickVideo = new Intent(Intent.ACTION_PICK);
+                    intentPickVideo.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                            "video/*");
+                    fragment.startActivityForResult(intentPickVideo, VIDEO_FILE);
                     break;
                 default:
                     break;
@@ -187,6 +193,12 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
         }else if (requestCode == MyPhotos.VIDEO_WITH_CAMERA) {
             if (data != null) {
                 String videoFilePath = data.getStringExtra("videoFilePath");
+                Log.e(TAG, "onActivityResult: " + videoFilePath);
+                img =   getVideoFile(videoFilePath);
+            }
+        }else if (requestCode == MyPhotos.VIDEO_FILE) {
+            if (data != null) {
+                String videoFilePath = data.getData().getPath();
                 Log.e(TAG, "onActivityResult: " + videoFilePath);
                 img =   getVideoFile(videoFilePath);
             }

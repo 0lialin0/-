@@ -21,7 +21,7 @@ import cn.wtkj.charge_inspect.R;
 public class SelectPicPopupWindow extends PopupWindow {
 
 
-    private Button btn_take_photo, btn_pick_photo,btn_take_video, btn_cancel;
+    private Button btn_take_photo, btn_pick_photo,btn_take_video,btn_pick_video, btn_cancel;
     private View mMenuView;
 
     public SelectPicPopupWindow(Activity context, OnClickListener itemsOnClick) {
@@ -32,6 +32,7 @@ public class SelectPicPopupWindow extends PopupWindow {
         btn_take_photo = (Button) mMenuView.findViewById(R.id.btn_take_photo);
         btn_take_video = (Button) mMenuView.findViewById(R.id.btn_take_video);
         btn_pick_photo = (Button) mMenuView.findViewById(R.id.btn_pick_photo);
+        btn_pick_video  = (Button) mMenuView.findViewById(R.id.btn_pick_video);
         btn_cancel = (Button) mMenuView.findViewById(R.id.btn_cancel);
         //取消按钮
         btn_cancel.setOnClickListener(new OnClickListener() {
@@ -45,6 +46,7 @@ public class SelectPicPopupWindow extends PopupWindow {
         btn_pick_photo.setOnClickListener(itemsOnClick);
         btn_take_photo.setOnClickListener(itemsOnClick);
         btn_take_video.setOnClickListener(itemsOnClick);
+        btn_pick_video.setOnClickListener(itemsOnClick);
         //设置SelectPicPopupWindow的View
         this.setContentView(mMenuView);
         //设置SelectPicPopupWindow弹出窗体的宽

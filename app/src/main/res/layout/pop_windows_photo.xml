@@ -15,6 +15,15 @@
         android:textStyle="bold"
         android:text="拍照"/>
     <Button
+        android:id="@+id/btn_pick_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="5dip"
+        android:text="选择照片"
+        android:textStyle="bold" />
+    <Button
         android:id="@+id/btn_take_video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,14 +33,14 @@
         android:textStyle="bold"
         android:text="录像"/>
     <Button
-        android:id="@+id/btn_pick_photo"
+        android:id="@+id/btn_pick_video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
-        android:layout_marginTop="5dip"
-        android:text="从相册选择"
-        android:textStyle="bold" />
+        android:layout_marginTop="10dip"
+        android:textStyle="bold"
+        android:text="选择录像"/>
 
     <Button
         android:id="@+id/btn_cancel"
