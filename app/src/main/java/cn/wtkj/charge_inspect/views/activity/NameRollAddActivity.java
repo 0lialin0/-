@@ -47,6 +47,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     ImageView ivLeft;
     @Bind(R.id.iv_more)
     ImageView ivMore;
+    @Bind(R.id.iv_phone)
+    ImageView ivPhone;
     @Bind(R.id.myphoto)
     MyPhotos myphoto;
     @Bind(R.id.tv_weizhang_time)
@@ -98,6 +100,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         tvTitle.setText(R.string.name_roll_title);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
+        ivPhone.setVisibility(View.GONE);
+        ivMore.setVisibility(View.GONE);
     }
 
 

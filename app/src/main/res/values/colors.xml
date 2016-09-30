@@ -7,10 +7,17 @@
 
     <color name="white">#FFFFFF</color>
     <color name="solide_blue">#13A5F1</color>
+    <color name="blue">#2aa1fc</color>
     <color name="gray">#CCCCCC</color>
     <color name="gray2">#e0e0e0</color>
     <color name="gray3">#949494</color>
+    <color name="gray4">#F9F9F9</color>
+    <color name="gray5">#F7F7F7</color>
+    <color name="gray6">#E0E0E0</color>
     <color name="black">#000000</color>
     <color name="black2">#505050</color>
     <color name="ight_gray">#3e3e3e</color>
+    <color name="less_deep_blue">#7BBCF2</color>
+    <color name="less_blue">#DDF5FF</color>
+    <color name="divider_gray">#ddd</color>
 </resources>

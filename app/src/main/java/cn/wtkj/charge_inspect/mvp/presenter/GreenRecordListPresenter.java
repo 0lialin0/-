@@ -13,5 +13,5 @@ import cn.wtkj.charge_inspect.mvp.views.GreenRecordView;
  */
 public interface GreenRecordListPresenter extends MvpPresenter<GreenRecordListView> {
     void startPresenter();
-    void attachContextIntent(Context context, Intent intent);
+    void attachContextIntent(Context context);
 }

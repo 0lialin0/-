@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme.Base">
         <activity
-            android:name=".views.activity.LoginActivity"
+            android:name=".views.activity.WelComeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
             <intent-filter>
@@ -19,9 +19,24 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".views.activity.LoginActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".views.activity.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activity.UserInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activity.NameRollXiafaActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activity.BusinessContentActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -41,11 +56,27 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".views.activity.NameRollManageActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".views.activity.NameRollAddActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".views.activity.LawsNewsActivity"
+            android:name=".views.activity.NameRollAddGreyActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activity.NameRollAddYellowActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activity.BusinessInfoListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.activity.BusinessInfoDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".views.activity.TestBasicVideo"

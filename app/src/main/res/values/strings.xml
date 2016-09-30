@@ -9,29 +9,37 @@
 
     <string name="please_input">请输入</string>
 
+    <string name="user_info">登陆人信息</string>
+    <string name="user_info_name">当前登陆人</string>
+    <string name="user_info_num">登陆人工号</string>
+    <string name="user_info_unit">单位名称</string>
+    <string name="user_info_dep">所属部门</string>
+    <string name="user_info_phone">办公电话</string>
+    <string name="user_info_mphone">移动电话</string>
+
+    <string name="bus_title">业务联系单</string>
+
     <string name="green_name">绿通档案</string>
-    <string name="green_car_info">车辆信息</string>
+    <string name="green_car_info">卡片信息</string>
+    <string name="green_card">卡号</string>
+    <string name="green_entrance">入口站</string>
+    <string name="green_car_dao">入口车道</string>
     <string name="green_jianyan_info">检验信息</string>
-    <string name="green_photo">上传照片</string>
-    <string name="green_car_num">车牌号</string>
+    <string name="green_check_time">检验时间</string>
+    <string name="green_car_num">车牌号码</string>
     <string name="green_car_type">车辆类型</string>
-    <string name="green_factory">厂牌型号</string>
-    <string name="green_rongji">有效容积率(%)</string>
-    <string name="green_zhoushou">轴数(轴)</string>
-    <string name="green_dunwei">吨位(吨)</string>
-    <string name="green_entrance">入口站址</string>
-    <string name="green_car_dao">车道号</string>
-    <string name="green_charge">收费员</string>
+    <string name="green_rongji">有效容积</string>
+    <string name="green_out_loca">出口站址</string>
+    <string name="green_out_lane">出口车道号</string>
     <string name="green_class">班长</string>
-    <string name="green_type">绿通类型</string>
     <string name="green_jianmian">是否减免</string>
     <string name="green_jianmian_yes">是</string>
     <string name="green_jianmian_no">否</string>
-    <string name="green_jianmian_money">减免金额</string>
+    <string name="green_type">绿通类型</string>
     <string name="green_goods_name">货物名称</string>
-    <string name="green_hun_goods_name">混合货物名称</string>
-    <string name="green_heding">核定载重量(吨)</string>
+    <string name="green_goods_name_hui">混货物名称</string>
     <string name="green_remark">备注</string>
+    <string name="green_photo">上传照片</string>
 
     <string name="green_edit">编辑</string>
     <string name="green_submit">提交</string>
@@ -63,9 +71,12 @@
     <string name="increment_zhou_shuo">轴数(轴)</string>
     <string name="increment_dun_shuo">吨数(吨)</string>
 
+    <string name="name_roll_manage_title">名单管理</string>
+    <string name="name_roll_manage_xiafa">下发名单查询</string>
     <string name="name_roll_title">添加名单</string>
     <string name="name_roll_color">车牌颜色</string>
     <string name="name_roll_car_color">车身颜色</string>
+    <string name="name_roll_factory">厂牌型号</string>
     <string name="name_roll_car_type">车辆类别</string>
     <string name="name_roll_carx_type">车型类别</string>
     <string name="name_roll_info">违章信息</string>
@@ -76,4 +87,24 @@
     <string name="name_roll_xingshi">行驶区间</string>
     <string name="name_roll_qingkuang">情况说明</string>
     <string name="name_roll_photo">上传照片/视频</string>
+
+    <string name="name_roll_grey_title">添加灰名单</string>
+    <string name="name_roll_grey_car_all">车辆所有者信息</string>
+    <string name="name_roll_grey_car">车辆所有者</string>
+    <string name="name_roll_grey_type">所有者类别</string>
+    <string name="name_roll_grey_addr">通讯地址</string>
+    <string name="name_roll_grey_postal">邮政编码</string>
+    <string name="name_roll_grey_phone">联系电话</string>
+    <string name="name_roll_grey_info">历史违章情况</string>
+
+    <string name="name_roll_yellow_title">添加黄名单</string>
+
+    <string name="tv_name_roll_type">名单类型</string>
+    <string name="balck_name">黑名单</string>
+    <string name="grey_name">灰名单</string>
+    <string name="yellow_name">黄名单</string>
+
+    <string name="information">业务资料</string>
+
+
 </resources>

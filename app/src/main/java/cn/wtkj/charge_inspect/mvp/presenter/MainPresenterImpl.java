@@ -6,12 +6,11 @@ import android.content.Intent;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.MainView;
-import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
-import cn.wtkj.charge_inspect.views.activity.GreenRecordActivity;
+import cn.wtkj.charge_inspect.views.activity.GreenRecordListActivity;
 import cn.wtkj.charge_inspect.views.activity.IncrementListActivity;
-import cn.wtkj.charge_inspect.views.activity.LawsNewsActivity;
-import cn.wtkj.charge_inspect.views.activity.NameRollAddActivity;
+import cn.wtkj.charge_inspect.views.activity.BusinessInfoListActivity;
+import cn.wtkj.charge_inspect.views.activity.NameRollManageActivity;
 
 
 /**
@@ -56,12 +55,13 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
     public void onItemClick(String tags) {
         switch (tags) {
             case readCard:
+                getView().showMes("正在开发中.....");
                 break;
             case checkCar:
                 getView().showMes("正在开发中.....");
                 break;
             case greenInfo://绿通
-                intent.setClass(context, GreenRecordActivity.class);
+                intent.setClass(context, GreenRecordListActivity.class);
                 context.startActivity(intent);
                 break;
             case increment://增收
@@ -69,11 +69,11 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
                 context.startActivity(intent);
                 break;
             case nameRoll://名单
-                intent.setClass(context, NameRollAddActivity.class);
+                intent.setClass(context, NameRollManageActivity.class);
                 context.startActivity(intent);
                 break;
             case lawsNews://资料
-                intent.setClass(context, LawsNewsActivity.class);
+                intent.setClass(context, BusinessInfoListActivity.class);
                 context.startActivity(intent);
                 break;
         }

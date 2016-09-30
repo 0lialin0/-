@@ -83,7 +83,9 @@
                     android:layout_marginLeft="@dimen/x36"
                     android:layout_toRightOf="@+id/iv_pwd"
                     android:background="@null"
-                    android:hint="@string/login_pwd" />
+                    android:hint="@string/login_pwd"
+                    android:inputType="textPassword" />
+
 
             </RelativeLayout>
 

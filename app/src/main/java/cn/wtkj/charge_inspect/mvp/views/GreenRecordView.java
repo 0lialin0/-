@@ -8,7 +8,7 @@ import cn.wtkj.charge_inspect.mvp.MvpView;
  */
 public interface GreenRecordView extends MvpView {
 
-    void showList(String[] items, int[] imgs);
+    void showView();
 
     //提示用户等待
     void showLoding();

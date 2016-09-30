@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray5"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/main_toop"
+        layout="@layout/toolbar_other" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/electron_outer_linearLayout">
+
+            <TextView
+                style="@style/electron_tv_title"
+                android:text="@string/user_info_name" />
+
+            <LinearLayout
+                style="@style/electron_linearLayout"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/electron_ed_content" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View style="@style/view_line" />
+
+        <RelativeLayout
+            style="@style/electron_outer_linearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/electron_tv_title"
+                android:text="@string/user_info_num" />
+
+            <LinearLayout
+                style="@style/electron_linearLayout"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_login_num"
+                    style="@style/electron_ed_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/view_line" />
+
+        <RelativeLayout
+            style="@style/electron_outer_linearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/electron_tv_title"
+                android:text="@string/user_info_unit" />
+
+            <LinearLayout
+                style="@style/electron_linearLayout"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_unit"
+                    style="@style/electron_ed_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/view_line" />
+
+        <RelativeLayout
+            style="@style/electron_outer_linearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/electron_tv_title"
+                android:text="@string/user_info_dep" />
+
+            <LinearLayout
+                style="@style/electron_linearLayout"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_dep"
+                    style="@style/electron_ed_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/view_line" />
+
+
+        <RelativeLayout
+            style="@style/electron_outer_linearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/electron_tv_title"
+                android:text="@string/user_info_phone" />
+
+            <LinearLayout
+                style="@style/electron_linearLayout"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/electron_ed_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/view_line" />
+
+
+        <RelativeLayout
+            style="@style/electron_outer_linearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/electron_tv_title"
+                android:text="@string/user_info_mphone" />
+
+
+            <LinearLayout
+                style="@style/electron_linearLayout"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_mphone"
+                    style="@style/electron_ed_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View style="@style/view_line" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/y20"
+        android:layout_marginTop="@dimen/y227"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/exit_button"
+            style="@style/button_layout"
+            android:background="@drawable/selector_psersoal_bt_bg"
+            android:text="注销"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</LinearLayout>

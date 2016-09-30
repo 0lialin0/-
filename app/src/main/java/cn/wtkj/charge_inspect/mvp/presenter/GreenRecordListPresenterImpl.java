@@ -17,17 +17,15 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
 
 
     private Context context;
-    private Intent intent;
 
     @Override
-    public void attachContextIntent(Context context, Intent intent) {
+    public void attachContextIntent(Context context) {
         this.context = context;
-        this.intent = intent;
     }
 
     @Override
     public void startPresenter() {
-        getView().setList();
+        getView().hideLoging();
     }
 
 

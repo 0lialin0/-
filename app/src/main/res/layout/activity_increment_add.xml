@@ -472,6 +472,7 @@
                             <EditText
                                 android:id="@+id/ed_dunshuo"
                                 style="@style/electron_ed_content"
+                                android:hint="@string/please_input"
                                 android:numeric="decimal" />
 
                         </LinearLayout>

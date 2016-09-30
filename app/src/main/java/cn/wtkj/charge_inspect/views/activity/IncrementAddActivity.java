@@ -142,6 +142,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     private void initToolBar() {
         tvTitle.setText(R.string.increment_add_name);
         mToolbar.setTitle("");
+
         ivPhone.setVisibility(View.GONE);
         ivMore.setVisibility(View.GONE);
         setSupportActionBar(mToolbar);
@@ -159,6 +160,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         downKeyValue.setId(1);
         downKeyValue.setOnItemClickListener(this);
         shiftID = 1;
+        shiftName = classes.get(0).getValue();
         tvClasses.setText(classes.get(0).getValue());
 
         downKeyValue2 = new DropDownKeyValue(this, zhoushuo);
@@ -186,9 +188,13 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     //显示值在页面上
     private void showViewData(JCEscapeBookData data) {
+        if (type == 2) {
+            ivPhone.setVisibility(View.VISIBLE);
+            ivMore.setVisibility(View.VISIBLE);
+        }
         edCarNum.setText(data.getVehPlate());
-        String shortname = presenter.getOrgShortName(data.getOrgID(), data.getOrgLevel());
-        edCheckUnit.setText(shortname);
+        //String shortname = presenter.getOrgShortName(data.getOrgID(), data.getOrgLevel());
+        edCheckUnit.setText(data.getUnitName());
         tvCheckTime.setText(data.getFindDT());
         edChargeNum.setText(data.getOprID());
         edChargeName.setText(data.getOprName());

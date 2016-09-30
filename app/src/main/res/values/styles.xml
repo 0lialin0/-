@@ -103,6 +103,18 @@
         <item name="android:drawablePadding">@dimen/x16</item>
     </style>
 
+    <style name="radio_name_bg">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/x32</item>
+        <item name="android:drawableLeft">@drawable/selector_redio_rad</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/black2</item>
+        <item name="android:drawablePadding">@dimen/x16</item>
+        <item name="android:layout_marginBottom">@dimen/y25</item>
+        <item name="android:layout_marginTop">@dimen/y30</item>
+    </style>
+
     <style name="title_bg">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/x65</item>

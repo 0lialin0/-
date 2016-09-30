@@ -3,7 +3,11 @@ package cn.wtkj.charge_inspect.mvp.presenter;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.List;
+
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.GreenRecordView;
 import cn.wtkj.charge_inspect.mvp.views.MainView;
@@ -20,11 +24,13 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
 
     private Context context;
     private Intent intent;
+    private ConstAllDb constAllDb;
 
     @Override
     public void attachContextIntent(Context context, Intent intent) {
         this.context = context;
         this.intent = intent;
+        constAllDb=new ConstAllDb(context);
     }
 
     @Override
@@ -32,6 +38,12 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
 
     }
 
+
+    @Override
+    public List<ConstAllData.MData.info> getConstByType(int type) {
+        List<ConstAllData.MData.info> list_type=constAllDb.getConstList(type);
+        return list_type;
+    }
 
 
 }

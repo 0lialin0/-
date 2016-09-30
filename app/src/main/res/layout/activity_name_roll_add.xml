@@ -97,7 +97,7 @@
 
                     <TextView
                         style="@style/electron_tv_title"
-                        android:text="@string/green_factory" />
+                        android:text="@string/name_roll_factory" />
 
                     <LinearLayout
                         style="@style/electron_linearLayout"
@@ -331,9 +331,7 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            style="@style/electron_ed_image"
-                            android:src="@drawable/right_btn" />
+
                     </RelativeLayout>
                 </RelativeLayout>
 

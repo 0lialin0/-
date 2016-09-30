@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/y100"
-        android:layout_margin="@dimen/x10"
+        android:layout_margin="@dimen/x15"
         android:background="@drawable/shape">
 
 
@@ -27,33 +27,53 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:paddingBottom="@dimen/y15"
-            android:paddingLeft="@dimen/x15"
+            android:paddingLeft="@dimen/x24"
             android:paddingTop="@dimen/y15"
             android:textColor="#6e6e6e"
-            android:textSize="@dimen/x30" />
+            android:textColorHint="#c3c3c3"
+            android:textSize="@dimen/x32" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/x29"
             android:src="@drawable/search" />
 
     </RelativeLayout>
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/shed_list_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y15"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:orientation="vertical">
 
-        <cn.wtkj.charge_inspect.views.custom.RecyClerRefresh
-            android:id="@+id/shed_list_recy"
+       <!-- <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/shed_list_refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent">
 
+            <cn.wtkj.charge_inspect.views.custom.RecyClerRefresh
+                android:id="@+id/shed_list_recy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+        </android.support.v4.widget.SwipeRefreshLayout>-->
+        <ImageView
+            android:id="@+id/iv_green_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/green_a" />
+
+
+
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
