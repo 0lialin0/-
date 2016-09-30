@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -185,8 +186,9 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
             }
         }else if (requestCode == MyPhotos.VIDEO_WITH_CAMERA) {
             if (data != null) {
-                Uri uri = data.getData();
-                Log.e(TAG, "onActivityResult: " + uri.toString());
+                String videoFilePath = data.getStringExtra("videoFilePath");
+                Log.e(TAG, "onActivityResult: " + videoFilePath);
+                img =   getVideoFile(videoFilePath);
             }
         }
         return img;
@@ -221,6 +223,64 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
             notify(bitmap);
         }
         return img;
+    }
+
+    /**
+     * 获取视屏文件，生成视屏缩略图
+     * @param videoFilePath
+     * @return
+     */
+    public File getVideoFile(String videoFilePath)
+    {
+        Bitmap bitmap = getVideoThumbnail(videoFilePath);
+
+        if (bitmap != null) {
+            File img = null;//创建临时文件，便于删除试用
+            img = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
+            createParent(img);
+            try {
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(img));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                bos.flush();
+                bos.close();
+                files.add(img);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            notify(bitmap);
+        }
+
+        File videoFile =   new File(videoFilePath);
+        return videoFile;
+    }
+
+    /**
+     * 获取视屏缩略图
+     * @param filePath
+     * @return
+     */
+    public Bitmap getVideoThumbnail(String filePath) {
+        Bitmap bitmap = null;
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(filePath);
+            bitmap = retriever.getFrameAtTime();
+        }
+        catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                retriever.release();
+            }
+            catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        }
+        return bitmap;
     }
 
     private Bitmap getBitmap(String path) {

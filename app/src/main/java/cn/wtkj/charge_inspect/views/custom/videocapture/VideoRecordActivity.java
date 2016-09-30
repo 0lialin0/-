@@ -80,9 +80,9 @@ public class VideoRecordActivity extends Activity {
                     Intent intent = new Intent();
                     intent.putExtra("videoFilePath",videoFile.getAbsolutePath());
                     //设置结果信息
-                    setResult(0,intent);
+                    setResult(RESULT_OK,intent);
 
-
+                    VideoRecordActivity.this.finish();
                     //showDialog(videoFile.getAbsolutePath());
                 }
             }
