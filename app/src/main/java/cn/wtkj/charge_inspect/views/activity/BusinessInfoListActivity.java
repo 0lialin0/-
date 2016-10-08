@@ -16,7 +16,10 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenterImpl;
+import cn.wtkj.charge_inspect.mvp.presenter.MainPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
+import cn.wtkj.charge_inspect.views.Adapter.BusinessInfoListAdapter;
+import cn.wtkj.charge_inspect.views.Adapter.MainRecyAdapter;
 import cn.wtkj.charge_inspect.views.custom.DividerItemDecoration;
 
 /**
@@ -36,8 +39,8 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
     @Bind(R.id.iv_phone)
     ImageView ivPhone;
 
-   /* @Bind(R.id.laws_news_list)
-    RecyclerView lawsNewsList;*/
+    @Bind(R.id.laws_news_list)
+    RecyclerView lawsNewsList;
 
     @Override
     protected BusinessInfoPresenter createPresenter() {
@@ -73,7 +76,8 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
 
     @Override
     public void showList(String[] items, int[] imgs) {
-
+       // BusinessInfoListAdapter businessInfoPresenter = new BusinessInfoListAdapter(this, items);
+        //lawsNewsList.setAdapter(businessInfoPresenter);
     }
 
     @Override
@@ -96,17 +100,14 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
 
     }
 
-    @OnClick({R.id.iv_left,R.id.iv_yewu_a})
+    @OnClick({R.id.iv_left})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_left:
                 this.finish();
                 break;
-            case R.id.iv_yewu_a:
-                Intent intent=new Intent(this,BusinessInfoDetailActivity.class);
-                this.startActivity(intent);
-                break;
+
         }
     }
 }

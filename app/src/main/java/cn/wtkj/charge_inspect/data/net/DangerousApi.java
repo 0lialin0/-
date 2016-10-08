@@ -7,6 +7,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
 import cn.wtkj.charge_inspect.data.bean.Version;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
+import cn.wtkj.charge_inspect.data.rest.BusinessInfoData;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -39,6 +40,6 @@ public interface DangerousApi {
     void getOrgan(@QueryMap Map<String, String> map,Callback<ViewOrganizationData> callback);
 
     //获取业务联系单  OK
-    @POST("/restApi?businessId=daily.contact")
-    void getBusiness(Callback<ViewOrganizationData> callback);
+    @POST("/restApi?businessId=article.articleList&USERID=admin")
+    void getBusinessData(Callback<BusinessInfoData> callback);
 }

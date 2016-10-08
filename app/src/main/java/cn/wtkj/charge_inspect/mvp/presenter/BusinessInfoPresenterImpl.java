@@ -3,6 +3,12 @@ package cn.wtkj.charge_inspect.mvp.presenter;
 import android.content.Context;
 import android.content.Intent;
 
+import java.io.File;
+import java.util.List;
+
+import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
+import cn.wtkj.charge_inspect.data.rest.BusinessInfoDataImpl;
+import cn.wtkj.charge_inspect.data.rest.NameRollAddDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
 
@@ -13,22 +19,16 @@ import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
 public class BusinessInfoPresenterImpl extends MvpBasePresenter<BusinessInfoView> implements
         BusinessInfoPresenter {
 
-
-
     private Context context;
-    private Intent intent;
-
-    @Override
-    public void attachContextIntent(Context context, Intent intent) {
+    List<String> businessInfoDataList;
+    private BusinessInfoDataImpl businessInfoData;
+    public BusinessInfoPresenterImpl(Context context) {
         this.context = context;
-        this.intent = intent;
+        businessInfoData=new BusinessInfoDataImpl();
     }
 
     @Override
     public void startPresenter() {
 
     }
-
-
-
 }
