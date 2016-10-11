@@ -11,6 +11,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public static final String EM_CONST = "EM_Const";
     public static final String VIEW_ORGANIZATION = "View_Organization";
     public static final String JC_ESCAPEBOOK = "JC_EscapeBook";
+    public static final String JC_BLACKLIST = "JC_BlackList";
 
     public MyDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,6 +50,24 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                         "IsChecked", "OrgLevel","OperType","userID","ShiftName","PeccancyTypeName",
                         "UnitName","InDecisionName","OutDecisionName","InStationName","AxleNumberName");
         db.execSQL(escapebookSql);
+
+
+        String blacklistSql = String
+                .format("Create TABLE %s(%s VARCHAR(100), %s VARCHAR(120), %s VARCHAR(120), " +
+                        "%s int, %s VARCHAR(120),%s int,  %s VARCHAR(120), %s int, %s VARCHAR(120)," +
+                                "%s int, %s VARCHAR(220),%s int, %s VARCHAR(120),  %s VARCHAR(120)," +
+                                "%s VARCHAR(120), %s int, %s VARCHAR(120), %s int, %s VARCHAR(120),  " +
+                                "%s int, %s VARCHAR(120), %s VARCHAR(120), %s int,%s VARCHAR(120), %s int, " +
+                                "%s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120),%s VARCHAR(120), " +
+                                " %s int, %s VARCHAR(120), %s VARCHAR(120))",
+                        JC_BLACKLIST, "BlackListID", "CardNo", "VepPlateNo", "VehicleTypeID",
+                        "VehicleTypeName", "VehType", "VehTypeName", "VepColor", "VepColorName",
+                        "VepPlateNoColor","VepPlateNoColorName", "PeccancyTypeID", "PeccancyTypeName",
+                        "FactoryType",  "GenDT", "InOrgID", "InOrgName", "OutOrgID", "OutOrgName",
+                        "PeccancyOrgID", "PeccancyOrgName","GenCause",
+                        "AxleCount", "Tonnage", "Seating", "videoName", "videoList",
+                        "photoName", "photoList","OperType","userID","AxleCountName");
+        db.execSQL(blacklistSql);
 
     }
 

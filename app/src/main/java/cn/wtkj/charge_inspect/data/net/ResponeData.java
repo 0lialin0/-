@@ -5,7 +5,7 @@ public class ResponeData {
     public static final String STATE_SUCCESS = "0";
     public static final String NET_ERROR = "网络异常！";
     private Data data;
-    private String code;
+    private int code;
     private String msg;
 
     public String getMsg() {
@@ -16,11 +16,11 @@ public class ResponeData {
         this.msg = msg;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

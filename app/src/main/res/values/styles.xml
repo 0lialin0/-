@@ -16,6 +16,11 @@
     </style>
 
 
+    <style name="CustomDialog_show" parent="Theme.AppCompat.Dialog.MinWidth">
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <style name="MenuStyle" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="overlapAnchor">false</item>
         <item name="android:popupBackground">?attr/colorPrimary</item>

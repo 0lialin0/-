@@ -1,7 +1,6 @@
 package cn.wtkj.charge_inspect.mvp.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,11 +12,9 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.ResponeData;
-import cn.wtkj.charge_inspect.data.rest.NameRollAddDataImpl;
+import cn.wtkj.charge_inspect.data.rest.ConductInfoDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
-import cn.wtkj.charge_inspect.mvp.views.GreenRecordView;
 import cn.wtkj.charge_inspect.mvp.views.NameRollAddView;
-import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
 
 
 /**
@@ -31,12 +28,12 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     private Context context;
     List<File> files;
     List<String> fileName;
-    private NameRollAddDataImpl nameRollAddData;
+    private ConductInfoDataImpl nameRollAddData;
     private ConstAllDb constAllDb;
 
     public NameRollAddPresenterImpl(Context context) {
         this.context = context;
-        nameRollAddData=new NameRollAddDataImpl(context);
+        nameRollAddData=new ConductInfoDataImpl(context);
         constAllDb = new ConstAllDb(context);
     }
 

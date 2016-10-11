@@ -112,7 +112,8 @@ public class EscapeBookDb {
                 "UnitName","OrgLevel",
                 "OprID", "OprName", "InDecisionName", "OutDecisionName", "RealityMoney",
                 "EscapeMoney","Monitor","VehPlate", "Remark", "InStationName",
-                "AxleNumber","Weight", "PeccancyTypeID"};
+                "AxleNumber","Weight", "PeccancyTypeID","userID","OperType","OrgID",
+                "ShiftID","InStationID","InDecision","OutDecision","AxleNumber"};
         db = dataBaseHelper.getReadableDatabase();
         Cursor cur = db.query(tablename, col, "userID= ?",
                 new String[]{userId}, null, null, "FindDT desc");
@@ -138,6 +139,14 @@ public class EscapeBookDb {
                 data.setAxleNumber(cur.getInt(16));
                 data.setWeight(cur.getString(17));
                 data.setPeccancyTypeID(cur.getInt(18));
+                data.setUserID(cur.getString(19));
+                data.setOperType(cur.getInt(20));
+                data.setOrgID(cur.getInt(21));
+                data.setShiftID(cur.getInt(22));
+                data.setInStationID(cur.getInt(23));
+                data.setInDecision(cur.getInt(24));
+                data.setOutDecision(cur.getInt(25));
+                data.setAxleNumber(cur.getInt(26));
 
                 list.add(data);
                 cur.moveToNext();
@@ -149,4 +158,10 @@ public class EscapeBookDb {
         return list;
     }
 
+
+    public void delData(String id) {
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        database.delete(tablename, "EscapeBookID=?", new String[]{id});
+        DatabaseManager.getInstance().closeDatabase();
+    }
 }

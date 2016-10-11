@@ -19,6 +19,9 @@ public interface IncrementListView extends MvpView {
     //隐藏等待
     void hideLoging();
 
+    //隐藏等待
+    void hideDialog();
+
     //跳转到下一个页面
     void nextView();
 

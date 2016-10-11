@@ -121,6 +121,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     private ConstAllDb constAllDb;
     private String shortName;
     private int type = 1;
+    private String increment_title="添加增收";
+    private String uuid;
 
     @Override
     protected IncrementAddPresenter createPresenter() {
@@ -140,7 +142,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     }
 
     private void initToolBar() {
-        tvTitle.setText(R.string.increment_add_name);
+        tvTitle.setText(increment_title);
         mToolbar.setTitle("");
 
         ivPhone.setVisibility(View.GONE);
@@ -175,11 +177,13 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     @Override
     public void setView() {
         JCEscapeBookData data = (JCEscapeBookData) getIntent().getSerializableExtra(IncrementListActivity.DATA_TAG);
+        showView();
         if (data != null) {
             showViewData(data);
             type = 2;
+            increment_title="修改增收";
+            tvTitle.setText(increment_title);
         } else {
-            showView();
             type = 1;
         }
 
@@ -212,6 +216,22 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         edZengMoney.setText(data.getEscapeMoney());
         edZhoushou.setText(data.getAxleNumberName());
         edDunshuo.setText(data.getWeight());
+        edRemark.setText(data.getRemark());
+
+        shiftID=data.getShiftID();
+        shiftName=data.getShiftName();
+        axleNumber=data.getAxleNumber();
+        axleNumberName=data.getAxleNumberName();
+        peccancyTypeID=data.getPeccancyTypeID();
+        peccancyTypeName=data.getPeccancyTypeName();
+        inStationID=data.getInStationID();
+        inStationName=data.getInStationName();
+        inDecision=data.getInDecision();
+        inDecisionName=data.getInDecisionName();
+        outDecision=data.getOutDecision();
+        outDecisionName=data.getOutDecisionName();
+        shortName=data.getUnitName();
+        uuid=data.getEscapeBookID();
     }
 
 
@@ -269,7 +289,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             ConstAllData data = new ConstAllData();
             ConstAllData.MData mData = data.new MData();
             for (int i = 0; i < entranList.size(); i++) {
-                if (entranList.get(i).getCode() >= start && end < entranList.get(i).getCode()) {
+                if (entranList.get(i).getCode() >= start && entranList.get(i).getCode() <= end ) {
                     ConstAllData.MData.info info = mData.new info();
                     info.setName(entranList.get(i).getName());
                     info.setCode(entranList.get(i).getCode());
@@ -374,13 +394,10 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     public void getShowData() {
         data = new JCEscapeBookData();
         if (type == 1) {
-            String uuid = UUID.randomUUID().toString();
-            data.setEscapeBookID(uuid);
-            data.setUnitName(shortName);
-        } else if (type == 2) {
-            data.setEscapeBookID(data.getEscapeBookID());
-            data.setUnitName(data.getUnitName());
+            uuid = UUID.randomUUID().toString();
         }
+        data.setEscapeBookID(uuid);
+        data.setUnitName(shortName);
         data.setUserID(Setting.USERID);
         data.setOperType(type);//1：新增 2：修改
         data.setOrgID(Setting.ORGID);
@@ -414,6 +431,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         data.setAxleNumberName(axleNumberName);
         if (!edDunshuo.getText().toString().replaceAll(" ", "").equals("")) {
             data.setWeight(edDunshuo.getText().toString());
+        }else{
+            data.setWeight("0");
         }
 
         if (!TextUtils.isEmpty(edRemark.getText())) {
@@ -421,7 +440,6 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         }
 
 
-        //data.setCreateDT("");
     }
 
     @Override

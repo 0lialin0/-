@@ -20,4 +20,6 @@
     <color name="less_deep_blue">#7BBCF2</color>
     <color name="less_blue">#DDF5FF</color>
     <color name="divider_gray">#ddd</color>
+    <color name="light_gray">#e0e0e0</color>
+    <color name="custom_blue">#2095F2</color>
 </resources>

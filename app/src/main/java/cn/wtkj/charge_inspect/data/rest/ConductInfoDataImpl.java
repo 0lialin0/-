@@ -21,11 +21,11 @@ import retrofit.Callback;
 /**
  * Created by lxg on 2015/11/9.
  */
-public class NameRollAddDataImpl implements NameRollAddData {
+public class ConductInfoDataImpl implements ConductInfoData {
     private final DangerousApi dangerousApi;
     private Context context;
 
-    public NameRollAddDataImpl(Context context) {
+    public ConductInfoDataImpl(Context context) {
         this.context = context;
         dangerousApi = SeApiManager.apiMangerAdapter();
     }
@@ -49,5 +49,12 @@ public class NameRollAddDataImpl implements NameRollAddData {
         }, fileNames, files, mapString);
         multipartRequester.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 0, 1.0f));
         DataRequester.getInstance(context).add(multipartRequester);
+    }
+
+
+    //增收上传
+    @Override
+    public void sendIncrement(Map<String, String> map, Callback<ResponeData> callback) {
+        dangerousApi.sendIncrement(map,callback);
     }
 }

@@ -1,5 +1,6 @@
 package cn.wtkj.charge_inspect.views.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,6 +25,7 @@ import cn.wtkj.charge_inspect.mvp.presenter.IncrementListPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.IncrementListPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.IncrementListView;
 import cn.wtkj.charge_inspect.util.Convert;
+import cn.wtkj.charge_inspect.util.CustomDialog;
 import cn.wtkj.charge_inspect.views.Adapter.GreenRecordListAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.IncrementListAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
@@ -58,6 +60,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     private IncrementListAdapter adapter;
     private List<JCEscapeBookData> mList;
     public static final String DATA_TAG = "DataInfo";
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -83,7 +86,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     }
 
     public void initView() {
-
+        progressDialog = new ProgressDialog(this);
         // 设置下拉组件动画偏移量
         shedRefresh.setProgressViewOffset(false,
                 Convert.dip2px(this.getApplicationContext(), -30),
@@ -104,7 +107,9 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
 
     @Override
     public void showLoding() {
-
+        progressDialog.setMessage("正在保存，请等待..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
@@ -113,9 +118,16 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     }
 
     @Override
-    public void nextView() {
-
+    public void hideDialog() {
+        progressDialog.hide();
     }
+
+    @Override
+    public void nextView() {
+        //this.finish();
+        onRefresh();
+    }
+
 
     @Override
     public void showMes(String msg) {
@@ -169,11 +181,18 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     @Override
     public void onItemClick(int code, int type, String name) {
         if (name.equals("del")) {
-            showMes("删除");
+            //showMes("删除");
+            showConfirm(code);
+
         } else if (name.equals("edit")) {
-            showMes("编辑");
+            Intent intent = new Intent(this, IncrementAddActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(DATA_TAG, mList.get(code));
+            intent.putExtras(bundle);
+            startActivity(intent);
         } else if (name.equals("submit")) {
-            showMes("提交");
+            //showMes("提交");
+            presenter.sendData(mList.get(code));
         } else {
             Intent intent = new Intent(this, IncrementAddActivity.class);
             Bundle bundle = new Bundle();
@@ -182,5 +201,26 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
             startActivity(intent);
         }
 
+    }
+
+
+    public void showConfirm(final int code) {
+        final CustomDialog showDialog = new CustomDialog(this);
+        showDialog.setText("是否确认要删除此条信息");
+        showDialog.setNegativeText("确定");
+        showDialog.setPositiveText("取消");
+        showDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog.dismiss();
+                presenter.deleteById(mList.get(code).getEscapeBookID());
+            }
+        });
+        showDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog.dismiss();
+            }
+        });
     }
 }

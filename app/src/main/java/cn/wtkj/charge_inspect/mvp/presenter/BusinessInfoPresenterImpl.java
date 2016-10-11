@@ -1,14 +1,10 @@
 package cn.wtkj.charge_inspect.mvp.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
-import java.io.File;
 import java.util.List;
 
-import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.rest.BusinessInfoDataImpl;
-import cn.wtkj.charge_inspect.data.rest.NameRollAddDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
 

@@ -18,7 +18,6 @@ import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.presenter.MainPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
-import cn.wtkj.charge_inspect.views.Adapter.BusinessInfoListAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.MainRecyAdapter;
 import cn.wtkj.charge_inspect.views.custom.DividerItemDecoration;
 
@@ -44,7 +43,7 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
 
     @Override
     protected BusinessInfoPresenter createPresenter() {
-        return new BusinessInfoPresenterImpl();
+        return new BusinessInfoPresenterImpl(this);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laws_news);
         ButterKnife.bind(this);
-        presenter.attachContextIntent(this, this.getIntent());
+        //presenter.attachContextIntent(this, this.getIntent());
         presenter.startPresenter();
         initToolBar();
         initView();

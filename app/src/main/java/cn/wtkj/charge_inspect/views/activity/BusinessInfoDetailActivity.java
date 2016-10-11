@@ -37,7 +37,7 @@ public class BusinessInfoDetailActivity extends MvpBaseActivity<BusinessInfoPres
 
     @Override
     protected BusinessInfoPresenter createPresenter() {
-        return new BusinessInfoPresenterImpl();
+        return new BusinessInfoPresenterImpl(this);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BusinessInfoDetailActivity extends MvpBaseActivity<BusinessInfoPres
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business_info_detail);
         ButterKnife.bind(this);
-        presenter.attachContextIntent(this, this.getIntent());
+        //presenter.attachContextIntent(this, this.getIntent());
         presenter.startPresenter();
         initToolBar();
         initView();

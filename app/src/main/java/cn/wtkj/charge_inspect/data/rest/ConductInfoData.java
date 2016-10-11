@@ -12,7 +12,12 @@ import retrofit.Callback;
 /**
  * Created by lxg on 2015/11/9.
  */
-public interface NameRollAddData {
+public interface ConductInfoData {
+
+    //黑名单上传
     void nameRoll(Map<String, String> loginMap, List<String> fileNames, List<File> files,
                   final DataRequester.DataCallBack<ResponeData> callBack);
+
+    //增收上传
+    void sendIncrement(Map<String, String> map, Callback<ResponeData> callback);
 }
