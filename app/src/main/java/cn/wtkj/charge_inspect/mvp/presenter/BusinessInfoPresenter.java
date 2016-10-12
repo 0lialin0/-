@@ -12,4 +12,5 @@ import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
  */
 public interface BusinessInfoPresenter extends MvpPresenter<BusinessInfoView> {
     void startPresenter();
+    void getBusinessList();
 }

@@ -1,6 +1,7 @@
 package cn.wtkj.charge_inspect.mvp.views;
 
 
+import cn.wtkj.charge_inspect.data.bean.BusinessInfoData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
 
 /**
@@ -8,7 +9,7 @@ import cn.wtkj.charge_inspect.mvp.MvpView;
  */
 public interface BusinessInfoView extends MvpView {
 
-    void showList(String[] items, int[] imgs);
+    void showList(BusinessInfoData businessInfoData);
 
     //提示用户等待
     void showLoding();

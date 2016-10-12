@@ -2,9 +2,11 @@ package cn.wtkj.charge_inspect.views.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,11 +15,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.data.bean.BusinessInfoData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.presenter.MainPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
+import cn.wtkj.charge_inspect.views.Adapter.BusinessInfoListAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.MainRecyAdapter;
 import cn.wtkj.charge_inspect.views.custom.DividerItemDecoration;
 
@@ -52,7 +56,7 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
         setContentView(R.layout.activity_laws_news);
         ButterKnife.bind(this);
         //presenter.attachContextIntent(this, this.getIntent());
-        presenter.startPresenter();
+        presenter.getBusinessList();
         initToolBar();
         initView();
     }
@@ -66,17 +70,16 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
     public void initView() {
         ivMore.setVisibility(View.GONE);
         ivPhone.setVisibility(View.GONE);
-        /*LinearLayoutManager manager = new LinearLayoutManager(this);
-        lawsNewsList.setLayoutManager(manager);
-        lawsNewsList.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));*/
+
+
     }
 
 
     @Override
-    public void showList(String[] items, int[] imgs) {
-       // BusinessInfoListAdapter businessInfoPresenter = new BusinessInfoListAdapter(this, items);
-        //lawsNewsList.setAdapter(businessInfoPresenter);
+    public void showList(BusinessInfoData businessInfoData) {
+        BusinessInfoListAdapter adapter = new BusinessInfoListAdapter(this, businessInfoData.getMData().getInfo());
+        lawsNewsList.setLayoutManager(new LinearLayoutManager(this));
+        lawsNewsList.setAdapter(adapter);
     }
 
     @Override

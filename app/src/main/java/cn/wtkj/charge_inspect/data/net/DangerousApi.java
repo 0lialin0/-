@@ -3,6 +3,7 @@ package cn.wtkj.charge_inspect.data.net;
 import java.util.Map;
 
 
+import cn.wtkj.charge_inspect.data.bean.BusinessInfoData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
 import cn.wtkj.charge_inspect.data.bean.Version;
@@ -39,8 +40,8 @@ public interface DangerousApi {
     void getOrgan(@QueryMap Map<String, String> map,Callback<ViewOrganizationData> callback);
 
     //获取业务联系单  OK
-    //@POST("/restApi?businessId=article.articleList&USERID=admin")
-    //void getBusinessData(Callback<BusinessInfoData> callback);
+    @POST("/restApi?businessId=article.articleList&USERID=admin")
+    void getBusinessData(Callback<BusinessInfoData> callback);
 
     //增收上传  OK
     @POST("/restApi?businessId=stopLoop.stopLoopAct")

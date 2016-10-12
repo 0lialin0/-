@@ -39,28 +39,17 @@ public class BusinessInfoData {
 
         public class info {
             @SerializedName("ARTICLEID")
-            private int articleId;
+            private String articleId;
             @SerializedName("CREATEDT")
             private String createDt;
             @SerializedName("TXTTITLE")
-            private int textTitle;
-            @SerializedName("HTMLTEXT")
-            private int htmlText;
-            @SerializedName("FILENAME")
-            private int fileName;
-            @SerializedName("FILESIZE")
-            private int filesize;
-            @SerializedName("FILEEXTENSION")
-            private int fileExtension;
-            @SerializedName("URL")
-            private int url;
+            private String textTitle;
 
-
-            public int getArticleId() {
+            public String getArticleId() {
                 return articleId;
             }
 
-            public void setArticleId(int articleId) {
+            public void setArticleId(String articleId) {
                 this.articleId = articleId;
             }
 
@@ -72,52 +61,12 @@ public class BusinessInfoData {
                 this.createDt = createDt;
             }
 
-            public int getTextTitle() {
+            public String getTextTitle() {
                 return textTitle;
             }
 
-            public void setTextTitle(int textTitle) {
+            public void setTextTitle(String textTitle) {
                 this.textTitle = textTitle;
-            }
-
-            public int getHtmlText() {
-                return htmlText;
-            }
-
-            public void setHtmlText(int htmlText) {
-                this.htmlText = htmlText;
-            }
-
-            public int getFileName() {
-                return fileName;
-            }
-
-            public void setFileName(int fileName) {
-                this.fileName = fileName;
-            }
-
-            public int getFilesize() {
-                return filesize;
-            }
-
-            public void setFilesize(int filesize) {
-                this.filesize = filesize;
-            }
-
-            public int getFileExtension() {
-                return fileExtension;
-            }
-
-            public void setFileExtension(int fileExtension) {
-                this.fileExtension = fileExtension;
-            }
-
-            public int getUrl() {
-                return url;
-            }
-
-            public void setUrl(int url) {
-                this.url = url;
             }
         }
     }

@@ -10,6 +10,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.data.bean.BusinessInfoData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenterImpl;
@@ -68,7 +69,7 @@ public class BusinessInfoDetailActivity extends MvpBaseActivity<BusinessInfoPres
 
 
     @Override
-    public void showList(String[] items, int[] imgs) {
+    public void showList(BusinessInfoData businessInfoData) {
 
     }
 
