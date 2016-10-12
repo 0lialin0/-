@@ -2,7 +2,6 @@ package cn.wtkj.charge_inspect.views.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,21 +14,23 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
-import cn.wtkj.charge_inspect.data.bean.BusinessInfoData;
+import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
+import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
-import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenter;
-import cn.wtkj.charge_inspect.mvp.presenter.BusinessInfoPresenterImpl;
-import cn.wtkj.charge_inspect.mvp.presenter.MainPresenterImpl;
-import cn.wtkj.charge_inspect.mvp.views.BusinessInfoView;
-import cn.wtkj.charge_inspect.views.Adapter.BusinessInfoListAdapter;
-import cn.wtkj.charge_inspect.views.Adapter.MainRecyAdapter;
-import cn.wtkj.charge_inspect.views.custom.DividerItemDecoration;
+import cn.wtkj.charge_inspect.mvp.presenter.ArticleInfoPresenter;
+import cn.wtkj.charge_inspect.mvp.presenter.ArticleInfoPresenterImpl;
+import cn.wtkj.charge_inspect.mvp.views.ArticleInfoView;
+import cn.wtkj.charge_inspect.views.Adapter.ArticleListAdapter;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 
 /**
  * Created by ghj on 2016/9/19.
  */
-public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresenter> implements
-        BusinessInfoView, View.OnClickListener {
+public class ArticleListActivity extends MvpBaseActivity<ArticleInfoPresenter> implements
+        ArticleInfoView, View.OnClickListener,OnItemClickListener3 {
+
+
+    ArticleListData articleListData;
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -46,17 +47,17 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
     RecyclerView lawsNewsList;
 
     @Override
-    protected BusinessInfoPresenter createPresenter() {
-        return new BusinessInfoPresenterImpl(this);
+    protected ArticleInfoPresenter createPresenter() {
+        return new ArticleInfoPresenterImpl(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_laws_news);
+        setContentView(R.layout.activity_article_list);
         ButterKnife.bind(this);
         //presenter.attachContextIntent(this, this.getIntent());
-        presenter.getBusinessList();
+        presenter.getArticleList();
         initToolBar();
         initView();
     }
@@ -76,10 +77,12 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
 
 
     @Override
-    public void showList(BusinessInfoData businessInfoData) {
-        BusinessInfoListAdapter adapter = new BusinessInfoListAdapter(this, businessInfoData.getMData().getInfo());
+    public void showList(ArticleListData articleListData) {
+        this.articleListData = articleListData;
+        ArticleListAdapter adapter = new ArticleListAdapter(this, articleListData.getMData().getInfo());
         lawsNewsList.setLayoutManager(new LinearLayoutManager(this));
         lawsNewsList.setAdapter(adapter);
+        adapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -102,6 +105,11 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
 
     }
 
+    @Override
+    public void showDetail(ArticleDetail businessDetail) {
+
+    }
+
     @OnClick({R.id.iv_left})
     @Override
     public void onClick(View v) {
@@ -111,5 +119,15 @@ public class BusinessInfoListActivity extends MvpBaseActivity<BusinessInfoPresen
                 break;
 
         }
+    }
+
+    @Override
+    public void onItemClick(String name, int id) {
+        String articleId = articleListData.getMData().getInfo().get(id).getArticleId();
+
+        Intent intent = new Intent();
+        intent.setClass(this, ArticleDetailActivity.class);
+        intent.putExtra("articleId", articleId);
+        this.startActivity(intent);
     }
 }

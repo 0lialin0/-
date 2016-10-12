@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ghj on 2016/9/20.
  */
-public class BusinessInfoData {
+public class ArticleDetail {
 
     public static final int SUCCESS = 0;
     public static final String STATE_SUCCESS = "0";
@@ -19,7 +19,7 @@ public class BusinessInfoData {
 
     public class MData{
         private int state;
-        private List<info> info;
+        private info info;
 
         public int getState() {
             return state;
@@ -29,21 +29,21 @@ public class BusinessInfoData {
             this.state = state;
         }
 
-        public List<info> getInfo() {
+        public info getInfo() {
             return info;
         }
 
-        public void setInfo(List<info> info) {
+        public void setInfo(info info) {
             this.info = info;
         }
 
         public class info {
             @SerializedName("ARTICLEID")
             private String articleId;
-            @SerializedName("CREATEDT")
-            private String createDt;
-            @SerializedName("TXTTITLE")
-            private String textTitle;
+            @SerializedName("HTMLTEXT")
+            private String htmlText;
+            @SerializedName("TITLE")
+            private String title;
 
             public String getArticleId() {
                 return articleId;
@@ -53,20 +53,20 @@ public class BusinessInfoData {
                 this.articleId = articleId;
             }
 
-            public String getCreateDt() {
-                return createDt;
+            public String getHtmlText() {
+                return htmlText;
             }
 
-            public void setCreateDt(String createDt) {
-                this.createDt = createDt;
+            public void setHtmlText(String htmlText) {
+                this.htmlText = htmlText;
             }
 
-            public String getTextTitle() {
-                return textTitle;
+            public String getTitle() {
+                return title;
             }
 
-            public void setTextTitle(String textTitle) {
-                this.textTitle = textTitle;
+            public void setTitle(String title) {
+                this.title = title;
             }
         }
     }

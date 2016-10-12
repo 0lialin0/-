@@ -9,7 +9,7 @@ import cn.wtkj.charge_inspect.mvp.views.MainView;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
 import cn.wtkj.charge_inspect.views.activity.GreenRecordListActivity;
 import cn.wtkj.charge_inspect.views.activity.IncrementListActivity;
-import cn.wtkj.charge_inspect.views.activity.BusinessInfoListActivity;
+import cn.wtkj.charge_inspect.views.activity.ArticleListActivity;
 import cn.wtkj.charge_inspect.views.activity.NameRollManageActivity;
 
 
@@ -73,7 +73,7 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
                 context.startActivity(intent);
                 break;
             case lawsNews://资料
-                intent.setClass(context, BusinessInfoListActivity.class);
+                intent.setClass(context, ArticleListActivity.class);
                 context.startActivity(intent);
                 break;
         }

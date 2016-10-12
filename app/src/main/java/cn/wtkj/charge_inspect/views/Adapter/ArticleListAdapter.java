@@ -12,31 +12,44 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.wtkj.charge_inspect.R;
-import cn.wtkj.charge_inspect.data.bean.BusinessInfoData;
+import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 
 /**
  * Created by lcl on 2016/9/30.
  */
-public class BusinessInfoListAdapter  extends RecyclerView.Adapter<BusinessInfoListAdapter.ShedViewHolder> {
+public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.ShedViewHolder> {
     private Context context;
-    private List<BusinessInfoData.MData.info> businessInfoList;
-    private OnItemClickListener onItemClickListener;
+    private List<ArticleListData.MData.info> businessInfoList;
+    private OnItemClickListener3 onItemClickListener;
 
-    public BusinessInfoListAdapter(Context context, List<BusinessInfoData.MData.info> businessInfoList) {
+    public ArticleListAdapter(Context context, List<ArticleListData.MData.info> businessInfoList) {
         this.context = context;
         this.businessInfoList = businessInfoList;
     }
 
+    public void setOnItemClickListener(OnItemClickListener3 onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @Override
     public ShedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_business_info, parent, false);
-        return new BusinessInfoListAdapter.ShedViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_article_list, parent, false);
+        return new ArticleListAdapter.ShedViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ShedViewHolder holder, final int position) {
         holder.title.setText(businessInfoList.get(position).getTextTitle());
         holder.addTime.setText(businessInfoList.get(position).getCreateDt());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(businessInfoList.get(position).getTextTitle(),position);
+                }
+            }
+        });
     }
 
     @Override

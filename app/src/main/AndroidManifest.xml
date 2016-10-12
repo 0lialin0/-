@@ -72,11 +72,11 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".views.activity.BusinessInfoListActivity"
+            android:name=".views.activity.ArticleListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".views.activity.BusinessInfoDetailActivity"
+            android:name=".views.activity.ArticleDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".views.activity.TestBasicVideo"

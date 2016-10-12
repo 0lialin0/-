@@ -3,13 +3,12 @@ package cn.wtkj.charge_inspect.data.net;
 import java.util.Map;
 
 
-import cn.wtkj.charge_inspect.data.bean.BusinessInfoData;
+import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
+import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
-import cn.wtkj.charge_inspect.data.bean.Version;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import retrofit.Callback;
-import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Query;
@@ -41,7 +40,11 @@ public interface DangerousApi {
 
     //获取业务联系单  OK
     @POST("/restApi?businessId=article.articleList&USERID=admin")
-    void getBusinessData(Callback<BusinessInfoData> callback);
+    void getBusinessData(Callback<ArticleListData> callback);
+
+    //获取业务联系单详情
+    @POST("/restApi?businessId=article.articleInfo")
+    void getBusinessDetail(@Query("ARTICLEID") String articleId,Callback<ArticleDetail> callback);
 
     //增收上传  OK
     @POST("/restApi?businessId=stopLoop.stopLoopAct")
