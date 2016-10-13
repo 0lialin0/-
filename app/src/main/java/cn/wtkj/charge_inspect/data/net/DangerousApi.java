@@ -18,8 +18,8 @@ import retrofit.http.QueryMap;
 
 public interface DangerousApi {
 
-    static final String END_POINT = "http://192.162.123.39:8080";// 收费稽查测试服务地
-    //static final String END_POINT = "http://220.178.67.242:8554/appws";//收费稽查线上地址
+    //static final String END_POINT = "http://192.162.123.39:8080";// 收费稽查测试服务地
+    static final String END_POINT = "http://220.178.67.242:8554/appws";//收费稽查线上地址
 
 
     //带密码的登陆接口  OK

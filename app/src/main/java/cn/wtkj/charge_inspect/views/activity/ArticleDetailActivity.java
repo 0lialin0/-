@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,8 +47,11 @@ public class ArticleDetailActivity extends MvpBaseActivity<ArticleInfoPresenter>
     TextView addTime;
     @Bind(R.id.htmlText)
     TextView htmlText;
-    String articleId;
+    @Bind(R.id.checkAttachment)
+    TextView checkAttachment;
 
+    String articleId;
+    ArticleDetail articleDetail;
     @Override
     protected ArticleInfoPresenter createPresenter() {
         return new ArticleInfoPresenterImpl(this);
@@ -82,10 +88,17 @@ public class ArticleDetailActivity extends MvpBaseActivity<ArticleInfoPresenter>
     }
 
     @Override
-    public void showDetail(ArticleDetail businessDetail) {
-        title.setText(businessDetail.getMData().getInfo().getTitle());
-        addTime.setText(businessDetail.getMData().getInfo().getTitle());
-        htmlText.setText(Html.fromHtml(businessDetail.getMData().getInfo().getHtmlText()));
+    public void showDetail(ArticleDetail articleDetail) {
+        this.articleDetail = articleDetail;
+
+        title.setText(articleDetail.getMData().getInfo().getTitle());
+        addTime.setText(articleDetail.getMData().getInfo().getTitle());
+        htmlText.setText(Html.fromHtml(articleDetail.getMData().getInfo().getHtmlText()));
+        List<ArticleDetail.MData.info.files> files = articleDetail.getMData().getInfo().getFiles();
+
+        if (files.size() > 0) {
+            checkAttachment.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -114,6 +127,15 @@ public class ArticleDetailActivity extends MvpBaseActivity<ArticleInfoPresenter>
         switch (v.getId()) {
             case R.id.iv_left:
                 this.finish();
+                break;
+            case R.id.checkAttachment:
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("fileList", (Serializable) articleDetail.getMData().getInfo().getFiles());
+
+                Intent intent = new Intent();
+                intent.setClass(ArticleDetailActivity.this, ArticleAttachmentActivity.class);
+                intent.putExtras(mBundle);
+                ArticleDetailActivity.this.startActivity(intent);
                 break;
         }
     }

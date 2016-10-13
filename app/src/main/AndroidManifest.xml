@@ -85,6 +85,10 @@
             android:name=".views.custom.videocapture.VideoRecordActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".views.activity.ArticleAttachmentActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 
