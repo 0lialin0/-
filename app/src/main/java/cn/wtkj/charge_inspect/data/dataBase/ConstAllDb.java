@@ -16,7 +16,7 @@ import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 public class ConstAllDb {
     private SQLiteDatabase db;
     private MyDataBaseHelper dataBaseHelper;
-    private String tableName=MyDataBaseHelper.EM_CONST;
+    private String tablename=MyDataBaseHelper.EM_CONST;
 
     public ConstAllDb(Context context) {
         dataBaseHelper = new MyDataBaseHelper(context);
@@ -26,7 +26,7 @@ public class ConstAllDb {
         try {
             String sql = String
                     .format("INSERT INTO %s(code, name, type)  VALUES ('%s','%s','%s')",
-                            tableName, constAllData.getCode(),
+                            tablename, constAllData.getCode(),
                             constAllData.getName(), constAllData.getType());
 
             db = dataBaseHelper.getWritableDatabase();
@@ -44,7 +44,7 @@ public class ConstAllDb {
         if(getCount(constAllData.getCode(),constAllData.getType())>0){
             String sql = String.format(
                     "UPDATE %s SET code='%s',name='%s',type='%s'",
-                    tableName,constAllData.getCode(),constAllData.getName(),constAllData.getType());
+                    tablename,constAllData.getCode(),constAllData.getName(),constAllData.getType());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
             DatabaseManager.getInstance().closeDatabase();
@@ -56,7 +56,7 @@ public class ConstAllDb {
 
     public int getCount(int code,int type) {
         String sql = String.format("SELECT * FROM %s WHERE code = "+code+" and type ="+type+" ",
-                tableName);
+                tablename);
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
         Cursor cur = database.rawQuery(sql, null);
         int num = cur.getCount();
@@ -71,7 +71,7 @@ public class ConstAllDb {
         ConstAllData data=new ConstAllData();
         ConstAllData.MData mData=data.new MData();
         String sql= String.format("SELECT name,code,type FROM %s WHERE type = "+type+"",
-                tableName);
+                tablename);
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
         Cursor cur = database.rawQuery(sql,null);
         if (cur.moveToFirst()) {
@@ -93,7 +93,7 @@ public class ConstAllDb {
     public String getConstName(int code,int type){
         String sql = String.format("SELECT name FROM %s WHERE code = "+code+" " +
                         "AND type = "+type+"",
-                tableName);
+                tablename);
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
         Cursor cur = database.rawQuery(sql,null);
         int num = cur.getCount();

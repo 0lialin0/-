@@ -104,7 +104,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/ed_mobile"
+                            android:id="@+id/ed_factory_type"
                             style="@style/electron_ed_content"
                             android:hint="@string/please_input" />
 
@@ -214,6 +214,110 @@
                     </RelativeLayout>
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_seating"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <View style="@style/view_line" />
+
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/name_roll_seating" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/ed_seating"
+                                style="@style/electron_ed_content"
+                                android:numeric="integer" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_zhoushu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/increment_zhou_shuo" />
+
+                        <RelativeLayout
+                            android:id="@+id/rl_zhoushuo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true">
+
+                            <LinearLayout
+                                style="@style/electron_linearLayout"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/ed_zhoushou"
+                                    style="@style/electron_ed_content" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                style="@style/electron_ed_image"
+                                android:src="@drawable/right_btn" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_dunshuo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/increment_dun_shuo" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/ed_dunshuo"
+                                style="@style/electron_ed_content"
+                                android:numeric="decimal" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+
             </LinearLayout>
 
 
@@ -243,7 +347,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/ed_phone"
+                            android:id="@+id/ed_cardNo"
                             style="@style/electron_ed_content"
                             android:hint="@string/please_input" />
 
@@ -331,7 +435,9 @@
 
                         </LinearLayout>
 
-
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -351,7 +457,7 @@
 
                         <TextView
                             android:id="@+id/tv_qujian_start"
-                            style="@style/electron_ed_content" />
+                            style="@style/electron_ed_content2" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -372,7 +478,7 @@
 
                         <TextView
                             android:id="@+id/tv_qujian_end"
-                            style="@style/electron_ed_content" />
+                            style="@style/electron_ed_content2" />
 
                         <ImageView
                             android:layout_width="wrap_content"

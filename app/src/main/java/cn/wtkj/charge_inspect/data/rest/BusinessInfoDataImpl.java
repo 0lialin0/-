@@ -1,27 +1,21 @@
 package cn.wtkj.charge_inspect.data.rest;
 
 import cn.wtkj.charge_inspect.data.SeApiManager;
-import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
 import cn.wtkj.charge_inspect.data.net.DangerousApi;
-import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 import retrofit.Callback;
 
 /**
  * Created by lcl on 2016/9/30.
  */
-public class BusinessInfoDataImpl {
-
+public class BusinessInfoDataImpl implements BusinessInfoData {
     private final DangerousApi dangerousApi;
 
     public BusinessInfoDataImpl() {
         dangerousApi = SeApiManager.apiMangerAdapter();
     }
 
-    public void getBusinessData(Callback<ArticleListData> callback) {
+    @Override
+    public void getBusinessData(Callback<cn.wtkj.charge_inspect.data.bean.BusinessInfoData> callback) {
         dangerousApi.getBusinessData(callback);
-    }
-
-    public void getBusinessDetail(String articleId,Callback<ArticleDetail> callback) {
-        dangerousApi.getBusinessDetail(articleId,callback);
     }
 }

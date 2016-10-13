@@ -34,7 +34,7 @@ public class ConductInfoDataImpl implements ConductInfoData {
     @Override
     public void nameRoll(Map<String, String> mapString, List<String> fileNames, List<File> files,
                          final DataRequester.DataCallBack<ResponeData> callBack) {
-        MultipartRequester multipartRequester = new MultipartRequester(DangerousApi.END_POINT + "/restApi?businessId=pass.check",
+        MultipartRequester multipartRequester = new MultipartRequester(DangerousApi.END_POINT + "/restApi?businessId=black.blackAct",
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {

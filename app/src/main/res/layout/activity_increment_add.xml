@@ -67,16 +67,26 @@
                         style="@style/electron_tv_title"
                         android:text="@string/increment_check_unit" />
 
-                    <LinearLayout
-                        style="@style/electron_linearLayout"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_check_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                        <TextView
-                            android:id="@+id/ed_check_unit"
-                            style="@style/electron_ed_content" />
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/ed_check_unit"
+                                style="@style/electron_ed_content" />
 
+                        </LinearLayout>
+
+                        <ImageView
+                            style="@style/electron_ed_image"
+                            android:src="@drawable/right_btn" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <View style="@style/view_line" />

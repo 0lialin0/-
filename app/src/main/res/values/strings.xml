@@ -73,12 +73,13 @@
 
     <string name="name_roll_manage_title">名单管理</string>
     <string name="name_roll_manage_xiafa">下发名单查询</string>
-    <string name="name_roll_title">添加名单</string>
+    <string name="name_roll_title">添加黑名单</string>
     <string name="name_roll_color">车牌颜色</string>
     <string name="name_roll_car_color">车身颜色</string>
     <string name="name_roll_factory">厂牌型号</string>
     <string name="name_roll_car_type">车辆类别</string>
     <string name="name_roll_carx_type">车型类别</string>
+    <string name="name_roll_seating">座位数</string>
     <string name="name_roll_info">违章信息</string>
     <string name="name_roll_tongxi">通行卡号</string>
     <string name="name_roll_weizhang">违章时间</string>
@@ -95,6 +96,7 @@
     <string name="name_roll_grey_addr">通讯地址</string>
     <string name="name_roll_grey_postal">邮政编码</string>
     <string name="name_roll_grey_phone">联系电话</string>
+    <string name="name_roll_grey_mobile_phone">手机号码</string>
     <string name="name_roll_grey_info">历史违章情况</string>
 
     <string name="name_roll_yellow_title">添加黄名单</string>

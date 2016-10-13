@@ -44,8 +44,8 @@ public class IncrementListPresenterImpl extends MvpBasePresenter<IncrementListVi
     }
 
     @Override
-    public void startPresenter() {
-        List<JCEscapeBookData> list=escapeBookDb.getEscapeBook(Setting.USERID);
+    public void startPresenter(String keyword) {
+        List<JCEscapeBookData> list=escapeBookDb.getEscapeBook(Setting.USERID,keyword);
         if(list.size()>0){
             getView().setList(list);
             getView().hideLoging();
@@ -55,6 +55,8 @@ public class IncrementListPresenterImpl extends MvpBasePresenter<IncrementListVi
         }
 
     }
+
+
 
 
     @Override
@@ -87,6 +89,8 @@ public class IncrementListPresenterImpl extends MvpBasePresenter<IncrementListVi
             }
         });
     }
+
+
 
 
 }

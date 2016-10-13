@@ -1,12 +1,19 @@
 package cn.wtkj.charge_inspect.views.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +58,12 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     ImageView ivMore;
     @Bind(R.id.iv_phone)
     ImageView ivPhone;
+    @Bind(R.id.search_et_input)
+    EditText etInput;
+    @Bind(R.id.iv_search_img)
+    ImageView ivSearchImg;
+    @Bind(R.id.iv_search_del)
+    ImageView ivSearchDel;
 
     @Bind(R.id.shed_list_refresh)
     SwipeRefreshLayout shedRefresh;
@@ -61,6 +74,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     private List<JCEscapeBookData> mList;
     public static final String DATA_TAG = "DataInfo";
     private ProgressDialog progressDialog;
+    private String keyword="";
 
 
     @Override
@@ -95,9 +109,23 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
         shedRefresh.setOnRefreshListener(this);
         shedRefresh.setRefreshing(true);// 显示动画
         presenter.attachContextIntent(this);
-        presenter.startPresenter();
+        presenter.startPresenter("");
         shedRecy.setRefreshData(this);
 
+
+        etInput.addTextChangedListener(new EditChangedListener());
+        etInput.setOnClickListener(this);
+        etInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    notifyStartSearching(etInput.getText().toString());
+                }
+                return true;
+            }
+        });
+
+        ivSearchDel.setOnClickListener(this);
     }
 
     @Override
@@ -154,7 +182,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
         if (mList != null) {
             mList.clear();
         }
-        presenter.startPresenter();
+        presenter.startPresenter(keyword);
     }
 
     @Override
@@ -162,7 +190,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
         onRefresh();
     }
 
-    @OnClick({R.id.iv_left, R.id.iv_more})
+    @OnClick({R.id.iv_left, R.id.iv_more ,R.id.iv_search_del})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -174,6 +202,13 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
                 startActivity(intent);
                 this.finish();
                 break;
+            case R.id.iv_search_del:
+                etInput.setText("");
+                keyword="";
+                ivSearchDel.setVisibility(View.GONE);
+                onRefresh();
+                break;
+
         }
     }
 
@@ -222,5 +257,49 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
                 showDialog.dismiss();
             }
         });
+    }
+
+
+    /**
+     * 通知监听者 进行搜索操作
+     *
+     * @param text
+     */
+    private void notifyStartSearching(String text) {
+        //隐藏软键盘
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+        keyword=text.replaceAll(" ","");
+        if (mList != null) {
+            mList.clear();
+        }
+        presenter.startPresenter(keyword);
+
+    }
+
+    /**
+     * 输入文字改变 监听
+     */
+    private class EditChangedListener implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            if (!"".equals(charSequence.toString())) {
+                ivSearchDel.setVisibility(View.VISIBLE);
+                ivSearchImg.setVisibility(View.GONE);
+            } else {
+                ivSearchDel.setVisibility(View.GONE);
+                ivSearchImg.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
     }
 }

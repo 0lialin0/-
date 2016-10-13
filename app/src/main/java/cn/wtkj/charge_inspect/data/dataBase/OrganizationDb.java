@@ -3,7 +3,13 @@ package cn.wtkj.charge_inspect.data.dataBase;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 
 /**
@@ -69,20 +75,28 @@ public class OrganizationDb {
         return num;
     }
 
-    public String getCheckUnit(int orgId,String OrgLevel){
-        /*String sql = String.format("SELECT ShortName FROM %s WHERE OrgCode = "+orgId+" " +
-                "AND OrgLevel = '"+OrgLevel+"'",
-                tableName);*/
-        String sql = String.format("SELECT ShortName FROM %s WHERE OrgCode = 3 " +
-                        "AND OrgLevel = 'Company'",
-                tableName);
+    public List<KeyValueData> getCheckUnit(int orgId,String OrgLevel){
+        List<KeyValueData> list=new ArrayList<>();
+        String sql="";
+        if(OrgLevel.equals("Station")){
+            sql = String.format("SELECT ShortName FROM %s WHERE OrgCode='"+orgId+"' and  OrgLevel = '"+OrgLevel+"'",
+                    tableName);
+        }else{
+            sql = String.format("SELECT ShortName FROM %s ",
+                    tableName);
+        }
+
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
         Cursor cur = database.rawQuery(sql,null);
         int num = cur.getCount();
-        cur.moveToFirst();
-        String unit = cur.getString(0);
+        if (cur.moveToFirst()) {
+            for (int i = 0; i < cur.getCount(); i++) {
+                list.add(new KeyValueData("88",cur.getString(0)));
+                cur.moveToNext();
+            }
+        }
         cur.close();
         DatabaseManager.getInstance().closeDatabase();
-        return unit;
+        return list;
     }
 }

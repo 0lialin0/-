@@ -7,12 +7,17 @@ import java.io.Serializable;
  * 灰名单
  */
 public class JCVehGreyListData implements Serializable {
+
     private String VehicleID;
+    private String CardNo; //通行卡号
+    private String VepPlateNo; //车牌号
+
+
     private int VehicleTypeID;
     private int VehType;
     private String Owner;
 
-    private String VepPlateNo;
+
     private int OwnerType;
     private int VepPlateNoColor;
     private int VepColor;
@@ -45,7 +50,7 @@ public class JCVehGreyListData implements Serializable {
     private int CreateFlag;
 
     private int ID;
-    private String CardNo;
+
     private int IsDispose;
     private int DisposeOrgID;
     private String DisposeName;

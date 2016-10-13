@@ -22,7 +22,8 @@ public class BlackListDb {
         dataBaseHelper = new MyDataBaseHelper(context);
     }
 
-    public void inertBlackList(JCBlackListData data) {
+    public String inertBlackList(JCBlackListData data) {
+        String uuid="";
         try {
             String sql = String
                     .format("INSERT INTO %s(BlackListID, CardNo, VepPlateNo, VehicleTypeID," +
@@ -31,10 +32,14 @@ public class BlackListDb {
                             "PeccancyTypeName,FactoryType,  GenDT, InOrgID, InOrgName," +
                             " OutOrgID, OutOrgName,PeccancyOrgID, PeccancyOrgName," +
                             "GenCause,AxleCount, Tonnage, Seating, videoName, videoList," +
-                            "photoName, photoList,OperType,userID,AxleCountName)  " +
+                            "photoName, photoList,OperType,userID,AxleCountName," +
+                            "VehicleID,YListID,NameType,OwnerAddress,OwnerType," +
+                            "OwnerTypeName,Postalcode,TeletePhone,MobilePhone,Owner," +
+                            "PeccancyDescription,HistoryInfo)  " +
                             "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
                             "'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
-                            "'%s','%s','%s','%s','%s','%s')",
+                            "'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
+                            "'%s','%s','%s','%s')",
                             tablename,data.getBlackListID(),data.getCardNo(),data.getVepPlateNo(),
                             data.getVehicleTypeID(),data.getVehicleTypeName(),data.getVehType(),
                             data.getVehTypeName(),data.getVepColor(),data.getVepColorName(),
@@ -43,7 +48,12 @@ public class BlackListDb {
                             data.getInOrgName(),data.getOutOrgID(),data.getOutOrgName(),data.getPeccancyOrgID(),
                             data.getPeccancyOrgName(),data.getGenCause(),data.getAxleCount(),data.getTonnage(),
                             data.getSeating(),data.getVideoName(),data.getVideoList(),data.getPhotoName(),
-                            data.getPhotoList(),data.getOperType(),data.getUserID(),data.getAxleCountName());
+                            data.getPhotoList(),data.getOperType(),data.getUserID(),
+                            data.getAxleCountName(),data.getVehicleID(),data.getYListID(),
+                            data.getNameType(),data.getOwnerAddress(),data.getOwnerType(),
+                            data.getOwnerTypeName(),data.getPostalcode(),data.getTeletePhone(),
+                            data.getMobilePhone(),data.getOwner(),data.getPeccancyDescription(),
+                            data.getHistoryInfo());
 
             db = dataBaseHelper.getWritableDatabase();
             db.execSQL(sql);
@@ -51,12 +61,16 @@ public class BlackListDb {
                     "select last_insert_rowid() from JC_BlackList", null);
             cursor.moveToFirst();
             db.close();
+            uuid=data.getBlackListID();
         } catch (Exception e) {
+            uuid="";
             e.getStackTrace();
         }
+        return uuid;
     }
 
-    public void updateBlackList(JCBlackListData data) {
+    public String updateBlackList(JCBlackListData data) {
+        String uuid="";
         if (data.getOperType()==2) {
             String sql = String.format(
                     "UPDATE %s SET BlackListID='%s', CardNo='%s', VepPlateNo='%s', " +
@@ -69,7 +83,10 @@ public class BlackListDb {
                             "GenCause='%s',AxleCount='%s', Tonnage='%s', Seating='%s', " +
                             "videoName='%s', videoList='%s',photoName='%s', photoList='%s'," +
                             "OperType='%s',userID='%s'" +
-                            "AxleCountName='%s'",
+                            "AxleCountName='%s',VehicleID='%s',YListID='%s',NameType='%s'," +
+                            "OwnerAddress='%s',OwnerType='%s',OwnerTypeName='%s'," +
+                            "Postalcode='%s',TeletePhone='%s',MobilePhone='%s',Owner='%s'," +
+                            "PeccancyDescription='%s',HistoryInfo='%s'",
                     tablename,data.getBlackListID(),data.getCardNo(),data.getVepPlateNo(),
                     data.getVehicleTypeID(),data.getVehicleTypeName(),data.getVehType(),
                     data.getVehTypeName(),data.getVepColor(),data.getVepColorName(),
@@ -78,17 +95,24 @@ public class BlackListDb {
                     data.getInOrgName(),data.getOutOrgID(),data.getOutOrgName(),data.getPeccancyOrgID(),
                     data.getPeccancyOrgName(),data.getGenCause(),data.getAxleCount(),data.getTonnage(),
                     data.getSeating(),data.getVideoName(),data.getVideoList(),data.getPhotoName(),
-                    data.getPhotoList(),data.getOperType(),data.getUserID(),data.getAxleCountName());
+                    data.getPhotoList(),data.getOperType(),data.getUserID(),data.getAxleCountName(),
+                    data.getVehicleID(),data.getYListID(),
+                    data.getNameType(),data.getOwnerAddress(),data.getOwnerType(),
+                    data.getOwnerTypeName(),data.getPostalcode(),data.getTeletePhone(),
+                    data.getMobilePhone(),data.getOwner(),data.getPeccancyDescription(),
+                    data.getHistoryInfo());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
             DatabaseManager.getInstance().closeDatabase();
+            uuid=data.getBlackListID();
         } else {
-            inertBlackList(data);
+            uuid=inertBlackList(data);
         }
+        return uuid;
     }
 
     public int getCount(int id) {
-        String sql = String.format("SELECT * FROM %s WHERE EscapeBookID = "+id+"",
+        String sql = String.format("SELECT * FROM %s WHERE BlackListID = "+id+"",
                 tablename);
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
         Cursor cur = database.rawQuery(sql, null);
@@ -98,39 +122,89 @@ public class BlackListDb {
         return num;
     }
 
-    public List<JCEscapeBookData> getBlackList(String userId) {
-        ArrayList<JCEscapeBookData> list = new ArrayList<JCEscapeBookData>();
-        JCEscapeBookData data;
-        String col[] = {"EscapeBookID","ShiftName", "PeccancyTypeName", "FindDT",
-                "UnitName","OrgLevel",
-                "OprID", "OprName", "InDecisionName", "OutDecisionName", "RealityMoney",
-                "EscapeMoney","Monitor","VehPlate", "Remark", "InStationName",
-                "AxleNumber","Weight", "PeccancyTypeID"};
+    public List<JCBlackListData> getBlackList(String userId,String keyword) {
+        ArrayList<JCBlackListData> list = new ArrayList<JCBlackListData>();
+        JCBlackListData data;
+        String col[] = {"BlackListID", "CardNo", "VepPlateNo", "VehicleTypeID",
+                "VehicleTypeName", "VehType", "VehTypeName", "VepColor", "VepColorName",
+                "VepPlateNoColor","VepPlateNoColorName", "PeccancyTypeID", "PeccancyTypeName",
+                "FactoryType",  "GenDT", "InOrgID", "InOrgName", "OutOrgID", "OutOrgName",
+                "PeccancyOrgID", "PeccancyOrgName","GenCause",
+                "AxleCount", "Tonnage", "Seating", "videoName", "videoList",
+                "photoName", "photoList","OperType","userID","AxleCountName",
+                "VehicleID","YListID","NameType","OwnerAddress","OwnerType",
+                "OwnerTypeName","Postalcode","TeletePhone","MobilePhone",
+                "Owner","PeccancyDescription","HistoryInfo"};
         db = dataBaseHelper.getReadableDatabase();
-        Cursor cur = db.query(tablename, col, "userID= ?",
-                new String[]{userId}, null, null, "FindDT desc");
+        Cursor cur;
+        if(keyword.equals("")){
+            cur = db.query(tablename, col, "userID= ?",
+                    new String[]{userId}, null, null, "GenDT desc");
+        }else{
+            cur = db.query(tablename, col, "userID= ? and VepPlateNo like ?",
+                    new String[]{userId,"%"+ keyword +"%"}, null, null, "GenDT desc");
+        }
+
         if (cur.moveToFirst()) {
             for (int i = 0; i < cur.getCount(); i++) {
-                data = new JCEscapeBookData();
-                data.setEscapeBookID(cur.getString(0));
-                data.setShiftName(cur.getString(1));
-                data.setPeccancyTypeName(cur.getString(2));
-                data.setFindDT(cur.getString(3));
-                data.setUnitName(cur.getString(4));
-                data.setOrgLevel(cur.getString(5));
-                data.setOprID(cur.getString(6));
-                data.setOprName(cur.getString(7));
-                data.setInDecisionName(cur.getString(8));
-                data.setOutDecisionName(cur.getString(9));
-                data.setRealityMoney(cur.getString(10));
-                data.setEscapeMoney(cur.getString(11));
-                data.setMonitor(cur.getString(12));
-                data.setVehPlate(cur.getString(13));
-                data.setRemark(cur.getString(14));
-                data.setInStationName(cur.getString(15));
-                data.setAxleNumber(cur.getInt(16));
-                data.setWeight(cur.getString(17));
-                data.setPeccancyTypeID(cur.getInt(18));
+                data = new JCBlackListData();
+                data.setBlackListID(cur.getString(0));
+                data.setCardNo(cur.getString(1));
+                data.setVepPlateNo(cur.getString(2));
+
+                data.setVehicleTypeID(cur.getInt(3));
+                data.setVehicleTypeName(cur.getString(4));
+
+                data.setVehType(cur.getInt(5));
+                data.setVehTypeName(cur.getString(6));
+
+                data.setVepColor(cur.getInt(7));
+                data.setVepColorName(cur.getString(8));
+
+                data.setVepPlateNoColor(cur.getInt(9));
+                data.setVepPlateNoColorName(cur.getString(10));
+
+                data.setPeccancyTypeID(cur.getInt(11));
+                data.setPeccancyTypeName(cur.getString(12));
+
+                data.setFactoryType(cur.getString(13));
+                data.setGenDT(cur.getString(14));
+
+                data.setInOrgID(cur.getInt(15));
+                data.setInOrgName(cur.getString(16));
+
+                data.setOutOrgID(cur.getInt(17));
+                data.setOutOrgName(cur.getString(18));
+
+                data.setPeccancyOrgID(cur.getInt(19));
+                data.setPeccancyOrgName(cur.getString(20));
+
+                data.setGenCause(cur.getString(21));
+                data.setAxleCount(cur.getInt(22));
+                data.setTonnage(cur.getString(23));
+                data.setSeating(cur.getInt(24));
+
+                data.setVideoName(cur.getString(25));
+                data.setVideoList(cur.getString(26));
+                data.setPhotoName(cur.getString(27));
+                data.setPhotoList(cur.getString(28));
+                data.setOperType(cur.getInt(29));
+                data.setUserID(cur.getString(30));
+                data.setAxleCountName(cur.getString(31));
+
+                data.setVehicleID(cur.getString(32));
+                data.setYListID(cur.getString(33));
+                data.setNameType(cur.getInt(34));
+                data.setOwnerAddress(cur.getString(35));
+                data.setOwnerType(cur.getInt(36));
+                data.setOwnerTypeName(cur.getString(37));
+                data.setPostalcode(cur.getString(38));
+                data.setTeletePhone(cur.getString(39));
+                data.setMobilePhone(cur.getString(40));
+                data.setOwner(cur.getString(41));
+
+                data.setPeccancyDescription(cur.getString(42));
+                data.setHistoryInfo(cur.getString(43));
 
                 list.add(data);
                 cur.moveToNext();
@@ -140,6 +214,12 @@ public class BlackListDb {
         db.close();
 
         return list;
+    }
+
+    public void delData(String id) {
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        database.delete(tablename, "BlackListID=?", new String[]{id});
+        DatabaseManager.getInstance().closeDatabase();
     }
 
 }

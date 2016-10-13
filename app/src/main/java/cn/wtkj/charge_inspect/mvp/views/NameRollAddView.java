@@ -1,6 +1,9 @@
 package cn.wtkj.charge_inspect.mvp.views;
 
 
+import java.util.List;
+
+import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
 
 /**
@@ -8,7 +11,11 @@ import cn.wtkj.charge_inspect.mvp.MvpView;
  */
 public interface NameRollAddView extends MvpView {
 
+    void setDropDown();
+
     void showView();
+
+    void setView();
 
     //提示用户等待
     void showLoding();
@@ -17,7 +24,7 @@ public interface NameRollAddView extends MvpView {
     void himeDialog();
 
     //跳转到下一个页面
-    void nextView(String phone);
+    void nextView();
 
     /**
      * 显示提示信息

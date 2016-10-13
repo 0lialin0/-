@@ -13,7 +13,7 @@ import cn.wtkj.charge_inspect.mvp.views.IncrementListView;
  * Created by lxg on 2015/11/5.
  */
 public interface IncrementListPresenter extends MvpPresenter<IncrementListView> {
-    void startPresenter();
+    void startPresenter(String keyword);
     void attachContextIntent(Context context);
     void deleteById(String id);
     void sendData(JCEscapeBookData data);

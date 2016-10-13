@@ -43,9 +43,9 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
     }
 
     @Override
-    public String getOrgShortName(int orgId,String orgLevel) {
-        String unit = organizationDb.getCheckUnit(orgId,orgLevel);
-        return unit;
+    public List<KeyValueData> getOrgShortName(int orgId,String orgLevel) {
+        List<KeyValueData> list = organizationDb.getCheckUnit(orgId,orgLevel);
+        return list;
     }
 
     @Override

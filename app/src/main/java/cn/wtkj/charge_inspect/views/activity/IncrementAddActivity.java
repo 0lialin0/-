@@ -98,6 +98,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     private DropDownKeyValue downKeyValue;
     private DropDownKeyValue downKeyValue2;
+    private DropDownKeyValue downKeyValue3;
     private DropDownMenu dropDownMenu2;
     private DropDownMenu dropDownMenu3;
     private DropDownMenu dropDownMenu4;
@@ -121,7 +122,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     private ConstAllDb constAllDb;
     private String shortName;
     private int type = 1;
-    private String increment_title="添加增收";
+    private String increment_title = "添加增收";
     private String uuid;
 
     @Override
@@ -158,6 +159,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     //班次
     @Override
     public void setDropDown(List<KeyValueData> classes, List<KeyValueData> zhoushuo) {
+        //班次
         downKeyValue = new DropDownKeyValue(this, classes);
         downKeyValue.setId(1);
         downKeyValue.setOnItemClickListener(this);
@@ -165,23 +167,36 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         shiftName = classes.get(0).getValue();
         tvClasses.setText(classes.get(0).getValue());
 
+        //轴数
         downKeyValue2 = new DropDownKeyValue(this, zhoushuo);
         downKeyValue2.setId(1);
         downKeyValue2.setOnItemClickListener(this);
         axleNumberName = zhoushuo.get(0).getValue();
         axleNumber = Integer.valueOf(zhoushuo.get(0).getId());
         edZhoushou.setText(zhoushuo.get(0).getValue());
+
+        //查处单位
+        List<KeyValueData> unit = presenter.getOrgShortName(Setting.ORGID, Setting.ORGLEVEL);
+        if (unit.size() > 0) {
+            downKeyValue3 = new DropDownKeyValue(this, unit);
+            downKeyValue3.setId(1);
+            downKeyValue3.setOnItemClickListener(this);
+            shortName = unit.get(0).getValue();
+            edCheckUnit.setText(unit.get(0).getValue());
+        }
+
     }
 
     //如果是修改页面传来的数据的时候，把页面的值赋上
     @Override
     public void setView() {
-        JCEscapeBookData data = (JCEscapeBookData) getIntent().getSerializableExtra(IncrementListActivity.DATA_TAG);
+        JCEscapeBookData data = (JCEscapeBookData) getIntent().getSerializableExtra(
+                IncrementListActivity.DATA_TAG);
         showView();
         if (data != null) {
             showViewData(data);
             type = 2;
-            increment_title="修改增收";
+            increment_title = "修改增收";
             tvTitle.setText(increment_title);
         } else {
             type = 1;
@@ -218,27 +233,26 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         edDunshuo.setText(data.getWeight());
         edRemark.setText(data.getRemark());
 
-        shiftID=data.getShiftID();
-        shiftName=data.getShiftName();
-        axleNumber=data.getAxleNumber();
-        axleNumberName=data.getAxleNumberName();
-        peccancyTypeID=data.getPeccancyTypeID();
-        peccancyTypeName=data.getPeccancyTypeName();
-        inStationID=data.getInStationID();
-        inStationName=data.getInStationName();
-        inDecision=data.getInDecision();
-        inDecisionName=data.getInDecisionName();
-        outDecision=data.getOutDecision();
-        outDecisionName=data.getOutDecisionName();
-        shortName=data.getUnitName();
-        uuid=data.getEscapeBookID();
+        shiftID = data.getShiftID();
+        shiftName = data.getShiftName();
+        axleNumber = data.getAxleNumber();
+        axleNumberName = data.getAxleNumberName();
+        peccancyTypeID = data.getPeccancyTypeID();
+        peccancyTypeName = data.getPeccancyTypeName();
+        inStationID = data.getInStationID();
+        inStationName = data.getInStationName();
+        inDecision = data.getInDecision();
+        inDecisionName = data.getInDecisionName();
+        outDecision = data.getOutDecision();
+        outDecisionName = data.getOutDecisionName();
+        shortName = data.getUnitName();
+        uuid = data.getEscapeBookID();
     }
 
 
     @Override
     public void showView() {
-        shortName = presenter.getOrgShortName(Setting.ORGID, Setting.ORGLEVEL);
-        edCheckUnit.setText(shortName);
+
         tvCheckTime.setText(ResponeUtils.getTime());
 
         //1：站址, 5：车型类别, 9：堵漏增收信息,
@@ -289,7 +303,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             ConstAllData data = new ConstAllData();
             ConstAllData.MData mData = data.new MData();
             for (int i = 0; i < entranList.size(); i++) {
-                if (entranList.get(i).getCode() >= start && entranList.get(i).getCode() <= end ) {
+                if (entranList.get(i).getCode() >= start && entranList.get(i).getCode() <= end) {
                     ConstAllData.MData.info info = mData.new info();
                     info.setName(entranList.get(i).getName());
                     info.setCode(entranList.get(i).getCode());
@@ -335,7 +349,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     @OnClick({R.id.iv_left, R.id.tv_check_time, R.id.rl_classes, R.id.rl_zhoushuo,
             R.id.rl_increment_type, R.id.rl_entrance_loca,
-            R.id.rl_entrance_type, R.id.rl_exit_type, R.id.comit_button})
+            R.id.rl_entrance_type, R.id.rl_exit_type, R.id.comit_button, R.id.rl_check_unit})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -351,6 +365,9 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
                 break;
             case R.id.rl_zhoushuo:
                 downKeyValue2.setDownValue(edZhoushou, "");
+                break;
+            case R.id.rl_check_unit:
+                downKeyValue3.setDownValue(edCheckUnit, "");
                 break;
             case R.id.rl_increment_type:
                 dropDownMenu2.setDownValue(tvIncrementType, "");
@@ -431,7 +448,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         data.setAxleNumberName(axleNumberName);
         if (!edDunshuo.getText().toString().replaceAll(" ", "").equals("")) {
             data.setWeight(edDunshuo.getText().toString());
-        }else{
+        } else {
             data.setWeight("0");
         }
 
@@ -472,12 +489,14 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     }
 
 
-    //班次,吨数
+    //班次,轴数
     @Override
     public void onItemClick(String name, int id) {
         if (name.equals("早班") || name.equals("中班") || name.equals("晚班")) {
             shiftID = id;
             shiftName = name;
+        } else if (id == 88) {
+            shortName = name;
         } else {
             axleNumber = id;
             axleNumberName = name;

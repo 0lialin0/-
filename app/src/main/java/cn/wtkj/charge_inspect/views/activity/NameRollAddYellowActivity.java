@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenterImpl;
@@ -102,6 +103,11 @@ public class NameRollAddYellowActivity extends MvpBaseActivity<NameRollAddPresen
 
 
     @Override
+    public void setDropDown() {
+
+    }
+
+    @Override
     public void showView() {
         //tvWeizhangTime.setText(ResponeUtils.getTime());
 
@@ -146,6 +152,11 @@ public class NameRollAddYellowActivity extends MvpBaseActivity<NameRollAddPresen
     }
 
     @Override
+    public void setView() {
+
+    }
+
+    @Override
     public void showLoding() {
         progressDialog.setMessage("正在停止，请等待..");
         progressDialog.setCancelable(false);
@@ -158,7 +169,7 @@ public class NameRollAddYellowActivity extends MvpBaseActivity<NameRollAddPresen
     }
 
     @Override
-    public void nextView(String phone) {
+    public void nextView() {
 
     }
 
@@ -202,7 +213,7 @@ public class NameRollAddYellowActivity extends MvpBaseActivity<NameRollAddPresen
                 dropDownMenu4.setDownValue(tvCarType, "");
                 break;
             case R.id.comit_button:
-                presenter.startPresenter(files);
+                //presenter.startPresenter(files);
                 break;
         }
     }

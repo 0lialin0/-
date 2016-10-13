@@ -12,6 +12,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public static final String VIEW_ORGANIZATION = "View_Organization";
     public static final String JC_ESCAPEBOOK = "JC_EscapeBook";
     public static final String JC_BLACKLIST = "JC_BlackList";
+    public static final String PHOTOVIDEO = "PhotoVideo";
 
     public MyDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -59,15 +60,29 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                                 "%s VARCHAR(120), %s int, %s VARCHAR(120), %s int, %s VARCHAR(120),  " +
                                 "%s int, %s VARCHAR(120), %s VARCHAR(120), %s int,%s VARCHAR(120), %s int, " +
                                 "%s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120),%s VARCHAR(120), " +
-                                " %s int, %s VARCHAR(120), %s VARCHAR(120))",
+                                " %s int, %s VARCHAR(120), %s VARCHAR(120)," +
+                        " %s VARCHAR(120), %s VARCHAR(120), %s int, %s VARCHAR(120), " +
+                        "%s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), " +
+                        "%s VARCHAR(120),%s VARCHAR(1000),%s VARCHAR(1000))",
                         JC_BLACKLIST, "BlackListID", "CardNo", "VepPlateNo", "VehicleTypeID",
                         "VehicleTypeName", "VehType", "VehTypeName", "VepColor", "VepColorName",
                         "VepPlateNoColor","VepPlateNoColorName", "PeccancyTypeID", "PeccancyTypeName",
                         "FactoryType",  "GenDT", "InOrgID", "InOrgName", "OutOrgID", "OutOrgName",
                         "PeccancyOrgID", "PeccancyOrgName","GenCause",
                         "AxleCount", "Tonnage", "Seating", "videoName", "videoList",
-                        "photoName", "photoList","OperType","userID","AxleCountName");
+                        "photoName", "photoList","OperType","userID","AxleCountName",
+                        "VehicleID","YListID","NameType","OwnerAddress","OwnerType",
+                        "OwnerTypeName","Postalcode","TeletePhone","MobilePhone",
+                        "Owner","PeccancyDescription","HistoryInfo");
         db.execSQL(blacklistSql);
+
+
+        String pvSql = String
+                .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s VARCHAR(120), %s VARCHAR(220) ," +
+                        " %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220))",
+                        PHOTOVIDEO, "pvid", "proId", "videoName" ,"videoUrl" ,"photoName"
+                        ,"photoUrl" ,"creartTime");
+        db.execSQL(pvSql);
 
     }
 

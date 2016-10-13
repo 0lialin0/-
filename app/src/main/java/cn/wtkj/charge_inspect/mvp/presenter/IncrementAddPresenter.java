@@ -19,7 +19,7 @@ import cn.wtkj.charge_inspect.mvp.views.IncrementListView;
 public interface IncrementAddPresenter extends MvpPresenter<IncrementAddView> {
     void startPresenter();
     void attachContextIntent(Context context, Intent intent);
-    String getOrgShortName(int orgId,String OrgLevel);
+    List<KeyValueData> getOrgShortName(int orgId,String OrgLevel);
     List<ConstAllData.MData.info> getConstByType(int type);
     void submitData(JCEscapeBookData data);
 }

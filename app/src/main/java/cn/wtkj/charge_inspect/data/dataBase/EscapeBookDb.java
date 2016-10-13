@@ -105,7 +105,7 @@ public class EscapeBookDb {
         return num;
     }
 
-    public List<JCEscapeBookData> getEscapeBook(String userId) {
+    public List<JCEscapeBookData> getEscapeBook(String userId,String keyword) {
         ArrayList<JCEscapeBookData> list = new ArrayList<JCEscapeBookData>();
         JCEscapeBookData data;
         String col[] = {"EscapeBookID","ShiftName", "PeccancyTypeName", "FindDT",
@@ -115,8 +115,15 @@ public class EscapeBookDb {
                 "AxleNumber","Weight", "PeccancyTypeID","userID","OperType","OrgID",
                 "ShiftID","InStationID","InDecision","OutDecision","AxleNumber"};
         db = dataBaseHelper.getReadableDatabase();
-        Cursor cur = db.query(tablename, col, "userID= ?",
-                new String[]{userId}, null, null, "FindDT desc");
+        Cursor cur;
+        if(keyword.equals("")){
+            cur = db.query(tablename, col, "userID= ?",
+                    new String[]{userId}, null, null, "FindDT desc");
+        }else{
+            cur = db.query(tablename, col, "userID= ? and VehPlate like ?",
+                    new String[]{userId,"%"+ keyword +"%"}, null, null, "FindDT desc");
+        }
+
         if (cur.moveToFirst()) {
             for (int i = 0; i < cur.getCount(); i++) {
                 data = new JCEscapeBookData();
@@ -157,6 +164,7 @@ public class EscapeBookDb {
 
         return list;
     }
+
 
 
     public void delData(String id) {
