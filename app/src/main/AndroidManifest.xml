@@ -36,7 +36,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".views.activity.BusinessContentActivity"
+            android:name=".views.activity.ContactListActivity"
             android:screenOrientation="portrait" />
 
         <activity

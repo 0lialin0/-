@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ghj on 2016/9/20.
  */
-public class BusinessContentData {
+public class ContactListData {
 
     public static final int SUCCESS = 0;
     public static final String STATE_SUCCESS = "0";
@@ -38,32 +38,60 @@ public class BusinessContentData {
         }
 
         public class info {
-            @SerializedName("LISTID")
-            private int code;
-            @SerializedName("SPOTID")
-            private String name;
-            @SerializedName("ISDELETED")
-            private int type1;
+
             @SerializedName("SWITCHBOARD")
-            private int type2;
-            @SerializedName("CREATEDT")
-            private int type3;
+            private String switchBoard;
             @SerializedName("OUTSIDEPHONE")
-            private int type4;
+            private String outsidePhone;
             @SerializedName("INTERPHONE")
-            private int type5;
+            private String interPhone;
             @SerializedName("SPOTNAME")
-            private int type6;
-            @SerializedName("CREATEUSER")
-            private int type7;
-            @SerializedName("ORGID")
-            private int type8;
+            private String spotName;
             @SerializedName("ORGNAME")
-            private int type;
+            private String orgName;
 
+            public String getSwitchBoard() {
+                return switchBoard;
+            }
 
+            public void setSwitchBoard(String switchBoard) {
+                this.switchBoard = switchBoard;
+            }
+
+            public String getOutsidePhone() {
+                return outsidePhone;
+            }
+
+            public void setOutsidePhone(String outsidePhone) {
+                this.outsidePhone = outsidePhone;
+            }
+
+            public String getInterPhone() {
+                return interPhone;
+            }
+
+            public void setInterPhone(String interPhone) {
+                this.interPhone = interPhone;
+            }
+
+            public String getSpotName() {
+                return spotName;
+            }
+
+            public void setSpotName(String spotName) {
+                this.spotName = spotName;
+            }
+
+            public String getOrgName() {
+                return orgName;
+            }
+
+            public void setOrgName(String orgName) {
+                this.orgName = orgName;
+            }
         }
     }
+
 
     public String getMsg() {
         return msg;

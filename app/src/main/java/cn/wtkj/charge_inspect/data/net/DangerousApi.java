@@ -8,6 +8,7 @@ import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
 import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.ContactListData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import retrofit.Callback;
@@ -48,6 +49,9 @@ public interface DangerousApi {
     @POST("/restApi?businessId=article.articleInfo")
     void getBusinessDetail(@Query("ARTICLEID") String articleId,Callback<ArticleDetail> callback);
 
+    //获取业务联系单  OK
+    @POST("/restApi?businessId=daily.contact")
+    void getContactList(Callback<ContactListData> callback);
 
     //增收上传  OK
     @POST("/restApi?businessId=stopLoop.stopLoopAct")

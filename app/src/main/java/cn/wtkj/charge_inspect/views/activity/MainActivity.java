@@ -97,7 +97,7 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements
                 break;
             case R.id.tv_more:
                 Intent intent2 = new Intent();
-                intent2.setClass(this, BusinessContentActivity.class);
+                intent2.setClass(this, ContactListActivity.class);
                 this.startActivity(intent2);
                 break;
         }

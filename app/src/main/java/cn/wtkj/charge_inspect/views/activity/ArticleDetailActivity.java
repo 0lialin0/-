@@ -112,11 +112,6 @@ public class ArticleDetailActivity extends MvpBaseActivity<ArticleInfoPresenter>
     }
 
     @Override
-    public void nextView(String phone) {
-
-    }
-
-    @Override
     public void showMes(String msg) {
 
     }
