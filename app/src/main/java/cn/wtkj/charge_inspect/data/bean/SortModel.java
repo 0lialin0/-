@@ -2,15 +2,17 @@ package cn.wtkj.charge_inspect.data.bean;
 
 public class SortModel {
 
-	private String name;   //显示的数据
+	private ContactListData.MData.info contactData;   //显示的数据
 	private String sortLetters;  //显示数据拼音的首字母
-	
-	public String getName() {
-		return name;
+
+	public ContactListData.MData.info getContactData() {
+		return contactData;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setContactData(ContactListData.MData.info contactData) {
+		this.contactData = contactData;
 	}
+
 	public String getSortLetters() {
 		return sortLetters;
 	}

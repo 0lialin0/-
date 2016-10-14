@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -30,7 +32,7 @@ import cn.wtkj.charge_inspect.views.custom.SideBar;
 /**
  * Created by ghj on 2016/9/29.
  */
-public class ContactListActivity   extends MvpBaseActivity<ContactListPresenter> implements ContactListView,View.OnClickListener {
+public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> implements ContactListView,View.OnClickListener {
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -44,20 +46,17 @@ public class ContactListActivity   extends MvpBaseActivity<ContactListPresenter>
     ImageView ivPhone;
 
     @Bind(R.id.laws_contact_list)
-    RecyclerView lawsContactList;
-
-
+    ListView lawsContactList;
 
     private SideBar sideBar;
     private TextView dialog;
-    private SortAdapter adapter;
     /**
      * 汉字转换成拼音的类
      */
     private CharacterParser characterParser;
-    private List<SortModel> SourceDateList;
-    private  ContactListData contactListData;
-
+    private List<SortModel> sourceDateList;
+    private ContactListData contactListData;
+    private ContactListAdapter adapter;
     /**
      * 根据拼音来排列ListView里面的数据类
      */
@@ -69,16 +68,19 @@ public class ContactListActivity   extends MvpBaseActivity<ContactListPresenter>
     }
 
     @Override
-    public void startPresenter() {
-
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
         ButterKnife.bind(this);
         initToolBar();
+
+        characterParser = CharacterParser.getInstance();
+
+        pinyinComparator = new PinyinComparator();
+        sideBar = (SideBar) findViewById(R.id.sidebar);
+        dialog = (TextView) findViewById(R.id.dialog);
+        sideBar.setTextView(dialog);
+
         presenter.getContactList();
     }
 
@@ -90,10 +92,6 @@ public class ContactListActivity   extends MvpBaseActivity<ContactListPresenter>
         ivMore.setVisibility(View.GONE);
         setSupportActionBar(mToolbar);
     }
-
-
-
-
 
 
     @OnClick({R.id.iv_left})
@@ -110,84 +108,55 @@ public class ContactListActivity   extends MvpBaseActivity<ContactListPresenter>
     @Override
     public void showList(ContactListData contactListData) {
         this.contactListData = contactListData;
-        ContactListAdapter adapter = new ContactListAdapter(this, contactListData.getMData().getInfo());
-        lawsContactList.setLayoutManager(new LinearLayoutManager(this));
+
+
+        //实例化汉字转拼音类
+
+        sourceDateList = filledData(this.contactListData.getMData().getInfo());
+
+        // 根据a-z进行排序源数据
+        Collections.sort(sourceDateList, pinyinComparator);
+
+        adapter = new ContactListAdapter(this, sourceDateList);
+       // lawsContactList.setLayoutManager(new LinearLayoutManager(this));
         lawsContactList.setAdapter(adapter);
-        //adapter.setOnItemClickListener(this);
+
+        /**
+         * 为右边添加触摸事件
+         */
+        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                int position = adapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
+                    lawsContactList.setSelection(position);
+                   // lawsContactList.getLayoutManager().smoothScrollToPosition(lawsContactList, null, position);
+                   // lawsContactList.scrollToPosition(position);
+                }
+            }
+        });
     }
 
-    @Override
-    public void showLoding() {
-
-    }
-
-    @Override
-    public void hideLoging() {
-
-    }
 
     @Override
     public void showMes(String msg) {
 
     }
 
-
-    private void initView() {
-        //实例化汉字转拼音类
-        /*characterParser = CharacterParser.getInstance();
-
-        pinyinComparator = new PinyinComparator();
-
-        sideBar = (SideBar) findViewById(R.id.sidrbar);
-        dialog = (TextView) findViewById(R.id.dialog);
-        sideBar.setTextView(dialog);
-
-        //设置右侧触摸监听
-        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                //该字母首次出现的位置
-                int position = adapter.getPositionForSection(s.charAt(0));
-                if(position != -1){
-                    sortListView.setSelection(position);
-                }
-
-            }
-        });
-
-        sortListView = (ListView) findViewById(R.id.country_lvcountry);
-        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                //这里要利用adapter.getItem(position)来获取当前position所对应的对象
-                Toast.makeText(getApplication(), ((SortModel)adapter.getItem(position)).getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        SourceDateList = filledData(getResources().getStringArray(R.array.date));
-
-        // 根据a-z进行排序源数据
-        Collections.sort(SourceDateList, pinyinComparator);
-        adapter = new SortAdapter(this, SourceDateList);
-        sortListView.setAdapter(adapter);*/
-    }
-
     /**
      * 为ListView填充数据
-     * @param date
+     * @param contactListData
      * @return
      */
-    private List<SortModel> filledData(String [] date){
+    private List<SortModel> filledData( List<ContactListData.MData.info> contactListData){
         List<SortModel> mSortList = new ArrayList<SortModel>();
 
-        for(int i=0; i<date.length; i++){
+        for(int i=0; i<contactListData.size(); i++){
             SortModel sortModel = new SortModel();
-            sortModel.setName(date[i]);
+            sortModel.setContactData(contactListData.get(i));
             //汉字转换成拼音
-            String pinyin = characterParser.getSelling(date[i]);
+            String pinyin = characterParser.getSelling(contactListData.get(i).getOrgName());
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
             // 正则表达式，判断首字母是否是英文字母

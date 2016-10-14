@@ -1,64 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/y250"
     android:background="@drawable/linearlayout"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#EAEAEA">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvLetter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y40"
+            android:layout_marginLeft="@dimen/x44"
+            android:text="A" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x44"
+        android:layout_marginRight="@dimen/x44"
+        android:layout_marginTop="@dimen/y15">
+        <TextView
+            android:id="@+id/orgName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x44"
-            android:layout_marginRight="@dimen/x44"
-            android:layout_marginTop="@dimen/y15">
-            <TextView
-                android:id="@+id/orgName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/x28"
-                android:textColor="#505050"
-                android:text="蜀山区" />
+            android:textSize="@dimen/x28"
+            android:textColor="#505050"
+            android:text="蜀山区" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/x28"
-                android:textColor="#505050"
-                android:text="-" />
-            <TextView
-                android:id="@+id/spotName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/x28"
-                android:textColor="#505050"
-                android:text="叶集管理所" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x44"
-            android:layout_marginTop="@dimen/y12"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:textColor="#949494"
-                android:text="外线："
-                android:textSize="@dimen/x24" />
-            <TextView
-                android:id="@+id/outsidePhone"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:textColor="#949494"
-                android:text="外线："
-                android:textSize="@dimen/x24" />
-        </LinearLayout>
+            android:textSize="@dimen/x28"
+            android:textColor="#505050"
+            android:text="-" />
+        <TextView
+            android:id="@+id/spotName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/x28"
+            android:textColor="#505050"
+            android:text="叶集管理所" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x44"
+        android:layout_marginTop="@dimen/y12"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="#949494"
+            android:text="外线："
+            android:textSize="@dimen/x24" />
+        <TextView
+            android:id="@+id/outsidePhone"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="#949494"
+            android:text="外线："
+            android:textSize="@dimen/x24" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -90,6 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/x44"
         android:layout_marginTop="@dimen/y12"
+        android:layout_marginBottom="@dimen/y12"
         android:orientation="horizontal">
         <TextView
             android:layout_gravity="right"
