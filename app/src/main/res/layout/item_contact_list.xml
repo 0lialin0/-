@@ -147,8 +147,8 @@
         </LinearLayout>
         <ImageView
             android:id="@+id/call_contact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
             android:background="@drawable/icon_tel"
             android:layout_gravity="right"
             android:layout_alignParentRight="true"
