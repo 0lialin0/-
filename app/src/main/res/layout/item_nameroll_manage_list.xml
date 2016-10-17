@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/y15"
     android:background="@drawable/corners_house_bg"
     android:clickable="false"
     android:orientation="vertical">
@@ -26,7 +27,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/corners_img_bg"
                 android:scaleType="fitXY"
-                android:src="@drawable/green_default_img"  />
+                android:src="@drawable/green_default_img" />
 
 
         </LinearLayout>

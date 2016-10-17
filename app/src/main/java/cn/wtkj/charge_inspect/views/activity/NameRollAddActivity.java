@@ -26,6 +26,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenterImpl;
@@ -37,6 +38,7 @@ import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 import cn.wtkj.charge_inspect.views.custom.DateTimePickerDialog;
 import cn.wtkj.charge_inspect.views.custom.DropDownKeyValue;
 import cn.wtkj.charge_inspect.views.custom.DropDownMenu;
+import cn.wtkj.charge_inspect.views.custom.DropDownOrgMenu;
 import cn.wtkj.charge_inspect.views.custom.MyPhotos;
 import cn.wtkj.charge_inspect.views.custom.PhotoAdapter;
 
@@ -110,7 +112,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
     private int axleCount;
     private String axleCountName;
-    private String shortName;
     private JCBlackListData data;
     private int type = 1;
     private String uuid;
@@ -129,6 +130,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
     private int peccancyTypeID; //违章类型ID
     private String peccancyTypeName; //违章类型
+
+    private int peccancyOrgID; //违章地点ID
+    private String peccancyOrgName; //违章地点
 
     private int inOrgID; //始行驶区间ID
     private String inOrgName; //始行驶区间
@@ -149,6 +153,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     private DropDownMenu dropDownMenu7;
     private DropDownKeyValue downKeyValue;
     private DropDownKeyValue downKeyValue2;
+    private DropDownOrgMenu dropDownOrgMenu;
 
 
     @Override
@@ -211,15 +216,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         axleCount = Integer.valueOf(zhoushuo.get(0).getId());
         edZhoushou.setText(zhoushuo.get(0).getValue());
 
-        //违章地点===(查处单位)
-        List<KeyValueData> unit = presenter.getOrgShortName(Setting.ORGID, Setting.ORGLEVEL);
-        if (unit.size() > 0) {
-            downKeyValue2 = new DropDownKeyValue(this, unit);
-            downKeyValue2.setId(1);
-            downKeyValue2.setOnItemClickListener(this);
-            shortName = unit.get(0).getValue();
-            tvWeizhangAddr.setText(unit.get(0).getValue());
-        }
     }
 
     @Override
@@ -278,6 +274,19 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             tvWeizhangType.setText(weiList.get(0).getName());
         }
 
+
+        //违章地点
+        List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
+        if (infos.size() > 0) {
+            dropDownOrgMenu = new DropDownOrgMenu(this, infos);
+            dropDownOrgMenu.setId(infos.get(0).getOrgCode());
+            dropDownOrgMenu.setOnItemClickListener(this);
+            peccancyOrgID = infos.get(0).getOrgCode();
+            peccancyOrgName = infos.get(0).getShortName();
+            tvWeizhangAddr.setText(infos.get(0).getShortName());
+        }
+
+
         //行驶区间--开始
         List<ConstAllData.MData.info> qujianList = presenter.getConstByType(1);
         dropDownMenu6 = new DropDownMenu(this, qujianList);
@@ -306,6 +315,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             ivPhone.setVisibility(View.VISIBLE);
             ivMore.setVisibility(View.VISIBLE);
         }
+
         edCarNum.setText(data.getVepPlateNo());
         vepPlateNoColor = data.getVepPlateNoColor();
         vepPlateNoColorName = data.getVepPlateNoColorName();
@@ -316,6 +326,12 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         tvCarBodyColor.setText(data.getVepColorName());
 
         vehType = data.getVehType();
+        if (vehType == 11 || vehType == 12 || vehType == 13 || vehType == 14 || vehType == 15) {
+            llZhoushu.setVisibility(View.VISIBLE);
+            llDunshuo.setVisibility(View.VISIBLE);
+            llSeating.setVisibility(View.GONE);
+            state = false;
+        }
         vehTypeName = data.getVehTypeName();
         tvVehType.setText(data.getVehTypeName());
 
@@ -339,8 +355,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         axleCount = data.getAxleCount();
         edZhoushou.setText(data.getAxleCountName());
 
-        shortName = data.getPeccancyTypeName();
-        tvWeizhangAddr.setText(data.getPeccancyTypeName());
+        peccancyOrgID = data.getPeccancyOrgID();
+        peccancyOrgName = data.getPeccancyOrgName();
+        tvWeizhangAddr.setText(data.getPeccancyOrgName());
 
         edFactoryType.setText(data.getFactoryType());
         edSeating.setText(data.getSeating() + "");
@@ -348,6 +365,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         edCardNo.setText(data.getCardNo());
         tvWeizhangTime.setText(data.getGenDT());
         edRemark.setText(data.getGenCause());
+        uuid = data.getBlackListID();
     }
 
     @Override
@@ -428,7 +446,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 downKeyValue.setDownValue(edZhoushou, "");
                 break;
             case R.id.rl_weizhang_addr:
-                downKeyValue2.setDownValue(tvWeizhangAddr, "");
+                dropDownOrgMenu.setDownValue(tvWeizhangAddr, "");
                 break;
 
             case R.id.comit_button:
@@ -457,7 +475,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             uuid = UUID.randomUUID().toString();
         }
         data.setBlackListID(uuid);
-        data.setPeccancyOrgName(shortName);
+        data.setVehicleID("");
+        data.setYListID("");
+        data.setPeccancyOrgName(peccancyOrgName);
         data.setUserID(Setting.USERID);
         data.setOperType(type);//1：新增 2：修改
 
@@ -475,6 +495,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         data.setVepPlateNoColorName(vepPlateNoColorName);
         data.setPeccancyTypeID(peccancyTypeID);
         data.setPeccancyTypeName(peccancyTypeName);
+
+        data.setPeccancyOrgID(peccancyOrgID);
+        data.setPeccancyOrgName(peccancyOrgName);
 
         data.setInOrgID(inOrgID);
         data.setInOrgName(inOrgName);
@@ -555,6 +578,10 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 inOrgID = code;
                 inOrgName = name;
                 break;
+            case 111://违章地点
+                peccancyOrgID = code;
+                peccancyOrgName = name;
+                break;
 
         }
     }
@@ -562,12 +589,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     //轴数
     @Override
     public void onItemClick(String name, int id) {
-        if (id == 88) {
-            shortName = name;
-        } else {
-            axleCount = id;
-            axleCountName = name;
-        }
+        axleCount = id;
+        axleCountName = name;
 
     }
 }

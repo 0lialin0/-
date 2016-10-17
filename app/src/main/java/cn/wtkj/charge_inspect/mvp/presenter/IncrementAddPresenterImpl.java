@@ -9,6 +9,7 @@ import java.util.List;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.dataBase.EscapeBookDb;
 import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
@@ -43,8 +44,8 @@ public class IncrementAddPresenterImpl extends MvpBasePresenter<IncrementAddView
     }
 
     @Override
-    public List<KeyValueData> getOrgShortName(int orgId,String orgLevel) {
-        List<KeyValueData> list = organizationDb.getCheckUnit(orgId,orgLevel);
+    public List<ViewOrganizationData.MData.info> getOrg(int orgId, String orgLevel) {
+        List<ViewOrganizationData.MData.info> list = organizationDb.getCheckUnit(orgId,orgLevel);
         return list;
     }
 

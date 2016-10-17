@@ -70,9 +70,9 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     }
 
     @Override
-    public void deleteById(String id) {
-        listDb.delData(id);
-        photoVideoDb.delData(id);
+    public void deleteById(String id,int type) {
+        listDb.delData(id,type);
+        photoVideoDb.delData(id,type);
         getView().nextView();
     }
 

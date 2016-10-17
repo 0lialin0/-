@@ -154,6 +154,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     public void nextView() {
         //this.finish();
         onRefresh();
+        adapter.notifyDataSetChanged();
     }
 
 

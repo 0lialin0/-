@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.wtkj.charge_inspect.data.SeApiManager;
+import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.net.DangerousApi;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.MultipartRequester;
@@ -56,5 +57,11 @@ public class ConductInfoDataImpl implements ConductInfoData {
     @Override
     public void sendIncrement(Map<String, String> map, Callback<ResponeData> callback) {
         dangerousApi.sendIncrement(map,callback);
+    }
+
+    //下发名单查询
+    @Override
+    public void selNameXiafa(Map<String, String> map, Callback<NameRollXiafaData> callback) {
+        dangerousApi.selNameXiafa(map,callback);
     }
 }

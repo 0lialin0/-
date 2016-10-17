@@ -223,7 +223,13 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
         } else if (name.equals("del")) {
             showConfirm(code);
         } else if (name.equals("edit")) {
-            intent = new Intent(this, NameRollAddActivity.class);
+            if (mList.get(code).getNameType() == 0) {
+                intent = new Intent(this, NameRollAddActivity.class);
+            } else if (mList.get(code).getNameType() == 1) {
+                intent = new Intent(this, NameRollAddGreyActivity.class);
+            } else {
+                intent = new Intent(this, NameRollAddYellowActivity.class);
+            }
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
             intent.putExtras(bundle);
@@ -252,7 +258,13 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             @Override
             public void onClick(View view) {
                 showDialog.dismiss();
-                presenter.deleteById(mList.get(code).getBlackListID());
+                if (mList.get(code).getNameType() == 0) {
+                    presenter.deleteById(mList.get(code).getBlackListID(), mList.get(code).getNameType());
+                } else if (mList.get(code).getNameType() == 1) {
+                    presenter.deleteById(mList.get(code).getVehicleID(), mList.get(code).getNameType());
+                } else {
+                    presenter.deleteById(mList.get(code).getYListID(), mList.get(code).getNameType());
+                }
             }
         });
         showDialog.setOnPositiveListener(new View.OnClickListener() {

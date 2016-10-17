@@ -49,7 +49,8 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                         "IsDeleted", "LastOprUser", "LastOprDT", "CreateUserID", "CreateDT", "CreateFlag",
                         "InStationID", "AxleNumber", "Weight", "MoneyBefore", "MoneyAfter",
                         "IsChecked", "OrgLevel","OperType","userID","ShiftName","PeccancyTypeName",
-                        "UnitName","InDecisionName","OutDecisionName","InStationName","AxleNumberName");
+                        "UnitName","InDecisionName","OutDecisionName","InStationName",
+                        "AxleNumberName");
         db.execSQL(escapebookSql);
 
 
@@ -78,9 +79,11 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
 
         String pvSql = String
-                .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s VARCHAR(120), %s VARCHAR(220) ," +
+                .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s VARCHAR(120), %s VARCHAR(120)," +
+                        " %s VARCHAR(120), %s int, %s VARCHAR(220) ," +
                         " %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220))",
-                        PHOTOVIDEO, "pvid", "proId", "videoName" ,"videoUrl" ,"photoName"
+                        PHOTOVIDEO, "pvid", "BlackListID","VehicleID","YListID","NameType",
+                        "videoName" ,"videoUrl" ,"photoName"
                         ,"photoUrl" ,"creartTime");
         db.execSQL(pvSql);
 

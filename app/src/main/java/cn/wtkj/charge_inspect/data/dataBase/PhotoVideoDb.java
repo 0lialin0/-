@@ -26,10 +26,12 @@ public class PhotoVideoDb {
     public void insertPv(PhotoVideoData data) {
         try {
             String sql = String
-                    .format("INSERT INTO %s(proId, videoName ,videoUrl ," +
-                                    "photoName,photoUrl ,creartTime)  VALUES ('%s','%s','%s','%s','%s','%s')",
+                    .format("INSERT INTO %s(BlackListID,VehicleID,YListID, NameType, " +
+                                    "videoName ,videoUrl  photoName,photoUrl ,creartTime) " +
+                                    " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
                             tablename,
-                            data.getProId(), data.getVideoName(), data.getVideoUrl(),
+                            data.getBlackListID(), data.getVehicleID(), data.getYListID(),
+                            data.getNameType(), data.getVideoName(), data.getVideoUrl(),
                             data.getPhotoName(), data.getPhotoUrl(), data.getCreartTime());
 
             db = dataBaseHelper.getWritableDatabase();
@@ -44,11 +46,21 @@ public class PhotoVideoDb {
     }
 
     public void updatePv(PhotoVideoData data) {
-        if (getCount(data.getProId()) > 0) {
+        String uuid = "";
+        if (data.getNameType() == 0) {
+            uuid = data.getBlackListID();
+        } else if (data.getNameType() == 1) {
+            uuid = data.getVehicleID();
+        } else if (data.getNameType() == 2) {
+            uuid = data.getYListID();
+        }
+        if (getCount(uuid,data.getNameType()) > 0) {
             String sql = String.format(
-                    "UPDATE %s SET proId='%s', videoName='%s' ,videoUrl='%s' ," +
+                    "UPDATE %s SET BlackListID='%s',VehicleID='%s',YListID='%s', " +
+                            "NameType='%s', videoName='%s' ,videoUrl='%s' ," +
                             "photoName='%s',photoUrl='%s' ,creartTime='%s'",
-                    tablename, data.getProId(), data.getVideoName(), data.getVideoUrl(),
+                    tablename, data.getBlackListID(), data.getVehicleID(), data.getYListID(),
+                    data.getNameType(), data.getVideoName(), data.getVideoUrl(),
                     data.getPhotoName(), data.getPhotoUrl(), data.getCreartTime());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
@@ -58,9 +70,19 @@ public class PhotoVideoDb {
         }
     }
 
-    public int getCount(String uuid) {
-        String sql = String.format("SELECT * FROM %s WHERE proId = '" + uuid + "' ",
+    public int getCount(String uuid,int type) {
+        String sql= String.format("SELECT * FROM %s WHERE BlackListID = '" + uuid + "' ",
                 tablename);
+        if(type==0){
+            sql = String.format("SELECT * FROM %s WHERE BlackListID = '" + uuid + "' ",
+                    tablename);
+        }else if(type==1){
+            sql = String.format("SELECT * FROM %s WHERE VehicleID = '" + uuid + "' ",
+                    tablename);
+        }else if(type==2){
+            sql = String.format("SELECT * FROM %s WHERE YListID = '" + uuid + "' ",
+                    tablename);
+        }
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
         Cursor cur = database.rawQuery(sql, null);
         int num = cur.getCount();
@@ -72,7 +94,8 @@ public class PhotoVideoDb {
     public List<PhotoVideoData> getPv(String uuid) {
         List<PhotoVideoData> list = new ArrayList<>();
         PhotoVideoData data;
-        String col[] = {"pvid", "proId", "videoName", "videoUrl", "photoName"
+        String col[] = {"pvid", "BlackListID","VehicleID","YListID","NameType",
+                "videoName", "videoUrl", "photoName"
                 , "photoUrl", "creartTime"};
         db = dataBaseHelper.getReadableDatabase();
         Cursor cur;
@@ -82,12 +105,15 @@ public class PhotoVideoDb {
             for (int i = 0; i < cur.getCount(); i++) {
                 data = new PhotoVideoData();
                 data.setPvid(cur.getInt(0));
-                data.setProId(cur.getString(1));
-                data.setVideoName(cur.getString(2));
-                data.setVideoUrl(cur.getString(3));
-                data.setPhotoName(cur.getString(4));
-                data.setPhotoUrl(cur.getString(5));
-                data.setCreartTime(cur.getString(6));
+                data.setBlackListID(cur.getString(1));
+                data.setVehicleID(cur.getString(2));
+                data.setYListID(cur.getString(3));
+                data.setNameType(cur.getInt(4));
+                data.setVideoName(cur.getString(5));
+                data.setVideoUrl(cur.getString(6));
+                data.setPhotoName(cur.getString(7));
+                data.setPhotoUrl(cur.getString(8));
+                data.setCreartTime(cur.getString(9));
                 list.add(data);
                 cur.moveToNext();
             }
@@ -97,9 +123,20 @@ public class PhotoVideoDb {
         return list;
     }
 
-    public void delData(String id) {
-        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
-        database.delete(tablename, "proId=?", new String[]{id});
-        DatabaseManager.getInstance().closeDatabase();
+    public void delData(String id,int type) {
+        if(type==0){
+            SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+            database.delete(tablename, "BlackListID=?", new String[]{id});
+            DatabaseManager.getInstance().closeDatabase();
+        }else if(type==1){
+            SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+            database.delete(tablename, "VehicleID=?", new String[]{id});
+            DatabaseManager.getInstance().closeDatabase();
+        }else if(type==2){
+            SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+            database.delete(tablename, "YListID=?", new String[]{id});
+            DatabaseManager.getInstance().closeDatabase();
+        }
+
     }
 }

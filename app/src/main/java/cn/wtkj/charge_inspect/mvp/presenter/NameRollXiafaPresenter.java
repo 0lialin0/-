@@ -11,6 +11,6 @@ import cn.wtkj.charge_inspect.mvp.views.NameRollXiafaView;
  * Created by lxg on 2015/11/5.
  */
 public interface NameRollXiafaPresenter extends MvpPresenter<NameRollXiafaView> {
-    void startPresenter();
+    void startPresenter(String keyword);
     void attachContextIntent(Context context);
 }

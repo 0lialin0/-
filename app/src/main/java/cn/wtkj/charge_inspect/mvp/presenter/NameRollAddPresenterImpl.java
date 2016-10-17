@@ -12,6 +12,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
+import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.data.dataBase.BlackListDb;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
@@ -30,7 +31,6 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         NameRollAddPresenter {
 
 
-
     private Context context;
     List<File> files;
     List<String> fileName;
@@ -43,11 +43,11 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
     public NameRollAddPresenterImpl(Context context) {
         this.context = context;
-        nameRollAddData=new ConductInfoDataImpl(context);
+        nameRollAddData = new ConductInfoDataImpl(context);
         constAllDb = new ConstAllDb(context);
-        organizationDb=new OrganizationDb(context);
-        blackListDb=new BlackListDb(context);
-        photoVideoDb=new PhotoVideoDb(context);
+        organizationDb = new OrganizationDb(context);
+        blackListDb = new BlackListDb(context);
+        photoVideoDb = new PhotoVideoDb(context);
     }
 
     @Override
@@ -55,8 +55,10 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
         if (isNumber) {
             getView().showLoding();
-            String uuid=blackListDb.updateBlackList(data);
-            insertPv(fileList,uuid);
+            String uuid = blackListDb.updateBlackList(data);
+            if (uuid!="" && fileList.size()>0) {
+                insertPv(fileList, uuid, data.getNameType());
+            }
             getView().himeDialog();
             getView().nextView();
         }
@@ -64,7 +66,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
     }
 
-    public void insertPv(List<File> fileList,String uuid){
+    public void insertPv(List<File> fileList, String uuid, int type) {
         PhotoVideoData data;
         int fileIndex = 0;
         files = new ArrayList<>();
@@ -72,35 +74,42 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         for (int i = 0; i < fileList.size(); i++) {
             File file = fileList.get(i);
             if (file.exists()) {
-                data=new PhotoVideoData();
+                data = new PhotoVideoData();
                 data.setPhotoName(fileList.get(i).getName());
-                data.setProId(uuid);
+                if (type == 0) {
+                    data.setBlackListID(uuid);
+                } else if (type == 1) {
+                    data.setVehicleID(uuid);
+                } else if (type == 2) {
+                    data.setYListID(uuid);
+                }
                 data.setPhotoUrl(fileList.get(i).getPath());
                 photoVideoDb.updatePv(data);
             }
         }
     }
+
     @Override
-    public List<KeyValueData>  setDropDown() {
-        List<KeyValueData> zhoushuo=new ArrayList<>();
-        zhoushuo.add(new KeyValueData("2","2轴"));
-        zhoushuo.add(new KeyValueData("3","3轴"));
-        zhoushuo.add(new KeyValueData("4","4轴"));
-        zhoushuo.add(new KeyValueData("5","5轴"));
-        zhoushuo.add(new KeyValueData("6","6轴"));
-        zhoushuo.add(new KeyValueData("7","7轴"));
+    public List<KeyValueData> setDropDown() {
+        List<KeyValueData> zhoushuo = new ArrayList<>();
+        zhoushuo.add(new KeyValueData("2", "2轴"));
+        zhoushuo.add(new KeyValueData("3", "3轴"));
+        zhoushuo.add(new KeyValueData("4", "4轴"));
+        zhoushuo.add(new KeyValueData("5", "5轴"));
+        zhoushuo.add(new KeyValueData("6", "6轴"));
+        zhoushuo.add(new KeyValueData("7", "7轴"));
         return zhoushuo;
     }
 
     @Override
-    public List<KeyValueData> getOrgShortName(int orgId, String orgLevel) {
-        List<KeyValueData> list = organizationDb.getCheckUnit(orgId,orgLevel);
+    public List<ViewOrganizationData.MData.info> getOrg(int orgId, String orgLevel) {
+        List<ViewOrganizationData.MData.info> list = organizationDb.getCheckUnit(orgId, orgLevel);
         return list;
     }
 
     @Override
     public List<ConstAllData.MData.info> getConstByType(int type) {
-        List<ConstAllData.MData.info> list_type=constAllDb.getConstList(type);
+        List<ConstAllData.MData.info> list_type = constAllDb.getConstList(type);
         return list_type;
     }
 

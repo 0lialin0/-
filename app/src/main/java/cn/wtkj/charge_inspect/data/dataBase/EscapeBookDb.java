@@ -113,7 +113,7 @@ public class EscapeBookDb {
                 "OprID", "OprName", "InDecisionName", "OutDecisionName", "RealityMoney",
                 "EscapeMoney","Monitor","VehPlate", "Remark", "InStationName",
                 "AxleNumber","Weight", "PeccancyTypeID","userID","OperType","OrgID",
-                "ShiftID","InStationID","InDecision","OutDecision","AxleNumber"};
+                "ShiftID","InStationID","InDecision","OutDecision","AxleNumber","AxleNumberName"};
         db = dataBaseHelper.getReadableDatabase();
         Cursor cur;
         if(keyword.equals("")){
@@ -154,6 +154,7 @@ public class EscapeBookDb {
                 data.setInDecision(cur.getInt(24));
                 data.setOutDecision(cur.getInt(25));
                 data.setAxleNumber(cur.getInt(26));
+                data.setAxleNumberName(cur.getString(27));
 
                 list.add(data);
                 cur.moveToNext();

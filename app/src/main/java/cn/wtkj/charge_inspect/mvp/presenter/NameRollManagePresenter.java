@@ -15,6 +15,6 @@ import cn.wtkj.charge_inspect.mvp.views.NameRollManageView;
 public interface NameRollManagePresenter extends MvpPresenter<NameRollManageView> {
     void startPresenter(String keyword);
     void attachContextIntent(Context context);
-    void deleteById(String id);
+    void deleteById(String id,int type);
     void sendData(JCBlackListData data);
 }

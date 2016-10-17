@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.ResponeData;
 import retrofit.Callback;
@@ -20,4 +21,7 @@ public interface ConductInfoData {
 
     //增收上传
     void sendIncrement(Map<String, String> map, Callback<ResponeData> callback);
+
+    //下发名单查询
+    void selNameXiafa(Map<String, String> map, Callback<NameRollXiafaData> callback);
 }

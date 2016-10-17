@@ -661,6 +661,7 @@
 
                 <RelativeLayout
                     style="@style/electron_outer_linearLayout"
+                    android:layout_height="@dimen/y200"
                     android:orientation="horizontal">
 
                     <TextView
@@ -674,8 +675,12 @@
 
                         <EditText
                             android:id="@+id/ed_grey_history_info"
-                            style="@style/electron_ed_content"
-                            android:hint="@string/please_input" />
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y200"
+                            android:layout_gravity="left"
+                            android:gravity="left"
+                            android:hint="@string/please_input"
+                            android:textSize="@dimen/x28" />
 
                     </LinearLayout>
 

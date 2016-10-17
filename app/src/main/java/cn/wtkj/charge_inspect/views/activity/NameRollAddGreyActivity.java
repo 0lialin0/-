@@ -25,6 +25,7 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenterImpl;
@@ -36,6 +37,7 @@ import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 import cn.wtkj.charge_inspect.views.custom.DateTimePickerDialog;
 import cn.wtkj.charge_inspect.views.custom.DropDownKeyValue;
 import cn.wtkj.charge_inspect.views.custom.DropDownMenu;
+import cn.wtkj.charge_inspect.views.custom.DropDownOrgMenu;
 import cn.wtkj.charge_inspect.views.custom.MyPhotos;
 
 import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
@@ -120,7 +122,6 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
 
     private int axleCount;
     private String axleCountName;
-    private String shortName;
     private JCBlackListData data;
     private int type = 1;
     private String uuid;
@@ -143,6 +144,8 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
     private int ownerType; //所有者类型ID
     private String ownerTypeName; //所有者类型
 
+    private int peccancyOrgID; //违章地点ID
+    private String peccancyOrgName; //违章地点
 
     private String name_title = "添加灰名单";
 
@@ -155,6 +158,7 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
     private DropDownKeyValue downKeyValue;
     private DropDownKeyValue downKeyValue2;
     private DropDownKeyValue downKeyValue3;
+    private DropDownOrgMenu dropDownOrgMenu;
 
     @Override
     protected NameRollAddPresenter createPresenter() {
@@ -216,15 +220,6 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         axleCount = Integer.valueOf(zhoushuo.get(0).getId());
         edZhoushou.setText(zhoushuo.get(0).getValue());
 
-        //违章地点===(查处单位)
-        List<KeyValueData> unit = presenter.getOrgShortName(Setting.ORGID, Setting.ORGLEVEL);
-        if (unit.size() > 0) {
-            downKeyValue2 = new DropDownKeyValue(this, unit);
-            downKeyValue2.setId(1);
-            downKeyValue2.setOnItemClickListener(this);
-            shortName = unit.get(0).getValue();
-            tvWeizhangAddr.setText(unit.get(0).getValue());
-        }
 
         //所有者类型
         List<KeyValueData> owerType = new ArrayList<>();
@@ -294,6 +289,17 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
             peccancyTypeName = weiList.get(0).getName();
             tvWeizhangType.setText(weiList.get(0).getName());
         }
+
+        //违章地点
+        List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
+        if (infos.size() > 0) {
+            dropDownOrgMenu = new DropDownOrgMenu(this, infos);
+            dropDownOrgMenu.setId(infos.get(0).getOrgCode());
+            dropDownOrgMenu.setOnItemClickListener(this);
+            peccancyOrgID = infos.get(0).getOrgCode();
+            peccancyOrgName = infos.get(0).getShortName();
+            tvWeizhangAddr.setText(infos.get(0).getShortName());
+        }
     }
 
 
@@ -313,6 +319,12 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         tvCarBodyColor.setText(data.getVepColorName());
 
         vehType = data.getVehType();
+        if (vehType == 11 || vehType == 12 || vehType == 13 || vehType == 14 || vehType == 15) {
+            llZhoushu.setVisibility(View.VISIBLE);
+            llDunshuo.setVisibility(View.VISIBLE);
+            llSeating.setVisibility(View.GONE);
+            state = false;
+        }
         vehTypeName = data.getVehTypeName();
         tvVehType.setText(data.getVehTypeName());
 
@@ -328,8 +340,9 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         axleCount = data.getAxleCount();
         edZhoushou.setText(data.getAxleCountName());
 
-        shortName = data.getPeccancyTypeName();
-        tvWeizhangAddr.setText(data.getPeccancyTypeName());
+        peccancyOrgID = data.getPeccancyOrgID();
+        peccancyOrgName = data.getPeccancyOrgName();
+        tvWeizhangAddr.setText(data.getPeccancyOrgName());
 
         edFactoryType.setText(data.getFactoryType());
         edSeating.setText(data.getSeating() + "");
@@ -349,6 +362,7 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         edGreyPhone.setText(data.getTeletePhone());
         edGreyMobilePhone.setText(data.getMobilePhone());
         edGreyHistoryInfo.setText(data.getHistoryInfo());
+        uuid = data.getVehicleID();
     }
 
 
@@ -425,7 +439,7 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
                 downKeyValue.setDownValue(edZhoushou, "");
                 break;
             case R.id.rl_weizhang_addr:
-                downKeyValue2.setDownValue(tvWeizhangAddr, "");
+                dropDownOrgMenu.setDownValue(tvWeizhangAddr, "");
                 break;
             case R.id.rl_owner_type:
                 downKeyValue3.setDownValue(tvOwnerType, "");
@@ -453,8 +467,10 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         if (type == 1) {
             uuid = UUID.randomUUID().toString();
         }
-        data.setBlackListID(uuid);
-        data.setPeccancyOrgName(shortName);
+        data.setVehicleID(uuid);
+        data.setBlackListID("");
+        data.setYListID("");
+        data.setPeccancyOrgName(peccancyOrgName);
         data.setUserID(Setting.USERID);
         data.setOperType(type);//1：新增 2：修改
 
@@ -472,6 +488,9 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         data.setVepPlateNoColorName(vepPlateNoColorName);
         data.setPeccancyTypeID(peccancyTypeID);
         data.setPeccancyTypeName(peccancyTypeName);
+
+        data.setPeccancyOrgID(peccancyOrgID);
+        data.setPeccancyOrgName(peccancyOrgName);
 
         data.setAxleCount(axleCount);
         data.setAxleCountName(axleCountName);
@@ -506,7 +525,7 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         if (!TextUtils.isEmpty(edOwner.getText())) {
             data.setOwner(edOwner.getText().toString());
         } else {
-            data.setGenCause("");
+            data.setOwner("");
         }
 
         data.setNameType(1);
@@ -544,6 +563,7 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
             data.setHistoryInfo("");
         }
 
+        data.setNameType(1);
     }
 
     @Override
@@ -580,15 +600,17 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
                 peccancyTypeID = code;
                 peccancyTypeName = name;
                 break;
+            case 111://违章地点
+                peccancyOrgID = code;
+                peccancyOrgName = name;
+                break;
 
         }
     }
 
     @Override
     public void onItemClick(String name, int id) {
-        if (id == 88) {
-            shortName = name;
-        } else if (name.equals("个人") || name.equals("单位")) {
+        if (name.equals("个人") || name.equals("单位")) {
             ownerTypeName = name;
             ownerType = id;
         } else {

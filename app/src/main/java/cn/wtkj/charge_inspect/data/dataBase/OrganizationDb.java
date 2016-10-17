@@ -75,14 +75,16 @@ public class OrganizationDb {
         return num;
     }
 
-    public List<KeyValueData> getCheckUnit(int orgId,String OrgLevel){
-        List<KeyValueData> list=new ArrayList<>();
+    public List<ViewOrganizationData.MData.info> getCheckUnit(int orgId,String OrgLevel){
+        List<ViewOrganizationData.MData.info> list=new ArrayList<>();
+        ViewOrganizationData data=new ViewOrganizationData();
+        ViewOrganizationData.MData mData=data.new MData();
         String sql="";
         if(OrgLevel.equals("Station")){
-            sql = String.format("SELECT ShortName FROM %s WHERE OrgCode='"+orgId+"' and  OrgLevel = '"+OrgLevel+"'",
+            sql = String.format("SELECT * FROM %s WHERE OrgCode='"+orgId+"' and  OrgLevel = '"+OrgLevel+"'",
                     tableName);
         }else{
-            sql = String.format("SELECT ShortName FROM %s ",
+            sql = String.format("SELECT * FROM %s ",
                     tableName);
         }
 
@@ -91,7 +93,19 @@ public class OrganizationDb {
         int num = cur.getCount();
         if (cur.moveToFirst()) {
             for (int i = 0; i < cur.getCount(); i++) {
-                list.add(new KeyValueData("88",cur.getString(0)));
+                ViewOrganizationData.MData.info info=mData.new info();
+                info.setOrgCode(cur.getInt(0));
+                info.setOrgLevel(cur.getString(1));
+                info.setName(cur.getString(2));
+                info.setShortName(cur.getString(3));
+                info.setViewcode(cur.getString(4));
+                info.setEffectTime(cur.getString(5));
+                info.setLvs(cur.getInt(6));
+                info.setLeaf(cur.getInt(7));
+                info.setBusinesslineid(cur.getString(8));
+                info.setStatus(cur.getInt(9));
+                info.setOrgversion(cur.getInt(10));
+                list.add(info);
                 cur.moveToNext();
             }
         }

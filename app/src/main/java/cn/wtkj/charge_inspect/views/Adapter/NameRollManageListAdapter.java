@@ -44,18 +44,22 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
                 dataList.get(position).getVehicleTypeName();
         holder.tvTitle.setText(title);
         holder.tvTime.setText(dataList.get(position).getGenDT());
-        holder.tvStatus.setText(dataList.get(position).getPeccancyTypeName());
+        String peccancyTypeName="";
         String nameType = "黑名单";
         if (dataList.get(position).getNameType() == 0) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_black_img);
             nameType = "黑名单";
+            peccancyTypeName=dataList.get(position).getPeccancyTypeName();
         } else if (dataList.get(position).getNameType() == 1) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_gray_img);
             nameType = "灰名单";
+            peccancyTypeName=dataList.get(position).getPeccancyTypeName();
         } else if (dataList.get(position).getNameType() == 2) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_yellow_img);
             nameType = "黄名单";
+            peccancyTypeName="";
         }
+        holder.tvStatus.setText(peccancyTypeName);
         holder.tvName.setText(nameType);
 
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {

@@ -7,7 +7,10 @@ import java.io.Serializable;
  */
 public class PhotoVideoData implements Serializable {
     private int pvid;
-    private String proId;
+    private String BlackListID; //黑名单ID
+    private String VehicleID;  //灰名单ID
+    private String YListID;    //黄名单ID
+    private int NameType;// 0：黑名单，1：灰名单，2：黄名单
     private String videoName;
     private String videoUrl;
     private String photoName;
@@ -22,12 +25,36 @@ public class PhotoVideoData implements Serializable {
         this.pvid = pvid;
     }
 
-    public String getProId() {
-        return proId;
+    public String getBlackListID() {
+        return BlackListID;
     }
 
-    public void setProId(String proId) {
-        this.proId = proId;
+    public void setBlackListID(String blackListID) {
+        BlackListID = blackListID;
+    }
+
+    public String getVehicleID() {
+        return VehicleID;
+    }
+
+    public void setVehicleID(String vehicleID) {
+        VehicleID = vehicleID;
+    }
+
+    public String getYListID() {
+        return YListID;
+    }
+
+    public void setYListID(String YListID) {
+        this.YListID = YListID;
+    }
+
+    public int getNameType() {
+        return NameType;
+    }
+
+    public void setNameType(int nameType) {
+        NameType = nameType;
     }
 
     public String getVideoName() {

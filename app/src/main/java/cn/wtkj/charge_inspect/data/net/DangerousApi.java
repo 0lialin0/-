@@ -10,6 +10,7 @@ import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.ContactListData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
+import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -56,4 +57,8 @@ public interface DangerousApi {
     //增收上传  OK
     @POST("/restApi?businessId=stopLoop.stopLoopAct")
     void sendIncrement(@QueryMap Map<String, String> map,Callback<ResponeData> callback);
+
+    //下发名单查询  OK
+    @POST("/restApi?businessId=sendLsit.sendList")
+    void selNameXiafa(@QueryMap Map<String, String> map,Callback<NameRollXiafaData> callback);
 }
