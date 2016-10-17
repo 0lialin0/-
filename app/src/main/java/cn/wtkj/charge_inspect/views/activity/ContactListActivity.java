@@ -24,8 +24,10 @@ import cn.wtkj.charge_inspect.mvp.presenter.ContactListPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.ContactListPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.ContactListView;
 import cn.wtkj.charge_inspect.views.Adapter.ContactListAdapter;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 import cn.wtkj.charge_inspect.views.Adapter.SortAdapter;
+import cn.wtkj.charge_inspect.views.custom.AlertDialogContactSelect;
 import cn.wtkj.charge_inspect.views.custom.AlertDialogType;
 import cn.wtkj.charge_inspect.views.custom.CharacterParser;
 import cn.wtkj.charge_inspect.views.custom.PinyinComparator;
@@ -59,7 +61,7 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
     private List<SortModel> sourceDateList;
     private ContactListData contactListData;
     private ContactListAdapter adapter;
-    private AlertDialogType alertDialogType;
+    private AlertDialogContactSelect alertDialogContactSelect;
 
     /**
      * 根据拼音来排列ListView里面的数据类
@@ -85,8 +87,8 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
         dialog = (TextView) findViewById(R.id.dialog);
         sideBar.setTextView(dialog);
 
-        alertDialogType = new AlertDialogType(this);
-        //alertDialogType.s(this);
+        alertDialogContactSelect = new AlertDialogContactSelect(this);
+
         presenter.getContactList();
     }
 
@@ -124,6 +126,7 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
         Collections.sort(sourceDateList, pinyinComparator);
 
         adapter = new ContactListAdapter(this, sourceDateList);
+        adapter.setOnItemClickListener(this);
        // lawsContactList.setLayoutManager(new LinearLayoutManager(this));
         lawsContactList.setAdapter(adapter);
 
@@ -180,6 +183,7 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
 
     @Override
     public void onItemClick(String name, int id) {
-
+        alertDialogContactSelect.setAlertDialog(sourceDateList.get(id).getContactData());
     }
+
 }

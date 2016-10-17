@@ -67,6 +67,7 @@ public class ContactListAdapter extends BaseAdapter {
         holder.spotName = (TextView) convertView.findViewById(R.id.spotName);
         holder.orgName = (TextView) convertView.findViewById(R.id.orgName);
         holder.tvLetterDiver = (TextView) convertView.findViewById(R.id.tvLetterDiver);
+        holder.callContact =  (ImageView) convertView.findViewById(R.id.call_contact);
 
         final ContactListData.MData.info contactData = contactList.get(position).getContactData();
         holder.spotName.setText(contactData.getSpotName());
@@ -88,7 +89,7 @@ public class ContactListAdapter extends BaseAdapter {
             holder.tvLetterDiver.setVisibility(View.VISIBLE);
         }
 
-        convertView.setOnClickListener(new View.OnClickListener() {
+        holder.callContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
@@ -108,6 +109,7 @@ public class ContactListAdapter extends BaseAdapter {
         public TextView spotName;
         public TextView orgName;
         public TextView tvLetterDiver;
+        public ImageView callContact;
     }
 
     /**
