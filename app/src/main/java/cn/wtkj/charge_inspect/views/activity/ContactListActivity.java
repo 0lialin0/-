@@ -24,7 +24,9 @@ import cn.wtkj.charge_inspect.mvp.presenter.ContactListPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.ContactListPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.ContactListView;
 import cn.wtkj.charge_inspect.views.Adapter.ContactListAdapter;
+import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 import cn.wtkj.charge_inspect.views.Adapter.SortAdapter;
+import cn.wtkj.charge_inspect.views.custom.AlertDialogType;
 import cn.wtkj.charge_inspect.views.custom.CharacterParser;
 import cn.wtkj.charge_inspect.views.custom.PinyinComparator;
 import cn.wtkj.charge_inspect.views.custom.SideBar;
@@ -32,7 +34,7 @@ import cn.wtkj.charge_inspect.views.custom.SideBar;
 /**
  * Created by ghj on 2016/9/29.
  */
-public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> implements ContactListView,View.OnClickListener {
+public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> implements ContactListView,View.OnClickListener,OnItemClickListener3 {
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -57,6 +59,8 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
     private List<SortModel> sourceDateList;
     private ContactListData contactListData;
     private ContactListAdapter adapter;
+    private AlertDialogType alertDialogType;
+
     /**
      * 根据拼音来排列ListView里面的数据类
      */
@@ -81,6 +85,8 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
         dialog = (TextView) findViewById(R.id.dialog);
         sideBar.setTextView(dialog);
 
+        alertDialogType = new AlertDialogType(this);
+        //alertDialogType.s(this);
         presenter.getContactList();
     }
 
@@ -169,6 +175,11 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
             mSortList.add(sortModel);
         }
         return mSortList;
+
+    }
+
+    @Override
+    public void onItemClick(String name, int id) {
 
     }
 }

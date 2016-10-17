@@ -15,8 +15,8 @@
         android:id="@+id/laws_contact_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/gray5"
-        android:dividerHeight="@dimen/y22"
+        android:divider="@null"
+
         android:background="#f7f7f7"
         android:layout_above="@+id/state_layout"
         android:layout_below="@+id/main_toop">
@@ -38,7 +38,6 @@
         android:layout_width="25.0dip"
         android:layout_height="fill_parent"
         android:layout_gravity="right|center"
-        android:background="#3399ff"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" />
     </FrameLayout>

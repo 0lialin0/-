@@ -55,7 +55,7 @@ public class ContactListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         convertView = LayoutInflater.from(context).inflate(R.layout.item_contact_list, null);
         ViewHolder holder = new ViewHolder();
@@ -66,8 +66,9 @@ public class ContactListAdapter extends BaseAdapter {
         holder.interPhone = (TextView) convertView.findViewById(R.id.interPhone);
         holder.spotName = (TextView) convertView.findViewById(R.id.spotName);
         holder.orgName = (TextView) convertView.findViewById(R.id.orgName);
+        holder.tvLetterDiver = (TextView) convertView.findViewById(R.id.tvLetterDiver);
 
-        ContactListData.MData.info contactData = contactList.get(position).getContactData();
+        final ContactListData.MData.info contactData = contactList.get(position).getContactData();
         holder.spotName.setText(contactData.getSpotName());
         holder.orgName.setText(contactData.getOrgName());
         holder.interPhone.setText(contactData.getInterPhone());
@@ -80,53 +81,24 @@ public class ContactListAdapter extends BaseAdapter {
         if (position == getPositionForSection(section)) {
             holder.tvLetter.setVisibility(View.VISIBLE);
             holder.tvLetter.setText(contactList.get(position).getSortLetters());
+            holder.tvLetterDiver.setVisibility(View.GONE);
+
         } else {
             holder.tvLetter.setVisibility(View.GONE);
+            holder.tvLetterDiver.setVisibility(View.VISIBLE);
         }
 
-        return convertView;
-    }
-
-/*
-    @Override
-    public ShedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_contact_list, parent, false);
-        return new ContactListAdapter.ShedViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(ShedViewHolder holder, final int position) {
-        ContactListData.MData.info contactData = contactList.get(position).getContactData();
-        holder.spotName.setText(contactData.getSpotName());
-        holder.orgName.setText(contactData.getOrgName());
-        holder.interPhone.setText(contactData.getInterPhone());
-        holder.outsidePhone.setText(contactData.getOutsidePhone());
-        holder.switchBoard.setText(contactData.getSwitchBoard());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
-                    //onItemClickListener.onItemClick(contactData.getOrgName(),position);
+                    onItemClickListener.onItemClick(contactData.getOrgName(),position);
                 }
             }
         });
-
-        int section = getSectionForPosition(position);
-
-        if (position == getPositionForSection(section)) {
-            holder.tvLetter.setVisibility(View.VISIBLE);
-            holder.tvLetter.setText(contactList.get(position).getSortLetters());
-        } else {
-            holder.tvLetter.setVisibility(View.GONE);
-        }
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-       return contactList.size();
-    }
-    */
 
     public final class ViewHolder {
         public TextView tvLetter;;
@@ -135,6 +107,7 @@ public class ContactListAdapter extends BaseAdapter {
         public TextView interPhone;
         public TextView spotName;
         public TextView orgName;
+        public TextView tvLetterDiver;
     }
 
     /**
