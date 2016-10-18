@@ -54,10 +54,12 @@ public class NameRollXiafaListAdapter extends RecyclerView.Adapter<NameRollXiafa
             holder.llActiveTag.setBackgroundResource(R.drawable.name_gray_img);
             nameType = "灰名单";
             peccancyTypeName=dataList.get(position).getPECCANCYNAME();
+            holder.llXiafa.setVisibility(View.GONE);
         } else if (dataList.get(position).getTYPE() == 3) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_yellow_img);
             nameType = "黄名单";
             peccancyTypeName="";
+            holder.llXiafa.setVisibility(View.GONE);
         }
         holder.tvStatus.setText(peccancyTypeName);
         holder.tvName.setText(nameType);
@@ -67,7 +69,7 @@ public class NameRollXiafaListAdapter extends RecyclerView.Adapter<NameRollXiafa
             public void onClick(View v) {
                 //下发名单处理
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position, 0, "del");
+                    onItemClickListener.onItemClick(position, 0, dataList.get(position).getID());
                 }
             }
         });
@@ -109,6 +111,8 @@ public class NameRollXiafaListAdapter extends RecyclerView.Adapter<NameRollXiafa
         TextView tvStatus;
         @Bind(R.id.tv_xiafa)
         TextView tvXiafa;
+        @Bind(R.id.ll_xiafa)
+        LinearLayout llXiafa;
 
 
         public ShedViewHolder(View itemView) {

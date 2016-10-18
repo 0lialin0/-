@@ -1,6 +1,8 @@
 package cn.wtkj.charge_inspect.views.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,6 +70,7 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
     private String keyword = "";
     private List<NameRollXiafaData.MData.info> mList;
     private NameRollXiafaListAdapter adapter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected NameRollXiafaPresenter createPresenter() {
@@ -93,6 +96,7 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
     }
 
     public void initView() {
+        progressDialog = new ProgressDialog(this);
 
         // 设置下拉组件动画偏移量
         shedRefresh.setProgressViewOffset(false,
@@ -100,9 +104,9 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
                 Convert.dip2px(this.getApplicationContext(), 24));
         shedRecy.setLayoutManager(new LinearLayoutManager(this));
         shedRefresh.setOnRefreshListener(this);
-        shedRefresh.setRefreshing(true);// 显示动画
+        //shedRefresh.setRefreshing(true);// 显示动画
         presenter.attachContextIntent(this);
-        presenter.startPresenter("");
+        //presenter.startPresenter("");
         shedRecy.setRefreshData(this);
 
 
@@ -134,12 +138,15 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
 
     @Override
     public void onRefresh() {
-
+        if (mList != null) {
+            mList.clear();
+        }
+        presenter.startPresenter(keyword);
     }
 
     @Override
     public void onRefreshData() {
-
+        onRefresh();
     }
 
     @Override
@@ -162,12 +169,19 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
 
     @Override
     public void showLoding() {
-
+        progressDialog.setMessage("正在查询，请等待..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
     public void hideLoging() {
         shedRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void hideDialog() {
+        progressDialog.hide();
     }
 
     @Override
@@ -200,7 +214,9 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
 
     @Override
     public void onItemClick(int code, int type, String name) {
-
+        Intent intent = new Intent(this, NameXiafaHandleActivity.class);
+        intent.putExtra("id",name);
+        startActivity(intent);
     }
 
     /**

@@ -20,22 +20,27 @@
     <string name="bus_title">业务联系单</string>
 
     <string name="green_name">绿通档案</string>
-    <string name="green_car_info">卡片信息</string>
-    <string name="green_card">卡号</string>
-    <string name="green_entrance">入口站</string>
-    <string name="green_car_dao">入口车道</string>
-    <string name="green_jianyan_info">检验信息</string>
-    <string name="green_check_time">检验时间</string>
-    <string name="green_car_num">车牌号码</string>
-    <string name="green_car_type">车辆类型</string>
-    <string name="green_rongji">有效容积</string>
-    <string name="green_out_loca">出口站址</string>
-    <string name="green_out_lane">出口车道号</string>
+    <string name="green_car_info">车辆信息</string>
+    <string name="green_car_num">车牌号</string>
+    <string name="green_car_type">车辆类别</string>
+    <string name="green_factory_type">厂牌型号</string>
+    <string name="green_capacity">有效容积(%)</string>
+    <string name="green_axleCount">轴数</string>
+    <string name="green_tonnage">吨位(吨)</string>
+    <string name="green_jianyan_info">查验信息</string>
+    <string name="green_reportOrgID">上报单位</string>
+    <string name="green_check_time">查询时间</string>
+    <string name="green_entrance">入口站址</string>
+    <string name="green_come_dao">出口车道号</string>
+
+    <string name="green_OprName">收费员</string>
     <string name="green_class">班长</string>
+    <string name="green_type">绿通类型</string>
     <string name="green_jianmian">是否减免</string>
     <string name="green_jianmian_yes">是</string>
     <string name="green_jianmian_no">否</string>
-    <string name="green_type">绿通类型</string>
+    <string name="green_FreeMoney">减免金额</string>
+    <string name="green_EscapeMoney">增收金额</string>
     <string name="green_goods_name">货物名称</string>
     <string name="green_goods_name_hui">混货物名称</string>
     <string name="green_remark">备注</string>
@@ -106,6 +111,15 @@
     <string name="balck_name">黑名单</string>
     <string name="grey_name">灰名单</string>
     <string name="yellow_name">黄名单</string>
+
+    <string name="xiafa_handle_title">处理信息</string>
+    <string name="xiafa_handle_name">当事人姓名</string>
+    <string name="xiafa_handle_bujiao">补缴金额</string>
+    <string name="xiafa_handle_xingshi">行驶证档案号</string>
+    <string name="xiafa_handle_jiashi">驾驶证档案号</string>
+    <string name="xiafa_handle_chili">处理人</string>
+    <string name="xiafa_handle_chili_info">处理备注</string>
+    <string name="xiafa_handle_chili_hint">至少为两人，之间用、号隔开</string>
 
     <string name="information">业务资料</string>
     <string name="information_attachment">资料附件</string>

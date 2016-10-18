@@ -7,6 +7,7 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.MainView;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener2;
+import cn.wtkj.charge_inspect.views.activity.GreenRecordActivity;
 import cn.wtkj.charge_inspect.views.activity.GreenRecordListActivity;
 import cn.wtkj.charge_inspect.views.activity.IncrementListActivity;
 import cn.wtkj.charge_inspect.views.activity.ArticleListActivity;
@@ -61,7 +62,7 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
                 getView().showMes("正在开发中.....");
                 break;
             case greenInfo://绿通
-                intent.setClass(context, GreenRecordListActivity.class);
+                intent.setClass(context, GreenRecordActivity.class);
                 context.startActivity(intent);
                 break;
             case increment://增收

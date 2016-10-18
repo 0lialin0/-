@@ -39,38 +39,38 @@ public class NameRollXiafaPresenterImpl extends MvpBasePresenter<NameRollXiafaVi
     @Override
     public void attachContextIntent(Context context) {
         this.context = context;
-        conductInfoData=new ConductInfoDataImpl(context);
+        conductInfoData = new ConductInfoDataImpl(context);
     }
 
     @Override
     public void startPresenter(String keyword) {
-        getView().showLoding();
-        map = new HashMap<>();
-        map.put("VEHPLATENO", keyword);
+        if (!keyword.replaceAll(" ", "").equals("")) {
+            //getView().showLoding();
+            map = new HashMap<>();
+            map.put("VEHPLATENO", keyword);
 
-        conductInfoData.selNameXiafa(map, new Callback<NameRollXiafaData>() {
-            @Override
-            public void success(NameRollXiafaData nameRollXiafaData, Response response) {
-                getView().hideLoging();
-                if (nameRollXiafaData.getMData().getState() == nameRollXiafaData.SUCCESS) {
-                    List<NameRollXiafaData.MData.info> data = nameRollXiafaData.getMData().getInfo();
-                    getView().setList(data);
-                }else {
-                    getView().showMes(nameRollXiafaData.getMData().getInfo().toString());
+            conductInfoData.selNameXiafa(map, new Callback<NameRollXiafaData>() {
+                @Override
+                public void success(NameRollXiafaData nameRollXiafaData, Response response) {
+                    getView().hideLoging();
+                    if (nameRollXiafaData.getMData().getState() == nameRollXiafaData.SUCCESS) {
+                        List<NameRollXiafaData.MData.info> data = nameRollXiafaData.getMData().getInfo();
+                        getView().setList(data);
+                    } else {
+                        getView().showMes(nameRollXiafaData.getMData().getInfo().toString());
+                    }
+
                 }
 
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                getView().hideLoging();
-                getView().showMes(ResponeData.NET_ERROR);
-            }
-        });
-
+                @Override
+                public void failure(RetrofitError error) {
+                    getView().hideLoging();
+                    getView().showMes(ResponeData.NET_ERROR);
+                }
+            });
+        }
 
     }
-
 
 
 }

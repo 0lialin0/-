@@ -64,4 +64,9 @@ public class ConductInfoDataImpl implements ConductInfoData {
     public void selNameXiafa(Map<String, String> map, Callback<NameRollXiafaData> callback) {
         dangerousApi.selNameXiafa(map,callback);
     }
+
+    @Override
+    public void sendXiafaHandle(Map<String, String> map, Callback<ResponeData> callback) {
+        dangerousApi.sendXiafaHandle(map,callback);
+    }
 }

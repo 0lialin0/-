@@ -39,7 +39,7 @@ public class NameRollXiafaData {
 
         public class info {
             @SerializedName("LISTNUMBER")
-            private int LISTNUMBER;
+            private String LISTNUMBER;
             @SerializedName("VEPCOLORNAME")
             private String VEPCOLORNAME;
             @SerializedName("CREATEDT")
@@ -60,11 +60,11 @@ public class NameRollXiafaData {
             private int TYPE;
 
 
-            public int getLISTNUMBER() {
+            public String getLISTNUMBER() {
                 return LISTNUMBER;
             }
 
-            public void setLISTNUMBER(int LISTNUMBER) {
+            public void setLISTNUMBER(String LISTNUMBER) {
                 this.LISTNUMBER = LISTNUMBER;
             }
 

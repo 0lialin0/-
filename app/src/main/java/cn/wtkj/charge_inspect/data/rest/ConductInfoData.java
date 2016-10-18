@@ -24,4 +24,7 @@ public interface ConductInfoData {
 
     //下发名单查询
     void selNameXiafa(Map<String, String> map, Callback<NameRollXiafaData> callback);
+
+    //下发黑名单处理
+    void sendXiafaHandle(Map<String, String> map, Callback<ResponeData> callback);
 }

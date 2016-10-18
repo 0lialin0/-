@@ -49,10 +49,10 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
     @Bind(R.id.iv_phone)
     ImageView ivPhone;
 
-    /*@Bind(R.id.shed_list_refresh)
+    @Bind(R.id.shed_list_refresh)
     SwipeRefreshLayout shedRefresh;
     @Bind(R.id.shed_list_recy)
-    RecyClerRefresh shedRecy;*/
+    RecyClerRefresh shedRecy;
 
     private ProgressDialog progressDialog;
     private AlertDialog alter;
@@ -71,7 +71,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
         presenter.attachContextIntent(this);
         //presenter.startPresenter();
         initToolBar();
-        //initView();
+        initView();
     }
 
     private void initToolBar() {
@@ -86,13 +86,15 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
     public void initView() {
 
         // 设置下拉组件动画偏移量
-        /*shedRefresh.setProgressViewOffset(false,
+        shedRefresh.setProgressViewOffset(false,
                 Convert.dip2px(this.getApplicationContext(), -30),
                 Convert.dip2px(this.getApplicationContext(), 24));
         shedRecy.setLayoutManager(new LinearLayoutManager(this));
         shedRefresh.setOnRefreshListener(this);
-        shedRefresh.setRefreshing(true);// 显示动画
-        shedRecy.setRefreshData(this);*/
+        //shedRefresh.setRefreshing(true);// 显示动画
+        presenter.attachContextIntent(this);
+        //presenter.startPresenter("");
+        shedRecy.setRefreshData(this);
 
     }
 
@@ -116,7 +118,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
 
     @Override
     public void hideLoging() {
-        //shedRefresh.setRefreshing(false);
+        shedRefresh.setRefreshing(false);
     }
 
     @Override
@@ -134,7 +136,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
 
     }
 
-    @OnClick({R.id.iv_more, R.id.iv_left, R.id.iv_phone ,R.id.iv_green_a})
+    @OnClick({R.id.iv_more, R.id.iv_left, R.id.iv_phone})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -145,11 +147,6 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
                 break;
             case R.id.iv_left:
                 this.finish();
-                break;
-            case R.id.iv_green_a:
-                Intent intent2 = new Intent();
-                intent2.setClass(this, GreenRecordActivity.class);
-                this.startActivity(intent2);
                 break;
         }
     }
