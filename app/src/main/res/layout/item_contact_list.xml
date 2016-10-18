@@ -2,124 +2,159 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/y250"
-    android:background="@drawable/linearlayout"
+    android:paddingBottom="3dip"
+    android:paddingTop="3dip"
+    android:background="#fff"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#EAEAEA">
+        android:background="#F7F7F7">
 
         <TextView
             android:id="@+id/tvLetter"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y40"
+            android:layout_height="@dimen/y46"
             android:layout_marginLeft="@dimen/x44"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/x24"
+            android:textColor="#949494"
             android:text="A" />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x44"
-        android:layout_marginRight="@dimen/x44"
-        android:layout_marginTop="@dimen/y15">
-        <TextView
-            android:id="@+id/orgName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/x28"
-            android:textColor="#505050"
-            android:text="蜀山区" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/x28"
-            android:textColor="#505050"
-            android:text="-" />
-        <TextView
-            android:id="@+id/spotName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/x28"
-            android:textColor="#505050"
-            android:text="叶集管理所" />
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x44"
-        android:layout_marginTop="@dimen/y12"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_gravity="right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="#949494"
-            android:text="外线："
-            android:textSize="@dimen/x24" />
-        <TextView
-            android:id="@+id/outsidePhone"
-            android:layout_gravity="right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="#949494"
-            android:text="外线："
-            android:textSize="@dimen/x24" />
-    </LinearLayout>
+        android:background="#F7F7F7">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x44"
-        android:layout_marginTop="@dimen/y12"
-        android:orientation="horizontal">
         <TextView
-            android:layout_gravity="right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="#949494"
-            android:text="内线："
-            android:textSize="@dimen/x24" />
-        <TextView
-            android:id="@+id/interPhone"
-            android:layout_gravity="right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="#949494"
-            android:text="内线"
-            android:textSize="@dimen/x24" />
+            android:id="@+id/tvLetterDiver"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y14"
+            android:gravity="center_vertical" />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x44"
-        android:layout_marginTop="@dimen/y12"
-        android:layout_marginBottom="@dimen/y12"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_gravity="right"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="#949494"
-            android:text="处总机："
-            android:textSize="@dimen/x24" />
-        <TextView
-            android:id="@+id/switchBoard"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x44"
+                android:layout_marginRight="@dimen/x44"
+                android:layout_marginTop="@dimen/y15">
+                <TextView
+                    android:id="@+id/orgName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/x28"
+                    android:textColor="#505050"
+                    android:text="蜀山区" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/x28"
+                    android:textColor="#505050"
+                    android:text="-" />
+                <TextView
+                    android:id="@+id/spotName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/x28"
+                    android:textColor="#505050"
+                    android:text="叶集管理所" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x44"
+                android:layout_marginTop="@dimen/y12"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#949494"
+                    android:text="外线："
+                    android:textSize="@dimen/x24" />
+                <TextView
+                    android:id="@+id/outsidePhone"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#949494"
+                    android:text="外线："
+                    android:textSize="@dimen/x24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x44"
+                android:layout_marginTop="@dimen/y12"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#949494"
+                    android:text="内线："
+                    android:textSize="@dimen/x24" />
+                <TextView
+                    android:id="@+id/interPhone"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#949494"
+                    android:text="内线"
+                    android:textSize="@dimen/x24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x44"
+                android:layout_marginTop="@dimen/y12"
+                android:layout_marginBottom="@dimen/y12"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#949494"
+                    android:text="处总机："
+                    android:textSize="@dimen/x24" />
+                <TextView
+                    android:id="@+id/switchBoard"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#949494"
+                    android:text="处总机"
+                    android:textSize="@dimen/x24" />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/call_contact"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:background="@drawable/icon_tel"
             android:layout_gravity="right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="#949494"
-            android:text="处总机"
-            android:textSize="@dimen/x24" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/y51"
+            android:layout_marginRight="@dimen/x68"/>
+    </RelativeLayout>
+
 
 </LinearLayout>

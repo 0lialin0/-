@@ -124,4 +124,6 @@
     <string name="information">业务资料</string>
     <string name="information_attachment">资料附件</string>
 
+    <string name="tv_name_contact_list">联系电话</string>
+
 </resources>
