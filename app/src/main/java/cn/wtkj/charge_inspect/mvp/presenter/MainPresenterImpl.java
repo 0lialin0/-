@@ -62,7 +62,7 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
                 getView().showMes("正在开发中.....");
                 break;
             case greenInfo://绿通
-                intent.setClass(context, GreenRecordActivity.class);
+                intent.setClass(context, GreenRecordListActivity.class);
                 context.startActivity(intent);
                 break;
             case increment://增收

@@ -22,6 +22,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,17 +44,17 @@ import cn.wtkj.charge_inspect.views.custom.videocapture.VideoRecordActivity;
  */
 public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickListener {
     private RecyclerView recyclerView;
-    private List<Bitmap> mList;
+    private static List<Bitmap> mList;
     private List<File> files;
     private Context mContext;
-    private PhotoAdapter adapter;
+    private static PhotoAdapter adapter;
     public static final int RESULT_PHOTO = 0;
     public static final int RESULT_FILE = 1;
     public static final int VIDEO_WITH_CAMERA = 2;
     public static final int VIDEO_FILE = 3;
     private Activity fragment;
     private File tempFile;
-    private LinearLayoutManager manager;
+    private static LinearLayoutManager manager;
     public boolean isEnabled = true;
     //自定义的弹出框类
     SelectPicPopupWindow menuWindow;
@@ -165,16 +169,34 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
         }
     }
 
-    public void notify(Bitmap bitmap) {
+    public static void notify(Bitmap bitmap) {
         mList.add(bitmap);
         adapter.notifyItemInserted(mList.size());
         manager.scrollToPosition(mList.size());
+    }
+
+    public static void notifyString(Bitmap bitmap) {
+        notify(bitmap);
     }
 
     public void clear() {
         files.clear();
         mList.clear();
         adapter.notifyDataSetChanged();
+    }
+
+    public void getGlide(String url) {
+        Glide.with(mContext)
+                .load(url)
+                .asBitmap()
+                .fitCenter()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        //img = resource;
+                        notifyString(resource);
+                    }
+                });
     }
 
     public File setImage(int requestCode, int resultCode, Intent data) {

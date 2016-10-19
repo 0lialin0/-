@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,17 +13,22 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
+import cn.wtkj.charge_inspect.data.bean.JCGreenChannelRecData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.GreenRecordPresenter;
@@ -39,6 +43,8 @@ import cn.wtkj.charge_inspect.views.custom.DropDownKeyValue;
 import cn.wtkj.charge_inspect.views.custom.DropDownMenu;
 import cn.wtkj.charge_inspect.views.custom.DropDownOrgMenu;
 import cn.wtkj.charge_inspect.views.custom.MyPhotos;
+
+import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
 
 /**
  * Created by ghj on 2016/9/18.
@@ -120,17 +126,23 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
     private String laneName;//出口车道
     private int isMix;//绿通类型
     private String isMixName;//绿通类型
-    private int isEnjoy=0;//是否减免
+    private int isEnjoy = 0;//是否减免
 
     private List<File> files;
     private ProgressDialog progressDialog;
     private AlertDialog alter;
     private DropDownKeyValue downKeyValue;
     private DropDownKeyValue downKeyValue2;
+    private DropDownKeyValue downKeyValue3;
     private DropDownMenu dropDownMenu;
     private DropDownMenu dropDownMenu2;
     private DropDownMenu dropDownMenu3;
     private DropDownOrgMenu dropDownOrgMenu;
+
+    private JCGreenChannelRecData data;
+    private int type = 1;
+    private String increment_title = "添加绿通档案";
+    private String uuid;
 
     @Override
     protected GreenRecordPresenter createPresenter() {
@@ -144,13 +156,12 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         setContentView(R.layout.activity_green_record);
         ButterKnife.bind(this);
         presenter.attachContextIntent(this, this.getIntent());
-        presenter.startPresenter();
         initToolBar();
         initView();
     }
 
     private void initToolBar() {
-        tvTitle.setText(R.string.green_name);
+        tvTitle.setText(increment_title);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         ivPhone.setVisibility(View.GONE);
@@ -158,6 +169,8 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
 
 
     public void initView() {
+        progressDialog = new ProgressDialog(this);
+
         tvCheckTime.setText(ResponeUtils.getTime());
 
         myphoto.setFragment(this);
@@ -168,17 +181,52 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == rbIsEnjoyyes.getId()) {
-                    isEnjoy=1;
+                    isEnjoy = 1;
                     llFreeMoney.setVisibility(View.VISIBLE);
                     llEscapeMoney.setVisibility(View.GONE);
                 } else {
-                    isEnjoy=0;
+                    isEnjoy = 0;
                     llFreeMoney.setVisibility(View.GONE);
                     llEscapeMoney.setVisibility(View.VISIBLE);
                 }
             }
         });
 
+        setView();
+
+    }
+
+    @Override
+    public void setView() {
+        JCGreenChannelRecData data = (JCGreenChannelRecData) getIntent().getSerializableExtra(
+                GreenRecordListActivity.DATA_TAG);
+        setDropDown();
+        if (data != null) {
+            showViewData(data);
+            type = 2;
+            increment_title = "修改绿通档案";
+            tvTitle.setText(increment_title);
+        } else {
+            type = 1;
+        }
+    }
+
+
+    @Override
+    public void setDropDown() {
+        //车辆类别
+        List<KeyValueData> vehType = new ArrayList<>();
+        vehType.add(new KeyValueData("5", "小型货车"));
+        vehType.add(new KeyValueData("11", "中型货车"));
+        vehType.add(new KeyValueData("1", "重型货车"));
+        downKeyValue3 = new DropDownKeyValue(this, vehType);
+        downKeyValue3.setId(1);
+        downKeyValue3.setOnItemClickListener(this);
+        vehicleTypeID = Integer.valueOf(vehType.get(0).getId());
+        vehicleTypeIDName = vehType.get(0).getValue();
+        tvCarType.setText(vehType.get(0).getValue());
+
+        //绿通类型
         List<KeyValueData> type = new ArrayList<>();
         type.add(new KeyValueData("111", "正常"));
         type.add(new KeyValueData("111", "混装"));
@@ -186,8 +234,8 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         downKeyValue2 = new DropDownKeyValue(this, type);
         downKeyValue2.setId(1);
         downKeyValue2.setOnItemClickListener(this);
-        isMix=Integer.valueOf(type.get(0).getId());
-        isMixName=type.get(0).getValue();
+        isMix = 0;
+        isMixName = type.get(0).getValue();
         tvGreenType.setText(type.get(0).getValue());
 
 
@@ -244,14 +292,14 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         }
 
         //车辆类别
-        List<ConstAllData.MData.info> cartype = presenter.getConstByType(6);
+        /*List<ConstAllData.MData.info> cartype = presenter.getConstByType(6);
         dropDownMenu3 = new DropDownMenu(this, cartype);
         dropDownMenu3.setOnItemClickListener(this);
         if (cartype.size() > 0) {
             vehicleTypeID = cartype.get(0).getCode();
             vehicleTypeIDName = cartype.get(0).getName();
             tvCarType.setText(cartype.get(0).getName());
-        }
+        }*/
 
         //上报单位
         List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
@@ -265,24 +313,94 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         }
     }
 
+
+    //显示值在页面上
+    private void showViewData(JCGreenChannelRecData data) {
+        edCarNum.setText(data.getVehPlateNo());
+        vehicleTypeIDName = data.getVehicleTypeIDName();
+        vehicleTypeID = data.getVehicleTypeID();
+        tvCarType.setText(vehicleTypeIDName);
+        edFactoryType.setText(data.getFactoryType());
+        edCapacity.setText(data.getCapacity());
+
+        axleCount = data.getAxleCount();
+        axleCountName = data.getAxleCountName();
+        tvAxleCount.setText(axleCountName);
+
+        edTonnage.setText(data.getTonnage());
+
+        reportOrgID = data.getReportOrgID();
+        reportOrgLevel = data.getReportOrgLevel();
+        tvReportOrgID.setText(reportOrgLevel);
+        tvCheckTime.setText(data.getCheckDate());
+
+        inStationID = data.getInStationID();
+        inStationName = data.getInStationName();
+        tvInStationID.setText(inStationName);
+
+        laneID = data.getLaneID();
+        laneName = data.getLaneName();
+        tvLaneID.setText(laneName);
+
+        edOprName.setText(data.getOprName());
+        edShiftman.setText(data.getShiftman());
+
+        isMix = data.getIsMix();
+        isMixName = data.getIsMixName();
+        tvGreenType.setText(isMixName);
+
+        edGoodsName.setText(data.getGoodsName());
+        edMixGoodsName.setText(data.getMixGoodsName());
+
+        isEnjoy = data.getIsEnjoy();
+        if (isEnjoy == 0) {
+            rbIsEnjoyno.setChecked(true);
+            rbIsEnjoyyes.setChecked(false);
+            llFreeMoney.setVisibility(View.GONE);
+            llEscapeMoney.setVisibility(View.VISIBLE);
+        } else {
+            rbIsEnjoyno.setChecked(false);
+            rbIsEnjoyyes.setChecked(true);
+            llFreeMoney.setVisibility(View.VISIBLE);
+            llEscapeMoney.setVisibility(View.GONE);
+        }
+        edFreeMoney.setText(data.getFreeMoney());
+        edEscapeMoney.setText(data.getEscapeMoney());
+        edRemark.setText(data.getRemark());
+
+        uuid = data.getGCListID();
+        List<PhotoVideoData> list = presenter.getListPvById(uuid);
+        if (list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                myphoto.getGlide(list.get(i).getPhotoUrl());
+            }
+        }
+
+    }
+
     @Override
     public void showLoding() {
-
+        progressDialog.setMessage("正在保存，请等待..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
     public void hideLoging() {
-
+        progressDialog.hide();
     }
 
     @Override
-    public void nextView(String phone) {
-        myphoto.clear();
+    public void nextView() {
+        this.finish();
+        Intent intent = new Intent();
+        intent.setClass(this, GreenRecordListActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void showMes(String msg) {
-
+        show(this, msg, Toast.LENGTH_LONG);
     }
 
 
@@ -315,11 +433,11 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
             case R.id.rl_LaneID:
                 dropDownMenu2.setDownValue(tvLaneID, "");
                 break;
-            case R.id.rl_car_type:
-                dropDownMenu3.setDownValue(tvCarType, "");
-                break;
             case R.id.rl_green_type:
                 downKeyValue2.setDownValue(tvGreenType, "");
+                break;
+            case R.id.rl_car_type:
+                downKeyValue3.setDownValue(tvCarType, "");
                 break;
             case R.id.rl_axleCount:
                 downKeyValue.setDownValue(tvAxleCount, "");
@@ -333,7 +451,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
                     return;
                 }
                 if (TextUtils.isEmpty(edCapacity.getText())) {
-                    showMes("有效容积(%)不能为空！");
+                    showMes("有效容积不能为空！");
                     return;
                 }
                 if (TextUtils.isEmpty(edTonnage.getText())) {
@@ -348,27 +466,102 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
                     showMes("班长不能为空！");
                     return;
                 }
+
+                if (isEnjoy == 0) {
+                    if (TextUtils.isEmpty(edEscapeMoney.getText())) {
+                        showMes("增收金额不能为空！");
+                        return;
+                    }
+                } else {
+                    if (TextUtils.isEmpty(edFreeMoney.getText())) {
+                        showMes("减免金额不能为空！");
+                        return;
+                    }
+                }
+
                 if (TextUtils.isEmpty(edGoodsName.getText())) {
                     showMes("货物名称不能为空！");
                     return;
                 }
+
+                getShowData();
+                presenter.startPresenter(files, data);
                 break;
         }
+    }
+
+    public void getShowData() {
+        data = new JCGreenChannelRecData();
+        if (type == 1) {
+            uuid = UUID.randomUUID().toString();
+        }
+        data.setUserID(Setting.USERID);
+        data.setOperType(type);//1：新增 2：修改
+        data.setGCListID(uuid);
+        data.setVehPlateNo(edCarNum.getText().toString());
+        data.setVehicleTypeID(vehicleTypeID);
+        data.setVehicleTypeIDName(vehicleTypeIDName);
+        if (!TextUtils.isEmpty(edFactoryType.getText())) {
+            data.setFactoryType(edFactoryType.getText().toString());
+        } else {
+            data.setFactoryType("");
+        }
+        data.setCapacity(edCapacity.getText().toString());
+        data.setAxleCount(axleCount);
+        data.setAxleCountName(axleCountName);
+        data.setTonnage(edTonnage.getText().toString());
+        data.setReportOrgID(reportOrgID);
+        data.setReportOrgLevel(reportOrgLevel);
+        data.setCheckDate(tvCheckTime.getText().toString());
+        data.setInStationID(inStationID);
+        data.setInStationName(inStationName);
+        data.setLaneID(laneID);
+        data.setLaneName(laneName);
+        data.setOprName(edOprName.getText().toString());
+        data.setShiftman(edShiftman.getText().toString());
+        data.setIsMix(isMix);
+        data.setIsMixName(isMixName);
+        data.setGoodsName(edGoodsName.getText().toString());
+        if (!TextUtils.isEmpty(edMixGoodsName.getText())) {
+            data.setMixGoodsName(edMixGoodsName.getText().toString());
+        } else {
+            data.setMixGoodsName("");
+        }
+        data.setIsEnjoy(isEnjoy);
+        if (!TextUtils.isEmpty(edFreeMoney.getText())) {
+            data.setFreeMoney(edFreeMoney.getText().toString());
+        } else {
+            data.setFreeMoney("");
+        }
+        if (!TextUtils.isEmpty(edEscapeMoney.getText())) {
+            data.setEscapeMoney(edEscapeMoney.getText().toString());
+        } else {
+            data.setEscapeMoney("");
+        }
+        if (!TextUtils.isEmpty(edRemark.getText())) {
+            data.setRemark(edRemark.getText().toString());
+        } else {
+            data.setRemark("");
+        }
+
     }
 
     //轴数
     @Override
     public void onItemClick(String name, int id) {
-        if(id==111){
-            if(name.equals("正常")){
-                isMix=0;
-            }else if(name.equals("混装")){
-                isMix=1;
-            }else if(name.equals("不合法装载")){
-                isMix=2;
+        if (id == 111) {
+            if (name.equals("正常")) {
+                isMix = 0;
+            } else if (name.equals("混装")) {
+                isMix = 1;
+            } else if (name.equals("不合法装载")) {
+                isMix = 2;
             }
-            isMixName=name;
-        }else{
+            isMixName = name;
+        } else if (id == 1 || id == 11 || id == 5) {
+            vehicleTypeID = id;
+            vehicleTypeIDName = name;
+        } else {
             axleCount = id;
             axleCountName = name;
         }
@@ -386,10 +579,10 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
                 laneID = code;
                 laneName = name;
                 break;
-            case 6:
+          /*  case 6:
                 vehicleTypeID = code;
                 vehicleTypeIDName = name;
-                break;
+                break;*/
             case 111://上报单位
                 reportOrgID = code;
                 reportOrgLevel = name;

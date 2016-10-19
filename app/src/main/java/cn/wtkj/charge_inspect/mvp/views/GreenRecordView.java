@@ -8,7 +8,11 @@ import cn.wtkj.charge_inspect.mvp.MvpView;
  */
 public interface GreenRecordView extends MvpView {
 
+    void setView();
+
     void showView();
+
+    void setDropDown();
 
     //提示用户等待
     void showLoding();
@@ -17,7 +21,7 @@ public interface GreenRecordView extends MvpView {
     void hideLoging();
 
     //跳转到下一个页面
-    void nextView(String phone);
+    void nextView();
 
     //提示错误信息
     void showMes(String msg);

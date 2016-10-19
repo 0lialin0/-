@@ -10,12 +10,21 @@ public class PhotoVideoData implements Serializable {
     private String BlackListID; //黑名单ID
     private String VehicleID;  //灰名单ID
     private String YListID;    //黄名单ID
-    private int NameType;// 0：黑名单，1：灰名单，2：黄名单
+    private String GCListID; //绿通id
+    private int NameType;// 0：黑名单，1：灰名单，2：黄名单，3，绿通
     private String videoName;
     private String videoUrl;
     private String photoName;
     private String photoUrl;
     private String creartTime;
+
+    public String getGCListID() {
+        return GCListID;
+    }
+
+    public void setGCListID(String GCListID) {
+        this.GCListID = GCListID;
+    }
 
     public int getPvid() {
         return pvid;

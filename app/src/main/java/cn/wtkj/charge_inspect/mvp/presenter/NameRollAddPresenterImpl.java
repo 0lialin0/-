@@ -57,7 +57,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
             getView().showLoding();
             String uuid = blackListDb.updateBlackList(data);
             if (uuid!="" && fileList.size()>0) {
-                insertPv(fileList, uuid, data.getNameType());
+                photoVideoDb.insertListPvd(fileList, uuid, data.getNameType());
             }
             getView().himeDialog();
             getView().nextView();
@@ -66,28 +66,6 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
     }
 
-    public void insertPv(List<File> fileList, String uuid, int type) {
-        PhotoVideoData data;
-        int fileIndex = 0;
-        files = new ArrayList<>();
-        fileName = new ArrayList<>();
-        for (int i = 0; i < fileList.size(); i++) {
-            File file = fileList.get(i);
-            if (file.exists()) {
-                data = new PhotoVideoData();
-                data.setPhotoName(fileList.get(i).getName());
-                if (type == 0) {
-                    data.setBlackListID(uuid);
-                } else if (type == 1) {
-                    data.setVehicleID(uuid);
-                } else if (type == 2) {
-                    data.setYListID(uuid);
-                }
-                data.setPhotoUrl(fileList.get(i).getPath());
-                photoVideoDb.updatePv(data);
-            }
-        }
-    }
 
     @Override
     public List<KeyValueData> setDropDown() {

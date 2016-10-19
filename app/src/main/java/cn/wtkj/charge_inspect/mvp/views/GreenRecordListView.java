@@ -1,6 +1,9 @@
 package cn.wtkj.charge_inspect.mvp.views;
 
 
+import java.util.List;
+
+import cn.wtkj.charge_inspect.data.bean.JCGreenChannelRecData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
 
 /**
@@ -16,12 +19,15 @@ public interface GreenRecordListView extends MvpView {
     //隐藏等待
     void hideLoging();
 
+    //隐藏等待
+    void hideDialog();
+
     //跳转到下一个页面
-    void nextView(String phone);
+    void nextView();
 
     //提示错误信息
     void showMes(String msg);
 
-    void setList();
+    void setList(List<JCGreenChannelRecData> datas);
 
 }

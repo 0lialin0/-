@@ -10,7 +10,7 @@
     <string name="please_input">请输入</string>
 
     <string name="user_info">登陆人信息</string>
-    <string name="user_info_name">当前登陆人</string>
+    <string name="user_info_name">当前登录人</string>
     <string name="user_info_num">登陆人工号</string>
     <string name="user_info_unit">单位名称</string>
     <string name="user_info_dep">所属部门</string>

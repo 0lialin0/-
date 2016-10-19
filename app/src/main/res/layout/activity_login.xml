@@ -103,7 +103,7 @@
                     android:id="@+id/login_comit_bnt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="登陆"
+                    android:text="登录"
                     android:textColor="@color/white"
                     android:textSize="@dimen/x38" />
 

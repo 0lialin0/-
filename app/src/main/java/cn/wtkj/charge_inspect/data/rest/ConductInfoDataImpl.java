@@ -69,4 +69,25 @@ public class ConductInfoDataImpl implements ConductInfoData {
     public void sendXiafaHandle(Map<String, String> map, Callback<ResponeData> callback) {
         dangerousApi.sendXiafaHandle(map,callback);
     }
+
+    //绿通档案
+    @Override
+    public void greenRecord(Map<String, String> map, List<String> fileNames, List<File> files,
+                            final DataRequester.DataCallBack<ResponeData> callBack) {
+        MultipartRequester multipartRequester = new MultipartRequester(DangerousApi.END_POINT + "/restApi?businessId=green.greenRecordAct",
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callBack.error();
+                    }
+                }, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                callBack.success(gson.fromJson(response, ResponeData.class));
+            }
+        }, fileNames, files, map);
+        multipartRequester.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 0, 1.0f));
+        DataRequester.getInstance(context).add(multipartRequester);
+    }
 }

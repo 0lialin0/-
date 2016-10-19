@@ -130,7 +130,7 @@
                         <EditText
                             android:id="@+id/ed_capacity"
                             style="@style/electron_ed_content"
-                            android:hint="@string/please_input" />
+                            android:numeric="decimal"/>
 
                     </LinearLayout>
 
@@ -453,7 +453,7 @@
                     android:id="@+id/ll_FreeMoney"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
                     <View style="@style/view_line" />
@@ -486,7 +486,7 @@
                     android:id="@+id/ll_EscapeMoney"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <View style="@style/view_line" />
 

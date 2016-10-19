@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class PhotoVideoDb {
     private SQLiteDatabase db;
     private MyDataBaseHelper dataBaseHelper;
     private String tablename = MyDataBaseHelper.PHOTOVIDEO;
+    List<File> files;
+    List<String> fileName;
 
     public PhotoVideoDb(Context context) {
         dataBaseHelper = new MyDataBaseHelper(context);
@@ -26,12 +29,13 @@ public class PhotoVideoDb {
     public void insertPv(PhotoVideoData data) {
         try {
             String sql = String
-                    .format("INSERT INTO %s(BlackListID,VehicleID,YListID, NameType, " +
-                                    "videoName ,videoUrl  photoName,photoUrl ,creartTime) " +
+                    .format("INSERT INTO %s(BlackListID,VehicleID,YListID, GCListID, NameType, " +
+                                    "videoName ,videoUrl, photoName,photoUrl ,creartTime) " +
                                     " VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
                             tablename,
                             data.getBlackListID(), data.getVehicleID(), data.getYListID(),
-                            data.getNameType(), data.getVideoName(), data.getVideoUrl(),
+                            data.getGCListID(), data.getNameType(), data.getVideoName(),
+                            data.getVideoUrl(),
                             data.getPhotoName(), data.getPhotoUrl(), data.getCreartTime());
 
             db = dataBaseHelper.getWritableDatabase();
@@ -47,20 +51,13 @@ public class PhotoVideoDb {
 
     public void updatePv(PhotoVideoData data) {
         String uuid = "";
-        if (data.getNameType() == 0) {
-            uuid = data.getBlackListID();
-        } else if (data.getNameType() == 1) {
-            uuid = data.getVehicleID();
-        } else if (data.getNameType() == 2) {
-            uuid = data.getYListID();
-        }
-        if (getCount(uuid,data.getNameType()) > 0) {
+        if (getCount(data.getPhotoName(), data.getNameType()) > 0) {
             String sql = String.format(
                     "UPDATE %s SET BlackListID='%s',VehicleID='%s',YListID='%s', " +
-                            "NameType='%s', videoName='%s' ,videoUrl='%s' ," +
+                            "GCListID='%s', NameType='%s', videoName='%s' ,videoUrl='%s' ," +
                             "photoName='%s',photoUrl='%s' ,creartTime='%s'",
                     tablename, data.getBlackListID(), data.getVehicleID(), data.getYListID(),
-                    data.getNameType(), data.getVideoName(), data.getVideoUrl(),
+                    data.getGCListID(),data.getNameType(), data.getVideoName(), data.getVideoUrl(),
                     data.getPhotoName(), data.getPhotoUrl(), data.getCreartTime());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
@@ -70,19 +67,10 @@ public class PhotoVideoDb {
         }
     }
 
-    public int getCount(String uuid,int type) {
-        String sql= String.format("SELECT * FROM %s WHERE BlackListID = '" + uuid + "' ",
+    public int getCount(String name, int type) {
+        String sql = String.format("SELECT * FROM %s WHERE photoName = '" + name + "' " +
+                "and NameType="+type +" ",
                 tablename);
-        if(type==0){
-            sql = String.format("SELECT * FROM %s WHERE BlackListID = '" + uuid + "' ",
-                    tablename);
-        }else if(type==1){
-            sql = String.format("SELECT * FROM %s WHERE VehicleID = '" + uuid + "' ",
-                    tablename);
-        }else if(type==2){
-            sql = String.format("SELECT * FROM %s WHERE YListID = '" + uuid + "' ",
-                    tablename);
-        }
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
         Cursor cur = database.rawQuery(sql, null);
         int num = cur.getCount();
@@ -91,16 +79,29 @@ public class PhotoVideoDb {
         return num;
     }
 
-    public List<PhotoVideoData> getPv(String uuid) {
+    public List<PhotoVideoData> getPv(String uuid,int type) {
         List<PhotoVideoData> list = new ArrayList<>();
         PhotoVideoData data;
-        String col[] = {"pvid", "BlackListID","VehicleID","YListID","NameType",
+        String col[] = {"pvid", "BlackListID", "VehicleID", "YListID", "NameType",
                 "videoName", "videoUrl", "photoName"
-                , "photoUrl", "creartTime"};
+                , "photoUrl", "creartTime","GCListID"};
         db = dataBaseHelper.getReadableDatabase();
-        Cursor cur;
-        cur = db.query(tablename, col, "proId= ?",
+        Cursor cur=db.query(tablename, col, "BlackListID= ?",
                 new String[]{uuid}, null, null, "creartTime desc");
+        if(type==0){
+            cur = db.query(tablename, col, "BlackListID= ?",
+                    new String[]{uuid}, null, null, "creartTime desc");
+        }else if(type==1){
+            cur = db.query(tablename, col, "VehicleID= ?",
+                    new String[]{uuid}, null, null, "creartTime desc");
+        }else if(type==2){
+            cur = db.query(tablename, col, "YListID= ?",
+                    new String[]{uuid}, null, null, "creartTime desc");
+        }else if(type==3){
+            cur = db.query(tablename, col, "GCListID= ?",
+                    new String[]{uuid}, null, null, "creartTime desc");
+        }
+
         if (cur.moveToFirst()) {
             for (int i = 0; i < cur.getCount(); i++) {
                 data = new PhotoVideoData();
@@ -114,6 +115,7 @@ public class PhotoVideoDb {
                 data.setPhotoName(cur.getString(7));
                 data.setPhotoUrl(cur.getString(8));
                 data.setCreartTime(cur.getString(9));
+                data.setGCListID(cur.getString(10));
                 list.add(data);
                 cur.moveToNext();
             }
@@ -123,20 +125,51 @@ public class PhotoVideoDb {
         return list;
     }
 
-    public void delData(String id,int type) {
-        if(type==0){
+    public void delData(String id, int type) {
+        if (type == 0) {
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.delete(tablename, "BlackListID=?", new String[]{id});
             DatabaseManager.getInstance().closeDatabase();
-        }else if(type==1){
+        } else if (type == 1) {
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.delete(tablename, "VehicleID=?", new String[]{id});
             DatabaseManager.getInstance().closeDatabase();
-        }else if(type==2){
+        } else if (type == 2) {
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.delete(tablename, "YListID=?", new String[]{id});
             DatabaseManager.getInstance().closeDatabase();
+        } else if(type==3) {
+            SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+            database.delete(tablename, "GCListID=?", new String[]{id});
+            DatabaseManager.getInstance().closeDatabase();
         }
 
+    }
+
+
+    public void insertListPvd(List<File> fileList, String uuid, int type){
+        PhotoVideoData data;
+        int fileIndex = 0;
+        files = new ArrayList<>();
+        fileName = new ArrayList<>();
+        for (int i = 0; i < fileList.size(); i++) {
+            File file = fileList.get(i);
+            if (file.exists()) {
+                data = new PhotoVideoData();
+                data.setPhotoName(fileList.get(i).getName());
+                if (type == 0) {
+                    data.setBlackListID(uuid);
+                } else if (type == 1) {
+                    data.setVehicleID(uuid);
+                } else if (type == 2) {
+                    data.setYListID(uuid);
+                }else if(type==3){
+                    data.setGCListID(uuid);
+                }
+                data.setNameType(type);
+                data.setPhotoUrl(fileList.get(i).getPath());
+                this.updatePv(data);
+            }
+        }
     }
 }

@@ -79,7 +79,7 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     @Override
     public void sendData(JCBlackListData data) {
         getView().showLoding();
-        List<PhotoVideoData> pvList=getPvList(data.getBlackListID());
+        List<PhotoVideoData> pvList=getPvList(data.getBlackListID(),data.getNameType());
         map = new HashMap<>();
 
         int fileIndex = 0;
@@ -114,8 +114,8 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     }
 
 
-    private List<PhotoVideoData> getPvList(String uuid) {
-        List<PhotoVideoData> list= photoVideoDb.getPv(uuid);
+    private List<PhotoVideoData> getPvList(String uuid,int type) {
+        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,type);
         return list;
     }
 

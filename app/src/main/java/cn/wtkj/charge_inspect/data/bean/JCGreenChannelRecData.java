@@ -6,10 +6,11 @@ import java.io.Serializable;
  * Created by ghj on 2016/9/22.
  * 稽核绿通档案信息
  */
-public class JCGreenChannelRec implements Serializable {
+public class JCGreenChannelRecData implements Serializable {
 
-    private int CardNo; //卡号
+
     private String GCListID; //id
+    private String CardNo; //卡号
     private String VehPlateNo; //车牌号
 
     private int VehicleTypeID; //车辆类型ID
@@ -55,11 +56,11 @@ public class JCGreenChannelRec implements Serializable {
         IsMixName = isMixName;
     }
 
-    public int getCardNo() {
+    public String getCardNo() {
         return CardNo;
     }
 
-    public void setCardNo(int cardNo) {
+    public void setCardNo(String cardNo) {
         CardNo = cardNo;
     }
 

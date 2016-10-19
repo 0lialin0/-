@@ -12,6 +12,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public static final String VIEW_ORGANIZATION = "View_Organization";
     public static final String JC_ESCAPEBOOK = "JC_EscapeBook";
     public static final String JC_BLACKLIST = "JC_BlackList";
+    public static final String JC_GREENCHANNEL = "JC_GreenChannel";
     public static final String PHOTOVIDEO = "PhotoVideo";
 
     public MyDataBaseHelper(Context context) {
@@ -77,12 +78,31 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                         "Owner","PeccancyDescription","HistoryInfo");
         db.execSQL(blacklistSql);
 
+        String greenchannelSql = String
+                .format("Create TABLE %s(%s VARCHAR(100), %s VARCHAR(120), %s VARCHAR(120), " +
+                                "%s int, %s VARCHAR(120), %s VARCHAR(120),  %s VARCHAR(120), " +
+                                "%s int, %s VARCHAR(120), %s VARCHAR(120),  %s int," +
+                                "%s VARCHAR(120), %s VARCHAR(120), %s int, %s VARCHAR(120),  " +
+                                "%s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), %s int, " +
+                                "%s VARCHAR(120), %s VARCHAR(180), %s VARCHAR(180), " +
+                                " %s int, %s VARCHAR(120), %s VARCHAR(120)," +
+                                " %s VARCHAR(220), %s int, %s VARCHAR(120) ) ",
+                        JC_GREENCHANNEL, "GCListID", "CardNo", "VepPlateNo", "VehicleTypeID",
+                        "VehicleTypeName", "FactoryType", "Capacity", "AxleCount", "AxleCountName",
+                        "Tonnage","ReportOrgID", "ReportOrgLevel", "CheckDate",
+                        "InStationID",  "InStationName", "LaneID", "LaneName",
+                        "OprName", "Shiftman",
+                        "IsMix", "IsMixName","GoodsName",
+                        "MixGoodsName", "IsEnjoy", "FreeMoney", "EscapeMoney", "Remark",
+                        "OperType", "userID");
+        db.execSQL(greenchannelSql);
+
 
         String pvSql = String
                 .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s VARCHAR(120), %s VARCHAR(120)," +
-                        " %s VARCHAR(120), %s int, %s VARCHAR(220) ," +
+                        " %s VARCHAR(120),%s VARCHAR(120), %s int, %s VARCHAR(220) ," +
                         " %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220))",
-                        PHOTOVIDEO, "pvid", "BlackListID","VehicleID","YListID","NameType",
+                        PHOTOVIDEO, "pvid", "BlackListID","VehicleID","YListID","GCListID","NameType",
                         "videoName" ,"videoUrl" ,"photoName"
                         ,"photoUrl" ,"creartTime");
         db.execSQL(pvSql);

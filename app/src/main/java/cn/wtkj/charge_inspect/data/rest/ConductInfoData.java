@@ -16,7 +16,7 @@ import retrofit.Callback;
 public interface ConductInfoData {
 
     //黑名单上传
-    void nameRoll(Map<String, String> loginMap, List<String> fileNames, List<File> files,
+    void nameRoll(Map<String, String> map, List<String> fileNames, List<File> files,
                   final DataRequester.DataCallBack<ResponeData> callBack);
 
     //增收上传
@@ -27,4 +27,9 @@ public interface ConductInfoData {
 
     //下发黑名单处理
     void sendXiafaHandle(Map<String, String> map, Callback<ResponeData> callback);
+
+
+    //绿通档案
+    void greenRecord(Map<String, String> map, List<String> fileNames, List<File> files,
+                  final DataRequester.DataCallBack<ResponeData> callBack);
 }
