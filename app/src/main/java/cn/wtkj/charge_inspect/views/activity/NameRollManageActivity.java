@@ -217,10 +217,16 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             intent.setClass(this, NameRollAddActivity.class);
             this.startActivity(intent);
         } else if (name.equals("grey")) {
-            intent.setClass(this, NameRollAddGreyActivity.class);
+            intent.putExtra("nameType",1+"");
+            intent.putExtra("nameTitle", "添加灰名单");
+            intent.setClass(this, NameRollAddActivity.class);
+            //intent.setClass(this, NameRollAddGreyActivity.class);
             this.startActivity(intent);
         } else if (name.equals("yellow")) {
-            intent.setClass(this, NameRollAddYellowActivity.class);
+            intent.putExtra("nameType",2+"");
+            intent.putExtra("nameTitle", "添加黄名单");
+            intent.setClass(this, NameRollAddActivity.class);
+            //intent.setClass(this, NameRollAddYellowActivity.class);
             this.startActivity(intent);
         } else if (name.equals("del")) {
             showConfirm(code);

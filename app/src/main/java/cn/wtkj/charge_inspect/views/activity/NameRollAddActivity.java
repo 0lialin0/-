@@ -74,7 +74,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     EditText FactoryType;
     @Bind(R.id.VepColorName)
     TextView VepColorName;
-    @Bind(R.id.VehicleTypeName)
+    @Bind(R.id.VehTypeName)
     TextView VehTypeName;
     @Bind(R.id.VehicleTypeName)
     TextView VehicleTypeName;
@@ -170,7 +170,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
 
     private boolean state = true;
-    private List<DropDownMenu> dropDownMenuList;
+    private List<DropDownMenu> dropDownMenuList = new ArrayList<>();
     private List<Integer> dataMapIdList = new ArrayList<>();
     private List<String> dataMapNameList = new ArrayList<>();
     private List<List<ConstAllData.MData.info>> dataMapList = new ArrayList<>();
@@ -198,7 +198,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        nameType = intent.getIntExtra("nameType", 0);
+        nameType = Integer.valueOf(intent.getStringExtra("nameType"));
         nameTitle = intent.getStringExtra("nameTitle");
 
         setContentView(R.layout.activity_name_roll_add);
@@ -490,9 +490,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         }
     }
 
-    @OnClick({R.id.iv_left, R.id.comit_button, R.id.tv_weizhang_time, R.id.rl_car_color,
-            R.id.rl_car_body_color, R.id.rl_veh_type, R.id.rl_car_type, R.id.rl_weizhang_type,
-            R.id.tv_qujian_start, R.id.tv_qujian_end, R.id.rl_zhoushuo, R.id.rl_weizhang_addr})
+
     @Override
     public void onClick(View view) {
         //1：站址, 3：车牌颜色, 4：车身颜色, 5：车型类别, 6：车辆类别, 7：违章类型
