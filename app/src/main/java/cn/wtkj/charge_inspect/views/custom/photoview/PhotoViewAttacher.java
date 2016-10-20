@@ -35,10 +35,10 @@ import android.widget.ImageView.ScaleType;
 
 import java.lang.ref.WeakReference;
 
-import cn.xhhouse.xhdc.view.photoview.gestures.OnGestureListener;
-import cn.xhhouse.xhdc.view.photoview.gestures.VersionedGestureDetector;
-import cn.xhhouse.xhdc.view.photoview.log.LogManager;
-import cn.xhhouse.xhdc.view.photoview.scrollerproxy.ScrollerProxy;
+import cn.wtkj.charge_inspect.views.custom.photoview.gestures.OnGestureListener;
+import cn.wtkj.charge_inspect.views.custom.photoview.gestures.VersionedGestureDetector;
+import cn.wtkj.charge_inspect.views.custom.photoview.log.LogManager;
+import cn.wtkj.charge_inspect.views.custom.photoview.scrollerproxy.ScrollerProxy;
 
 import static android.view.MotionEvent.ACTION_CANCEL;
 import static android.view.MotionEvent.ACTION_DOWN;
@@ -123,7 +123,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
 
     // Gesture Detectors
     private GestureDetector mGestureDetector;
-    private cn.xhhouse.xhdc.view.photoview.gestures.GestureDetector mScaleDragDetector;
+    private cn.wtkj.charge_inspect.views.custom.photoview.gestures.GestureDetector mScaleDragDetector;
 
     // These are set so we don't keep allocating them on the heap
     private final Matrix mBaseMatrix = new Matrix();
@@ -200,7 +200,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
      * Clean-up the resources attached to this object. This needs to be called when the ImageView is
      * no longer used. A good example is from {@link View#onDetachedFromWindow()} or
      * from {@link android.app.Activity#onDestroy()}. This is automatically called if you are using
-     * {@link cn.xhhouse.xhdc.view.photoview.PhotoView}.
+     * {@link cn.wtkj.charge_inspect.views.custom.photoview.PhotoView}.
      */
     @SuppressWarnings("deprecation")
     public void cleanup() {

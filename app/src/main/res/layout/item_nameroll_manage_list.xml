@@ -21,7 +21,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <cn.wtkj.charge_inspect.views.custom.photoview.PhotoView
                 android:id="@+id/active_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

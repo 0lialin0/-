@@ -19,7 +19,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.view.MotionEvent;
 
-import cn.xhhouse.xhdc.view.photoview.Compat;
+import cn.wtkj.charge_inspect.views.custom.photoview.Compat;
 
 @TargetApi(5)
 public class EclairGestureDetector extends CupcakeGestureDetector {
