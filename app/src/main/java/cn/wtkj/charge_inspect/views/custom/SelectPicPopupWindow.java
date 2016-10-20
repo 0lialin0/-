@@ -19,12 +19,11 @@ import cn.wtkj.charge_inspect.R;
  * Created by lxg on 2015/11/12.
  */
 public class SelectPicPopupWindow extends PopupWindow {
-
-
+    private int nameType;   // 0 黑名单，1 灰名单，2 黄名单，3 绿通
     private Button btn_take_photo, btn_pick_photo,btn_take_video,btn_pick_video, btn_cancel;
     private View mMenuView;
 
-    public SelectPicPopupWindow(Activity context, OnClickListener itemsOnClick) {
+    public SelectPicPopupWindow(Activity context, OnClickListener itemsOnClick, int nameType) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -33,6 +32,12 @@ public class SelectPicPopupWindow extends PopupWindow {
         btn_take_video = (Button) mMenuView.findViewById(R.id.btn_take_video);
         btn_pick_photo = (Button) mMenuView.findViewById(R.id.btn_pick_photo);
         btn_pick_video  = (Button) mMenuView.findViewById(R.id.btn_pick_video);
+
+        if (nameType == 2 || nameType ==3){
+            btn_pick_video.setVisibility(View.GONE);
+            btn_take_video.setVisibility(View.GONE);
+        }
+
         btn_cancel = (Button) mMenuView.findViewById(R.id.btn_cancel);
         //取消按钮
         btn_cancel.setOnClickListener(new OnClickListener() {

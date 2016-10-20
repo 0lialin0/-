@@ -56,6 +56,16 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     private File tempFile;
     private static LinearLayoutManager manager;
     public boolean isEnabled = true;
+
+    public int getNameType() {
+        return nameType;
+    }
+
+    public void setNameType(int nameType) {
+        this.nameType = nameType;
+    }
+
+    private int nameType = 0; // 0 黑名单，1 灰名单，2 黄名单，3 绿通
     //自定义的弹出框类
     SelectPicPopupWindow menuWindow;
     private static String TAG = "MyPhotos";
@@ -145,7 +155,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     @Override
     public void onItemClick() {
         if (isEnabled) {
-            menuWindow = new SelectPicPopupWindow((Activity) mContext, itemsOnClick);
+            menuWindow = new SelectPicPopupWindow((Activity) mContext, itemsOnClick, nameType);
             menuWindow.showAtLocation(recyclerView,
                     Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
             if (null != onClickAddImgListener) {

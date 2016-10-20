@@ -12,42 +12,42 @@ public class JCBlackListData implements Serializable {
     private String VehicleID;  //灰名单ID
     private String YListID;    //黄名单ID
 
-    private String CardNo;  //通行卡号
+
     private String VepPlateNo; //车牌号
+    private int VepPlateNoColor;//车牌颜色ID
+    private String VepPlateNoColorName;//车牌颜色
 
-    private int VehicleTypeID; //车辆类别ID
-    private String VehicleTypeName; //车辆类别
-
-    private int VehType; //车型类别ID
-    private String VehTypeName; //车型类别
+    private String FactoryType;//厂牌型号
 
     private int VepColor; //车身颜色ID
     private String VepColorName; //车身颜色
 
-    private int VepPlateNoColor;//车牌颜色ID
-    private String VepPlateNoColorName;//车牌颜色
+    private int VehicleTypeID; //车辆类别ID
+    private String VehicleTypeName; //车辆类别
+    private int VehType; //车型类别ID
+    private String VehTypeName; //车型类别
 
+    private int Seating; //座位数
+
+    private String CardNo;  //通行卡号
     private int PeccancyTypeID; //违章类型ID
     private String PeccancyTypeName; //违章类型
-
-    private String FactoryType;//厂牌型号
     private String GenDT;//违章时间
+    private int PeccancyOrgID; //违章地点ID
+    private String PeccancyOrgName; //违章地点
 
     private int InOrgID; //始行驶区间ID
     private String InOrgName; //始行驶区间
 
     private int OutOrgID;//结行驶区间ID
     private String OutOrgName;//结行驶区间
-
-    private int PeccancyOrgID; //违章地点ID
-    private String PeccancyOrgName; //违章地点
-
     private String GenCause;//情况说明
+
     private int AxleCount;  //轴数
     private String AxleCountName; //轴数(轴)
 
     private String Tonnage; //吨位数
-    private int Seating; //座位数
+
     private String videoName;
     private String videoList;
     private String photoName;

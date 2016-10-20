@@ -212,6 +212,8 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
     public void onItemClick(int code, int type, String name) {
         Intent intent = new Intent();
         if (name.equals("balck")) {
+            intent.putExtra("nameType",0+"");
+            intent.putExtra("nameTitle", "添加黑名单");
             intent.setClass(this, NameRollAddActivity.class);
             this.startActivity(intent);
         } else if (name.equals("grey")) {
