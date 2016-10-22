@@ -2,13 +2,17 @@ package cn.wtkj.charge_inspect.mvp.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCGreenChannelRecData;
 import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
@@ -19,6 +23,7 @@ import cn.wtkj.charge_inspect.data.dataBase.PhotoVideoDb;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.GreenRecordView;
 import cn.wtkj.charge_inspect.mvp.views.MainView;
+import cn.wtkj.charge_inspect.util.SysUtils;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
 
 
@@ -57,6 +62,17 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
 
     @Override
     public void startPresenter(List<File> fileList, JCGreenChannelRecData data) {
+        if (fileList.size() > 0){
+            for (int i=0; i< fileList.size(); i++){
+                String oldFilePath = fileList.get(i).getPath();
+                String newFilePath = getFileName(data);
+
+                if (SysUtils.copyFile(oldFilePath, newFilePath)) {
+
+                }
+            }
+        }
+
         if (isNumber) {
             getView().showLoding();
             String uuid = greenChannelDb.updateGreenChannelList(data);
@@ -69,6 +85,17 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
         isNumber = !isNumber;//控制上传时间间隔
     }
 
+    public String getFileName(JCGreenChannelRecData data){
+
+        String filePath = Environment.getExternalStorageDirectory() + "/稽查APP";
+
+
+        filePath += "/绿通/";
+        filePath += data.getVehPlateNo()+data.getGoodsName()+data.getCheckDate();
+
+        filePath += ".jpg";
+        return filePath;
+    }
 
     @Override
     public List<ConstAllData.MData.info> getConstByType(int type) {

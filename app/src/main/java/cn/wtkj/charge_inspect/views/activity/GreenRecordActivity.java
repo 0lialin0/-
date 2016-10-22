@@ -172,7 +172,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         progressDialog = new ProgressDialog(this);
 
         tvCheckTime.setText(ResponeUtils.getTime());
-
+        myphoto.setNameType(3);
         myphoto.setFragment(this);
         myphoto.setOnClickAddImgListener(this);
         files = new ArrayList<>();
