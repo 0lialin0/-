@@ -211,48 +211,54 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
     @Override
     public void onItemClick(int code, int type, String name) {
         Intent intent = new Intent();
-        if (name.equals("balck")) {
-            intent.putExtra("nameType",0+"");
-            intent.putExtra("nameTitle", "添加黑名单");
-            intent.setClass(this, NameRollAddActivity.class);
-            this.startActivity(intent);
+        intent.setClass(this, NameRollAddActivity.class);
+
+        int nameType = -1;
+        String nameTitle = "";
+
+        if (name.equals("black")) {
+            nameType = 0;
+            nameTitle = "添加黑名单";
         } else if (name.equals("grey")) {
-            intent.putExtra("nameType",1+"");
-            intent.putExtra("nameTitle", "添加灰名单");
-            intent.setClass(this, NameRollAddActivity.class);
-            //intent.setClass(this, NameRollAddGreyActivity.class);
-            this.startActivity(intent);
+            nameType = 1;
+            nameTitle = "添加灰名单";
         } else if (name.equals("yellow")) {
-            intent.putExtra("nameType",2+"");
-            intent.putExtra("nameTitle", "添加黄名单");
-            intent.setClass(this, NameRollAddActivity.class);
-            //intent.setClass(this, NameRollAddYellowActivity.class);
-            this.startActivity(intent);
+            nameType = 2;
+            nameTitle = "添加黄名单";
         } else if (name.equals("del")) {
             showConfirm(code);
         } else if (name.equals("edit")) {
-            if (mList.get(code).getNameType() == 0) {
-                intent = new Intent(this, NameRollAddActivity.class);
-            } else if (mList.get(code).getNameType() == 1) {
-                intent = new Intent(this, NameRollAddGreyActivity.class);
-            } else {
-                intent = new Intent(this, NameRollAddYellowActivity.class);
-            }
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
             intent.putExtras(bundle);
-            this.startActivity(intent);
+            nameType =  mList.get(code).getNameType();
         } else if (name.equals("submit")) {
             //showMes("提交");
             presenter.sendData(mList.get(code));
-        } else {
-            intent = new Intent(this, NameRollAddActivity.class);
+        }/* else {
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
+            nameType =  mList.get(code).getNameType();
             intent.putExtras(bundle);
+        }*/
+
+        /* 如果是编辑或者新增名单 */
+        if (nameType != -1) {
+            switch (nameType){
+                case 0:
+                    nameTitle = "添加黑名单";
+                    break;
+                case 1:
+                    nameTitle = "添加灰名单";
+                    break;
+                case 2:
+                    nameTitle = "添加黄名单";
+                    break;
+            }
+            intent.putExtra("nameType", nameType+"");
+            intent.putExtra("nameTitle", nameTitle);
             this.startActivity(intent);
         }
-
 
     }
 

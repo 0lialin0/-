@@ -17,6 +17,7 @@ import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.LoginPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.LoginPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.LoginView;
+import cn.wtkj.charge_inspect.util.Setting;
 
 import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
 
@@ -91,9 +92,12 @@ public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements
 
     @Override
     public void nextView() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        this.finish();
+        if (Setting.USERID != "") {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            this.finish();
+        }
+
     }
 
     @Override

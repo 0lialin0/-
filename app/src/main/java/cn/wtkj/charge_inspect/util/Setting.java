@@ -11,7 +11,7 @@ public class Setting {
     //对密码加密的形式
     public static final String MD5 = "MD5";
     //登陆用户名
-    public static String USERID;
+    public static String USERID="";
     //用户名称
     public static String NAME;
     //组织机构层

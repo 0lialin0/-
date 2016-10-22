@@ -405,7 +405,7 @@ public class VideoRecorderView extends LinearLayout implements MediaRecorder.OnE
      * 创建视频文件
      */
     private void createRecordDir() {
-        File sampleDir = new File(Environment.getExternalStorageDirectory() + File.separator + "WeChatVideoRecorder/");
+        File sampleDir = new File(Environment.getExternalStorageDirectory() + File.separator + "稽查app/视频/");
         if (!sampleDir.exists()) {
             sampleDir.mkdirs();
         }

@@ -168,22 +168,12 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     private String outOrgName;//结行驶区间
 
 
-
     private boolean state = true;
     private List<DropDownMenu> dropDownMenuList = new ArrayList<>();
     private List<Integer> dataMapIdList = new ArrayList<>();
     private List<String> dataMapNameList = new ArrayList<>();
     private List<List<ConstAllData.MData.info>> dataMapList = new ArrayList<>();
-
-    private DropDownMenu dropDownMenu;
-    private DropDownMenu dropDownMenu2;
-    private DropDownMenu dropDownMenu3;
-    private DropDownMenu dropDownMenu4;
-    private DropDownMenu dropDownMenu5;
-    private DropDownMenu dropDownMenu6;
-    private DropDownMenu dropDownMenu7;
     private DropDownKeyValue downKeyValue;
-    private DropDownKeyValue downKeyValue2;
     private DropDownOrgMenu dropDownOrgMenu;
 
     private int nameType = 0;
@@ -285,78 +275,41 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
                 switch (i){
                     case 1:
-                        InOrgName.setText(dataMap.get(0).getName());
+                        InOrgName.setText(defaultName);
+                        inOrgID = defaultCode;
+                        inOrgName = defaultName;
                         OutOrgName.setText(defaultName);
+                        outOrgID = defaultCode;
+                        outOrgName = defaultName;
                         break;
                     case 3:
                         VepPlateNoColorName.setText(defaultName);
+                        vepPlateNoColor = defaultCode;
+                        vepPlateNoColorName = defaultName;
                         break;
                     case 4:
                         VepColorName.setText(defaultName);
+                        vepColor = defaultCode;
+                        vepColorName = defaultName;
                         break;
                     case 5:
                         VehTypeName.setText(defaultName);
+                        vehType = defaultCode;
+                        vehTypeName = defaultName;
                         break;
                     case 6:
                         VehicleTypeName.setText(defaultName);
+                        vehicleTypeID = defaultCode;
+                        vehicleTypeName = defaultName;
                         break;
                     case 7:
                         PeccancyTypeName.setText(defaultName);
+                        peccancyTypeID = defaultCode;
+                        peccancyTypeName = defaultName;
                         break;
                 }
             }
         }
-
-      /*  //车牌颜色
-        List<ConstAllData.MData.info> colorList = presenter.getConstByType(3);
-        dropDownMenu = new DropDownMenu(this, colorList);
-        dropDownMenu.setOnItemClickListener(this);
-        if (colorList.size() > 0) {
-            vepPlateNoColor = colorList.get(0).getCode();
-            vepPlateNoColorName = colorList.get(0).getName();
-            VepPlateNoColorName.setText(colorList.get(0).getName());
-        }
-
-        //车身颜色
-        List<ConstAllData.MData.info> colorbodyList = presenter.getConstByType(4);
-        dropDownMenu2 = new DropDownMenu(this, colorbodyList);
-        dropDownMenu2.setOnItemClickListener(this);
-        if (colorbodyList.size() > 0) {
-            vepColor = colorbodyList.get(0).getCode();
-            vepColorName = colorbodyList.get(0).getName();
-            VepColorName.setText(colorbodyList.get(0).getName());
-        }
-
-        //车型类别
-        List<ConstAllData.MData.info> vehTtypList = presenter.getConstByType(5);
-        dropDownMenu3 = new DropDownMenu(this, vehTtypList);
-        dropDownMenu3.setOnItemClickListener(this);
-        if (vehTtypList.size() > 0) {
-            vehType = vehTtypList.get(0).getCode();
-            vehTypeName = vehTtypList.get(0).getName();
-            VehTypeName.setText(vehTtypList.get(0).getName());
-        }
-
-        //车辆类别
-        List<ConstAllData.MData.info> carTypeList = presenter.getConstByType(6);
-        dropDownMenu4 = new DropDownMenu(this, carTypeList);
-        dropDownMenu4.setOnItemClickListener(this);
-        if (carTypeList.size() > 0) {
-            vehicleTypeID = carTypeList.get(0).getCode();
-            vehicleTypeName = carTypeList.get(0).getName();
-            VehicleTypeName.setText(carTypeList.get(0).getName());
-        }
-
-        //违章类型
-        List<ConstAllData.MData.info> weiList = presenter.getConstByType(7);
-        dropDownMenu5 = new DropDownMenu(this, weiList);
-        dropDownMenu5.setOnItemClickListener(this);
-        if (weiList.size() > 0) {
-            peccancyTypeID = weiList.get(0).getCode();
-            peccancyTypeName = weiList.get(0).getName();
-            PeccancyTypeName.setText(weiList.get(0).getName());
-        }
-*/
 
         //违章地点
         List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
@@ -368,27 +321,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             peccancyOrgName = infos.get(0).getShortName();
             PeccancyOrgName.setText(infos.get(0).getShortName());
         }
-
-
-      /*  //行驶区间--开始
-        List<ConstAllData.MData.info> qujianList = presenter.getConstByType(1);
-        dropDownMenu6 = new DropDownMenu(this, qujianList);
-        dropDownMenu6.setOnItemClickListener(this);
-        if (qujianList.size() > 0) {
-            inOrgID = qujianList.get(0).getCode();
-            inOrgName = qujianList.get(0).getName();
-            InOrgName.setText(qujianList.get(0).getName());
-        }
-
-        //行驶区间--结束
-        List<ConstAllData.MData.info> qujianEndList = presenter.getConstByType(1);
-        dropDownMenu7 = new DropDownMenu(this, qujianList);
-        dropDownMenu7.setOnItemClickListener(this);
-        if (qujianEndList.size() > 0) {
-            outOrgID = qujianEndList.get(0).getCode();
-            outOrgName = qujianEndList.get(0).getName();
-            OutOrgName.setText(qujianEndList.get(0).getName());
-        }*/
     }
 
 
@@ -490,7 +422,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         }
     }
 
-
+    @OnClick({R.id.iv_left, R.id.comit_button, R.id.GenDT, R.id.rl_car_color,
+            R.id.rl_car_body_color, R.id.rl_veh_type, R.id.rl_car_type, R.id.rl_weizhang_type,
+            R.id.InOrgName, R.id.OutOrgName, R.id.rl_zhoushuo, R.id.rl_weizhang_addr})
     @Override
     public void onClick(View view) {
         //1：站址, 3：车牌颜色, 4：车身颜色, 5：车型类别, 6：车辆类别, 7：违章类型
@@ -499,37 +433,30 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             case R.id.iv_left:
                 this.finish();
                 break;
-            case R.id.tv_weizhang_time:
+            case R.id.GenDT:
                 DateTimePickerDialog dateTimePickerDialog = new DateTimePickerDialog(this);
                 dateTimePickerDialog.dateTimePicKDialog(GenDT, 0);
                 break;
             case R.id.rl_car_color:
                 dropDownMenuList.get(1).setDownValue(VepPlateNoColorName, "");
-                //dropDownMenu.setDownValue(VepPlateNoColorName, "");
                 break;
-            case R.id.VepColorName:
+            case R.id.rl_car_body_color:
                 dropDownMenuList.get(2).setDownValue(VepColorName, "");
-               // dropDownMenu2.setDownValue(VepColorName, "");
                 break;
-            case R.id.VehicleTypeName:
+            case R.id.rl_car_type:
                 dropDownMenuList.get(3).setDownValue(VehicleTypeName, "");
-              //  dropDownMenu3.setDownValue(VehicleTypeName, "");
                 break;
-            case R.id.VehTypeName:
+            case R.id.rl_veh_type:
                 dropDownMenuList.get(4).setDownValue(VehTypeName, "");
-                //dropDownMenu4.setDownValue(VehTypeName, "");
                 break;
-            case R.id.PeccancyTypeName:
+            case R.id.rl_weizhang_type:
                 dropDownMenuList.get(5).setDownValue(PeccancyTypeName, "");
-                //dropDownMenu5.setDownValue(PeccancyTypeName, "");
                 break;
             case R.id.InOrgName:
                 dropDownMenuList.get(0).setDownValue(InOrgName, "");
-                //dropDownMenu6.setDownValue(InOrgName, "");
                 break;
             case R.id.OutOrgName:
                 dropDownMenuList.get(0).setDownValue(OutOrgName, "");
-                //dropDownMenu7.setDownValue(OutOrgName, "");
                 break;
 
             case R.id.rl_zhoushuo:
@@ -553,7 +480,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 getShowData();
                 presenter.startPresenter(files, data);
                 break;
-
 
         }
     }
@@ -625,8 +551,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             data.setGenCause("");
         }
 
-        data.setNameType(0);
-
+        data.setNameType(nameType);
     }
 
 

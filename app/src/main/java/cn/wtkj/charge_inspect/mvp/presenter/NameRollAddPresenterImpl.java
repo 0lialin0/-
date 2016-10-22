@@ -1,9 +1,15 @@
 package cn.wtkj.charge_inspect.mvp.presenter;
 
 import android.content.Context;
+import android.os.Environment;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +59,17 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     @Override
     public void startPresenter(List<File> fileList, JCBlackListData data) {
 
+        if (fileList.size() > 0){
+            for (int i=0; i< fileList.size(); i++){
+                String oldFilePath = fileList.get(i).getPath();
+                String newFilePath = getFileName(data);
+
+                if (copyFile(oldFilePath, newFilePath)) {
+
+                }
+            }
+        }
+
         if (isNumber) {
             getView().showLoding();
             String uuid = blackListDb.updateBlackList(data);
@@ -63,7 +80,69 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
             getView().nextView();
         }
         isNumber = !isNumber;//控制上传时间间隔
+    }
 
+    public String getFileName(JCBlackListData data){
+        int nameType = data.getNameType();
+
+        String filePath = Environment.getExternalStorageDirectory() + "/稽查APP";
+
+        if (nameType ==0){
+            filePath += "/黑名单/";
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
+        }else if (nameType == 1){
+            filePath += "/灰名单/";
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
+        }else {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddHHmm");
+            String addTime = simpleDateFormat.format(new Date());
+            filePath += "/黄名单/";
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
+        }
+        filePath += ".jpg";
+        return filePath;
+    }
+    /**
+     * 复制单个文件
+     * @param oldPath String 原文件路径 如：c:/fqf.txt
+     * @param newPath String 复制后路径 如：f:/fqf.txt
+     * @return boolean
+     */
+    public Boolean copyFile(String oldPath, String newPath) {
+        try {
+            int bytesum = 0;
+            int byteread = 0;
+            File oldfile = new File(oldPath);
+            if (oldfile.exists()) { //文件存在时
+                //目标目录
+                File targetDir = new File(newPath);
+                //创建目录
+                if(!targetDir.exists())
+                {
+                    targetDir.getParentFile().mkdirs();
+                    targetDir.createNewFile();
+                }
+
+                InputStream inStream = new FileInputStream(oldPath); //读入原文件
+                FileOutputStream fs = new FileOutputStream(newPath);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread; //字节数 文件大小
+                    System.out.println(bytesum);
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+
+                return true;
+            }
+        }
+        catch (Exception e) {
+            System.out.println("复制单个文件操作出错:"+e.getMessage());
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 

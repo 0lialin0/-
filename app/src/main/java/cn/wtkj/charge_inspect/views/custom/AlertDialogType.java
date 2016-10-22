@@ -60,15 +60,15 @@ public class AlertDialogType {
         inflater = LayoutInflater.from(mContext);
         viewBaseInfo = inflater.inflate(R.layout.dialog_account, null);
         RadioGroup name = (RadioGroup) viewBaseInfo.findViewById(R.id.rg_name);
-        final RadioButton balck = (RadioButton) viewBaseInfo.findViewById(R.id.rb_balck);
+        final RadioButton black = (RadioButton) viewBaseInfo.findViewById(R.id.rb_black);
         final RadioButton grey = (RadioButton) viewBaseInfo.findViewById(R.id.rb_grey);
         final RadioButton yellow = (RadioButton) viewBaseInfo.findViewById(R.id.rb_yellow);
-        nameType="balck";
+        nameType="black";
         name.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == balck.getId()) {
-                    nameType="balck";
+                if (checkedId == black.getId()) {
+                    nameType="black";
                 } else if(checkedId == grey.getId()) {
                     nameType="grey";
                 }else if(checkedId == yellow.getId()){

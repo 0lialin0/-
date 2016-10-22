@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/rb_balck"
+                android:id="@+id/rb_black"
                 style="@style/radio_name_bg"
                 android:checked="true"
                 android:text="@string/balck_name" />
