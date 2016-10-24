@@ -470,13 +470,12 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         data.setVehicleID(uuid);
         data.setBlackListID("");
         data.setYListID("");
-        data.setPeccancyOrgName(peccancyOrgName);
+
         data.setUserID(Setting.USERID);
         data.setOperType(type);//1：新增 2：修改
 
         data.setVepPlateNo(edCarNum.getText().toString());
         data.setGenDT(tvWeizhangTime.getText().toString());
-
         data.setVehicleTypeID(vehicleTypeID);
         data.setVehicleTypeName(vehicleTypeName);
         data.setVehType(vehType);
@@ -486,9 +485,9 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
         data.setVepColorName(vepColorName);
         data.setVepPlateNoColor(vepPlateNoColor);
         data.setVepPlateNoColorName(vepPlateNoColorName);
+
         data.setPeccancyTypeID(peccancyTypeID);
         data.setPeccancyTypeName(peccancyTypeName);
-
         data.setPeccancyOrgID(peccancyOrgID);
         data.setPeccancyOrgName(peccancyOrgName);
 

@@ -167,6 +167,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     private int outOrgID;//结行驶区间ID
     private String outOrgName;//结行驶区间
 
+    private int ownerType; //所有者类型ID
+    private String ownerTypeName; //所有者类型
 
     private boolean state = true;
     private List<DropDownMenu> dropDownMenuList = new ArrayList<>();
@@ -174,6 +176,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     private List<String> dataMapNameList = new ArrayList<>();
     private List<List<ConstAllData.MData.info>> dataMapList = new ArrayList<>();
     private DropDownKeyValue downKeyValue;
+    private DropDownKeyValue downKeyValueOwner;
     private DropDownOrgMenu dropDownOrgMenu;
 
     private int nameType = 0;
@@ -248,7 +251,19 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         downKeyValue.setOnItemClickListener(this);
         axleCountName = zhoushuo.get(0).getValue();
         axleCount = Integer.valueOf(zhoushuo.get(0).getId());
-        //edZhoushou.setText(zhoushuo.get(0).getValue());
+        AxleCountName.setText(zhoushuo.get(0).getValue());
+
+        //所有者类型
+        List<KeyValueData> owerType = new ArrayList<>();
+        owerType.add(new KeyValueData("0", "个人"));
+        owerType.add(new KeyValueData("1", "单位"));
+        downKeyValueOwner = new DropDownKeyValue(this, owerType);
+        downKeyValueOwner.setId(1);
+        downKeyValueOwner.setOnItemClickListener(this);
+
+        ownerTypeName = owerType.get(0).getValue();
+        ownerType = Integer.valueOf(owerType.get(0).getId());
+        OwnerTypeName.setText(owerType.get(0).getValue());
 
     }
 
@@ -380,6 +395,18 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         CardNo.setText(data.getCardNo());
         GenDT.setText(data.getGenDT());
         GenCause.setText(data.getGenCause());
+
+        /* 车辆所有者信息 */
+        Owner.setText(data.getOwner());
+        ownerTypeName = data.getOwnerTypeName();
+        ownerType = data.getOwnerType();
+        OwnerTypeName.setText(data.getOwnerTypeName());
+        OwnerAddress.setText(data.getOwnerAddress());
+        Postalcode.setText(data.getPostalcode());
+        TeletePhone.setText(data.getTeletePhone());
+        MobilePhone.setText(data.getMobilePhone());
+        HistoryInfo.setText(data.getHistoryInfo());
+
         uuid = data.getBlackListID();
     }
 
@@ -465,18 +492,24 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             case R.id.rl_weizhang_addr:
                 dropDownOrgMenu.setDownValue(PeccancyOrgName, "");
                 break;
-
+            case R.id.rl_owner_type:
+                downKeyValueOwner.setDownValue(OwnerTypeName, "");
+                break;
             case R.id.comit_button:
-                if (TextUtils.isEmpty(VepPlateNo.getText())) {
-                    showToast("车牌号不能为空！");
-                    return;
-                }
-                if (state) {
-                    if (TextUtils.isEmpty(Seating.getText())) {
-                        showToast("座位号不能为空！");
+                if (nameType == 0 || nameType ==1)
+                {
+                    if (TextUtils.isEmpty(VepPlateNo.getText())) {
+                        showToast("车牌号不能为空！");
                         return;
                     }
+                    if (state) {
+                        if (TextUtils.isEmpty(Seating.getText())) {
+                            showToast("座位号不能为空！");
+                            return;
+                        }
+                    }
                 }
+
                 getShowData();
                 presenter.startPresenter(files, data);
                 break;
@@ -490,37 +523,34 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         if (type == 1) {
             uuid = UUID.randomUUID().toString();
         }
-        data.setBlackListID(uuid);
-        data.setVehicleID("");
-        data.setYListID("");
-        data.setPeccancyOrgName(peccancyOrgName);
+
+        if (nameType == 0){
+            data.setBlackListID(uuid);
+        }else if (nameType == 1){
+            data.setVehicleID(uuid);
+        }else {
+            data.setYListID(uuid);
+        }
+
         data.setUserID(Setting.USERID);
         data.setOperType(type);//1：新增 2：修改
 
+        /* 车辆信息 */
         data.setVepPlateNo(VepPlateNo.getText().toString());
-        data.setGenDT(GenDT.getText().toString());
+        data.setVepPlateNoColor(vepPlateNoColor);
+        data.setVepPlateNoColorName(vepPlateNoColorName);
 
+        if (!TextUtils.isEmpty(FactoryType.getText())) {
+            data.setFactoryType(FactoryType.getText().toString());
+        } else {
+            data.setFactoryType("");
+        }
+        data.setVepColor(vepColor);
+        data.setVepColorName(vepColorName);
         data.setVehicleTypeID(vehicleTypeID);
         data.setVehicleTypeName(vehicleTypeName);
         data.setVehType(vehType);
         data.setVehTypeName(vehTypeName);
-
-        data.setVepColor(vepColor);
-        data.setVepColorName(vepColorName);
-        data.setVepPlateNoColor(vepPlateNoColor);
-        data.setVepPlateNoColorName(vepPlateNoColorName);
-        data.setPeccancyTypeID(peccancyTypeID);
-        data.setPeccancyTypeName(peccancyTypeName);
-
-        data.setPeccancyOrgID(peccancyOrgID);
-        data.setPeccancyOrgName(peccancyOrgName);
-
-        data.setInOrgID(inOrgID);
-        data.setInOrgName(inOrgName);
-        data.setOutOrgName(outOrgName);
-        data.setOutOrgID(outOrgID);
-
-
         data.setAxleCount(axleCount);
         data.setAxleCountName(axleCountName);
         if (!Tonnage.getText().toString().replaceAll(" ", "").equals("")) {
@@ -533,11 +563,16 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             data.setSeating(Integer.valueOf(Seating.getText().toString()));
         }
 
-        if (!TextUtils.isEmpty(FactoryType.getText())) {
-            data.setFactoryType(FactoryType.getText().toString());
-        } else {
-            data.setFactoryType("");
-        }
+        /* 违章信息 */
+        data.setPeccancyTypeID(peccancyTypeID);
+        data.setPeccancyTypeName(peccancyTypeName);
+        data.setGenDT(GenDT.getText().toString());
+        data.setPeccancyOrgID(peccancyOrgID);
+        data.setPeccancyOrgName(peccancyOrgName);
+        data.setInOrgID(inOrgID);
+        data.setInOrgName(inOrgName);
+        data.setOutOrgName(outOrgName);
+        data.setOutOrgID(outOrgID);
 
         if (!TextUtils.isEmpty(CardNo.getText())) {
             data.setCardNo(CardNo.getText().toString());
@@ -549,6 +584,45 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             data.setGenCause(GenCause.getText().toString());
         } else {
             data.setGenCause("");
+        }
+
+         /* 车辆所有者信息*/
+        if (!TextUtils.isEmpty(Owner.getText())) {
+            data.setOwner(Owner.getText().toString());
+        } else {
+            data.setOwner("");
+        }
+
+        data.setOwnerType(ownerType);
+        data.setOwnerTypeName(ownerTypeName);
+        if (!TextUtils.isEmpty(OwnerAddress.getText())) {
+            data.setOwnerAddress(OwnerAddress.getText().toString());
+        } else {
+            data.setOwnerAddress("");
+        }
+
+        if (!TextUtils.isEmpty(Postalcode.getText())) {
+            data.setPostalcode(Postalcode.getText().toString());
+        } else {
+            data.setPostalcode("");
+        }
+
+        if (!TextUtils.isEmpty(TeletePhone.getText())) {
+            data.setTeletePhone(TeletePhone.getText().toString());
+        } else {
+            data.setTeletePhone("");
+        }
+
+        if (!TextUtils.isEmpty(MobilePhone.getText())) {
+            data.setMobilePhone(MobilePhone.getText().toString());
+        } else {
+            data.setMobilePhone("");
+        }
+
+        if (!TextUtils.isEmpty(HistoryInfo.getText())) {
+            data.setHistoryInfo(HistoryInfo.getText().toString());
+        } else {
+            data.setHistoryInfo("");
         }
 
         data.setNameType(nameType);
@@ -604,8 +678,12 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     //轴数
     @Override
     public void onItemClick(String name, int id) {
-        axleCount = id;
-        axleCountName = name;
-
+        if (name.equals("个人") || name.equals("单位")) {
+            ownerTypeName = name;
+            ownerType = id;
+        } else {
+            axleCount = id;
+            axleCountName = name;
+        }
     }
 }
