@@ -235,11 +235,9 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
         } else if (name.equals("submit")) {
             //showMes("提交");
             presenter.sendData(mList.get(code));
-        }/* else {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(DATA_TAG, mList.get(code));
-            nameType =  mList.get(code).getNameType();
-            intent.putExtras(bundle);
+        } /*else if (name.equals("showImageList")){
+
+
         }*/
 
         /* 如果是编辑或者新增名单 */

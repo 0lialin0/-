@@ -6,105 +6,67 @@ import java.io.Serializable;
  * Created by ghj on 2016/10/12.
  */
 public class PhotoVideoData implements Serializable {
-    private int pvid;
-    private String BlackListID; //黑名单ID
-    private String VehicleID;  //灰名单ID
-    private String YListID;    //黄名单ID
-    private String GCListID; //绿通id
-    private int NameType;// 0：黑名单，1：灰名单，2：黄名单，3，绿通
-    private String videoName;
-    private String videoUrl;
-    private String photoName;
-    private String photoUrl;
-    private String creartTime;
+    private int pvId;
+    private String blackListID; //jcbacklist id
+    private int nameType;   // 0：黑名单，1：灰名单，2：黄名单，3，绿通
+    private String fileName;
+    private String fileUrl;
+    private int fileType;    // 0：图片，1： 视频
+    private String createTime;
 
-    public String getGCListID() {
-        return GCListID;
+    public int getPvId() {
+        return pvId;
     }
 
-    public void setGCListID(String GCListID) {
-        this.GCListID = GCListID;
-    }
-
-    public int getPvid() {
-        return pvid;
-    }
-
-    public void setPvid(int pvid) {
-        this.pvid = pvid;
+    public void setPvId(int pvId) {
+        this.pvId = pvId;
     }
 
     public String getBlackListID() {
-        return BlackListID;
+        return blackListID;
     }
 
     public void setBlackListID(String blackListID) {
-        BlackListID = blackListID;
-    }
-
-    public String getVehicleID() {
-        return VehicleID;
-    }
-
-    public void setVehicleID(String vehicleID) {
-        VehicleID = vehicleID;
-    }
-
-    public String getYListID() {
-        return YListID;
-    }
-
-    public void setYListID(String YListID) {
-        this.YListID = YListID;
+        this.blackListID = blackListID;
     }
 
     public int getNameType() {
-        return NameType;
+        return nameType;
     }
 
     public void setNameType(int nameType) {
-        NameType = nameType;
+        this.nameType = nameType;
     }
 
-    public String getVideoName() {
-        return videoName;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setVideoName(String videoName) {
-        this.videoName = videoName;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-
-    public String getPhotoName() {
-        return photoName;
+    public String getFileUrl() {
+        return fileUrl;
     }
 
-    public void setPhotoName(String photoName) {
-        this.photoName = photoName;
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 
-
-    public String getCreartTime() {
-        return creartTime;
+    public int getFileType() {
+        return fileType;
     }
 
-    public void setCreartTime(String creartTime) {
-        this.creartTime = creartTime;
+    public void setFileType(int fileType) {
+        this.fileType = fileType;
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

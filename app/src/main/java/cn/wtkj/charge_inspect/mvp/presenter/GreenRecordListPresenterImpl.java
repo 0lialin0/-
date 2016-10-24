@@ -83,9 +83,9 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
         if(pvList.size()>0){
             for (int i = 0; i < pvList.size(); i++) {
                 //File file = fileList.get(i);
-                File file = new File(pvList.get(i).getPhotoUrl());
+                File file = new File(pvList.get(i).getFileUrl());
                 if (file.exists()) {
-                    fileName.add(pvList.get(i).getPhotoName());
+                    fileName.add(pvList.get(i).getFileName());
                     files.add(file);
                 }
             }
@@ -108,7 +108,7 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
 
 
     private List<PhotoVideoData> getPvList(String uuid) {
-        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,3);
+        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,3,-1);
         return list;
     }
 

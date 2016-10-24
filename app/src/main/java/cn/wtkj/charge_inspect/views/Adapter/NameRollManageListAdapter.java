@@ -1,6 +1,9 @@
 package cn.wtkj.charge_inspect.views.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +12,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
+import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
+import cn.wtkj.charge_inspect.data.dataBase.PhotoVideoDb;
+import cn.wtkj.charge_inspect.util.SysUtils;
+import cn.wtkj.charge_inspect.views.activity.BigImageActivity;
 
 /**
  * Created by lxg on 2015/9/21.
@@ -46,19 +54,35 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
         holder.tvTime.setText(dataList.get(position).getGenDT());
         String peccancyTypeName="";
         String nameType = "黑名单";
-        if (dataList.get(position).getNameType() == 0) {
+        PhotoVideoDb photoVideoDb = new PhotoVideoDb(context);
+        String id = "";
+        int nameTypeCode = dataList.get(position).getNameType();
+
+        if (nameTypeCode == 0) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_black_img);
             nameType = "黑名单";
             peccancyTypeName=dataList.get(position).getPeccancyTypeName();
-        } else if (dataList.get(position).getNameType() == 1) {
+            id = dataList.get(position).getBlackListID();
+        } else if (nameTypeCode == 1) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_gray_img);
             nameType = "灰名单";
             peccancyTypeName=dataList.get(position).getPeccancyTypeName();
-        } else if (dataList.get(position).getNameType() == 2) {
+            id = dataList.get(position).getVehicleID();
+        } else if (nameTypeCode == 2) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_yellow_img);
             nameType = "黄名单";
             peccancyTypeName="";
+            id = dataList.get(position).getYListID();
         }
+
+
+        final List<PhotoVideoData>  photoVideoDataList = photoVideoDb.getPv(id, nameTypeCode, 0);
+        if (photoVideoDataList.size() > 0)
+        {
+            Bitmap bitmap = SysUtils.getLocalBitmap(photoVideoDataList.get(0).getFileUrl());
+            holder.ivImg.setImageBitmap(bitmap);
+        }
+
         holder.tvStatus.setText(peccancyTypeName);
         holder.tvName.setText(nameType);
 
@@ -87,6 +111,19 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(position, 0, "submit");
                 }
+            }
+        });
+        holder.ivImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentBigImage = new Intent();
+                intentBigImage.setClass(context, BigImageActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("imageList", (Serializable) photoVideoDataList);
+              ;
+                intentBigImage.putExtras(bundle);
+                context.startActivity(intentBigImage);
             }
         });
         /*holder.itemView.setOnClickListener(new View.OnClickListener() {

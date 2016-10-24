@@ -99,12 +99,10 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
 
         String pvSql = String
-                .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s VARCHAR(120), %s VARCHAR(120)," +
-                        " %s VARCHAR(120),%s VARCHAR(120), %s int, %s VARCHAR(220) ," +
-                        " %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220), %s VARCHAR(220))",
-                        PHOTOVIDEO, "pvid", "BlackListID","VehicleID","YListID","GCListID","NameType",
-                        "videoName" ,"videoUrl" ,"photoName"
-                        ,"photoUrl" ,"creartTime");
+                .format("Create TABLE %s(%s INTEGER PRIMARY KEY, %s VARCHAR(120), %s int, %s VARCHAR(220) ," +
+                        " %s VARCHAR(220),%s int, %s VARCHAR(220))",
+                        PHOTOVIDEO, "pvId", "blackListID","nameType",
+                        "fileName" ,"fileUrl" , "fileType", "createTime");
         db.execSQL(pvSql);
 
     }

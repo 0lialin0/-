@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0b0b0b"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/main_toop"
+        layout="@layout/toolbar_other" />
+
+    <!-- 布局对应的ViewPage  高度是对应的整个的除页面的标题的高度 -->
+    <cn.wtkj.charge_inspect.views.custom.ImageCycleView
+        android:id="@+id/cycle_viewpager_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_toop"
+        android:layout_centerVertical="true">
+
+    </cn.wtkj.charge_inspect.views.custom.ImageCycleView>
+
+</RelativeLayout>

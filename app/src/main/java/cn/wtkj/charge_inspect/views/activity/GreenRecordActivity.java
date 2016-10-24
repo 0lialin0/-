@@ -372,7 +372,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         List<PhotoVideoData> list = presenter.getListPvById(uuid);
         if (list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
-                myphoto.getGlide(list.get(i).getPhotoUrl());
+                myphoto.getGlide(list.get(i).getFileUrl());
             }
         }
 

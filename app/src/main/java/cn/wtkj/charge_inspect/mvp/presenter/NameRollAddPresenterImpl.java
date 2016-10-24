@@ -59,14 +59,15 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
     @Override
     public void startPresenter(List<File> fileList, JCBlackListData data) {
-
+        List<File> newFileList = new ArrayList<>();
         if (fileList.size() > 0){
             for (int i=0; i< fileList.size(); i++){
                 String oldFilePath = fileList.get(i).getPath();
                 String newFilePath = getFileName(data);
 
                 if (SysUtils.copyFile(oldFilePath, newFilePath)) {
-
+                    File file = new File(newFilePath);
+                    newFileList.add(file);
                 }
             }
         }
@@ -75,7 +76,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
             getView().showLoding();
             String uuid = blackListDb.updateBlackList(data);
             if (uuid!="" && fileList.size()>0) {
-                photoVideoDb.insertListPvd(fileList, uuid, data.getNameType());
+                photoVideoDb.insertListPvd(newFileList, uuid, data.getNameType());
             }
             getView().himeDialog();
             getView().nextView();

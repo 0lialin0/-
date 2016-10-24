@@ -105,7 +105,7 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
 
     @Override
     public List<PhotoVideoData> getListPvById(String uuid) {
-        List<PhotoVideoData> datas=photoVideoDb.getPv(uuid,3);
+        List<PhotoVideoData> datas=photoVideoDb.getPv(uuid,3,-1);
         return datas;
     }
 

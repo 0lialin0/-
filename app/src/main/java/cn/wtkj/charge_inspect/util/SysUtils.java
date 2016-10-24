@@ -1,7 +1,11 @@
 package cn.wtkj.charge_inspect.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
@@ -51,5 +55,21 @@ public class SysUtils {
         }
 
         return false;
+    }
+
+    /**
+     * 加载本地图片
+     * http://bbs.3gstdy.com
+     * @param url
+     * @return
+     */
+    public static Bitmap getLocalBitmap(String url) {
+        try {
+            FileInputStream fis = new FileInputStream(url);
+            return BitmapFactory.decodeStream(fis);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

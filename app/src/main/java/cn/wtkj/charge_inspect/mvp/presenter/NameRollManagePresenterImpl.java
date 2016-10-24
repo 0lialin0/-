@@ -79,7 +79,7 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     @Override
     public void sendData(JCBlackListData data) {
         getView().showLoding();
-        List<PhotoVideoData> pvList=getPvList(data.getBlackListID(),data.getNameType());
+        List<PhotoVideoData> pvList = getPvList(data.getBlackListID(),data.getNameType());
         map = new HashMap<>();
 
         int fileIndex = 0;
@@ -88,9 +88,9 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
         if(pvList.size()>0){
             for (int i = 0; i < pvList.size(); i++) {
                 //File file = fileList.get(i);
-                File file = new File(pvList.get(i).getPhotoUrl());
+                File file = new File(pvList.get(i).getFileUrl());
                 if (file.exists()) {
-                    fileName.add(pvList.get(i).getPhotoName());
+                    fileName.add(pvList.get(i).getFileName());
                     files.add(file);
                 }
             }
@@ -115,7 +115,7 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
 
 
     private List<PhotoVideoData> getPvList(String uuid,int type) {
-        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,type);
+        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,type,-1);
         return list;
     }
 

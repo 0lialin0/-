@@ -108,7 +108,9 @@
         <activity
             android:name=".views.activity.ArticleAttachmentActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".views.activity.BigImageActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 
