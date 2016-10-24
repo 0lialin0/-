@@ -36,26 +36,14 @@ public class OutListSelAdapter extends RecyclerView.Adapter<OutListSelAdapter.Sh
 
     @Override
     public ShedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_increment_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_out_list_sel, parent, false);
         return new ShedViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ShedViewHolder holder, final int position) {
 
-        holder.tvVehplate.setText(dataList.get(position).getVehPlate());
-        //String loca=constAllDb.getConstName(dataList.get(position).getInStationID(),1);
-        holder.tvEntranceLoca.setText(dataList.get(position).getInStationName());
-        //String entrance=constAllDb.getConstName(dataList.get(position).getInDecision(),5);
-        holder.tvEntranceType.setText(dataList.get(position).getInDecisionName());
-        //String out=constAllDb.getConstName(dataList.get(position).getOutDecision(),5);
-        holder.tvExitType.setText(dataList.get(position).getOutDecisionName());
-        holder.tvTime.setText(dataList.get(position).getFindDT());
-        //String unit=organizationDb.getCheckUnit(dataList.get(position).getOrgID(),dataList.get(position).getOrgLevel());
-        holder.tvUnit.setText(dataList.get(position).getOrgLevel());
-        holder.tvMoney.setText(dataList.get(position).getRealityMoney());
-        //String zsType=constAllDb.getConstName(dataList.get(position).getPeccancyTypeID(),9);
-        holder.tvStatus.setText(dataList.get(position).getPeccancyTypeName());
+
 
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,22 +93,6 @@ public class OutListSelAdapter extends RecyclerView.Adapter<OutListSelAdapter.Sh
     }
 
     public class ShedViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.active_vehPlate)
-        TextView tvVehplate;
-        @Bind(R.id.active_entrance_loca)
-        TextView tvEntranceLoca;
-        @Bind(R.id.active_entrance_type)
-        TextView tvEntranceType;
-        @Bind(R.id.active_exit_type)
-        TextView tvExitType;
-        @Bind(R.id.active_time)
-        TextView tvTime;
-        @Bind(R.id.active_unit)
-        TextView tvUnit;
-        @Bind(R.id.active_money)
-        TextView tvMoney;
-        @Bind(R.id.active_status)
-        TextView tvStatus;
         @Bind(R.id.tv_delete)
         TextView tvDelete;
         @Bind(R.id.tv_edit)

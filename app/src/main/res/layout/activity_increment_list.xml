@@ -8,8 +8,7 @@
         android:id="@+id/main_toop"
         layout="@layout/toolbar_other" />
 
-    <include
-        layout="@layout/search_head_main" />
+    <include layout="@layout/search_head_main" />
 
 
     <LinearLayout

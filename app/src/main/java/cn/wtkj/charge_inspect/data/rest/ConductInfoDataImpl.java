@@ -13,6 +13,7 @@ import java.util.Map;
 
 import cn.wtkj.charge_inspect.data.SeApiManager;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.net.DangerousApi;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.MultipartRequester;
@@ -89,5 +90,10 @@ public class ConductInfoDataImpl implements ConductInfoData {
         }, fileNames, files, map);
         multipartRequester.setRetryPolicy(new DefaultRetryPolicy(10 * 1000, 0, 1.0f));
         DataRequester.getInstance(context).add(multipartRequester);
+    }
+
+    @Override
+    public void outListSel(Map<String, String> map, Callback<OutListData> callback) {
+        dangerousApi.outListSel(map,callback);
     }
 }

@@ -26,11 +26,97 @@
                 android:layout_marginTop="@dimen/y30"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/active_vehPlate"
-                    style="@style/list_title"
-                    android:layout_marginBottom="@dimen/y28"
-                    android:text="车牌号" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/list_sub_title"
+                            android:layout_marginBottom="@dimen/y28"
+                            android:text="入口车牌：" />
+
+                        <TextView
+                            android:id="@+id/active_vehPlate"
+                            style="@style/list_sub_title"
+                            android:layout_below="@+id/active_title"
+                            android:layout_marginBottom="@dimen/y33"
+                            android:text="bbbb" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x20"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/list_sub_title"
+                            android:layout_marginBottom="@dimen/y28"
+                            android:text="出口车牌：" />
+
+                        <TextView
+                            android:id="@+id/active_out_vehPlate"
+                            style="@style/list_sub_title"
+                            android:layout_below="@+id/active_title"
+                            android:layout_marginBottom="@dimen/y33"
+                            android:text="bbbb" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/list_sub_title"
+                            android:layout_marginBottom="@dimen/y28"
+                            android:text="入口站址：" />
+
+                        <TextView
+                            android:id="@+id/active_loca"
+                            style="@style/list_sub_title"
+                            android:layout_below="@+id/active_title"
+                            android:layout_marginBottom="@dimen/y33"
+                            android:text="bbbb" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x20"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/list_sub_title"
+                            android:layout_marginBottom="@dimen/y28"
+                            android:text="收费员工号：" />
+
+                        <TextView
+                            android:id="@+id/active_charge"
+                            style="@style/list_sub_title"
+                            android:layout_below="@+id/active_title"
+                            android:layout_marginBottom="@dimen/y33"
+                            android:text="bbbb" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -39,7 +125,7 @@
 
                     <TextView
                         style="@style/list_sub_title"
-                        android:text="@string/increment_entrance" />
+                        android:text="出口站址/车道号：" />
 
                     <TextView
                         android:id="@+id/active_entrance_loca"
@@ -57,7 +143,7 @@
 
                     <TextView
                         style="@style/list_sub_title"
-                        android:text="@string/increment_entrance_type" />
+                        android:text="出口时间：" />
 
                     <TextView
                         android:id="@+id/active_entrance_type"
@@ -74,7 +160,7 @@
 
                     <TextView
                         style="@style/list_sub_title"
-                        android:text="@string/increment_exit_type" />
+                        android:text="车型：" />
 
                     <TextView
                         android:id="@+id/active_exit_type"
@@ -85,63 +171,9 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/list_sub_title"
-                        android:text="@string/increment_inspect_time" />
-
-                    <TextView
-                        android:id="@+id/active_time"
-                        style="@style/list_sub_title"
-                        android:layout_below="@+id/active_content"
-                        android:layout_marginBottom="@dimen/y33"
-                        android:text="cccccc" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/list_sub_title"
-                        android:text="@string/increment_inspect_unit" />
-
-                    <TextView
-                        android:id="@+id/active_unit"
-                        style="@style/list_sub_title"
-                        android:layout_below="@+id/active_content"
-                        android:layout_marginBottom="@dimen/y33"
-                        android:text="cccccc" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_active_tag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="@dimen/y22"
-                android:layout_marginRight="@dimen/x31"
-                android:layout_marginTop="@dimen/y470">
-
-                <TextView
-                    android:id="@+id/active_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="进行中"
-                    android:textColor="#e40b0b"
-                    android:textSize="@dimen/x26" />
 
             </LinearLayout>
+
 
         </RelativeLayout>
 
@@ -159,27 +191,6 @@
             android:layout_marginBottom="@dimen/y15"
             android:layout_marginTop="@dimen/y15">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/y30"
-                android:layout_marginLeft="@dimen/x29"
-                android:layout_marginTop="@dimen/x24"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/list_sub_bottom"
-                    android:text="@string/increment_total_money" />
-
-                <TextView
-                    android:id="@+id/active_money"
-                    style="@style/list_sub_bottom"
-                    android:text="50.00" />
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -194,40 +205,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x15"
-                    android:src="@drawable/delete_img" />
+                    android:src="@drawable/mingdan" />
 
                 <TextView
                     android:id="@+id/tv_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x35"
-                    android:text="@string/iv_delete" />
+                    android:text="@string/outlist_name" />
 
                 <ImageView
                     android:id="@+id/iv_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x15"
-                    android:src="@drawable/edit_img" />
+                    android:src="@drawable/green_add" />
 
                 <TextView
                     android:id="@+id/tv_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x35"
-                    android:text="@string/green_edit" />
+                    android:text="@string/outlist_green" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x15"
-                    android:src="@drawable/submit_img" />
+                    android:src="@drawable/zhengshou" />
 
                 <TextView
                     android:id="@+id/tv_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/green_submit" />
+                    android:text="@string/outlist_increment" />
             </LinearLayout>
 
 

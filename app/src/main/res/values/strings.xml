@@ -126,4 +126,44 @@
 
     <string name="tv_name_contact_list">联系电话</string>
 
+    <string name="outlist_start_time">起始时间</string>
+    <string name="outlist_end_time">结束时间</string>
+    <string name="outlist_out_loca">出口站址</string>
+    <string name="outlist_out_veh">出口车道号</string>
+    <string name="outlist_lane_type">车道类型</string>
+    <string name="outlist_veh_type">车型</string>
+    <string name="outlist_veh_seed">车种</string>
+    <string name="outlist_veh_plate">车牌</string>
+    <string name="outlist_car">卡号</string>
+    <string name="outlist_charge">收费员</string>
+
+    <string name="outlist_name">名单</string>
+    <string name="outlist_green">绿通</string>
+    <string name="outlist_increment">增收</string>
+
+    <string name="outlist_info_entrance">入口信息</string>
+    <string name="outlist_info_entrance_loca">入口站址</string>
+    <string name="outlist_info_entrance_lane">入口车道号</string>
+    <string name="outlist_info_entrance_veh">入口车牌</string>
+    <string name="outlist_info_zhong">车种</string>
+    <string name="outlist_info_veh_type">车型</string>
+    <string name="outlist_info_chage">收费员</string>
+    <string name="outlist_info_time">操作时间</string>
+    <string name="outlist_info_out_info">出口信息</string>
+    <string name="outlist_info_out_loca">出口站址</string>
+    <string name="outlist_info_out_lane">出口车道号</string>
+    <string name="outlist_info_out_veh">出口车牌</string>
+    <string name="outlist_info_out_zhong">车种</string>
+    <string name="outlist_info_out_veh_type">车型</string>
+    <string name="outlist_info_yufu_veh">预付卡车牌</string>
+    <string name="outlist_info_zhekou_money">折扣前金额</string>
+    <string name="outlist_info_yingshou_money">应收金额</string>
+    <string name="outlist_info_shishou_money">实收金额</string>
+    <string name="outlist_info_veh_num">车票号</string>
+    <string name="outlist_info_licheng">里程</string>
+    <string name="outlist_info_zhoushu">轴数</string>
+    <string name="outlist_info_zhongliang">重量</string>
+    <string name="outlist_info_tong_car_num">通行卡号</string>
+    <string name="outlist_info_special_event">特殊事件</string>
+
 </resources>

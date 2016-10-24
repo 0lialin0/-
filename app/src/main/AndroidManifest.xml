@@ -32,6 +32,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".views.activity.OutListSelActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
             android:name=".views.activity.NameRollXiafaActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>

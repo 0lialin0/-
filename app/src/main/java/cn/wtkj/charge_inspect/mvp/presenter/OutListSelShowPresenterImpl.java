@@ -14,14 +14,15 @@ import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
 import cn.wtkj.charge_inspect.data.dataBase.PhotoVideoDb;
 import cn.wtkj.charge_inspect.data.rest.ConductInfoDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
+import cn.wtkj.charge_inspect.mvp.views.OutListSelShowView;
 import cn.wtkj.charge_inspect.mvp.views.OutListSelView;
 
 
 /**
  * Created by lxg on 2015/11/5.
  */
-public class OutListSelShowPresenterImpl extends MvpBasePresenter<OutListSelView> implements
-        OutListSelPresenter {
+public class OutListSelShowPresenterImpl extends MvpBasePresenter<OutListSelShowView> implements
+        OutListSelShowPresenter {
 
 
     private Context context;
@@ -42,7 +43,7 @@ public class OutListSelShowPresenterImpl extends MvpBasePresenter<OutListSelView
     }
 
     @Override
-    public void startPresenter() {
+    public void startPresenter(String keyword) {
 
     }
 

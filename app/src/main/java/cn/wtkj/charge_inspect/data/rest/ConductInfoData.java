@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.ResponeData;
 import retrofit.Callback;
@@ -32,4 +33,7 @@ public interface ConductInfoData {
     //绿通档案
     void greenRecord(Map<String, String> map, List<String> fileNames, List<File> files,
                   final DataRequester.DataCallBack<ResponeData> callBack);
+
+    //流水查询
+    void outListSel(Map<String, String> map, Callback<OutListData> callback);
 }

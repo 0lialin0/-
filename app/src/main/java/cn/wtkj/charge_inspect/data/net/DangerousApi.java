@@ -11,6 +11,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.ContactListData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -65,4 +66,8 @@ public interface DangerousApi {
     //黑名单处理  OK
     @POST("/restApi?businessId=black.blackSolve")
     void sendXiafaHandle(@QueryMap Map<String, String> map,Callback<ResponeData> callback);
+
+    //流水查询  OK
+    @POST("/restApi?businessId=outList.outListList")
+    void outListSel(@QueryMap Map<String, String> map,Callback<OutListData> callback);
 }

@@ -35,7 +35,7 @@
                 android:orientation="vertical">
                 <TextView
                     style="@style/title_bg"
-                    android:text="@string/green_car_info" />
+                    android:text="@string/outlist_info_entrance" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/green_car_num" />
+                            android:text="@string/outlist_info_entrance_loca" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
@@ -71,7 +71,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_color" />
+                            android:text="@string/outlist_info_entrance_lane" />
 
                         <RelativeLayout
                             android:id="@+id/rl_car_color"
@@ -103,7 +103,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_factory" />
+                            android:text="@string/outlist_info_entrance_veh" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
@@ -126,7 +126,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_car_color" />
+                            android:text="@string/outlist_info_zhong" />
 
                         <RelativeLayout
                             android:id="@+id/rl_car_body_color"
@@ -162,7 +162,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_car_type" />
+                            android:text="@string/outlist_info_veh_type" />
 
                         <RelativeLayout
                             android:id="@+id/rl_car_type"
@@ -196,7 +196,7 @@
                         <TextView
                             android:id="@+id/textView"
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_carx_type" />
+                            android:text="@string/outlist_info_chage" />
 
                         <RelativeLayout
                             android:id="@+id/rl_veh_type"
@@ -235,7 +235,7 @@
 
                             <TextView
                                 style="@style/electron_tv_title"
-                                android:text="@string/name_roll_seating" />
+                                android:text="@string/outlist_info_time" />
 
                             <LinearLayout
                                 style="@style/electron_linearLayout"
@@ -251,79 +251,6 @@
                         </RelativeLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/ll_zhoushu"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <View style="@style/view_line" />
-
-                        <RelativeLayout
-                            style="@style/electron_outer_linearLayout"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/electron_tv_title"
-                                android:text="@string/increment_zhou_shuo" />
-
-                            <RelativeLayout
-                                android:id="@+id/rl_zhoushuo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true">
-
-                                <LinearLayout
-                                    style="@style/electron_linearLayout"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/AxleCountName"
-                                        style="@style/electron_ed_content" />
-
-                                </LinearLayout>
-
-                                <ImageView
-                                    style="@style/electron_ed_image"
-                                    android:src="@drawable/right_btn" />
-                            </RelativeLayout>
-                        </RelativeLayout>
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/ll_dunshuo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <View style="@style/view_line" />
-
-                        <RelativeLayout
-                            style="@style/electron_outer_linearLayout"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                style="@style/electron_tv_title"
-                                android:text="@string/increment_dun_shuo" />
-
-                            <LinearLayout
-                                style="@style/electron_linearLayout"
-                                android:orientation="horizontal">
-
-                                <EditText
-                                    android:id="@+id/Tonnage"
-                                    style="@style/electron_ed_content"
-                                    android:numeric="decimal" />
-
-                            </LinearLayout>
-
-                        </RelativeLayout>
-                    </LinearLayout>
-
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -336,7 +263,7 @@
 
                 <TextView
                     style="@style/title_bg"
-                    android:text="@string/name_roll_info" />
+                    android:text="@string/outlist_info_out_info" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -353,7 +280,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_tongxi" />
+                            android:text="@string/outlist_info_out_loca" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
@@ -375,7 +302,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_weizhang" />
+                            android:text="@string/outlist_info_out_lane" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
@@ -398,7 +325,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_weizhang_type" />
+                            android:text="@string/outlist_info_out_veh" />
 
                         <RelativeLayout
                             android:id="@+id/rl_weizhang_type"
@@ -430,7 +357,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_weizhang_addr" />
+                            android:text="@string/outlist_info_out_zhong" />
 
                         <RelativeLayout
                             android:id="@+id/rl_weizhang_addr"
@@ -462,7 +389,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_xingshi" />
+                            android:text="@string/outlist_info_out_veh_type" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
@@ -515,7 +442,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_qingkuang" />
+                            android:text="@string/outlist_info_yufu_veh" />
 
                         <LinearLayout
                             android:id="@+id/ll_member_address"
@@ -537,171 +464,196 @@
 
                     <View style="@style/view_line" />
 
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- 车辆所有者信息-->
-            <LinearLayout
-                android:id="@+id/car_owner_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    style="@style/title_bg"
-                    android:text="@string/name_roll_grey_car_all" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <RelativeLayout style="@style/electron_outer_linearLayout">
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal">
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_grey_car" />
+                            android:text="@string/outlist_info_zhekou_money" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
                             android:orientation="horizontal">
 
                             <EditText
-                                android:id="@+id/Owner"
-                                style="@style/electron_ed_content"
-                                android:hint="@string/please_input" />
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
-
-                    <View style="@style/view_line" />
-
-                    <RelativeLayout
-                        style="@style/electron_outer_linearLayout"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/electron_tv_title"
-                            android:text="@string/name_roll_grey_type" />
-
-                        <RelativeLayout
-                            android:id="@+id/rl_owner_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true">
-
-                            <LinearLayout
-                                style="@style/electron_linearLayout"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/OwnerTypeName"
-                                    style="@style/electron_ed_content" />
-
-                            </LinearLayout>
-
-                            <ImageView
-                                style="@style/electron_ed_image"
-                                android:src="@drawable/right_btn" />
-                        </RelativeLayout>
-                    </RelativeLayout>
-
-                    <View style="@style/view_line" />
-
-                    <RelativeLayout
-                        style="@style/electron_outer_linearLayout"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/electron_tv_title"
-                            android:text="@string/name_roll_grey_addr" />
-
-                        <LinearLayout
-                            style="@style/electron_linearLayout"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/OwnerAddress"
-                                style="@style/electron_ed_content"
-                                android:hint="@string/please_input" />
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <View style="@style/view_line" />
-
-                    <RelativeLayout
-                        style="@style/electron_outer_linearLayout"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/electron_tv_title"
-                            android:text="@string/name_roll_grey_postal" />
-
-
-                        <LinearLayout
-                            style="@style/electron_linearLayout"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/Postalcode"
-                                style="@style/electron_ed_content"
-                                android:hint="@string/please_input" />
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <View style="@style/view_line" />
-
-
-                    <RelativeLayout
-                        style="@style/electron_outer_linearLayout"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/electron_tv_title"
-                            android:text="@string/name_roll_grey_phone" />
-
-                        <LinearLayout
-                            style="@style/electron_linearLayout"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/TeletePhone"
-                                style="@style/electron_ed_content"
-                                android:hint="@string/please_input" />
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                    <View style="@style/view_line" />
-
-
-                    <RelativeLayout
-                        style="@style/electron_outer_linearLayout"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/electron_tv_title"
-                            android:text="@string/name_roll_grey_mobile_phone" />
-
-                        <LinearLayout
-                            style="@style/electron_linearLayout"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/MobilePhone"
-                                style="@style/electron_ed_content"
+                                android:id="@+id/aa"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
                                 android:hint="@string/please_input"
-                                android:numeric="integer" />
+                                android:textSize="@dimen/x28" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View style="@style/view_line" />
+
+
+                    <RelativeLayout
+                    style="@style/electron_outer_linearLayout"
+                    android:layout_height="@dimen/y200"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/electron_tv_title"
+                        android:text="@string/outlist_info_yingshou_money" />
+
+                    <LinearLayout
+                        style="@style/electron_linearLayout"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/aaa"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/y200"
+                            android:layout_gravity="left"
+                            android:gravity="center_vertical"
+                            android:hint="@string/please_input"
+                            android:textSize="@dimen/x28" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/outlist_info_shishou_money" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/aaaq"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
+                                android:hint="@string/please_input"
+                                android:textSize="@dimen/x28" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/outlist_info_veh_num" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/aabb"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
+                                android:hint="@string/please_input"
+                                android:textSize="@dimen/x28" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/outlist_info_licheng" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/ccc"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
+                                android:hint="@string/please_input"
+                                android:textSize="@dimen/x28" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/outlist_info_zhoushu" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/cccb"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
+                                android:hint="@string/please_input"
+                                android:textSize="@dimen/x28" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/outlist_info_zhongliang" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/nnn"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
+                                android:hint="@string/please_input"
+                                android:textSize="@dimen/x28" />
 
                         </LinearLayout>
 
@@ -717,15 +669,14 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_grey_info" />
-
+                            android:text="@string/outlist_info_tong_car_num" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
                             android:orientation="horizontal">
 
                             <EditText
-                                android:id="@+id/HistoryInfo"
+                                android:id="@+id/nnddn"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/y200"
                                 android:layout_gravity="left"
@@ -737,30 +688,39 @@
 
                     </RelativeLayout>
 
+                    <View style="@style/view_line" />
+
+                    <RelativeLayout
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/outlist_info_special_event" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/sdfdd"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
+                                android:hint="@string/please_input"
+                                android:textSize="@dimen/x28" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View style="@style/view_line" />
+
                 </LinearLayout>
-
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y20"
-                android:layout_marginTop="@dimen/y10"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/title_bg"
-                    android:text="@string/name_roll_photo" />
-
-                <cn.wtkj.charge_inspect.views.custom.MyPhotos
-                    android:id="@+id/myphoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x35"
-                    android:padding="5dp"></cn.wtkj.charge_inspect.views.custom.MyPhotos>
-
-            </LinearLayout>
 
 
             <LinearLayout

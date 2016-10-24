@@ -66,14 +66,14 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_outlist_sel);
+        setContentView(R.layout.activity_out_list_sel_info);
         ButterKnife.bind(this);
         initToolBar();
         initView();
     }
 
     private void initToolBar() {
-        tvTitle.setText("流水查询");
+        tvTitle.setText("流水详情");
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         ivPhone.setVisibility(View.GONE);

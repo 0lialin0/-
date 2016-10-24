@@ -1,10 +1,21 @@
 package cn.wtkj.charge_inspect.views.activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -13,21 +24,31 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenterImpl;
+import cn.wtkj.charge_inspect.mvp.presenter.OutListSelShowPresenter;
+import cn.wtkj.charge_inspect.mvp.presenter.OutListSelShowPresenterImpl;
+import cn.wtkj.charge_inspect.mvp.views.OutListSelShowView;
 import cn.wtkj.charge_inspect.mvp.views.OutListSelView;
+import cn.wtkj.charge_inspect.util.Convert;
 import cn.wtkj.charge_inspect.util.ResponeUtils;
+import cn.wtkj.charge_inspect.views.Adapter.IncrementListAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 import cn.wtkj.charge_inspect.views.custom.DateTimePickerDialog;
 import cn.wtkj.charge_inspect.views.custom.DropDownMenu;
+import cn.wtkj.charge_inspect.views.custom.RecyClerRefresh;
+
+import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
 
 /**
  * Created by ghj on 2016/10/24.
  */
-public class OutListSelShowActivity extends MvpBaseActivity<OutListSelPresenter> implements
-        OutListSelView, View.OnClickListener, OnItemClickListener, OnItemClickListener3 {
+public class OutListSelShowActivity extends MvpBaseActivity<OutListSelShowPresenter> implements
+        OutListSelShowView, SwipeRefreshLayout.OnRefreshListener,
+        RecyClerRefresh.RefreshData, View.OnClickListener, OnItemClickListener  {
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -40,33 +61,34 @@ public class OutListSelShowActivity extends MvpBaseActivity<OutListSelPresenter>
     @Bind(R.id.iv_phone)
     ImageView ivPhone;
 
-    @Bind(R.id.tv_start_time)
-    TextView tvStartTime;
-    @Bind(R.id.tv_end_time)
-    TextView tvEndTime;
+    @Bind(R.id.search_et_input)
+    EditText etInput;
+    @Bind(R.id.iv_search_img)
+    ImageView ivSearchImg;
+    @Bind(R.id.iv_search_del)
+    ImageView ivSearchDel;
 
-    @Bind(R.id.tv_out_loca)
-    TextView tvOutLoca;
-    @Bind(R.id.tv_lane_type)
-    TextView tvLaneType;
-    @Bind(R.id.tv_veh_type)
-    TextView tvVehType;
+    @Bind(R.id.shed_list_refresh)
+    SwipeRefreshLayout shedRefresh;
+    @Bind(R.id.shed_list_recy)
+    RecyClerRefresh shedRecy;
 
-
-    private DropDownMenu dropDownMenu;
-    private DropDownMenu dropDownMenu2;
-    private DropDownMenu dropDownMenu3;
+    private IncrementListAdapter adapter;
+    private List<JCEscapeBookData> mList;
+    public static final String DATA_TAG = "DataInfo";
+    private ProgressDialog progressDialog;
+    private String keyword="";
 
 
     @Override
-    protected OutListSelPresenter createPresenter() {
-        return new OutListSelPresenterImpl(this);
+    protected OutListSelShowPresenter createPresenter() {
+        return new OutListSelShowPresenterImpl(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_outlist_sel);
+        setContentView(R.layout.activity_outlist_sel_show);
         ButterKnife.bind(this);
         initToolBar();
         initView();
@@ -81,82 +103,48 @@ public class OutListSelShowActivity extends MvpBaseActivity<OutListSelPresenter>
     }
 
     public void initView() {
-        tvStartTime.setText(ResponeUtils.getTime());
-        tvEndTime.setText(ResponeUtils.getTime());
-        showView();
+        progressDialog = new ProgressDialog(this);
+        // 设置下拉组件动画偏移量
+        shedRefresh.setProgressViewOffset(false,
+                Convert.dip2px(this.getApplicationContext(), -30),
+                Convert.dip2px(this.getApplicationContext(), 24));
+        shedRecy.setLayoutManager(new LinearLayoutManager(this));
+        shedRefresh.setOnRefreshListener(this);
+        shedRefresh.setRefreshing(true);// 显示动画
+        presenter.startPresenter("");
+        shedRecy.setRefreshData(this);
+
+
+        etInput.addTextChangedListener(new EditChangedListener());
+        etInput.setOnClickListener(this);
+        etInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    notifyStartSearching(etInput.getText().toString());
+                }
+                return true;
+            }
+        });
+
+        ivSearchDel.setOnClickListener(this);
     }
 
-    @Override
-    public void setDropDown() {
 
-    }
-
-
-    @Override
-    public void setView() {
-
-    }
-
-    @Override
-    public void showView() {
-        //1：站址, 2：车道,  5：车型类别
-
-        //出口站址(站址)
-        List<ConstAllData.MData.info> rkLoca = presenter.getConstByType(1);
-        dropDownMenu = new DropDownMenu(this, rkLoca);
-        dropDownMenu.setOnItemClickListener(this);
-        if (rkLoca.size() > 0) {
-            //inStationID = rkLoca.get(0).getCode();
-            //inStationName = rkLoca.get(0).getName();
-            tvOutLoca.setText(rkLoca.get(0).getName());
-        }
-
-        //出口站址(站址)
-        List<ConstAllData.MData.info> lane = presenter.getConstByType(2);
-        dropDownMenu2 = new DropDownMenu(this, lane);
-        dropDownMenu2.setOnItemClickListener(this);
-        if (rkLoca.size() > 0) {
-            //inStationID = rkLoca.get(0).getCode();
-            //inStationName = rkLoca.get(0).getName();
-            tvLaneType.setText(lane.get(0).getName());
-        }
-
-        //出口站址(站址)
-        List<ConstAllData.MData.info> vehType = presenter.getConstByType(5);
-        dropDownMenu3 = new DropDownMenu(this, vehType);
-        dropDownMenu3.setOnItemClickListener(this);
-        if (rkLoca.size() > 0) {
-            //inStationID = rkLoca.get(0).getCode();
-            //inStationName = rkLoca.get(0).getName();
-            tvVehType.setText(vehType.get(0).getName());
-        }
-    }
-
-    @OnClick({R.id.iv_left, R.id.tv_start_time, R.id.tv_end_time, R.id.rl_out_loca,
-            R.id.rl_lane_type , R.id.rl_veh_type})
+    @OnClick({R.id.iv_left,R.id.iv_search_del})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_left:
                 this.finish();
                 break;
-            case R.id.tv_start_time:
-                DateTimePickerDialog dateTimePickerDialog = new DateTimePickerDialog(this);
-                dateTimePickerDialog.dateTimePicKDialog(tvStartTime, 0);
+            case R.id.iv_search_del:
+                etInput.setText("");
+                keyword="";
+                ivSearchDel.setVisibility(View.GONE);
+                onRefresh();
                 break;
-            case R.id.tv_end_time:
-                DateTimePickerDialog dateTimePickerDialog2 = new DateTimePickerDialog(this);
-                dateTimePickerDialog2.dateTimePicKDialog(tvEndTime, 0);
-                break;
-            case R.id.rl_out_loca:
-                dropDownMenu.setDownValue(tvOutLoca, "");
-                break;
-            case R.id.rl_lane_type:
-                dropDownMenu2.setDownValue(tvLaneType, "");
-                break;
-            case R.id.rl_veh_seed:
-                dropDownMenu3.setDownValue(tvVehType, "");
-                break;
+
         }
     }
 
@@ -165,29 +153,102 @@ public class OutListSelShowActivity extends MvpBaseActivity<OutListSelPresenter>
 
     }
 
-    @Override
-    public void onItemClick(String name, int id) {
-
-    }
-
 
     @Override
     public void showLoding() {
-
+        progressDialog.setMessage("正在保存，请等待..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
-    public void himeDialog() {
+    public void hideLoging() {
+        shedRefresh.setRefreshing(false);
+    }
 
+    @Override
+    public void hideDialog() {
+        progressDialog.hide();
     }
 
     @Override
     public void nextView() {
+        onRefresh();
+        adapter.notifyDataSetChanged();
+    }
 
+    @Override
+    public void setList(List<JCEscapeBookData> list) {
+        if (adapter == null) {
+            mList = list;
+            adapter = new IncrementListAdapter(this, list);
+            shedRecy.setAdapter(adapter);
+            adapter.setOnItemClickListener(this);
+        } else {
+            mList.addAll(list);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void showToast(String msg) {
+        show(this, msg, Toast.LENGTH_LONG);
+    }
 
+    @Override
+    public void onRefresh() {
+        if (mList != null) {
+            mList.clear();
+        }
+        presenter.startPresenter(keyword);
+    }
+
+    @Override
+    public void onRefreshData() {
+        onRefresh();
+    }
+
+
+    /**
+     * 通知监听者 进行搜索操作
+     *
+     * @param text
+     */
+    private void notifyStartSearching(String text) {
+        //隐藏软键盘
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+        keyword=text.replaceAll(" ","");
+        if (mList != null) {
+            mList.clear();
+        }
+        presenter.startPresenter(keyword);
+
+    }
+
+    /**
+     * 输入文字改变 监听
+     */
+    private class EditChangedListener implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            if (!"".equals(charSequence.toString())) {
+                ivSearchDel.setVisibility(View.VISIBLE);
+                ivSearchImg.setVisibility(View.GONE);
+            } else {
+                ivSearchDel.setVisibility(View.GONE);
+                ivSearchImg.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
     }
 }

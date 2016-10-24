@@ -1,6 +1,9 @@
 package cn.wtkj.charge_inspect.mvp.views;
 
 
+import java.util.List;
+
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
 
 /**
@@ -18,10 +21,10 @@ public interface OutListSelView extends MvpView {
     void showLoding();
 
     //隐藏等待
-    void himeDialog();
+    void hideLoging();
 
     //跳转到下一个页面
-    void nextView();
+    void nextView(List<OutListData.MData.info> data);
 
     /**
      * 显示提示信息

@@ -12,6 +12,7 @@ import cn.wtkj.charge_inspect.views.activity.GreenRecordListActivity;
 import cn.wtkj.charge_inspect.views.activity.IncrementListActivity;
 import cn.wtkj.charge_inspect.views.activity.ArticleListActivity;
 import cn.wtkj.charge_inspect.views.activity.NameRollManageActivity;
+import cn.wtkj.charge_inspect.views.activity.OutListSelActivity;
 
 
 /**
@@ -23,7 +24,7 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
     private String[] items;
     private int[] imgs;
     private final String readCard = "读卡";
-    private final String checkCar = "查车";
+    private final String outList = "流水";
     private final String greenInfo = "绿通";
     private final String increment = "增收";
     private final String nameRoll = "名单";
@@ -41,8 +42,8 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
 
     @Override
     public void startPresenter() {
-        items = new String[]{readCard, checkCar, greenInfo, increment, nameRoll, lawsNews};
-        imgs = new int[]{R.drawable.read_card, R.drawable.check_car, R.drawable.green_info,
+        items = new String[]{readCard, outList, greenInfo, increment, nameRoll, lawsNews};
+        imgs = new int[]{R.drawable.read_card, R.drawable.liushui, R.drawable.green_info,
                 R.drawable.increment, R.drawable.name_list, R.drawable.laws};
         getView().showList(items, imgs);
     }
@@ -58,8 +59,9 @@ public class MainPresenterImpl extends MvpBasePresenter<MainView> implements Mai
             case readCard:
                 getView().showMes("正在开发中.....");
                 break;
-            case checkCar:
-                getView().showMes("正在开发中.....");
+            case outList: //流水
+                intent.setClass(context, OutListSelActivity.class);
+                context.startActivity(intent);
                 break;
             case greenInfo://绿通
                 intent.setClass(context, GreenRecordListActivity.class);
