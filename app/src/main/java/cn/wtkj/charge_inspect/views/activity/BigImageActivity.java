@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.util.SysUtils;
@@ -38,7 +39,7 @@ public class BigImageActivity extends Activity {
         imageList =  (List<PhotoVideoData>)intent.getExtras().get("imageList");
 
         setContentView(R.layout.activity_big_image);
-
+        ButterKnife.bind(this);
         initView();
     }
 

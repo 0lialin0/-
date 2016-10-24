@@ -484,7 +484,13 @@ public class ImageCycleView extends FrameLayout {
          */
         @Override
         public boolean onInterceptTouchEvent(MotionEvent ev) {
-            return super.onInterceptTouchEvent(ev);
+            try {
+                return super.onInterceptTouchEvent(ev);
+            } catch (IllegalArgumentException ignored) {
+            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+
+            return false ;
         }
 
         /**

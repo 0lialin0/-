@@ -289,7 +289,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 int defaultCode =  dataMap.get(0).getCode();
 
                 switch (i){
-                    case 1:
+                    case 0:
                         InOrgName.setText(defaultName);
                         inOrgID = defaultCode;
                         inOrgName = defaultName;
@@ -297,27 +297,27 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                         outOrgID = defaultCode;
                         outOrgName = defaultName;
                         break;
-                    case 3:
+                    case 1:
                         VepPlateNoColorName.setText(defaultName);
                         vepPlateNoColor = defaultCode;
                         vepPlateNoColorName = defaultName;
                         break;
-                    case 4:
+                    case 2:
                         VepColorName.setText(defaultName);
                         vepColor = defaultCode;
                         vepColorName = defaultName;
                         break;
-                    case 5:
+                    case 3:
                         VehTypeName.setText(defaultName);
                         vehType = defaultCode;
                         vehTypeName = defaultName;
                         break;
-                    case 6:
+                    case 4:
                         VehicleTypeName.setText(defaultName);
                         vehicleTypeID = defaultCode;
                         vehicleTypeName = defaultName;
                         break;
-                    case 7:
+                    case 5:
                         PeccancyTypeName.setText(defaultName);
                         peccancyTypeID = defaultCode;
                         peccancyTypeName = defaultName;
@@ -325,6 +325,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 }
             }
         }
+
 
         //违章地点
         List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
@@ -547,6 +548,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         }
         data.setVepColor(vepColor);
         data.setVepColorName(vepColorName);
+
         data.setVehicleTypeID(vehicleTypeID);
         data.setVehicleTypeName(vehicleTypeName);
         data.setVehType(vehType);

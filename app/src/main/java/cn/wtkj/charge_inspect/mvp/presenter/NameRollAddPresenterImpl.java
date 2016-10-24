@@ -63,7 +63,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         if (fileList.size() > 0){
             for (int i=0; i< fileList.size(); i++){
                 String oldFilePath = fileList.get(i).getPath();
-                String newFilePath = getFileName(data);
+                String newFilePath = getFileName(data,i);
 
                 if (SysUtils.copyFile(oldFilePath, newFilePath)) {
                     File file = new File(newFilePath);
@@ -84,24 +84,30 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         isNumber = !isNumber;//控制上传时间间隔
     }
 
-    public String getFileName(JCBlackListData data){
+    /*此处需改为拍照时间，否则只有一个*/
+    public String getFileName(JCBlackListData data, int i){
         int nameType = data.getNameType();
 
         String filePath = Environment.getExternalStorageDirectory() + "/稽查APP";
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("_yyyyMMdd_HHmmss");
+        String addTime = simpleDateFormat.format(new Date());
+
         if (nameType ==0){
             filePath += "/黑名单/";
-            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
+           // filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
+
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
         }else if (nameType == 1){
             filePath += "/灰名单/";
-            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
+           // filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
         }else {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddHHmm");
-            String addTime = simpleDateFormat.format(new Date());
+
             filePath += "/黄名单/";
             filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
         }
-        filePath += ".jpg";
+        filePath += i+".jpg";
         return filePath;
     }
 

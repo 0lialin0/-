@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenterImpl;
@@ -177,14 +178,15 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
     }
 
     @Override
-    public void himeDialog() {
+    public void hideLoging() {
 
     }
 
     @Override
-    public void nextView() {
+    public void nextView(List<OutListData.MData.info> data) {
 
     }
+
 
     @Override
     public void showToast(String msg) {
