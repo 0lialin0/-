@@ -253,6 +253,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
                     nameTitle = "添加黄名单";
                     break;
             }
+
             intent.putExtra("nameType", nameType+"");
             intent.putExtra("nameTitle", nameTitle);
             this.startActivity(intent);

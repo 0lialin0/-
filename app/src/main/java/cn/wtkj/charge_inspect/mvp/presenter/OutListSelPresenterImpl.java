@@ -11,6 +11,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListParamData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.data.dataBase.BlackListDb;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
@@ -21,6 +22,7 @@ import cn.wtkj.charge_inspect.data.rest.ConductInfoData;
 import cn.wtkj.charge_inspect.data.rest.ConductInfoDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.OutListSelView;
+import cn.wtkj.charge_inspect.util.ResponeUtils;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -38,6 +40,7 @@ public class OutListSelPresenterImpl extends MvpBasePresenter<OutListSelView> im
     private ConstAllDb constAllDb;
     private OrganizationDb organizationDb;
     private ConductInfoData conductInfoData;
+    public Map<String, String> map;
 
     public OutListSelPresenterImpl(Context context) {
         this.context = context;
@@ -48,15 +51,15 @@ public class OutListSelPresenterImpl extends MvpBasePresenter<OutListSelView> im
     }
 
     @Override
-    public void startPresenter(Map<String, String> map) {
-        getView().showLoding();
+    public void startPresenter(OutListParamData data) {
+        /*getView().showLoding();
+        map.put("json", ResponeUtils.dataToJson(data));
         conductInfoData.outListSel(map, new Callback<OutListData>() {
             @Override
             public void success(OutListData outListData, Response response) {
                 getView().hideLoging();
                 if (outListData.getMData().getState() == outListData.SUCCESS) {
                     List<OutListData.MData.info> data = outListData.getMData().getInfo();
-                    getView().nextView(data);
                 } else {
                     getView().showToast(outListData.getMData().getInfo().toString());
                 }
@@ -67,7 +70,7 @@ public class OutListSelPresenterImpl extends MvpBasePresenter<OutListSelView> im
                 getView().hideLoging();
                 getView().showToast(ResponeData.NET_ERROR);
             }
-        });
+        });*/
     }
 
 

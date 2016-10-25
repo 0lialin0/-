@@ -27,6 +27,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenter;
@@ -210,9 +211,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
 
     public void initView() {
-        if (nameType == 0){
+        if (nameType == 0) {
             llCarOwnerInfo.setVisibility(View.GONE);
-        }else if (nameType == 2){
+        } else if (nameType == 2) {
             llCarOwnerInfo.setVisibility(View.GONE);
             llPeccancyInfo.setVisibility(View.GONE);
         }
@@ -228,18 +229,28 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
     @Override
     public void setView() {
-        JCBlackListData data = (JCBlackListData) getIntent().getSerializableExtra(
-                NameRollManageActivity.DATA_TAG);
         setDropDown();
         showView();
-        if (data != null) {
-            showViewData(data);
-            type = 2;
-            nameTitle = "修改黑名单";
-            tvTitle.setText(nameTitle);
-        } else {
+
+        String outlist = getIntent().getStringExtra("type");
+        if (outlist!=null) {
             type = 1;
+            OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
+                    OutListSelShowActivity.DATA_TAG);
+            showViewDataByOutList(info);
+        } else {
+            JCBlackListData data = (JCBlackListData) getIntent().getSerializableExtra(
+                    NameRollManageActivity.DATA_TAG);
+            if (data != null) {
+                showViewData(data);
+                type = 2;
+                nameTitle = "修改黑名单";
+                tvTitle.setText(nameTitle);
+            } else {
+                type = 1;
+            }
         }
+
     }
 
     @Override
@@ -273,10 +284,10 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         //1：站址, 3：车牌颜色, 4：车身颜色, 5：车型类别, 6：车辆类别, 7：违章类型
 
-        dataMapIdList = Arrays.asList(1,3,4,5,6,7);
-        dataMapNameList = Arrays.asList("","VepPlateNoColorName","VepColorName","VehTypeName","VehicleTypeName","PeccancyTypeName");
+        dataMapIdList = Arrays.asList(1, 3, 4, 5, 6, 7);
+        dataMapNameList = Arrays.asList("", "VepPlateNoColorName", "VepColorName", "VehTypeName", "VehicleTypeName", "PeccancyTypeName");
 
-        for (int i=0; i<dataMapIdList.size(); i++){
+        for (int i = 0; i < dataMapIdList.size(); i++) {
             List<ConstAllData.MData.info> dataMap = presenter.getConstByType(dataMapIdList.get(i));
 
             DropDownMenu dropDownMenu = new DropDownMenu(this, dataMap);
@@ -284,11 +295,11 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             dropDownMenuList.add(dropDownMenu);
             dataMapList.add(dataMap);
 
-            if (dataMap.size() > 0){
+            if (dataMap.size() > 0) {
                 String defaultName = dataMap.get(0).getName();
-                int defaultCode =  dataMap.get(0).getCode();
+                int defaultCode = dataMap.get(0).getCode();
 
-                switch (i){
+                switch (i) {
                     case 0:
                         InOrgName.setText(defaultName);
                         inOrgID = defaultCode;
@@ -339,6 +350,27 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         }
     }
 
+    //显示流水信息内容在页面上
+    private void showViewDataByOutList(OutListData.MData.info info){
+        VepPlateNo.setText(info.getVehplateNo());
+
+        vehType = info.getVehType();
+        if (vehType == 11 || vehType == 12 || vehType == 13 || vehType == 14 || vehType == 15) {
+            llZhoushu.setVisibility(View.VISIBLE);
+            llDunshuo.setVisibility(View.VISIBLE);
+            llSeating.setVisibility(View.GONE);
+            state = false;
+        }
+        vehTypeName = info.getVehTypeName();
+        VehTypeName.setText(vehTypeName);
+
+        axleCountName = info.getAxleNumber()+"轴";
+        axleCount = info.getAxleNumber();
+        AxleCountName.setText(axleCountName);
+        CardNo.setText(info.getCardNo()+"");
+
+
+    }
 
     //显示值在页面上
     private void showViewData(JCBlackListData data) {
@@ -472,10 +504,10 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 dropDownMenuList.get(2).setDownValue(VepColorName, "");
                 break;
             case R.id.rl_car_type:
-                dropDownMenuList.get(3).setDownValue(VehicleTypeName, "");
+                dropDownMenuList.get(4).setDownValue(VehicleTypeName, "");
                 break;
             case R.id.rl_veh_type:
-                dropDownMenuList.get(4).setDownValue(VehTypeName, "");
+                dropDownMenuList.get(3).setDownValue(VehTypeName, "");
                 break;
             case R.id.rl_weizhang_type:
                 dropDownMenuList.get(5).setDownValue(PeccancyTypeName, "");
@@ -497,8 +529,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 downKeyValueOwner.setDownValue(OwnerTypeName, "");
                 break;
             case R.id.comit_button:
-                if (nameType == 0 || nameType ==1)
-                {
+                if (nameType == 0 || nameType == 1) {
                     if (TextUtils.isEmpty(VepPlateNo.getText())) {
                         showToast("车牌号不能为空！");
                         return;
@@ -525,11 +556,11 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             uuid = UUID.randomUUID().toString();
         }
 
-        if (nameType == 0){
+        if (nameType == 0) {
             data.setBlackListID(uuid);
-        }else if (nameType == 1){
+        } else if (nameType == 1) {
             data.setVehicleID(uuid);
-        }else {
+        } else {
             data.setYListID(uuid);
         }
 

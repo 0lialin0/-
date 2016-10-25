@@ -4,6 +4,7 @@ package cn.wtkj.charge_inspect.mvp.views;
 import java.util.List;
 
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
 
 /**
@@ -27,7 +28,7 @@ public interface OutListSelShowView extends MvpView {
     void nextView();
 
 
-    void setList(List<JCEscapeBookData> list);
+    void setList(List<OutListData.MData.info> list);
     /**
      * 显示提示信息
      *

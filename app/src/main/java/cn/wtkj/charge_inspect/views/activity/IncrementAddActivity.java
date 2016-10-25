@@ -23,6 +23,7 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
@@ -116,12 +117,12 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     private String axleNumberName;
     private int peccancyTypeID;
     private String peccancyTypeName;
-    private int inStationID;
-    private String inStationName;
-    private int inDecision;
-    private String inDecisionName;
-    private int outDecision;
-    private String outDecisionName;
+    private int inStationID; //入口站址ID
+    private String inStationName;//入口站址
+    private int inDecision; //入口判型ID
+    private String inDecisionName; //入口判型
+    private int outDecision;  //出口判型ID
+    private String outDecisionName; //出口判型
     private ProgressDialog progressDialog;
     private ConstAllDb constAllDb;
     private String orgLevel;
@@ -185,20 +186,56 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     //如果是修改页面传来的数据的时候，把页面的值赋上
     @Override
     public void setView() {
-        JCEscapeBookData data = (JCEscapeBookData) getIntent().getSerializableExtra(
-                IncrementListActivity.DATA_TAG);
         showView();
-        if (data != null) {
-            showViewData(data);
-            type = 2;
-            increment_title = "修改增收";
-            tvTitle.setText(increment_title);
-        } else {
+        String outlist = getIntent().getStringExtra("type");
+        if (outlist != null) {
             type = 1;
-        }
+            OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
+                    OutListSelShowActivity.DATA_TAG);
+            showViewDataByOutList(info);
+        } else {
+            JCEscapeBookData data = (JCEscapeBookData) getIntent().getSerializableExtra(
+                    IncrementListActivity.DATA_TAG);
 
+            if (data != null) {
+                showViewData(data);
+                type = 2;
+                increment_title = "修改增收";
+                tvTitle.setText(increment_title);
+            } else {
+                type = 1;
+            }
+        }
     }
 
+    //显示流水信息内容在页面上
+    private void showViewDataByOutList(OutListData.MData.info info) {
+        edCarNum.setText(info.getVehplateNo());
+        edChargeNum.setText(info.getOprId());
+        shiftID = info.getShiftId();
+        if(shiftID==2){
+            shiftName = "中班";
+        }else if(shiftID==3){
+            shiftName = "晚班";
+        }else{
+            shiftName = "早班";
+        }
+        tvClasses.setText(shiftName);
+
+        inStationID =info.getInstationId();
+        inStationName = info.getInstationName();
+        tvEntranceLoca.setText(inStationName);
+
+        inDecision = info.getInvehType();
+        inDecisionName = info.getInvehTypeName();
+        tvEntranceType.setText(inDecisionName);
+
+        outDecision = info.getVehType();
+        outDecisionName = info.getInvehTypeName();
+        tvExitType.setText(outDecisionName);
+
+        edShiMoney.setText(info.getPaymoney());
+    }
 
     //显示值在页面上
     private void showViewData(JCEscapeBookData data) {
@@ -206,9 +243,9 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             ivPhone.setVisibility(View.VISIBLE);
             ivMore.setVisibility(View.VISIBLE);
         }
-        if(data.getInDecision()==11 || data.getInDecision() == 12 ||
+        if (data.getInDecision() == 11 || data.getInDecision() == 12 ||
                 data.getInDecision() == 13 || data.getInDecision() == 14 ||
-                data.getInDecision() == 15){
+                data.getInDecision() == 15) {
             showExitList(11, 15);
             llZhoushu.setVisibility(View.VISIBLE);
             llDunshuo.setVisibility(View.VISIBLE);
@@ -219,12 +256,24 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         tvCheckTime.setText(data.getFindDT());
         edChargeNum.setText(data.getOprID());
         edChargeName.setText(data.getOprName());
-        tvClasses.setText(data.getShiftName());
+        shiftID = data.getShiftID();
+        shiftName = data.getShiftName();
+        tvClasses.setText(shiftName);
         edClassName.setText(data.getMonitor());
         tvIncrementType.setText(data.getPeccancyTypeName());
-        tvEntranceLoca.setText(data.getInStationName());
-        tvEntranceType.setText(data.getInDecisionName());
-        tvExitType.setText(data.getOutDecisionName());
+
+        inStationID = data.getInStationID();
+        inStationName = data.getInStationName();
+        tvEntranceLoca.setText(inStationName);
+
+        inDecision = data.getInDecision();
+        inDecisionName = data.getInDecisionName();
+        tvEntranceType.setText(inDecisionName);
+
+        outDecision = data.getOutDecision();
+        outDecisionName = data.getOutDecisionName();
+        tvExitType.setText(outDecisionName);
+
         edShiMoney.setText(data.getRealityMoney());
         edZengMoney.setText(data.getEscapeMoney());
         edRemark.setText(data.getRemark());
@@ -232,20 +281,13 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         edZhoushou.setText(data.getAxleNumberName());
         edDunshuo.setText(data.getWeight());
 
-        orgCode=data.getOrgID();
-        orgLevel=data.getOrgLevel();
-        shiftID = data.getShiftID();
-        shiftName = data.getShiftName();
+        orgCode = data.getOrgID();
+        orgLevel = data.getOrgLevel();
         axleNumber = data.getAxleNumber();
         axleNumberName = data.getAxleNumberName();
         peccancyTypeID = data.getPeccancyTypeID();
         peccancyTypeName = data.getPeccancyTypeName();
-        inStationID = data.getInStationID();
-        inStationName = data.getInStationName();
-        inDecision = data.getInDecision();
-        inDecisionName = data.getInDecisionName();
-        outDecision = data.getOutDecision();
-        outDecisionName = data.getOutDecisionName();
+
         uuid = data.getEscapeBookID();
     }
 
@@ -315,8 +357,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             ConstAllData data = new ConstAllData();
             ConstAllData.MData mData = data.new MData();
             for (int i = 0; i < entranList.size(); i++) {
-                boolean a=entranList.get(i).getCode() >= start;
-                boolean b=entranList.get(i).getCode() <= end;
+                boolean a = entranList.get(i).getCode() >= start;
+                boolean b = entranList.get(i).getCode() <= end;
                 if (entranList.get(i).getCode() >= start && entranList.get(i).getCode() <= end) {
                     ConstAllData.MData.info info = mData.new info();
                     info.setName(entranList.get(i).getName());
@@ -443,7 +485,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         data.setShiftName(shiftName);
         if (!TextUtils.isEmpty(edClassName.getText())) {
             data.setMonitor(edClassName.getText().toString());
-        }else{
+        } else {
             data.setMonitor("");
         }
         data.setPeccancyTypeID(peccancyTypeID);
@@ -469,7 +511,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
         if (!TextUtils.isEmpty(edRemark.getText())) {
             data.setRemark(edRemark.getText().toString());
-        }else{
+        } else {
             data.setRemark("");
         }
 
@@ -518,7 +560,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         if (name.equals("早班") || name.equals("中班") || name.equals("晚班")) {
             shiftID = id;
             shiftName = name;
-        }else {
+        } else {
             axleNumber = id;
             axleNumberName = name;
         }

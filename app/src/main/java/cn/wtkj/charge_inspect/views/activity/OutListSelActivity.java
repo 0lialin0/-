@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListParamData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenter;
@@ -77,17 +79,19 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
     EditText tvCarType;
 
 
-    private int inStationID;
+    private int inStationID = -1;
     private String inStationName;
-    private int vehLaneId;
+    private int vehLaneId = -1;
     private String vehLaneName;
-    private int vehTypeId;
+    private int vehTypeId = -1;
     private String vehTypeName;
-    private int vehZhongId;
+    private int vehZhongId = -1;
     private String vehZhongName;
-    private int outLaneId;
+    private int outLaneId = -1;
     private String outLaneName;
     private ProgressDialog progressDialog;
+    public static final String DATA_TAG = "DataInfo";
+    public OutListParamData data;
 
     private DropDownMenu dropDownMenu;
     private DropDownMenu dropDownMenu2;
@@ -125,11 +129,6 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
         showView();
     }
 
-    @Override
-    public void setDropDown() {
-
-    }
-
 
     @Override
     public void setView() {
@@ -145,8 +144,8 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
         dropDownMenu = new DropDownMenu(this, rkLoca);
         dropDownMenu.setOnItemClickListener(this);
         if (rkLoca.size() > 0) {
-            inStationID = rkLoca.get(0).getCode();
-            inStationName = rkLoca.get(0).getName();
+            //inStationID = rkLoca.get(0).getCode();
+            //inStationName = rkLoca.get(0).getName();
             //tvOutLoca.setText(rkLoca.get(0).getName());
         }
 
@@ -155,8 +154,8 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
         dropDownMenu2 = new DropDownMenu(this, lane);
         dropDownMenu2.setOnItemClickListener(this);
         if (lane.size() > 0) {
-            vehLaneId = lane.get(0).getCode();
-            vehLaneName = lane.get(0).getName();
+            //vehLaneId = lane.get(0).getCode();
+            //vehLaneName = lane.get(0).getName();
             //tvLaneType.setText(lane.get(0).getName());
         }
 
@@ -165,8 +164,8 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
         dropDownMenu3 = new DropDownMenu(this, vehType);
         dropDownMenu3.setOnItemClickListener(this);
         if (vehType.size() > 0) {
-            vehTypeId = vehType.get(0).getCode();
-            vehTypeName = vehType.get(0).getName();
+            //vehTypeId = vehType.get(0).getCode();
+            //vehTypeName = vehType.get(0).getName();
             //tvVehType.setText(vehType.get(0).getName());
         }
 
@@ -175,18 +174,18 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
         dropDownMenu4 = new DropDownMenu(this, vehZhong);
         dropDownMenu4.setOnItemClickListener(this);
         if (vehZhong.size() > 0) {
-            vehZhongId = vehZhong.get(0).getCode();
-            vehZhongName = vehZhong.get(0).getName();
+            //vehZhongId = vehZhong.get(0).getCode();
+            //vehZhongName = vehZhong.get(0).getName();
             //tvVehSeed.setText(vehZhong.get(0).getName());
         }
 
         //车道
         List<ConstAllData.MData.info> outLane = presenter.getConstByType(2);
-        dropDownMenu5 = new DropDownMenu(this, vehZhong);
+        dropDownMenu5 = new DropDownMenu(this, outLane);
         dropDownMenu5.setOnItemClickListener(this);
         if (outLane.size() > 0) {
-            outLaneId = outLane.get(0).getCode();
-            outLaneName = outLane.get(0).getName();
+            //outLaneId = outLane.get(0).getCode();
+            //outLaneName = outLane.get(0).getName();
             //tvVehSeed.setText(vehZhong.get(0).getName());
         }
     }
@@ -238,25 +237,53 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
     }
 
     public void getShowData() {
-        Map<String, String> map = new HashMap<>();
-        map.put("BEGINTIME", tvStartTime.getText().toString());
-        map.put("ENDTIME", tvEndTime.getText().toString());
-        map.put("OUTSTATIONID", inStationID + "");
-        map.put("VEHCLASSID", vehZhongId + "");
-        map.put("VEHTYPEID", vehTypeId + "");
-        map.put("OUTLANEID", outLaneId + "");
-        map.put("LANETYPE", vehLaneId + "");
-        if (!TextUtils.isEmpty(tvVehPlate.getText())) {
-            map.put("VEHPLATENO", tvVehPlate.getText().toString());
+        data = new OutListParamData();
+        data.setBEGINTIME(tvStartTime.getText().toString());
+        data.setENDTIME(tvEndTime.getText().toString());
+        if (inStationID > 0) {
+            data.setOUTSTATIONID(inStationID);
+        } else {
+            data.setOUTSTATIONID(-1);
         }
-        if (!TextUtils.isEmpty(tvCharge.getText())) {
-            map.put("OPRNAME", tvCharge.getText().toString());
+        if (vehZhongId > 0) {
+            data.setVEHCLASSID(vehZhongId);
+        } else {
+            data.setVEHCLASSID(-1);
         }
-        if (!TextUtils.isEmpty(tvCarType.getText())) {
-            map.put("CARDNO", tvCarType.getText().toString());
+        if (vehTypeId > 0) {
+            data.setVEHTYPEID(vehTypeId);
+        } else {
+            data.setVEHTYPEID(-1);
+        }
+        if (outLaneId > 0) {
+            data.setOUTLANEID(outLaneId);
+        } else {
+            data.setOUTLANEID(-1);
+        }
+        if (vehLaneId > 0) {
+            data.setLANETYPE(vehLaneId);
+        } else {
+            data.setLANETYPE(-1);
         }
 
-        presenter.startPresenter(map);
+        if (!TextUtils.isEmpty(tvVehPlate.getText())) {
+            data.setVEHPLATENO(tvVehPlate.getText().toString());
+        } else {
+            data.setVEHPLATENO("");
+        }
+        if (!TextUtils.isEmpty(tvCharge.getText())) {
+            data.setOPRNAME(tvCharge.getText().toString());
+        } else {
+            data.setOPRNAME("");
+        }
+        if (!TextUtils.isEmpty(tvCarType.getText())) {
+            data.setCARDNO(Integer.valueOf(tvCarType.getText().toString()));
+        } else {
+            data.setCARDNO(0);
+        }
+
+        // presenter.startPresenter(data);
+        nextView();
     }
 
     @Override
@@ -299,9 +326,12 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
     }
 
     @Override
-    public void nextView(List<OutListData.MData.info> data) {
-        Intent intent=new Intent(this,OutListSelShowActivity.class);
-
+    public void nextView() {
+        Intent intent = new Intent(this, OutListSelShowActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("param", data);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override

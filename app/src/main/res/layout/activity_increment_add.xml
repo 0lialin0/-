@@ -381,7 +381,6 @@
                         <EditText
                             android:id="@+id/ed_shi_money"
                             style="@style/electron_ed_content"
-                            android:hint="@string/please_input"
                             android:numeric="decimal" />
 
                     </LinearLayout>
@@ -408,7 +407,6 @@
                         <EditText
                             android:id="@+id/ed_zeng_money"
                             style="@style/electron_ed_content"
-                            android:hint="@string/please_input"
                             android:numeric="decimal" />
 
 

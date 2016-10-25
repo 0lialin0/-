@@ -3,19 +3,29 @@ package cn.wtkj.charge_inspect.mvp.presenter;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListParamData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.data.dataBase.BlackListDb;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
 import cn.wtkj.charge_inspect.data.dataBase.PhotoVideoDb;
+import cn.wtkj.charge_inspect.data.net.ResponeData;
+import cn.wtkj.charge_inspect.data.rest.ConductInfoData;
 import cn.wtkj.charge_inspect.data.rest.ConductInfoDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.OutListSelShowView;
 import cn.wtkj.charge_inspect.mvp.views.OutListSelView;
+import cn.wtkj.charge_inspect.util.ResponeUtils;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -26,51 +36,43 @@ public class OutListSelShowPresenterImpl extends MvpBasePresenter<OutListSelShow
 
 
     private Context context;
-    private ConductInfoDataImpl nameRollAddData;
-    private ConstAllDb constAllDb;
-    private OrganizationDb organizationDb;
-    private BlackListDb blackListDb;
-    private PhotoVideoDb photoVideoDb;
-    private boolean isNumber = true;//控制上传频率
+    private ConductInfoData conductInfoData;
+    public Map<String, String> map;
 
     public OutListSelShowPresenterImpl(Context context) {
         this.context = context;
-        nameRollAddData = new ConductInfoDataImpl(context);
-        constAllDb = new ConstAllDb(context);
-        organizationDb = new OrganizationDb(context);
-        blackListDb = new BlackListDb(context);
-        photoVideoDb = new PhotoVideoDb(context);
+        conductInfoData = new ConductInfoDataImpl(context);
     }
 
     @Override
-    public void startPresenter(String keyword) {
+    public void startPresenter(int page, int pagerSize,OutListParamData data) {
+        //getView().showLoding();
+        map = new HashMap<>();
+        data.setPAGENUM(page);
+        data.setPAGESIZE(pagerSize);
+        map.put("json", ResponeUtils.dataToJson(data));
+        conductInfoData.outListSel(map, new Callback<OutListData>() {
+            @Override
+            public void success(OutListData outListData, Response response) {
+                //getView().hideDialog();
+                getView().hideLoging();
+                if (outListData.getMData().getState() == outListData.SUCCESS) {
+                    List<OutListData.MData.info> data = outListData.getMData().getInfo();
+                    getView().setList(data);
+                } else {
+                    getView().showToast(outListData.getMData().getInfo().toString());
+                }
+            }
 
+            @Override
+            public void failure(RetrofitError error) {
+                //getView().hideDialog();
+                getView().hideLoging();
+                getView().showToast(ResponeData.NET_ERROR);
+            }
+        });
     }
 
-
-    @Override
-    public List<KeyValueData> setDropDown() {
-        List<KeyValueData> zhoushuo = new ArrayList<>();
-        zhoushuo.add(new KeyValueData("2", "2轴"));
-        zhoushuo.add(new KeyValueData("3", "3轴"));
-        zhoushuo.add(new KeyValueData("4", "4轴"));
-        zhoushuo.add(new KeyValueData("5", "5轴"));
-        zhoushuo.add(new KeyValueData("6", "6轴"));
-        zhoushuo.add(new KeyValueData("7", "7轴"));
-        return zhoushuo;
-    }
-
-    @Override
-    public List<ViewOrganizationData.MData.info> getOrg(int orgId, String orgLevel) {
-        List<ViewOrganizationData.MData.info> list = organizationDb.getCheckUnit(orgId, orgLevel);
-        return list;
-    }
-
-    @Override
-    public List<ConstAllData.MData.info> getConstByType(int type) {
-        List<ConstAllData.MData.info> list_type = constAllDb.getConstList(type);
-        return list_type;
-    }
 
 
 }

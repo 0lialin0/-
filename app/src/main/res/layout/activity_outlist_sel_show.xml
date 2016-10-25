@@ -8,15 +8,13 @@
         android:id="@+id/main_toop"
         layout="@layout/toolbar_other" />
 
-    <include layout="@layout/search_head_main" />
-
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/y15"
         android:layout_marginLeft="@dimen/x15"
         android:layout_marginRight="@dimen/x15"
+        android:layout_marginTop="@dimen/x10"
         android:orientation="vertical">
 
         <android.support.v4.widget.SwipeRefreshLayout

@@ -1,5 +1,6 @@
 package cn.wtkj.charge_inspect.views.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
+import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenter;
@@ -28,7 +30,7 @@ import cn.wtkj.charge_inspect.views.custom.DropDownMenu;
  * Created by ghj on 2016/10/24.
  */
 public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter> implements
-        OutListSelView, View.OnClickListener, OnItemClickListener, OnItemClickListener3 {
+        OutListSelView, View.OnClickListener {
 
     @Bind(R.id.aty_toolbar)
     Toolbar mToolbar;
@@ -41,23 +43,57 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
     @Bind(R.id.iv_phone)
     ImageView ivPhone;
 
-    @Bind(R.id.tv_start_time)
-    TextView tvStartTime;
-    @Bind(R.id.tv_end_time)
-    TextView tvEndTime;
-
-    @Bind(R.id.tv_out_loca)
-    TextView tvOutLoca;
-    @Bind(R.id.tv_lane_type)
-    TextView tvLaneType;
+    @Bind(R.id.tv_entrance_loca)
+    TextView tvEntranceLoca;
+    @Bind(R.id.tv_entrance_lane)
+    TextView tvEntranceLane;
+    @Bind(R.id.tv_entrance_vehplate)
+    TextView tvEntranceVehplate;
+    @Bind(R.id.tv_veh_seed)
+    TextView tvVehSeed;
     @Bind(R.id.tv_veh_type)
     TextView tvVehType;
+    @Bind(R.id.tv_oprid)
+    TextView tvOprid;
+    @Bind(R.id.tv_entrance_time)
+    TextView tvEntranceTime;
+    @Bind(R.id.tv_out_loca)
+    TextView tvOutLoca;
+
+    @Bind(R.id.tv_out_lane)
+    TextView tvOutLane;
+    @Bind(R.id.tv_out_vehplate)
+    TextView tvOutVehplate;
+    @Bind(R.id.tv_out_seed)
+    TextView tvOutSeed;
+    @Bind(R.id.tv_out_vehtype)
+    TextView tvOutVehtype;
+
+    @Bind(R.id.tv_yufu_vehplate)
+    TextView tvYufuVehplate;
+    @Bind(R.id.tv_zhekou_money)
+    TextView tvZhekouMoney;
+    @Bind(R.id.tv_yingshou_money)
+    TextView tvYingshoMoney;
+    @Bind(R.id.tv_shishou_money)
+    TextView tvShishouMoney;
+
+    @Bind(R.id.tv_veh_num)
+    TextView tvVehNum;
+    @Bind(R.id.tv_licheng)
+    TextView tvLicheng;
+    @Bind(R.id.tv_zhoushu)
+    TextView tvZhoushu;
+    @Bind(R.id.tv_zhongliang)
+    TextView tvZhongliang;
+    @Bind(R.id.tv_tong_car_num)
+    TextView tvTongCarNum;
+    @Bind(R.id.tv_special_event)
+    TextView tvSpecialEvent;
 
 
-    private DropDownMenu dropDownMenu;
-    private DropDownMenu dropDownMenu2;
-    private DropDownMenu dropDownMenu3;
-
+    public static final String DATA_TAG = "DataInfo";
+    public OutListData.MData.info data;
 
     @Override
     protected OutListSelPresenter createPresenter() {
@@ -70,7 +106,6 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
         setContentView(R.layout.activity_out_list_sel_info);
         ButterKnife.bind(this);
         initToolBar();
-        initView();
     }
 
     private void initToolBar() {
@@ -79,98 +114,84 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
         setSupportActionBar(mToolbar);
         ivPhone.setVisibility(View.GONE);
         ivMore.setVisibility(View.GONE);
+        setView();
     }
 
-    public void initView() {
-        tvStartTime.setText(ResponeUtils.getTime());
-        tvEndTime.setText(ResponeUtils.getTime());
-        showView();
-    }
-
-    @Override
-    public void setDropDown() {
-
-    }
 
 
     @Override
     public void setView() {
+        data = (OutListData.MData.info) getIntent().getSerializableExtra(
+                OutListSelShowActivity.DATA_TAG);
 
+        if (data != null) {
+            showViewData(data);
+        }
+    }
+
+    //显示值在页面上
+    private void showViewData(OutListData.MData.info data) {
+        tvEntranceLoca.setText(data.getInstationName());
+        tvEntranceLane.setText(data.getInlaneName());
+        tvEntranceVehplate.setText(data.getInvehplateNo());
+        tvVehSeed.setText(data.getInvehclass());
+        tvVehType.setText(data.getInvehTypeName());
+        tvOprid.setText(data.getInoprId());
+        tvEntranceTime.setText(data.getInoperateOn());
+        tvOutLoca.setText(data.getOutstationName());
+        tvOutLane.setText(data.getOutlaneName());
+        tvOutVehplate.setText(data.getVehplateNo());
+        tvOutSeed.setText(data.getVehclass());
+        tvOutVehtype.setText(data.getVehTypeName());
+        tvYufuVehplate.setText(data.getCardvehpLate());
+        tvZhekouMoney.setText(data.getUcrmoney());
+        tvYingshoMoney.setText(data.getCrmoney());
+        tvShishouMoney.setText(data.getPaymoney());
+        tvVehNum.setText(data.getInvoiceNo()+"");
+        tvLicheng.setText(data.getMiles()+"");
+        tvZhoushu.setText(data.getAxleNumber()+"轴");
+        tvZhongliang.setText(data.getWeight()+"kg");
+        tvTongCarNum.setText(data.getCardNo()+"");
+        tvSpecialEvent.setText(data.getSpevent());
     }
 
     @Override
     public void showView() {
-        //1：站址, 2：车道,  5：车型类别
-
-        //出口站址(站址)
-        List<ConstAllData.MData.info> rkLoca = presenter.getConstByType(1);
-        dropDownMenu = new DropDownMenu(this, rkLoca);
-        dropDownMenu.setOnItemClickListener(this);
-        if (rkLoca.size() > 0) {
-            //inStationID = rkLoca.get(0).getCode();
-            //inStationName = rkLoca.get(0).getName();
-            tvOutLoca.setText(rkLoca.get(0).getName());
-        }
-
-        //出口站址(站址)
-        List<ConstAllData.MData.info> lane = presenter.getConstByType(2);
-        dropDownMenu2 = new DropDownMenu(this, lane);
-        dropDownMenu2.setOnItemClickListener(this);
-        if (rkLoca.size() > 0) {
-            //inStationID = rkLoca.get(0).getCode();
-            //inStationName = rkLoca.get(0).getName();
-            tvLaneType.setText(lane.get(0).getName());
-        }
-
-        //出口站址(站址)
-        List<ConstAllData.MData.info> vehType = presenter.getConstByType(5);
-        dropDownMenu3 = new DropDownMenu(this, vehType);
-        dropDownMenu3.setOnItemClickListener(this);
-        if (rkLoca.size() > 0) {
-            //inStationID = rkLoca.get(0).getCode();
-            //inStationName = rkLoca.get(0).getName();
-            tvVehType.setText(vehType.get(0).getName());
-        }
     }
 
-    @OnClick({R.id.iv_left, R.id.tv_start_time, R.id.tv_end_time, R.id.rl_out_loca,
-            R.id.rl_lane_type , R.id.rl_veh_type})
+    @OnClick({R.id.iv_left, R.id.tv_add_name, R.id.tv_add_green, R.id.tv_add_increment})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_left:
                 this.finish();
                 break;
-            case R.id.tv_start_time:
-                DateTimePickerDialog dateTimePickerDialog = new DateTimePickerDialog(this);
-                dateTimePickerDialog.dateTimePicKDialog(tvStartTime, 0);
+            case R.id.tv_add_name:
+                Intent intent = new Intent(this, NameRollAddActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(DATA_TAG, data);
+                bundle.putString("type","outlist");
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
-            case R.id.tv_end_time:
-                DateTimePickerDialog dateTimePickerDialog2 = new DateTimePickerDialog(this);
-                dateTimePickerDialog2.dateTimePicKDialog(tvEndTime, 0);
+            case R.id.tv_add_green:
+                Intent intent2 = new Intent(this, GreenRecordActivity.class);
+                Bundle bundle2 = new Bundle();
+                bundle2.putSerializable(DATA_TAG, data);
+                bundle2.putString("type","outlist");
+                intent2.putExtras(bundle2);
+                startActivity(intent2);
                 break;
-            case R.id.rl_out_loca:
-                dropDownMenu.setDownValue(tvOutLoca, "");
-                break;
-            case R.id.rl_lane_type:
-                dropDownMenu2.setDownValue(tvLaneType, "");
-                break;
-            case R.id.rl_veh_seed:
-                dropDownMenu3.setDownValue(tvVehType, "");
+            case R.id.tv_add_increment:
+                Intent intent3 = new Intent(this, IncrementAddActivity.class);
+                Bundle bundle3 = new Bundle();
+                bundle3.putSerializable(DATA_TAG, data);
+                bundle3.putString("type","outlist");
+                intent3.putExtras(bundle3);
+                startActivity(intent3);
                 break;
         }
     }
-
-    @Override
-    public void onItemClick(int code, int type, String name) {
-
-    }
-
-    @Override
-    public void onItemClick(String name, int id) {
-
-    }
-
 
     @Override
     public void showLoding() {
@@ -183,7 +204,7 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
     }
 
     @Override
-    public void nextView(List<OutListData.MData.info> data) {
+    public void nextView() {
 
     }
 

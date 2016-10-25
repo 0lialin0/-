@@ -11,8 +11,6 @@ import cn.wtkj.charge_inspect.mvp.MvpView;
  */
 public interface OutListSelView extends MvpView {
 
-    void setDropDown();
-
     void showView();
 
     void setView();
@@ -24,7 +22,7 @@ public interface OutListSelView extends MvpView {
     void hideLoging();
 
     //跳转到下一个页面
-    void nextView(List<OutListData.MData.info> data);
+    void nextView();
 
     /**
      * 显示提示信息

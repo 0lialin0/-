@@ -17,7 +17,7 @@ public class OutListData implements Serializable {
     private String msg;
     private MData data;
 
-    public class MData{
+    public class MData implements Serializable{
         private int state;
         private List<info> info;
 
@@ -37,7 +37,7 @@ public class OutListData implements Serializable {
             this.info = info;
         }
 
-        public class info {
+        public class info implements Serializable{
             @SerializedName("LISTID")
             private String listId;
             @SerializedName("INVEHPLATENO")

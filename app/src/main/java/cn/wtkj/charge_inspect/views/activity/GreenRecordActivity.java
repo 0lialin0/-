@@ -28,6 +28,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.JCGreenChannelRecData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
@@ -198,16 +199,25 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
 
     @Override
     public void setView() {
-        JCGreenChannelRecData data = (JCGreenChannelRecData) getIntent().getSerializableExtra(
-                GreenRecordListActivity.DATA_TAG);
         setDropDown();
-        if (data != null) {
-            showViewData(data);
-            type = 2;
-            increment_title = "修改绿通档案";
-            tvTitle.setText(increment_title);
-        } else {
+        String outlist = getIntent().getStringExtra("type");
+        if (outlist != null) {
             type = 1;
+            OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
+                    OutListSelShowActivity.DATA_TAG);
+            showViewDataByOutList(info);
+        } else {
+            JCGreenChannelRecData data = (JCGreenChannelRecData) getIntent().getSerializableExtra(
+                    GreenRecordListActivity.DATA_TAG);
+
+            if (data != null) {
+                showViewData(data);
+                type = 2;
+                increment_title = "修改绿通档案";
+                tvTitle.setText(increment_title);
+            } else {
+                type = 1;
+            }
         }
     }
 
@@ -313,6 +323,27 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         }
     }
 
+
+    //显示流水信息内容在页面上
+    private void showViewDataByOutList(OutListData.MData.info info) {
+        edCarNum.setText(info.getVehplateNo());
+        axleCountName = info.getAxleNumber()+"轴";
+        axleCount = info.getAxleNumber();
+        tvAxleCount.setText(axleCountName);
+        edTonnage.setText(info.getWeight()/1000+"");
+
+        //入口站址
+        inStationID = info.getInstationId();
+        inStationName = info.getInstationName();
+        tvInStationID.setText(inStationName);
+
+        //出口车道
+        laneID = info.getOutlaneId();
+        laneName = info.getOutlaneName();
+        tvLaneID.setText(laneName);
+
+
+    }
 
     //显示值在页面上
     private void showViewData(JCGreenChannelRecData data) {

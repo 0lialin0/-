@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
+import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
 
@@ -21,17 +23,17 @@ import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
  */
 public class OutListSelAdapter extends RecyclerView.Adapter<OutListSelAdapter.ShedViewHolder> {
     private Context context;
-    private List<JCEscapeBookData> dataList;
+    private List<OutListData.MData.info> dataList;
     private OnItemClickListener onItemClickListener;
     private ConstAllDb constAllDb;
     private OrganizationDb organizationDb;
-    private String but="0";
+    private String but = "0";
 
-    public OutListSelAdapter(Context context, List<JCEscapeBookData> patrolProjectDatas) {
+    public OutListSelAdapter(Context context, List<OutListData.MData.info> data) {
         this.context = context;
-        this.dataList = patrolProjectDatas;
-        constAllDb=new ConstAllDb(context);
-        organizationDb=new OrganizationDb(context);
+        this.dataList = data;
+        constAllDb = new ConstAllDb(context);
+        organizationDb = new OrganizationDb(context);
     }
 
     @Override
@@ -43,41 +45,49 @@ public class OutListSelAdapter extends RecyclerView.Adapter<OutListSelAdapter.Sh
     @Override
     public void onBindViewHolder(ShedViewHolder holder, final int position) {
 
+        holder.tvVehPlate.setText(dataList.get(position).getInvehplateNo());
+        holder.tvOutVehPlate.setText(dataList.get(position).getVehplateNo());
+        holder.tvEntLoca.setText(dataList.get(position).getInstationName());
+        holder.tvCharge.setText(dataList.get(position).getOprId());
+        String outLoca=dataList.get(position).getOutstationName()+"/"+
+                dataList.get(position).getOutlaneName();
+        holder.tvOutLoca.setText(outLoca);
+        holder.tvOutTime.setText(dataList.get(position).getOperateOn());
+        holder.tvVehType.setText(dataList.get(position).getVehTypeName());
 
-
-        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+        holder.tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //删除
+                //名单
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position,0,"del");
+                    onItemClickListener.onItemClick(position, 0, "name");
                 }
             }
         });
-        holder.tvEdit.setOnClickListener(new View.OnClickListener() {
+        holder.tvGreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //编辑
+                //绿通
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position,0,"edit");
+                    onItemClickListener.onItemClick(position, 0, "green");
                 }
             }
         });
-        holder.tvSubmit.setOnClickListener(new View.OnClickListener() {
+        holder.tvIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //提交
+                //增收
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position,0,"submit");
+                    onItemClickListener.onItemClick(position, 0, "increment");
                 }
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.rlContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position,0,"");
+                    onItemClickListener.onItemClick(position, 0, "");
                 }
             }
         });
@@ -93,18 +103,33 @@ public class OutListSelAdapter extends RecyclerView.Adapter<OutListSelAdapter.Sh
     }
 
     public class ShedViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_delete)
-        TextView tvDelete;
-        @Bind(R.id.tv_edit)
-        TextView tvEdit;
-        @Bind(R.id.tv_submit)
-        TextView tvSubmit;
-
+        @Bind(R.id.active_vehPlate)
+        TextView tvVehPlate;
+        @Bind(R.id.active_out_vehPlate)
+        TextView tvOutVehPlate;
+        @Bind(R.id.active_ent_loca)
+        TextView tvEntLoca;
+        @Bind(R.id.active_charge)
+        TextView tvCharge;
+        @Bind(R.id.active_out_loca)
+        TextView tvOutLoca;
+        @Bind(R.id.active_out_time)
+        TextView tvOutTime;
+        @Bind(R.id.active_veh_type)
+        TextView tvVehType;
+        @Bind(R.id.tv_name)
+        TextView tvName;
+        @Bind(R.id.tv_green)
+        TextView tvGreen;
+        @Bind(R.id.tv_increment)
+        TextView tvIncrement;
+        @Bind(R.id.rl_content)
+        RelativeLayout rlContent;
 
 
         public ShedViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

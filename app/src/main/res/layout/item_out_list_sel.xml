@@ -45,8 +45,7 @@
                             android:id="@+id/active_vehPlate"
                             style="@style/list_sub_title"
                             android:layout_below="@+id/active_title"
-                            android:layout_marginBottom="@dimen/y33"
-                            android:text="bbbb" />
+                            android:layout_marginBottom="@dimen/y33" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -65,8 +64,7 @@
                             android:id="@+id/active_out_vehPlate"
                             style="@style/list_sub_title"
                             android:layout_below="@+id/active_title"
-                            android:layout_marginBottom="@dimen/y33"
-                            android:text="bbbb" />
+                            android:layout_marginBottom="@dimen/y33" />
                     </LinearLayout>
 
 
@@ -88,11 +86,10 @@
                             android:text="入口站址：" />
 
                         <TextView
-                            android:id="@+id/active_loca"
+                            android:id="@+id/active_ent_loca"
                             style="@style/list_sub_title"
                             android:layout_below="@+id/active_title"
-                            android:layout_marginBottom="@dimen/y33"
-                            android:text="bbbb" />
+                            android:layout_marginBottom="@dimen/y33" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -112,7 +109,7 @@
                             style="@style/list_sub_title"
                             android:layout_below="@+id/active_title"
                             android:layout_marginBottom="@dimen/y33"
-                            android:text="bbbb" />
+                             />
                     </LinearLayout>
 
 
@@ -128,11 +125,10 @@
                         android:text="出口站址/车道号：" />
 
                     <TextView
-                        android:id="@+id/active_entrance_loca"
+                        android:id="@+id/active_out_loca"
                         style="@style/list_sub_title"
                         android:layout_below="@+id/active_title"
-                        android:layout_marginBottom="@dimen/y33"
-                        android:text="bbbb" />
+                        android:layout_marginBottom="@dimen/y33" />
 
                 </LinearLayout>
 
@@ -146,11 +142,11 @@
                         android:text="出口时间：" />
 
                     <TextView
-                        android:id="@+id/active_entrance_type"
+                        android:id="@+id/active_out_time"
                         style="@style/list_sub_title"
                         android:layout_below="@+id/active_title"
                         android:layout_marginBottom="@dimen/y33"
-                        android:text="bbbb" />
+                    />
                 </LinearLayout>
 
                 <LinearLayout
@@ -163,11 +159,11 @@
                         android:text="车型：" />
 
                     <TextView
-                        android:id="@+id/active_exit_type"
+                        android:id="@+id/active_veh_type"
                         style="@style/list_sub_title"
                         android:layout_below="@+id/active_content"
                         android:layout_marginBottom="@dimen/y33"
-                        android:text="cccccc" />
+                         />
 
                 </LinearLayout>
 
@@ -208,7 +204,7 @@
                     android:src="@drawable/mingdan" />
 
                 <TextView
-                    android:id="@+id/tv_delete"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x35"
@@ -222,7 +218,7 @@
                     android:src="@drawable/green_add" />
 
                 <TextView
-                    android:id="@+id/tv_edit"
+                    android:id="@+id/tv_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/x35"
@@ -235,7 +231,7 @@
                     android:src="@drawable/zhengshou" />
 
                 <TextView
-                    android:id="@+id/tv_submit"
+                    android:id="@+id/tv_increment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/outlist_increment" />
