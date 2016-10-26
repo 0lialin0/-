@@ -423,7 +423,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     public String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "'IMG'_yyyyMMdd_HHmmss");
+                "_yyyy_MMdd_HHmm_ss");
         return mContext.getPackageName() + "/" + dateFormat.format(date) + ".jpg";
     }
 

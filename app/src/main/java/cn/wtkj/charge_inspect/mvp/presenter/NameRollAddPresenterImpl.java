@@ -63,7 +63,8 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         if (fileList.size() > 0){
             for (int i=0; i< fileList.size(); i++){
                 String oldFilePath = fileList.get(i).getPath();
-                String newFilePath = getFileName(data,i);
+                String oldFileName = fileList.get(i).getName();
+                String newFilePath = getFileName(data,oldFileName);
 
                 if (SysUtils.copyFile(oldFilePath, newFilePath)) {
                     File file = new File(newFilePath);
@@ -85,14 +86,14 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     }
 
     /*此处需改为拍照时间，否则只有一个*/
-    public String getFileName(JCBlackListData data, int i){
+    public String getFileName(JCBlackListData data, String fileName){
         int nameType = data.getNameType();
 
         String filePath = Environment.getExternalStorageDirectory() + "/稽查APP";
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("_yyyyMMdd_HHmmss");
-        String addTime = simpleDateFormat.format(new Date());
-
+       // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("_yyyyMMdd_HHmmss");
+       // String addTime = simpleDateFormat.format(new Date());
+        String addTime = fileName;
         if (nameType ==0){
             filePath += "/黑名单/";
            // filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
@@ -107,7 +108,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
             filePath += "/黄名单/";
             filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
         }
-        filePath += i+".jpg";
+        filePath += ".jpg";
         return filePath;
     }
 
