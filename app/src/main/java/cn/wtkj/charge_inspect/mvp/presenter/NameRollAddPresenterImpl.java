@@ -136,5 +136,9 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         return list_type;
     }
 
+    public List<PhotoVideoData> getPvList(String uuid,int type) {
+        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,type,-1);
+        return list;
+    }
 
 }

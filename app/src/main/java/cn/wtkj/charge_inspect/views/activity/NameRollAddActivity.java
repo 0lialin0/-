@@ -28,6 +28,7 @@ import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenter;
@@ -441,6 +442,14 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         HistoryInfo.setText(data.getHistoryInfo());
 
         uuid = data.getBlackListID();
+
+
+        List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
+        if (list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                myphoto.getGlide(list.get(i).getFileUrl());
+            }
+        }
     }
 
     @Override
