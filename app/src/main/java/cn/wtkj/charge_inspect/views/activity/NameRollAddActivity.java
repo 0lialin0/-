@@ -446,9 +446,13 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
         if (list.size() > 0) {
+
             for (int i = 0; i < list.size(); i++) {
+                files.add(new File(list.get(i).getFileUrl()));
                 myphoto.getGlide(list.get(i).getFileUrl());
             }
+
+            myphoto.setFiles(files);
         }
     }
 

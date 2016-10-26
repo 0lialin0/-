@@ -403,8 +403,10 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         List<PhotoVideoData> list = presenter.getListPvById(uuid);
         if (list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
+                files.add(new File(list.get(i).getFileUrl()));
                 myphoto.getGlide(list.get(i).getFileUrl());
             }
+            myphoto.setFiles(files);
         }
 
     }

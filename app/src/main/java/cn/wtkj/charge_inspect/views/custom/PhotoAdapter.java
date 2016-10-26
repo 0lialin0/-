@@ -61,6 +61,12 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     onItemClickListener.onDeletePics(i);
                 }
             });
+            ((ItemHolde) viewHolder).imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(i);
+                }
+            });
         }
     }
 
@@ -97,7 +103,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public interface OnItemClickListener {
         void onItemClick();
-
+        void onItemClick(int id);
         void onDeletePics(int id);
     }
 }

@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,12 +31,14 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.views.activity.BigImageActivity;
 import cn.wtkj.charge_inspect.views.activity.TestBasicVideo;
 import cn.wtkj.charge_inspect.views.custom.videocapture.VideoRecordActivity;
 
@@ -56,6 +59,14 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     private File tempFile;
     private static LinearLayoutManager manager;
     public boolean isEnabled = true;
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
 
     public int getNameType() {
         return nameType;
@@ -162,6 +173,19 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                 onClickAddImgListener.OnClickAddImg();
             }
         }
+    }
+
+    @Override
+    public void onItemClick(int id) {
+         /*
+        Intent intentBigImage = new Intent();
+        intentBigImage.setClass(mContext, BigImageActivity.class);
+
+        Bundle bundle = new Bundle();
+       bundle.putSerializable("imageList", (Serializable) photoVideoDataList);
+        ;
+        intentBigImage.putExtras(bundle);
+        context.startActivity(intentBigImage);*/
     }
 
     @Override
