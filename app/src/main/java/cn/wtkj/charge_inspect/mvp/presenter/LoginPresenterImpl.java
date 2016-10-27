@@ -135,8 +135,13 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
             @Override
             public void failure(RetrofitError error) {
                 setting.edit().putBoolean("FIRST", true).commit();
-                getView().hideLoging();
-                getView().showMes(ResponeData.NET_ERROR);
+
+                if(error.getResponse().getStatus() == 200){
+                    error.getResponse().getBody();
+                    getView().showMes("用户名或者密码不正确");
+                }else{
+                    getView().showMes(ResponeData.NET_ERROR);
+                }
             }
         });
 
