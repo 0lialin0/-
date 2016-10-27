@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import cn.wtkj.charge_inspect.data.SeApiManager;
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
+import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.net.DangerousApi;
@@ -57,18 +59,30 @@ public class ConductInfoDataImpl implements ConductInfoData {
     //增收上传
     @Override
     public void sendIncrement(Map<String, String> map, Callback<ResponeData> callback) {
-        dangerousApi.sendIncrement(map,callback);
+        dangerousApi.sendIncrement(map, callback);
     }
 
     //下发名单查询
     @Override
     public void selNameXiafa(Map<String, String> map, Callback<NameRollXiafaData> callback) {
-        dangerousApi.selNameXiafa(map,callback);
+        dangerousApi.selNameXiafa(map, callback);
     }
 
     @Override
     public void sendXiafaHandle(Map<String, String> map, Callback<ResponeData> callback) {
-        dangerousApi.sendXiafaHandle(map,callback);
+        dangerousApi.sendXiafaHandle(map, callback);
+    }
+
+    @Override
+    public void sendXiafaInfo(Map<String, String> map, int type, Callback<BlackListData> callback) {
+        if (type == 0) {
+            dangerousApi.getBlackInfo(map, callback);
+        } else if (type == 1) {
+            dangerousApi.getGrayInfo(map, callback);
+        } else if (type == 2) {
+            dangerousApi.getYellowInfo(map, callback);
+        }
+
     }
 
     //绿通档案
@@ -94,6 +108,6 @@ public class ConductInfoDataImpl implements ConductInfoData {
 
     @Override
     public void outListSel(Map<String, String> map, Callback<OutListData> callback) {
-        dangerousApi.outListSel(map,callback);
+        dangerousApi.outListSel(map, callback);
     }
 }

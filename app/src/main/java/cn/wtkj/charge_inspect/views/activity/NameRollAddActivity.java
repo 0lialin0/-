@@ -23,6 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
@@ -66,6 +67,10 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     ImageView ivPhone;
     @Bind(R.id.myphoto)
     MyPhotos myphoto;
+    @Bind(R.id.comit_button)
+    TextView comitButton;
+    @Bind(R.id.ll_myphotos)
+    LinearLayout llMyphotos;
 
     //   车辆信息
     @Bind(R.id.VepPlateNo)
@@ -234,11 +239,22 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         showView();
 
         String outlist = getIntent().getStringExtra("type");
-        if (outlist!=null) {
+        if (outlist != null) {
             type = 1;
-            OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
-                    OutListSelShowActivity.DATA_TAG);
-            showViewDataByOutList(info);
+            if (outlist.equals("xiafa")) {
+               // BlackListData.MData.info blackListData = (BlackListData.MData.info) getIntent().getSerializableExtra(
+                //        NameRollXiafaActivity.DATA_TAG);
+                //showViewXiafaData(blackListData);
+                String id=getIntent().getStringExtra("id");
+                presenter.getBlackData(id,nameType);
+                comitButton.setVisibility(View.GONE);
+                llMyphotos.setVisibility(View.GONE);
+            } else {
+                OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
+                        OutListSelShowActivity.DATA_TAG);
+                showViewDataByOutList(info);
+            }
+
         } else {
             JCBlackListData data = (JCBlackListData) getIntent().getSerializableExtra(
                     NameRollManageActivity.DATA_TAG);
@@ -352,7 +368,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     }
 
     //显示流水信息内容在页面上
-    private void showViewDataByOutList(OutListData.MData.info info){
+    private void showViewDataByOutList(OutListData.MData.info info) {
         VepPlateNo.setText(info.getVehplateNo());
 
         vehType = info.getVehType();
@@ -365,12 +381,95 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         vehTypeName = info.getVehTypeName();
         VehTypeName.setText(vehTypeName);
 
-        axleCountName = info.getAxleNumber()+"轴";
+        axleCountName = info.getAxleNumber() + "轴";
         axleCount = info.getAxleNumber();
         AxleCountName.setText(axleCountName);
-        CardNo.setText(info.getCardNo()+"");
+        CardNo.setText(info.getCardNo() + "");
 
 
+    }
+
+    //显示下发名单详情内容
+    @Override
+    public void showViewXiafaData(BlackListData.MData.info data) {
+        VepPlateNo.setText(data.getVepPlateNo());
+        vepPlateNoColor = data.getVepPlateNoColor();
+        vepPlateNoColorName = data.getVepPlateNoColorName();
+        VepPlateNoColorName.setText(data.getVepPlateNoColorName());
+
+        vepColor = data.getVepColor();
+        vepColorName = data.getVepColorName();
+        VepColorName.setText(data.getVepColorName());
+
+        vehType = data.getVehType();
+        if (vehType == 11 || vehType == 12 || vehType == 13 || vehType == 14 || vehType == 15) {
+            llZhoushu.setVisibility(View.VISIBLE);
+            llDunshuo.setVisibility(View.VISIBLE);
+            llSeating.setVisibility(View.GONE);
+            state = false;
+        }
+        vehTypeName = data.getVehTypeName();
+        VehicleTypeName.setText(data.getVehTypeName());
+
+        vehicleTypeID = data.getVehicleTypeID();
+        vehicleTypeName = data.getVehicleTypeName();
+        VehicleTypeName.setText(data.getVehicleTypeName());
+
+        peccancyTypeID = data.getPeccancyTypeID();
+        peccancyTypeName = data.getPeccancyTypeName();
+        PeccancyTypeName.setText(data.getPeccancyTypeName());
+
+        inOrgID = data.getInOrgID();
+        inOrgName = data.getInOrgName();
+        PeccancyTypeName.setText(data.getInOrgName());
+
+        outOrgID = data.getOutOrgID();
+        outOrgName = data.getOutOrgName();
+        OutOrgName.setText(data.getOutOrgName());
+
+        axleCountName = data.getAxleCount() + "轴";
+        axleCount = data.getAxleCount();
+        AxleCountName.setText(data.getAxleCountName());
+
+        peccancyOrgID = data.getPeccancyOrgID();
+        peccancyOrgName = data.getPeccancyOrgName();
+        PeccancyOrgName.setText(data.getPeccancyOrgName());
+
+        FactoryType.setText(data.getFactoryType());
+        Seating.setText(data.getSeating() + "");
+        Tonnage.setText(data.getTonnage());
+        CardNo.setText(data.getCardNo());
+        GenDT.setText(data.getGenDT());
+        GenCause.setText(data.getGenCause());
+
+        /* 车辆所有者信息 */
+        Owner.setText(data.getOwner());
+        if (data.getOwnerType() == 0) {
+            ownerTypeName = "个人";
+        } else {
+            ownerTypeName = "单位";
+        }
+        ownerType = data.getOwnerType();
+        OwnerTypeName.setText(data.getOwnerTypeName());
+        OwnerAddress.setText(data.getOwnerAddress());
+        Postalcode.setText(data.getPostalcode());
+        TeletePhone.setText(data.getTeletePhone());
+        MobilePhone.setText(data.getMobilePhone());
+        HistoryInfo.setText(data.getHistoryInfo());
+
+        uuid = data.getBlackListID();
+
+
+        List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
+        if (list.size() > 0) {
+
+            for (int i = 0; i < list.size(); i++) {
+                files.add(new File(list.get(i).getFileUrl()));
+                myphoto.getGlide(list.get(i).getFileUrl());
+            }
+
+            myphoto.setFiles(files);
+        }
     }
 
     //显示值在页面上
@@ -441,10 +540,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         MobilePhone.setText(data.getMobilePhone());
         HistoryInfo.setText(data.getHistoryInfo());
 
-        uuid = data.getBlackListID();
 
-
-        List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
+        /*List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
         if (list.size() > 0) {
 
             for (int i = 0; i < list.size(); i++) {
@@ -453,7 +550,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             }
 
             myphoto.setFiles(files);
-        }
+        }*/
     }
 
     @Override

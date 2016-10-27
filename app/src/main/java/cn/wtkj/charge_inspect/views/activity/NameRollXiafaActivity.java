@@ -17,12 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
@@ -71,6 +73,7 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
     private List<NameRollXiafaData.MData.info> mList;
     private NameRollXiafaListAdapter adapter;
     private ProgressDialog progressDialog;
+    public static final String DATA_TAG = "DataInfo";
 
     @Override
     protected NameRollXiafaPresenter createPresenter() {
@@ -214,9 +217,33 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
 
     @Override
     public void onItemClick(int code, int type, String name) {
-        Intent intent = new Intent(this, NameXiafaHandleActivity.class);
-        intent.putExtra("id",name);
-        startActivity(intent);
+        if (name.equals("info")) {
+            //BlackListData.MData.info data=presenter.getBlackData(mList.get(code).getID(),type);
+            String nameTitle = "";
+            switch (type) {
+                case 1:
+                    nameTitle = "黑名单";
+                    break;
+                case 2:
+                    nameTitle = "灰名单";
+                    break;
+                case 3:
+                    nameTitle = "黄名单";
+                    break;
+            }
+            Intent intent = new Intent(this, NameRollAddActivity.class);
+            //Bundle bundle = new Bundle();
+            //bundle.putSerializable(DATA_TAG, (Serializable) data);
+            intent.putExtra("type", "xiafa");
+            intent.putExtra("id", mList.get(code).getID());
+            intent.putExtra("nameType", type-1+"");
+            intent.putExtra("nameTitle", nameTitle);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, NameXiafaHandleActivity.class);
+            intent.putExtra("id", name);
+            startActivity(intent);
+        }
     }
 
     /**

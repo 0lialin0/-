@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     style="@style/title_bg"
                     android:text="@string/green_car_info" />
@@ -546,6 +547,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     style="@style/title_bg"
                     android:text="@string/name_roll_grey_car_all" />
@@ -743,6 +745,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_myphotos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/y20"

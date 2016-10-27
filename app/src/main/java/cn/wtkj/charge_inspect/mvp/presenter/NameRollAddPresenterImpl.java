@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
@@ -25,10 +26,14 @@ import cn.wtkj.charge_inspect.data.dataBase.OrganizationDb;
 import cn.wtkj.charge_inspect.data.dataBase.PhotoVideoDb;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.ResponeData;
+import cn.wtkj.charge_inspect.data.rest.ConductInfoData;
 import cn.wtkj.charge_inspect.data.rest.ConductInfoDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.NameRollAddView;
 import cn.wtkj.charge_inspect.util.SysUtils;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -47,6 +52,9 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     private BlackListDb blackListDb;
     private PhotoVideoDb photoVideoDb;
     private boolean isNumber = true;//控制上传频率
+    public BlackListData.MData.info infoData;
+    private Map<String, String> map;
+    private ConductInfoData conductInfoData;
 
     public NameRollAddPresenterImpl(Context context) {
         this.context = context;
@@ -55,6 +63,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         organizationDb = new OrganizationDb(context);
         blackListDb = new BlackListDb(context);
         photoVideoDb = new PhotoVideoDb(context);
+        conductInfoData = new ConductInfoDataImpl(context);
     }
 
     @Override
@@ -139,6 +148,38 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     public List<PhotoVideoData> getPvList(String uuid,int type) {
         List<PhotoVideoData> list= photoVideoDb.getPv(uuid,type,-1);
         return list;
+    }
+
+    @Override
+    public void getBlackData(String id, int type) {
+        BlackListData blackListData = new BlackListData();
+        BlackListData.MData mData = blackListData.new MData();
+        infoData = mData.new info();
+        map = new HashMap<>();
+        if (type == 0) {
+            map.put("BLACKLISTID", id);
+        } else if (type == 1) {
+            map.put("VEHICLEID", id);
+        } else if (type == 2) {
+            map.put("YLISTID", id);
+        }
+        conductInfoData.sendXiafaInfo(map, type, new Callback<BlackListData>() {
+            @Override
+            public void success(BlackListData data, Response response) {
+                if (data.getMData().getState() == data.SUCCESS) {
+                    infoData = data.getMData().getInfo();
+                    getView().showViewXiafaData(infoData);
+                } else {
+                    getView().showToast(data.getMData().getInfo().toString());
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                getView().showToast(ResponeData.NET_ERROR);
+            }
+        });
+
     }
 
 }

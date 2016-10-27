@@ -22,6 +22,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
@@ -390,6 +391,11 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
     @Override
     public void showToast(String msg) {
         show(this, msg, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void showViewXiafaData(BlackListData.MData.info data) {
+
     }
 
     @Override

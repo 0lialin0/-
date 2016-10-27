@@ -7,6 +7,7 @@ import android.content.Intent;
 import java.io.File;
 import java.util.List;
 
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
@@ -25,4 +26,6 @@ public interface NameRollAddPresenter extends MvpPresenter<NameRollAddView> {
     List<ViewOrganizationData.MData.info> getOrg(int orgId, String OrgLevel);
     List<ConstAllData.MData.info> getConstByType(int type);
     List<PhotoVideoData> getPvList(String uuid, int type);
+    void getBlackData(String id, int type);
+
 }

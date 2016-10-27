@@ -3,6 +3,8 @@ package cn.wtkj.charge_inspect.mvp.presenter;
 
 import android.content.Context;
 
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
+import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.mvp.MvpPresenter;
 import cn.wtkj.charge_inspect.mvp.views.NameRollManageView;
 import cn.wtkj.charge_inspect.mvp.views.NameRollXiafaView;
@@ -13,4 +15,5 @@ import cn.wtkj.charge_inspect.mvp.views.NameRollXiafaView;
 public interface NameRollXiafaPresenter extends MvpPresenter<NameRollXiafaView> {
     void startPresenter(String keyword);
     void attachContextIntent(Context context);
+    BlackListData.MData.info getBlackData(String id, int type);
 }

@@ -3,6 +3,7 @@ package cn.wtkj.charge_inspect.mvp.views;
 
 import java.util.List;
 
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
 
@@ -32,5 +33,6 @@ public interface NameRollAddView extends MvpView {
      * @param msg
      */
     void showToast(String msg);
+    void showViewXiafaData(BlackListData.MData.info data);
 
 }

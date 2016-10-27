@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -81,14 +82,14 @@ public class GreenRecordListAdapter extends RecyclerView.Adapter<GreenRecordList
             }
         });
 
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.rlContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position + "");
+                    onItemClickListener.onItemClick(position,0,"");
                 }
             }
-        });*/
+        });
     }
 
     @Override
@@ -101,6 +102,8 @@ public class GreenRecordListAdapter extends RecyclerView.Adapter<GreenRecordList
     }
 
     public class ShedViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.rl_content)
+        RelativeLayout rlContent;
         @Bind(R.id.ll_active_tag)
         LinearLayout llActiveTag;
         @Bind(R.id.active_img)

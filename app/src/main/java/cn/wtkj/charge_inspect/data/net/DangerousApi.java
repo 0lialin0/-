@@ -7,8 +7,10 @@ import java.util.Map;
 import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
 import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.ContactListData;
+import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
@@ -66,6 +68,18 @@ public interface DangerousApi {
     //黑名单处理  OK
     @POST("/restApi?businessId=black.blackSolve")
     void sendXiafaHandle(@QueryMap Map<String, String> map,Callback<ResponeData> callback);
+
+    //下发名单详情---黑名单  OK
+    @POST("/restApi?businessId=black.blackInfo")
+    void getBlackInfo(@QueryMap Map<String, String> map,Callback<BlackListData> callback);
+
+    //下发名单详情---灰名单  OK
+    @POST("/restApi?businessId=gray.grayInfo")
+    void getGrayInfo(@QueryMap Map<String, String> map,Callback<BlackListData> callback);
+
+    //下发名单详情---黄名单  OK
+    @POST("/restApi?businessId=yellow.yellowInfo")
+    void getYellowInfo(@QueryMap Map<String, String> map,Callback<BlackListData> callback);
 
     //流水查询  OK
     @POST("/restApi?businessId=outList.outListList")

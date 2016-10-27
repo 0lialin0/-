@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
+import cn.wtkj.charge_inspect.data.dataBase.BlackListDb;
 import cn.wtkj.charge_inspect.data.dataBase.EscapeBookDb;
 import cn.wtkj.charge_inspect.data.net.ResponeData;
 import cn.wtkj.charge_inspect.data.rest.ConductInfoData;
@@ -35,11 +37,45 @@ public class NameRollXiafaPresenterImpl extends MvpBasePresenter<NameRollXiafaVi
     private Intent intent;
     private Map<String, String> map;
     private ConductInfoData conductInfoData;
+    public BlackListData.MData.info infoData;
 
     @Override
     public void attachContextIntent(Context context) {
         this.context = context;
         conductInfoData = new ConductInfoDataImpl(context);
+    }
+
+    @Override
+    public BlackListData.MData.info getBlackData(String id, int type) {
+        BlackListData blackListData = new BlackListData();
+        BlackListData.MData mData = blackListData.new MData();
+        infoData = mData.new info();
+        map = new HashMap<>();
+        if (type == 1) {
+            map.put("BLACKLISTID", id);
+        } else if (type == 2) {
+            map.put("VEHICLEID", id);
+        } else if (type == 3) {
+            map.put("YLISTID", id);
+        }
+        conductInfoData.sendXiafaInfo(map, type, new Callback<BlackListData>() {
+            @Override
+            public void success(BlackListData data, Response response) {
+                if (data.getMData().getState() == data.SUCCESS) {
+                    infoData = data.getMData().getInfo();
+                } else {
+                    getView().showMes(data.getMData().getInfo().toString());
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                getView().hideLoging();
+                getView().showMes(ResponeData.NET_ERROR);
+            }
+        });
+
+        return infoData;
     }
 
     @Override

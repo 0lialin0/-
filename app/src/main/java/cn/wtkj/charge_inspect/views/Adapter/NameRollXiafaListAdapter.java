@@ -73,15 +73,15 @@ public class NameRollXiafaListAdapter extends RecyclerView.Adapter<NameRollXiafa
                 }
             }
         });
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position,0,"");
+                    onItemClickListener.onItemClick(position,dataList.get(position).getTYPE(),"info");
                 }
             }
-        });*/
+        });
 
     }
 

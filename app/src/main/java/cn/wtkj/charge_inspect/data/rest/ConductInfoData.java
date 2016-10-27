@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import cn.wtkj.charge_inspect.data.bean.BlackListData;
+import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
@@ -28,6 +30,9 @@ public interface ConductInfoData {
 
     //下发黑名单处理
     void sendXiafaHandle(Map<String, String> map, Callback<ResponeData> callback);
+
+    //下发名单详情
+    void sendXiafaInfo(Map<String, String> map,int type, Callback<BlackListData> callback);
 
 
     //绿通档案
