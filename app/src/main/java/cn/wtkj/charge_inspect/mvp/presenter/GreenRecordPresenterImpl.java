@@ -134,7 +134,7 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
         }
 
         /* 不减免 */
-        if (data.getIsEnjoy()  == 0 && photoSize < 8){
+        if (data.getIsEnjoy()  == 0 && photoSize < 4){
             getView().showMes("不减免，照片数量不能小于4张");
             return  false;
         }
