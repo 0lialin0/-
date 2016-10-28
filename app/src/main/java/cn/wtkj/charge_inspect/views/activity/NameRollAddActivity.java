@@ -590,7 +590,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        //super.onActivityResult(requestCode, resultCode, data);
         File file = myphoto.setImage(requestCode, resultCode, data);
         if (file != null) {
             files.add(file);

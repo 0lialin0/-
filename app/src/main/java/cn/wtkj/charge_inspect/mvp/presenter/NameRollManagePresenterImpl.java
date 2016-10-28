@@ -13,6 +13,7 @@ import java.util.Map;
 
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
+import cn.wtkj.charge_inspect.data.bean.JCGreenChannelRecData;
 import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.data.dataBase.BlackListDb;
 import cn.wtkj.charge_inspect.data.dataBase.EscapeBookDb;
@@ -80,11 +81,14 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
 
     @Override
     public void sendData(final JCBlackListData data) {
-        getView().showLoding();
+
         List<PhotoVideoData> pvList = getPvList(data.getBlackListID(), data.getNameType());
         map = new HashMap<>();
 
-        int fileIndex = 0;
+        if (!checkPhoto(data, pvList)){
+            return;
+        }
+
         files = new ArrayList<>();
         fileName = new ArrayList<>();
         if (pvList.size() > 0) {
@@ -112,6 +116,7 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
             }
         }
 
+        getView().showLoding();
         data.setBusinessId("black.blackAct");
         map.put("json", ResponeUtils.dataToJson(data));
         nameRollAddData.nameRoll(map, fileName, files,data.getNameType(),
@@ -145,6 +150,17 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
         });
     }
 
+    private Boolean checkPhoto(JCBlackListData data, List<PhotoVideoData> pvList){
+        int photoSize = pvList.size();
+
+        /* 黑名单 */
+        if (data.getNameType() == 0 && photoSize ==0){
+            getView().showMes("黑名单，至少要上传一张照片");
+            return  false;
+        }
+
+        return true;
+    }
 
     private List<PhotoVideoData> getPvList(String uuid, int type) {
         List<PhotoVideoData> list = photoVideoDb.getPv(uuid, type, -1);
