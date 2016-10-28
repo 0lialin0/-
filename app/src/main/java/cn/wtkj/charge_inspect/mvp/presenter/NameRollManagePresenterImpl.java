@@ -52,7 +52,7 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
         listDb = new BlackListDb(context);
         conductInfoData = new ConductInfoDataImpl(context);
         photoVideoDb = new PhotoVideoDb(context);
-        nameRollAddData=new ConductInfoDataImpl(context);
+        nameRollAddData = new ConductInfoDataImpl(context);
     }
 
 
@@ -72,30 +72,29 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     }
 
     @Override
-    public void deleteById(String id,int type) {
-        listDb.delData(id,type);
-        photoVideoDb.delData(id,type);
+    public void deleteById(String id, int type) {
+        listDb.delData(id, type);
+        photoVideoDb.delData(id, type);
         getView().nextView();
     }
 
     @Override
-    public void sendData(JCBlackListData data) {
+    public void sendData(final JCBlackListData data) {
         getView().showLoding();
-        List<PhotoVideoData> pvList = getPvList(data.getBlackListID(),data.getNameType());
+        List<PhotoVideoData> pvList = getPvList(data.getBlackListID(), data.getNameType());
         map = new HashMap<>();
 
         int fileIndex = 0;
         files = new ArrayList<>();
         fileName = new ArrayList<>();
-        if(pvList.size()>0){
+        if (pvList.size() > 0) {
             for (int i = 0; i < pvList.size(); i++) {
                 PhotoVideoData pvData = pvList.get(i);
                 String filePath = pvData.getFileUrl();
 
-                if (pvData.getFileType() == 0)
-                {
+                if (pvData.getFileType() == 0) {
                     ImageFactory imageFactory = new ImageFactory();
-                    String outfilePath = Environment.getExternalStorageDirectory() + "/tmp/"+ pvData.getFileName();
+                    String outfilePath = Environment.getExternalStorageDirectory() + "/tmp/" + pvData.getFileName();
 
                     try {
                         imageFactory.compressAndGenImage(filePath, outfilePath, 100, false);
@@ -115,11 +114,27 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
 
         data.setBusinessId("black.blackAct");
         map.put("json", ResponeUtils.dataToJson(data));
-        nameRollAddData.nameRoll(map,fileName,files,new DataRequester.DataCallBack<ResponeData>(){
+        nameRollAddData.nameRoll(map, fileName, files,data.getNameType(),
+                new DataRequester.DataCallBack<ResponeData>() {
 
             @Override
             public void success(ResponeData responeData) {
                 getView().hideDialog();
+                if (responeData.getData().getState() == responeData.SUCCESS) {
+                    String id = "";
+                    int type = data.getNameType();
+                    if (type == 0) {
+                        id = data.getBlackListID();
+                    } else if (type == 1) {
+                        id = data.getVehicleID();
+                    } else if (type == 2) {
+                        id = data.getYListID();
+                    }
+                    deleteById(id, type);
+                } else {
+                    getView().showMes(responeData.getMsg());
+                }
+
             }
 
             @Override
@@ -131,8 +146,8 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     }
 
 
-    private List<PhotoVideoData> getPvList(String uuid,int type) {
-        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,type,-1);
+    private List<PhotoVideoData> getPvList(String uuid, int type) {
+        List<PhotoVideoData> list = photoVideoDb.getPv(uuid, type, -1);
         return list;
     }
 

@@ -71,6 +71,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     TextView comitButton;
     @Bind(R.id.ll_myphotos)
     LinearLayout llMyphotos;
+    @Bind(R.id.tv_photo_title)
+    TextView tvPhotoTitle;
 
     //   车辆信息
     @Bind(R.id.VepPlateNo)
@@ -222,6 +224,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         } else if (nameType == 2) {
             llCarOwnerInfo.setVisibility(View.GONE);
             llPeccancyInfo.setVisibility(View.GONE);
+        }
+        if(nameType==2){
+            tvPhotoTitle.setText("上传照片");
         }
         myphoto.setNameType(nameType);
         myphoto.setFragment(this);

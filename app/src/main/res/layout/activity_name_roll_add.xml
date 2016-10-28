@@ -753,6 +753,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_photo_title"
                     style="@style/title_bg"
                     android:text="@string/name_roll_photo" />
 

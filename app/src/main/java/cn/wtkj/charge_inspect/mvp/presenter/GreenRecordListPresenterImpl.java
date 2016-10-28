@@ -47,20 +47,19 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
     @Override
     public void attachContextIntent(Context context) {
         this.context = context;
-        greenChannelDb=new GreenChannelDb(context);
-        conductInfoData=new ConductInfoDataImpl(context);
-        photoVideoDb=new PhotoVideoDb(context);
+        greenChannelDb = new GreenChannelDb(context);
+        conductInfoData = new ConductInfoDataImpl(context);
+        photoVideoDb = new PhotoVideoDb(context);
     }
-
 
 
     @Override
     public void startPresenter(String keyword) {
-        List<JCGreenChannelRecData> list=greenChannelDb.getGreenChannelList(Setting.USERID,keyword);
-        if(list.size()>0){
+        List<JCGreenChannelRecData> list = greenChannelDb.getGreenChannelList(Setting.USERID, keyword);
+        if (list.size() > 0) {
             getView().setList(list);
             getView().hideLoging();
-        }else{
+        } else {
             getView().hideLoging();
             getView().showMes("暂无数据");
         }
@@ -70,20 +69,20 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
     @Override
     public void deleteById(String id) {
         greenChannelDb.delData(id);
-        photoVideoDb.delData(id,3);
+        photoVideoDb.delData(id, 3);
         getView().nextView();
     }
 
     @Override
-    public void sendData(JCGreenChannelRecData data) {
+    public void sendData(final JCGreenChannelRecData data) {
         getView().showLoding();
-        List<PhotoVideoData> pvList=getPvList(data.getGCListID());
+        List<PhotoVideoData> pvList = getPvList(data.getGCListID());
         map = new HashMap<>();
 
         int fileIndex = 0;
         files = new ArrayList<>();
         fileName = new ArrayList<>();
-        if(pvList.size()>0){
+        if (pvList.size() > 0) {
             for (int i = 0; i < pvList.size(); i++) {
                 PhotoVideoData pvData = pvList.get(i);
                 String filePath = pvData.getFileUrl();
@@ -114,7 +113,14 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
         conductInfoData.greenRecord(map, fileName, files, new DataRequester.DataCallBack<ResponeData>() {
             @Override
             public void success(ResponeData responeData) {
-                    getView().hideDialog();
+
+                getView().hideDialog();
+                if (responeData.getData().getState() == responeData.SUCCESS) {
+                    greenChannelDb.delData(data.getGCListID());
+                    getView().nextView();
+                } else {
+                    getView().showMes(responeData.getMsg());
+                }
             }
 
             @Override
@@ -127,7 +133,7 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
 
 
     private List<PhotoVideoData> getPvList(String uuid) {
-        List<PhotoVideoData> list= photoVideoDb.getPv(uuid,3,-1);
+        List<PhotoVideoData> list = photoVideoDb.getPv(uuid, 3, -1);
         return list;
     }
 

@@ -37,8 +37,17 @@ public class ConductInfoDataImpl implements ConductInfoData {
 
     @Override
     public void nameRoll(Map<String, String> mapString, List<String> fileNames, List<File> files,
-                         final DataRequester.DataCallBack<ResponeData> callBack) {
-        MultipartRequester multipartRequester = new MultipartRequester(DangerousApi.END_POINT + "/restApi?businessId=black.blackAct",
+                         int type, final DataRequester.DataCallBack<ResponeData> callBack) {
+        String url = "";
+        if (type == 1) {
+            url = DangerousApi.END_POINT + "/restApi?businessId=gray.grayAct";
+        } else if (type == 2) {
+            url = DangerousApi.END_POINT + "/restApi?businessId=yellow.yellowAct";
+        } else {
+            url = DangerousApi.END_POINT + "/restApi?businessId=black.blackAct";
+        }
+
+        MultipartRequester multipartRequester = new MultipartRequester(url,
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {

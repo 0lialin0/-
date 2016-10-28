@@ -19,7 +19,7 @@ import retrofit.Callback;
 public interface ConductInfoData {
 
     //黑名单上传
-    void nameRoll(Map<String, String> map, List<String> fileNames, List<File> files,
+    void nameRoll(Map<String, String> map, List<String> fileNames, List<File> files,int type,
                   final DataRequester.DataCallBack<ResponeData> callBack);
 
     //增收上传
