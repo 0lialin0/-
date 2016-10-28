@@ -69,6 +69,11 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     @Override
     public void startPresenter(List<File> fileList, JCBlackListData data) {
         List<File> newFileList = new ArrayList<>();
+
+        if (!checkPhoto(data, fileList)){
+            return;
+        }
+
         if (fileList.size() > 0){
             for (int i=0; i< fileList.size(); i++){
                 String oldFilePath = fileList.get(i).getPath();
@@ -182,4 +187,27 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
     }
 
+    private Boolean checkPhoto(JCBlackListData data, List<File> fileList){
+        int fileSize = fileList.size();
+        int photoSize = 0;
+
+        if (fileSize > 0){
+            for (int i = 0; i < fileSize; i++) {
+                File file = fileList.get(i);
+
+                if (file.exists() && !fileList.get(i).getName().endsWith(".mp4")) {
+                    photoSize ++;
+                }
+            }
+        }
+
+
+        /* 黑名单 */
+        if (data.getNameType() == 0 && photoSize ==0){
+            getView().showToast("黑名单，至少要上传一张照片");
+            return  false;
+        }
+
+        return true;
+    }
 }

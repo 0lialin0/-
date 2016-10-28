@@ -62,6 +62,10 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
 
     @Override
     public void startPresenter(List<File> fileList, JCGreenChannelRecData data) {
+        if (!checkPhoto(data, fileList)){
+            return;
+        }
+
         if (fileList.size() > 0){
             for (int i=0; i< fileList.size(); i++){
                 String oldFilePath = fileList.get(i).getPath();
@@ -107,5 +111,33 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
     public List<PhotoVideoData> getListPvById(String uuid) {
         List<PhotoVideoData> datas=photoVideoDb.getPv(uuid,3,-1);
         return datas;
+    }
+
+    private Boolean checkPhoto(JCGreenChannelRecData data, List<File> fileList){
+        int fileSize = fileList.size();
+        int photoSize = 0;
+
+        if (fileSize > 0){
+            for (int i = 0; i < fileSize; i++) {
+                File file = fileList.get(i);
+
+                if (file.exists() && !fileList.get(i).getName().endsWith(".mp4")) {
+                    photoSize ++;
+                }
+            }
+        }
+        
+        if (photoSize > 8){
+            getView().showMes("照片数量不能大于8张");
+            return  false;
+        }
+
+        /* 不减免 */
+        if (data.getIsEnjoy() < 4){
+            getView().showMes("不减免，照片数量不能小于4张");
+            return  false;
+        }
+
+        return true;
     }
 }
