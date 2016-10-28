@@ -11,7 +11,7 @@
 
     <string name="user_info">登录人信息</string>
     <string name="user_info_name">当前登录人</string>
-    <string name="user_info_num">登陆人工号</string>
+    <string name="user_info_num">登录人工号</string>
     <string name="user_info_unit">单位名称</string>
     <string name="user_info_dep">电子邮箱</string>
     <string name="user_info_phone">办公电话</string>
@@ -58,7 +58,7 @@
     <string name="increment_exit_type">出口判型：</string>
     <string name="increment_inspect_time">查处时间：</string>
     <string name="increment_inspect_unit">查处单位：</string>
-    <string name="increment_total_money">合计金额：</string>
+    <string name="increment_total_money">增收金额：</string>
 
     <string name="increment_add_name">添加增收</string>
     <string name="increment_check_unit">查处单位</string>

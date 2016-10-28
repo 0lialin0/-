@@ -234,7 +234,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             nameType =  mList.get(code).getNameType();
         } else if (name.equals("submit")) {
             //showMes("提交");
-            presenter.sendData(mList.get(code));
+            showSubmit(code);
         } /*else if (name.equals("showImageList")){
 
 
@@ -289,6 +289,25 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
     }
 
 
+    public void showSubmit(final int code) {
+        final CustomDialog showDialog = new CustomDialog(this,"userInfo");
+        showDialog.setText("是否确认要提交此条信息");
+        showDialog.setNegativeText("确定");
+        showDialog.setPositiveText("取消");
+        showDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog.dismiss();
+                presenter.sendData(mList.get(code));
+            }
+        });
+        showDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog.dismiss();
+            }
+        });
+    }
     /**
      * 通知监听者 进行搜索操作
      *

@@ -56,7 +56,7 @@
             <RadioButton
                 android:id="@+id/phone_switch"
                 style="@style/radio_name_bg"
-                android:text="总线" />
+                android:text="处总机" />
 
             <View
                 android:layout_width="match_parent"

@@ -623,7 +623,7 @@
                     android:id="@+id/comit_button"
                     style="@style/button_layout"
                     android:background="@drawable/selector_psersoal_bt_bg"
-                    android:text="提交"
+                    android:text="保存"
                     android:textColor="@color/white" />
 
             </LinearLayout>

@@ -80,9 +80,6 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
         map = new HashMap<>();
         if (data.getIsMix() == 1 || data.getIsMix() == 2) {
             List<PhotoVideoData> pvList = getPvList(data.getGCListID());
-            if (!checkPhoto(data, pvList)) {
-                return;
-            }
 
             if (pvList.size() > 0) {
                 for (int i = 0; i < pvList.size(); i++) {
@@ -133,21 +130,6 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
         });
     }
 
-    private Boolean checkPhoto(JCGreenChannelRecData data, List<PhotoVideoData> pvList) {
-        int photoSize = pvList.size();
-        if (photoSize > 8) {
-            getView().showMes("照片数量不能大于8张");
-            return false;
-        }
-
-        /* 不减免 */
-        if (data.getIsEnjoy() == 0) {
-            getView().showMes("不减免，照片数量不能小于4张");
-            return false;
-        }
-
-        return true;
-    }
 
     private List<PhotoVideoData> getPvList(String uuid) {
         List<PhotoVideoData> list = photoVideoDb.getPv(uuid, 3, -1);

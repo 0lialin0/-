@@ -84,6 +84,7 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
                     Setting.ORGANIZATION_SHORTNAME = responeData.getData().getInfo().getORGANIZATION_SHORTNAME();
                     checkUpdate();
                 } else {
+                    getView().hideLoging();
                     getView().showMes(responeData.getMsg());
                 }
             }

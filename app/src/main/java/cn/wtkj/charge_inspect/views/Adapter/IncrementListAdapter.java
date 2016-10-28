@@ -55,7 +55,7 @@ public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdap
         holder.tvTime.setText(dataList.get(position).getFindDT());
         //String unit=organizationDb.getCheckUnit(dataList.get(position).getOrgID(),dataList.get(position).getOrgLevel());
         holder.tvUnit.setText(dataList.get(position).getOrgLevel());
-        holder.tvMoney.setText(dataList.get(position).getRealityMoney());
+        holder.tvMoney.setText(dataList.get(position).getEscapeMoney()+"元");
         //String zsType=constAllDb.getConstName(dataList.get(position).getPeccancyTypeID(),9);
         holder.tvStatus.setText(dataList.get(position).getPeccancyTypeName());
 

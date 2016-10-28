@@ -254,8 +254,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
             intent.putExtras(bundle);
             startActivity(intent);
         } else if (name.equals("submit")) {
-            //showMes("提交");
-            presenter.sendData(mList.get(code));
+            showSubmit(code);
         } else {
             Intent intent = new Intent(this, GreenRecordActivity.class);
             Bundle bundle = new Bundle();
@@ -275,6 +274,26 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
             public void onClick(View view) {
                 showDialog.dismiss();
                 presenter.deleteById(mList.get(code).getGCListID());
+            }
+        });
+        showDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog.dismiss();
+            }
+        });
+    }
+
+    public void showSubmit(final int code) {
+        final CustomDialog showDialog = new CustomDialog(this,"userInfo");
+        showDialog.setText("是否确认要提交此条信息");
+        showDialog.setNegativeText("确定");
+        showDialog.setPositiveText("取消");
+        showDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog.dismiss();
+                presenter.sendData(mList.get(code));
             }
         });
         showDialog.setOnPositiveListener(new View.OnClickListener() {
