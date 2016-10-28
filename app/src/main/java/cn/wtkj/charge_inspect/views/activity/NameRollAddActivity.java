@@ -465,7 +465,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         uuid = data.getBlackListID();
 
 
-        List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
+       /* List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
         if (list.size() > 0) {
 
             for (int i = 0; i < list.size(); i++) {
@@ -474,7 +474,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             }
 
             myphoto.setFiles(files);
-        }
+        }*/
     }
 
     //显示值在页面上
@@ -546,7 +546,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         HistoryInfo.setText(data.getHistoryInfo());
 
 
-        /*List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
+        List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
         if (list.size() > 0) {
 
             for (int i = 0; i < list.size(); i++) {
@@ -555,7 +555,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             }
 
             myphoto.setFiles(files);
-        }*/
+        }
     }
 
     @Override

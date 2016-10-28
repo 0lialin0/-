@@ -123,12 +123,12 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
                 if (responeData.getData().getState() == responeData.SUCCESS) {
                     String id = "";
                     int type = data.getNameType();
-                    if (type == 0) {
-                        id = data.getBlackListID();
-                    } else if (type == 1) {
+                    if (type == 1) {
                         id = data.getVehicleID();
                     } else if (type == 2) {
                         id = data.getYListID();
+                    }else{
+                        id = data.getBlackListID();
                     }
                     deleteById(id, type);
                 } else {
