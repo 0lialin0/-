@@ -75,37 +75,40 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
 
     @Override
     public void sendData(final JCGreenChannelRecData data) {
-        List<PhotoVideoData> pvList = getPvList(data.getGCListID());
-        map = new HashMap<>();
-
         files = new ArrayList<>();
         fileName = new ArrayList<>();
-        if (pvList.size() > 0) {
-            for (int i = 0; i < pvList.size(); i++) {
-                PhotoVideoData pvData = pvList.get(i);
-                String filePath = pvData.getFileUrl();
+        map = new HashMap<>();
+        if (data.getIsMix() == 1 || data.getIsMix() == 2) {
+            List<PhotoVideoData> pvList = getPvList(data.getGCListID());
+            if (!checkPhoto(data, pvList)) {
+                return;
+            }
 
-                if (pvData.getFileType() == 0)
-                {
-                    ImageFactory imageFactory = new ImageFactory();
-                    String outfilePath = Environment.getExternalStorageDirectory() + "/tmp/"+ pvData.getFileName();
+            if (pvList.size() > 0) {
+                for (int i = 0; i < pvList.size(); i++) {
+                    PhotoVideoData pvData = pvList.get(i);
+                    String filePath = pvData.getFileUrl();
 
-                    try {
-                        imageFactory.compressAndGenImage(filePath, outfilePath, 3000, false);
-                        filePath = outfilePath;
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (pvData.getFileType() == 0) {
+                        ImageFactory imageFactory = new ImageFactory();
+                        String outfilePath = Environment.getExternalStorageDirectory() + "/tmp/" + pvData.getFileName();
+
+                        try {
+                            imageFactory.compressAndGenImage(filePath, outfilePath, 3000, false);
+                            filePath = outfilePath;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
-                File file = new File(filePath);
-                if (file.exists()) {
-                    fileName.add(pvList.get(i).getFileName());
-                    files.add(file);
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        fileName.add(pvList.get(i).getFileName());
+                        files.add(file);
+                    }
                 }
             }
         }
-
         map.put("json", ResponeUtils.dataToJson(data));
 
         getView().showLoding();
@@ -128,6 +131,22 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
                 getView().showMes(ResponeData.NET_ERROR);
             }
         });
+    }
+
+    private Boolean checkPhoto(JCGreenChannelRecData data, List<PhotoVideoData> pvList) {
+        int photoSize = pvList.size();
+        if (photoSize > 8) {
+            getView().showMes("照片数量不能大于8张");
+            return false;
+        }
+
+        /* 不减免 */
+        if (data.getIsEnjoy() == 0) {
+            getView().showMes("不减免，照片数量不能小于4张");
+            return false;
+        }
+
+        return true;
     }
 
     private List<PhotoVideoData> getPvList(String uuid) {
