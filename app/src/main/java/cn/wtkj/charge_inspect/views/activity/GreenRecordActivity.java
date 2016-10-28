@@ -407,6 +407,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
                 myphoto.getGlide(list.get(i).getFileUrl());
             }
             myphoto.setFiles(files);
+            myphoto.setPvDataList(list);
         }
 
     }

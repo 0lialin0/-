@@ -38,6 +38,8 @@ import java.util.Date;
 import java.util.List;
 
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
+import cn.wtkj.charge_inspect.data.dataBase.PhotoVideoDb;
 import cn.wtkj.charge_inspect.views.activity.BigImageActivity;
 import cn.wtkj.charge_inspect.views.activity.TestBasicVideo;
 import cn.wtkj.charge_inspect.views.custom.videocapture.VideoRecordActivity;
@@ -49,6 +51,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     private RecyclerView recyclerView;
     private static List<Bitmap> mList;
     private List<File> files;
+    private List<PhotoVideoData> pvDataList = new ArrayList<>();
     private Context mContext;
     private static PhotoAdapter adapter;
     public static final int RESULT_PHOTO = 0;
@@ -59,6 +62,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     private File tempFile;
     private static LinearLayoutManager manager;
     public boolean isEnabled = true;
+    private int nameType = 0; // 0 黑名单，1 灰名单，2 黄名单，3 绿通
 
     public List<File> getFiles() {
         return files;
@@ -76,7 +80,14 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
         this.nameType = nameType;
     }
 
-    private int nameType = 0; // 0 黑名单，1 灰名单，2 黄名单，3 绿通
+    public List<PhotoVideoData> getPvDataList() {
+        return pvDataList;
+    }
+
+    public void setPvDataList(List<PhotoVideoData> pvDataList) {
+        this.pvDataList = pvDataList;
+    }
+
     //自定义的弹出框类
     SelectPicPopupWindow menuWindow;
     private static String TAG = "MyPhotos";
@@ -199,6 +210,12 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                 mList.remove(id);
                 files.remove(id);
                 adapter.notifyDataSetChanged();
+            }
+
+            if (id < pvDataList.size()){
+                int pvId = pvDataList.get(id).getPvId();
+                PhotoVideoDb photoVideoDb = new PhotoVideoDb(mContext);
+                photoVideoDb.delByPvId(pvId);
             }
         }
     }

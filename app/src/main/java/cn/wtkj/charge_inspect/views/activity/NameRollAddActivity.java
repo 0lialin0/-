@@ -553,7 +553,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 files.add(new File(list.get(i).getFileUrl()));
                 myphoto.getGlide(list.get(i).getFileUrl());
             }
-
+            myphoto.setPvDataList(list);
             myphoto.setFiles(files);
         }
     }

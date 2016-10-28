@@ -120,6 +120,11 @@ public class PhotoVideoDb {
 
     }
 
+    public void delByPvId(int pvId){
+        SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
+        database.delete(tablename, "pvId=?", new String[]{pvId+""});
+        DatabaseManager.getInstance().closeDatabase();
+    }
 
     public void insertListPvd(List<File> fileList, String uuid, int type){
         PhotoVideoData data;
