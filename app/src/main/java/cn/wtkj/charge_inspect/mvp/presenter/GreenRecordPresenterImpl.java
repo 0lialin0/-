@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Environment;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,8 +96,12 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
         String filePath = Environment.getExternalStorageDirectory() + "/稽查APP";
         int isMix = data.getIsMix();
 
+        isMix = isMix == 0 ? isMix : 1;
+
+        String checkDate = SysUtils.formatStrDate(data.getCheckDate());
+
         filePath += "/绿通/";
-        filePath += isMix+"_"+data.getInStationID()+"_"+data.getVehPlateNo()+data.getGoodsName()+fileName;
+        filePath += isMix + data.getVehPlateNo()+data.getGoodsName()+checkDate+"/"+fileName;
 
         return filePath;
     }

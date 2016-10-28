@@ -8,6 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by ghj on 2016/10/22.
@@ -71,5 +74,23 @@ public class SysUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static String formatStrDate(String strDate){
+        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dataFormat2 = new SimpleDateFormat("MMddHHmm");
+
+        String checkDate = "";
+
+        try {
+            Date date = dataFormat.parse(strDate);
+            checkDate = dataFormat2.format(date);
+        } catch (ParseException e) {
+            Date date = new Date(System.currentTimeMillis());
+            checkDate = dataFormat2.format(date);
+            e.printStackTrace();
+        }
+
+        return checkDate;
     }
 }

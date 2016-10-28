@@ -204,6 +204,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         nameTitle = intent.getStringExtra("nameTitle");
 
         setContentView(R.layout.activity_name_roll_add);
+
         ButterKnife.bind(this);
         initToolBar();
         initView();
@@ -591,9 +592,19 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        File file = myphoto.setImage(requestCode, resultCode, data);
-        if (file != null) {
-            files.add(file);
+        if (resultCode == RESULT_OK) {
+            // Image captured and saved to fileUri specified in the Intent
+            Toast.makeText(this, "拍照成功", Toast.LENGTH_LONG).show();
+            File file = myphoto.setImage(requestCode, resultCode, data);
+            if (file != null) {
+                files.add(file);
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "已取消拍照", Toast.LENGTH_LONG).show();
+            // User cancelled the image capture
+        } else {
+            Toast.makeText(this, "拍照失败，请重试", Toast.LENGTH_LONG).show();
+            // Image capture failed, advise user
         }
     }
 
