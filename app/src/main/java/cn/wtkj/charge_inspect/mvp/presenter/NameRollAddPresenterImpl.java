@@ -102,7 +102,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
        // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("_yyyyMMdd_HHmmss");
        // String addTime = simpleDateFormat.format(new Date());
-      //  String addTime = fileName;
+        String addTime = fileName;
         if (nameType ==0){
             filePath += "/黑名单/";
            // filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();

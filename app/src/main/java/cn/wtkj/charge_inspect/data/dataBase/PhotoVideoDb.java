@@ -115,7 +115,7 @@ public class PhotoVideoDb {
     public void delData(String id, int type) {
 
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
-        database.delete(tablename, "blackListID=? and type = ?", new String[]{id, type+""});
+        database.delete(tablename, "blackListID=? and fileType = ?", new String[]{id, type+""});
         DatabaseManager.getInstance().closeDatabase();
 
     }

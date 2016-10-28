@@ -2,8 +2,10 @@ package cn.wtkj.charge_inspect.mvp.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import cn.wtkj.charge_inspect.data.rest.ConductInfoDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.GreenRecordListView;
 import cn.wtkj.charge_inspect.mvp.views.GreenRecordView;
+import cn.wtkj.charge_inspect.util.ImageFactory;
 import cn.wtkj.charge_inspect.util.ResponeUtils;
 import cn.wtkj.charge_inspect.util.Setting;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener;
@@ -82,12 +85,28 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
         fileName = new ArrayList<>();
         if(pvList.size()>0){
             for (int i = 0; i < pvList.size(); i++) {
-                //File file = fileList.get(i);
-                File file = new File(pvList.get(i).getFileUrl());
+                PhotoVideoData pvData = pvList.get(i);
+                String filePath = pvData.getFileUrl();
+
+                if (pvData.getFileType() == 0)
+                {
+                    ImageFactory imageFactory = new ImageFactory();
+                    String outfilePath = Environment.getExternalStorageDirectory() + "/tmp/"+ pvData.getFileName();
+
+                    try {
+                        imageFactory.compressAndGenImage(filePath, outfilePath, 3000, false);
+                        filePath = outfilePath;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                File file = new File(filePath);
                 if (file.exists()) {
                     fileName.add(pvList.get(i).getFileName());
                     files.add(file);
                 }
+
             }
         }
 
@@ -95,7 +114,7 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
         conductInfoData.greenRecord(map, fileName, files, new DataRequester.DataCallBack<ResponeData>() {
             @Override
             public void success(ResponeData responeData) {
-
+                    getView().hideDialog();
             }
 
             @Override

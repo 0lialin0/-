@@ -107,7 +107,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
 
 
     public void initView() {
-
+        progressDialog = new ProgressDialog(this);
         // 设置下拉组件动画偏移量
         shedRefresh.setProgressViewOffset(false,
                 Convert.dip2px(this.getApplicationContext(), -30),

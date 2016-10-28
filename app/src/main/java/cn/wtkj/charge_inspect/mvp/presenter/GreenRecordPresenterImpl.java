@@ -91,7 +91,7 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
 
 
         filePath += "/绿通/";
-        filePath += data.getVehPlateNo()+data.getGoodsName()+data.getCheckDate();
+        filePath += data.getInStationID()+"_"+data.getVehPlateNo()+data.getGoodsName()+data.getCheckDate();
 
         filePath += ".jpg";
         return filePath;
