@@ -98,6 +98,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     LinearLayout llZhoushu;
     @Bind(R.id.ll_dunshuo)
     LinearLayout llDunshuo;
+    @Bind(R.id.ll_comit_btn)
+    LinearLayout llComitBtn;
 
     private DropDownKeyValue downKeyValue;
     private DropDownKeyValue downKeyValue2;
@@ -196,11 +198,16 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         } else {
             JCEscapeBookData data = (JCEscapeBookData) getIntent().getSerializableExtra(
                     IncrementListActivity.DATA_TAG);
-
+            String editOrlook = getIntent().getStringExtra("editOrlook");
             if (data != null) {
+                if (editOrlook.equals("look")) {
+                    llComitBtn.setVisibility(View.GONE);
+                    increment_title = "增收";
+                }else{
+                    increment_title = "修改增收";
+                }
                 showViewData(data);
                 type = 2;
-                increment_title = "修改增收";
                 tvTitle.setText(increment_title);
             } else {
                 type = 1;
@@ -213,16 +220,16 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         edCarNum.setText(info.getVehplateNo());
         edChargeNum.setText(info.getOprId());
         shiftID = info.getShiftId();
-        if(shiftID==2){
+        if (shiftID == 2) {
             shiftName = "中班";
-        }else if(shiftID==3){
+        } else if (shiftID == 3) {
             shiftName = "晚班";
-        }else{
+        } else {
             shiftName = "早班";
         }
         tvClasses.setText(shiftName);
 
-        inStationID =info.getInstationId();
+        inStationID = info.getInstationId();
         inStationName = info.getInstationName();
         tvEntranceLoca.setText(inStationName);
 

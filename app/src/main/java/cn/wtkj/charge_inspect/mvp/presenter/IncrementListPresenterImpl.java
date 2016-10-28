@@ -78,7 +78,7 @@ public class IncrementListPresenterImpl extends MvpBasePresenter<IncrementListVi
                 if (responeData.getData().getState() == responeData.SUCCESS) {
                     deleteById(data.getEscapeBookID());
                 }else{
-                    getView().showMes(responeData.getData().getInfo().toString());
+                    getView().showMes(responeData.getMsg());
                 }
             }
 

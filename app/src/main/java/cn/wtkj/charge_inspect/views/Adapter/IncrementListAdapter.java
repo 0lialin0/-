@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -85,12 +86,12 @@ public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdap
                 }
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.rlContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position,0,"");
+                    onItemClickListener.onItemClick(position,0,"look");
                 }
             }
         });
@@ -106,6 +107,8 @@ public class IncrementListAdapter extends RecyclerView.Adapter<IncrementListAdap
     }
 
     public class ShedViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.rl_content)
+        RelativeLayout rlContent;
         @Bind(R.id.active_vehPlate)
         TextView tvVehplate;
         @Bind(R.id.active_entrance_loca)

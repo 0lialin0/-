@@ -224,15 +224,17 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
             Intent intent = new Intent(this, IncrementAddActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
+            bundle.putString("editOrlook","edit");
             intent.putExtras(bundle);
             startActivity(intent);
         } else if (name.equals("submit")) {
             //showMes("提交");
             presenter.sendData(mList.get(code));
-        } else {
+        } else if(name.equals("look")) {
             Intent intent = new Intent(this, IncrementAddActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
+            bundle.putString("editOrlook","look");
             intent.putExtras(bundle);
             startActivity(intent);
         }
