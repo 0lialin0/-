@@ -96,7 +96,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_dep"
+                    android:id="@+id/tv_email"
                     style="@style/electron_ed_content" />
 
             </LinearLayout>

@@ -12,7 +12,7 @@ public class LoginRespone implements Serializable {
     public static final String STATE_SUCCESS = "0";
     public static final String NET_ERROR = "网络异常！";
     private Data data;
-    private String code;
+    private int code;
     private String msg;
 
     public String getMsg() {
@@ -23,11 +23,11 @@ public class LoginRespone implements Serializable {
         this.msg = msg;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
@@ -39,7 +39,7 @@ public class LoginRespone implements Serializable {
         this.data = data;
     }
 
-    public class Data{
+    public class Data {
         private int state;
         private info info;
 
@@ -59,79 +59,88 @@ public class LoginRespone implements Serializable {
             this.info = info;
         }
 
-        public class info{
-           private String ORGLEVEL;
-           private String OPRID;
-           private String NAME;
-           private String MOBILEPHONE;
-           private String EMAIL;
-           private int ORGID;
-           private String ORGANIZATION_NAME;
-           private String ORGANIZATION_SHORTNAME;
+        public class info {
+            private String ORGLEVEL;
+            private String OPRID;
+            private String NAME;
+            private String OFFICEPHONE;
+            private String MOBILEPHONE;
+            private String EMAIL;
+            private int ORGID;
+            private String ORGANIZATION_NAME;
+            private String ORGANIZATION_SHORTNAME;
 
-           public String getORGLEVEL() {
-               return ORGLEVEL;
-           }
+            public String getOFFICEPHONE() {
+                return OFFICEPHONE;
+            }
 
-           public void setORGLEVEL(String ORGLEVEL) {
-               this.ORGLEVEL = ORGLEVEL;
-           }
+            public void setOFFICEPHONE(String OFFICEPHONE) {
+                this.OFFICEPHONE = OFFICEPHONE;
+            }
 
-           public String getOPRID() {
-               return OPRID;
-           }
+            public String getORGLEVEL() {
+                return ORGLEVEL;
+            }
 
-           public void setOPRID(String OPRID) {
-               this.OPRID = OPRID;
-           }
+            public void setORGLEVEL(String ORGLEVEL) {
+                this.ORGLEVEL = ORGLEVEL;
+            }
 
-           public String getNAME() {
-               return NAME;
-           }
+            public String getOPRID() {
+                return OPRID;
+            }
 
-           public void setNAME(String NAME) {
-               this.NAME = NAME;
-           }
+            public void setOPRID(String OPRID) {
+                this.OPRID = OPRID;
+            }
 
-           public String getMOBILEPHONE() {
-               return MOBILEPHONE;
-           }
+            public String getNAME() {
+                return NAME;
+            }
 
-           public void setMOBILEPHONE(String MOBILEPHONE) {
-               this.MOBILEPHONE = MOBILEPHONE;
-           }
+            public void setNAME(String NAME) {
+                this.NAME = NAME;
+            }
 
-           public String getEMAIL() {
-               return EMAIL;
-           }
+            public String getMOBILEPHONE() {
+                return MOBILEPHONE;
+            }
 
-           public void setEMAIL(String EMAIL) {
-               this.EMAIL = EMAIL;
-           }
+            public void setMOBILEPHONE(String MOBILEPHONE) {
+                this.MOBILEPHONE = MOBILEPHONE;
+            }
 
-           public int getORGID() {
-               return ORGID;
-           }
+            public String getEMAIL() {
+                return EMAIL;
+            }
 
-           public void setORGID(int ORGID) {
-               this.ORGID = ORGID;
-           }
+            public void setEMAIL(String EMAIL) {
+                this.EMAIL = EMAIL;
+            }
 
-           public String getORGANIZATION_NAME() {
-               return ORGANIZATION_NAME;
-           }
+            public int getORGID() {
+                return ORGID;
+            }
 
-           public void setORGANIZATION_NAME(String ORGANIZATION_NAME) {
-               this.ORGANIZATION_NAME = ORGANIZATION_NAME;
-           }
+            public void setORGID(int ORGID) {
+                this.ORGID = ORGID;
+            }
 
-           public String getORGANIZATION_SHORTNAME() {
-               return ORGANIZATION_SHORTNAME;
-           }
+            public String getORGANIZATION_NAME() {
+                return ORGANIZATION_NAME;
+            }
 
-           public void setORGANIZATION_SHORTNAME(String ORGANIZATION_SHORTNAME) {
-               this.ORGANIZATION_SHORTNAME = ORGANIZATION_SHORTNAME;
-           }
-       }
+            public void setORGANIZATION_NAME(String ORGANIZATION_NAME) {
+                this.ORGANIZATION_NAME = ORGANIZATION_NAME;
+            }
+
+            public String getORGANIZATION_SHORTNAME() {
+                return ORGANIZATION_SHORTNAME;
+            }
+
+            public void setORGANIZATION_SHORTNAME(String ORGANIZATION_SHORTNAME) {
+                this.ORGANIZATION_SHORTNAME = ORGANIZATION_SHORTNAME;
+            }
+        }
     }
 }

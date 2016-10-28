@@ -77,13 +77,14 @@ public class LoginPresenterImpl extends MvpBasePresenter<LoginView> implements L
                     Setting.ORGLEVEL = responeData.getData().getInfo().getORGLEVEL();
                     Setting.OPRID = responeData.getData().getInfo().getOPRID();
                     Setting.ORGID = responeData.getData().getInfo().getORGID();
+                    Setting.OFFICEPHONE = responeData.getData().getInfo().getOFFICEPHONE();
                     Setting.MOBILEPHONE = responeData.getData().getInfo().getMOBILEPHONE();
                     Setting.EMAIL = responeData.getData().getInfo().getEMAIL();
                     Setting.ORGANIZATION_NAME = responeData.getData().getInfo().getORGANIZATION_NAME();
                     Setting.ORGANIZATION_SHORTNAME = responeData.getData().getInfo().getORGANIZATION_SHORTNAME();
                     checkUpdate();
                 } else {
-                    getView().showMes(responeData.getData().getInfo().toString());
+                    getView().showMes(responeData.getMsg());
                 }
             }
 

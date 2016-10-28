@@ -263,7 +263,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
 
 
     public void showConfirm(final int code) {
-        final CustomDialog showDialog = new CustomDialog(this);
+        final CustomDialog showDialog = new CustomDialog(this,"");
         showDialog.setText("是否确认要删除此条信息");
         showDialog.setNegativeText("确定");
         showDialog.setPositiveText("取消");

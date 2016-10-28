@@ -15,6 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
+import cn.wtkj.charge_inspect.util.CustomDialog;
 import cn.wtkj.charge_inspect.util.Setting;
 
 /**
@@ -39,8 +40,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     TextView tvLoginNum;
     @Bind(R.id.tv_unit)
     TextView tvUnit;
-    @Bind(R.id.tv_dep)
-    TextView tvDep;
+    @Bind(R.id.tv_email)
+    TextView tvEmail;
     @Bind(R.id.tv_phone)
     TextView tvPhone;
     @Bind(R.id.tv_mphone)
@@ -68,9 +69,9 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private void initView() {
         tvName.setText(Setting.USERID);
         tvLoginNum.setText(Setting.OPRID);
-        tvUnit.setText(Setting.ORGANIZATION_SHORTNAME);
-        tvDep.setText(Setting.ORGANIZATION_SHORTNAME);
-        tvPhone.setText(Setting.EMAIL);
+        tvUnit.setText(Setting.ORGANIZATION_NAME);
+        tvEmail.setText(Setting.EMAIL);
+        tvPhone.setText(Setting.OFFICEPHONE);
         tvMphone.setText(Setting.MOBILEPHONE);
     }
 
@@ -82,7 +83,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 this.finish();
                 break;
             case R.id.exit_button:
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                /*AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 dialog.setTitle("确定吗？");
                 dialog.setMessage("确定退出吗？");
                 dialog.setPositiveButton("确定",
@@ -101,8 +102,32 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                                 arg0.dismiss();
                             }
                         });
-                dialog.show();
+                dialog.show();*/
+
+                showConfirm();
                 break;
         }
+    }
+
+    public void showConfirm() {
+        final CustomDialog showDialog = new CustomDialog(this,"userInfo");
+        showDialog.setText("是否确认注销");
+        showDialog.setNegativeText("确定");
+        showDialog.setPositiveText("取消");
+        showDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog.dismiss();
+                Intent logoutIntent = new Intent(UserInfoActivity.this, LoginActivity.class);
+                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(logoutIntent);
+            }
+        });
+        showDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog.dismiss();
+            }
+        });
     }
 }

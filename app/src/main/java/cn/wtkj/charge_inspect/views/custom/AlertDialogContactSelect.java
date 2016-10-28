@@ -66,7 +66,7 @@ public class AlertDialogContactSelect {
         final RadioButton outsidePhone = (RadioButton) viewBaseInfo.findViewById(R.id.phone_outside);
         final RadioButton switchPhone = (RadioButton) viewBaseInfo.findViewById(R.id.phone_switch);
 
-        dialogTitle.setText(info.getSpotName());
+        dialogTitle.setText(info.getOrgName()+"-"+info.getSpotName());
         innerPhone.setText("内线：" + info.getInterPhone());
         outsidePhone.setText("外线：" + info.getOutsidePhone());
         switchPhone.setText("总线：" + info.getSwitchBoard());

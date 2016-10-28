@@ -83,9 +83,9 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
         characterParser = CharacterParser.getInstance();
 
         pinyinComparator = new PinyinComparator();
-        sideBar = (SideBar) findViewById(R.id.sidebar);
+        //sideBar = (SideBar) findViewById(R.id.sidebar);
         dialog = (TextView) findViewById(R.id.dialog);
-        sideBar.setTextView(dialog);
+       // sideBar.setTextView(dialog);
 
         alertDialogContactSelect = new AlertDialogContactSelect(this);
 
@@ -133,7 +133,7 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
         /**
          * 为右边添加触摸事件
          */
-        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+       /* sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
             @Override
             public void onTouchingLetterChanged(String s) {
@@ -144,7 +144,7 @@ public class ContactListActivity extends MvpBaseActivity<ContactListPresenter> i
                    // lawsContactList.scrollToPosition(position);
                 }
             }
-        });
+        });*/
     }
 
 

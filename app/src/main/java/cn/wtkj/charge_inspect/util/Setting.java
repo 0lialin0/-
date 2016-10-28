@@ -20,6 +20,8 @@ public class Setting {
     public static String OPRID;
     //组织机构ID
     public static int ORGID;
+    //办公电话
+    public static String OFFICEPHONE;
     //移动电话
     public static String MOBILEPHONE;
     //电子邮箱

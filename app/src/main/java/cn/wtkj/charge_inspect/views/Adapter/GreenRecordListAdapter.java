@@ -82,14 +82,14 @@ public class GreenRecordListAdapter extends RecyclerView.Adapter<GreenRecordList
             }
         });
 
-        holder.rlContent.setOnClickListener(new View.OnClickListener() {
+        /*holder.rlContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(position,0,"");
                 }
             }
-        });
+        });*/
     }
 
     @Override
