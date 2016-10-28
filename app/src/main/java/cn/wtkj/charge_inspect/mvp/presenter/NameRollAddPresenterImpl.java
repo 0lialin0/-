@@ -102,22 +102,22 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
 
        // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("_yyyyMMdd_HHmmss");
        // String addTime = simpleDateFormat.format(new Date());
-        String addTime = fileName;
+      //  String addTime = fileName;
         if (nameType ==0){
             filePath += "/黑名单/";
            // filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
 
-            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+fileName;
         }else if (nameType == 1){
             filePath += "/灰名单/";
            // filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+data.getGenDT();
-            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+fileName;
         }else {
 
             filePath += "/黄名单/";
-            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+addTime;
+            filePath += data.getVepPlateNo()+data.getPeccancyTypeName()+fileName;
         }
-        filePath += ".jpg";
+
         return filePath;
     }
 

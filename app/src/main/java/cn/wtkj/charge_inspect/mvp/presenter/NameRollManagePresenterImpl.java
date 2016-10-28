@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Environment;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import cn.wtkj.charge_inspect.data.rest.ConductInfoDataImpl;
 import cn.wtkj.charge_inspect.mvp.MvpBasePresenter;
 import cn.wtkj.charge_inspect.mvp.views.IncrementListView;
 import cn.wtkj.charge_inspect.mvp.views.NameRollManageView;
+import cn.wtkj.charge_inspect.util.ImageFactory;
 import cn.wtkj.charge_inspect.util.ResponeUtils;
 import cn.wtkj.charge_inspect.util.Setting;
 
@@ -87,8 +89,23 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
         fileName = new ArrayList<>();
         if(pvList.size()>0){
             for (int i = 0; i < pvList.size(); i++) {
-                //File file = fileList.get(i);
-                File file = new File(pvList.get(i).getFileUrl());
+                PhotoVideoData pvData = pvList.get(i);
+                String filePath = pvData.getFileUrl();
+
+                if (pvData.getFileType() == 0)
+                {
+                    ImageFactory imageFactory = new ImageFactory();
+                    String outfilePath = Environment.getExternalStorageDirectory() + "/tmp/"+ pvData.getFileName();
+
+                    try {
+                        imageFactory.compressAndGenImage(filePath, outfilePath, 100, false);
+                        filePath = outfilePath;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                File file = new File(filePath);
                 if (file.exists()) {
                     fileName.add(pvList.get(i).getFileName());
                     files.add(file);
