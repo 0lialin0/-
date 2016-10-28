@@ -748,7 +748,7 @@
                 android:id="@+id/ll_myphotos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y20"
+
                 android:layout_marginTop="@dimen/y10"
                 android:orientation="vertical">
 
@@ -757,15 +757,15 @@
                     style="@style/title_bg"
                     android:text="@string/name_roll_photo" />
 
-                <cn.wtkj.charge_inspect.views.custom.MyPhotos
-                    android:id="@+id/myphoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x35"
-                    android:padding="5dp"></cn.wtkj.charge_inspect.views.custom.MyPhotos>
-
             </LinearLayout>
 
+            <cn.wtkj.charge_inspect.views.custom.MyPhotos
+                android:id="@+id/myphoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginLeft="@dimen/x35"
+                android:padding="5dp"></cn.wtkj.charge_inspect.views.custom.MyPhotos>
 
             <LinearLayout
                 android:layout_width="match_parent"

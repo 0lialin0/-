@@ -116,8 +116,7 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
 
                 getView().hideDialog();
                 if (responeData.getData().getState() == responeData.SUCCESS) {
-                    greenChannelDb.delData(data.getGCListID());
-                    getView().nextView();
+                    deleteById(data.getGCListID());
                 } else {
                     getView().showMes(responeData.getMsg());
                 }

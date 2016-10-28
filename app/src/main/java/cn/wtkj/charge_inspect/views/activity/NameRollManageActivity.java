@@ -210,6 +210,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
 
     @Override
     public void onItemClick(int code, int type, String name) {
+        this.finish();
         Intent intent = new Intent();
         intent.setClass(this, NameRollAddActivity.class);
 

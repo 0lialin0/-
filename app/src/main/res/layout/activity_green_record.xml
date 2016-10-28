@@ -130,7 +130,7 @@
                         <EditText
                             android:id="@+id/ed_capacity"
                             style="@style/electron_ed_content"
-                            android:numeric="decimal"/>
+                            android:numeric="decimal" />
 
                     </LinearLayout>
 
@@ -595,23 +595,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/y20"
                 android:layout_marginTop="@dimen/y10"
                 android:orientation="vertical">
 
                 <TextView
                     style="@style/title_bg"
                     android:text="@string/green_photo" />
-
-                <cn.wtkj.charge_inspect.views.custom.MyPhotos
-                    android:id="@+id/myphoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x35"
-                    android:padding="5dp"></cn.wtkj.charge_inspect.views.custom.MyPhotos>
-
             </LinearLayout>
 
+            <cn.wtkj.charge_inspect.views.custom.MyPhotos
+                android:id="@+id/myphoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y20"
+                android:layout_marginLeft="@dimen/x35"
+                android:padding="5dp"></cn.wtkj.charge_inspect.views.custom.MyPhotos>
 
             <LinearLayout
                 android:layout_width="match_parent"
