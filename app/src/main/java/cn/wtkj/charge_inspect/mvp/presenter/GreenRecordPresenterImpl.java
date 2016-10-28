@@ -65,7 +65,8 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
         if (fileList.size() > 0){
             for (int i=0; i< fileList.size(); i++){
                 String oldFilePath = fileList.get(i).getPath();
-                String newFilePath = getFileName(data);
+                String oldFileName = fileList.get(i).getName();
+                String newFilePath = getFileName(data, oldFileName);
 
                 if (SysUtils.copyFile(oldFilePath, newFilePath)) {
 
@@ -85,15 +86,14 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
         isNumber = !isNumber;//控制上传时间间隔
     }
 
-    public String getFileName(JCGreenChannelRecData data){
+    public String getFileName(JCGreenChannelRecData data, String fileName){
 
         String filePath = Environment.getExternalStorageDirectory() + "/稽查APP";
-
+        int isMix = data.getIsMix();
 
         filePath += "/绿通/";
-        filePath += data.getInStationID()+"_"+data.getVehPlateNo()+data.getGoodsName()+data.getCheckDate();
+        filePath += isMix+"_"+data.getInStationID()+"_"+data.getVehPlateNo()+data.getGoodsName()+fileName;
 
-        filePath += ".jpg";
         return filePath;
     }
 
@@ -108,6 +108,4 @@ public class GreenRecordPresenterImpl extends MvpBasePresenter<GreenRecordView> 
         List<PhotoVideoData> datas=photoVideoDb.getPv(uuid,3,-1);
         return datas;
     }
-
-
 }

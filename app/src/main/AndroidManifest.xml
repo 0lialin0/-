@@ -123,7 +123,7 @@
             android:screenOrientation="portrait" />
     </application>
 
-
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <!-- Required  一些系统要求的权限，如访问网络等-->
     <uses-permission android:name="com.wtkj.dangerousgoodcollector.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -140,5 +140,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
 
 </manifest>
