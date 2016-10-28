@@ -3,9 +3,7 @@ package cn.wtkj.charge_inspect.views.custom;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.CountDownTimer;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -53,24 +51,6 @@ public class DialogFactory {
         CountDown countDown = new CountDown(60 * 1000, 1000, tvMes, alertDialog, msg);
         countDown.start();
         return alertDialog;
-    }
-
-    //检测到未打开
-    public void openGps(final Context context) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setTitle("请打开GPS");
-        dialog.setMessage("检测到未打开GPS，请打开！");
-        dialog.setPositiveButton("打开", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                // 转到手机设置界面，用户设置GPS
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                context.startActivity(intent); // 设置完成后返回到原来的界面
-            }
-        });
-        dialog.setNeutralButton("取消", null);
-        dialog.show();
     }
 
     private static class SingletonHolder {

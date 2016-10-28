@@ -545,7 +545,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         MobilePhone.setText(data.getMobilePhone());
         HistoryInfo.setText(data.getHistoryInfo());
 
-
+        uuid = data.getBlackListID();
         List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
         if (list.size() > 0) {
 
