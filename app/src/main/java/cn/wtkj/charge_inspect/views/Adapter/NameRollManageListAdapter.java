@@ -81,6 +81,21 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
         {
             Bitmap bitmap = SysUtils.getLocalBitmap(photoVideoDataList.get(0).getFileUrl());
             holder.ivImg.setImageBitmap(bitmap);
+
+            holder.ivImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentBigImage = new Intent();
+                    intentBigImage.setClass(context, BigImageActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("imageList", (Serializable) photoVideoDataList);
+                    intentBigImage.putExtras(bundle);
+                    context.startActivity(intentBigImage);
+                }
+            });
+        }else{
+            holder.llActiveImg.setVisibility(View.GONE);
         }
 
         holder.tvStatus.setText(peccancyTypeName);
@@ -113,19 +128,7 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
                 }
             }
         });
-        holder.ivImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentBigImage = new Intent();
-                intentBigImage.setClass(context, BigImageActivity.class);
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("imageList", (Serializable) photoVideoDataList);
-              ;
-                intentBigImage.putExtras(bundle);
-                context.startActivity(intentBigImage);
-            }
-        });
         /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,6 +151,8 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
     }
 
     public class ShedViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.ll_active_img)
+        LinearLayout llActiveImg;
         @Bind(R.id.active_img)
         ImageView ivImg;
         @Bind(R.id.active_vehPlate)

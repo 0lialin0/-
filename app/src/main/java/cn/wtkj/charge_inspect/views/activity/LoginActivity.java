@@ -122,7 +122,7 @@ public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements
 
     private Long lastTime = 0L;
 
-    @OnClick({R.id.login_comit_bnt})
+    @OnClick({R.id.ll_login_btn})
     @Override
     public void onClick(View view) {
         nextView();
@@ -132,7 +132,7 @@ public class LoginActivity extends MvpBaseActivity<LoginPresenter> implements
         lastTime = System.currentTimeMillis();
 
         switch (view.getId()) {
-            case R.id.login_comit_bnt:
+            case R.id.ll_login_btn:
                 if (TextUtils.isEmpty(etUser.getText())) {
                     showMes("用户名不能为空！");
                     return;

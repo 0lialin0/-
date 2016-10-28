@@ -90,6 +90,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_login_btn"
                 android:layout_width="@dimen/x574"
                 android:layout_height="@dimen/y87"
                 android:layout_gravity="center"
