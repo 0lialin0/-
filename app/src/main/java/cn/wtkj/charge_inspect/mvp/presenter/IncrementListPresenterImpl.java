@@ -46,14 +46,15 @@ public class IncrementListPresenterImpl extends MvpBasePresenter<IncrementListVi
     @Override
     public void startPresenter(String keyword) {
         List<JCEscapeBookData> list=escapeBookDb.getEscapeBook(Setting.USERID,keyword);
-        if(list.size()>0){
+        /*if(list.size()>0){
             getView().setList(list);
             getView().hideLoging();
         }else{
             getView().hideLoging();
             getView().showMes("暂无数据");
-        }
-
+        }*/
+        getView().hideLoging();
+        getView().setList(list);
     }
 
 

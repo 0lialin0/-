@@ -56,13 +56,16 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
     @Override
     public void startPresenter(String keyword) {
         List<JCGreenChannelRecData> list = greenChannelDb.getGreenChannelList(Setting.USERID, keyword);
-        if (list.size() > 0) {
+        /*if (list.size() > 0) {
             getView().setList(list);
             getView().hideLoging();
         } else {
             getView().hideLoging();
             getView().showMes("暂无数据");
-        }
+        }*/
+
+        getView().setList(list);
+        getView().hideLoging();
     }
 
 

@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,11 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
     SwipeRefreshLayout shedRefresh;
     @Bind(R.id.shed_list_recy)
     RecyClerRefresh shedRecy;
+    @Bind(R.id.ll_content)
+    LinearLayout llContent;
+    @Bind(R.id.ll_content_kong)
+    LinearLayout llContentKong;
+
 
     private AlertDialogType alertDialogType;
     private String keyword = "";
@@ -139,14 +145,19 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
 
     @Override
     public void setList(List<JCBlackListData> list) {
-        if (adapter == null) {
-            mList = list;
-            adapter = new NameRollManageListAdapter(this, list);
-            shedRecy.setAdapter(adapter);
-            adapter.setOnItemClickListener(this);
-        } else {
-            mList.addAll(list);
-            adapter.notifyDataSetChanged();
+        if (list.size() > 0) {
+            if (adapter == null) {
+                mList = list;
+                adapter = new NameRollManageListAdapter(this, list);
+                shedRecy.setAdapter(adapter);
+                adapter.setOnItemClickListener(this);
+            } else {
+                mList.addAll(list);
+                adapter.notifyDataSetChanged();
+            }
+        }else{
+            llContent.setVisibility(View.GONE);
+            llContentKong.setVisibility(View.VISIBLE);
         }
     }
 
@@ -231,7 +242,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
             intent.putExtras(bundle);
-            nameType =  mList.get(code).getNameType();
+            nameType = mList.get(code).getNameType();
         } else if (name.equals("submit")) {
             //showMes("提交");
             showSubmit(code);
@@ -242,7 +253,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
 
         /* 如果是编辑或者新增名单 */
         if (nameType != -1) {
-            switch (nameType){
+            switch (nameType) {
                 case 0:
                     nameTitle = "添加黑名单";
                     break;
@@ -254,7 +265,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
                     break;
             }
 
-            intent.putExtra("nameType", nameType+"");
+            intent.putExtra("nameType", nameType + "");
             intent.putExtra("nameTitle", nameTitle);
             this.startActivity(intent);
         }
@@ -263,7 +274,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
 
 
     public void showConfirm(final int code) {
-        final CustomDialog showDialog = new CustomDialog(this,"");
+        final CustomDialog showDialog = new CustomDialog(this, "");
         showDialog.setText("是否确认要删除此条信息");
         showDialog.setNegativeText("确定");
         showDialog.setPositiveText("取消");
@@ -290,7 +301,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
 
 
     public void showSubmit(final int code) {
-        final CustomDialog showDialog = new CustomDialog(this,"userInfo");
+        final CustomDialog showDialog = new CustomDialog(this, "userInfo");
         showDialog.setText("是否确认要提交此条信息");
         showDialog.setNegativeText("确定");
         showDialog.setPositiveText("取消");
@@ -308,6 +319,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             }
         });
     }
+
     /**
      * 通知监听者 进行搜索操作
      *

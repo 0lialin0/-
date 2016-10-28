@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray5"
     android:orientation="vertical">
 
     <include
@@ -12,6 +13,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/y15"
@@ -32,5 +34,31 @@
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_content_kong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/y100"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:layout_marginTop="@dimen/y232"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kong_img" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x18"
+            android:text="暂未添加数据"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/x32" />
+
+    </LinearLayout>
 </LinearLayout>

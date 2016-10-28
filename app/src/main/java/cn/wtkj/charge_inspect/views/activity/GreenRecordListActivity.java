@@ -16,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,11 +76,15 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
     SwipeRefreshLayout shedRefresh;
     @Bind(R.id.shed_list_recy)
     RecyClerRefresh shedRecy;
+    @Bind(R.id.ll_content)
+    LinearLayout llContent;
+    @Bind(R.id.ll_content_kong)
+    LinearLayout llContentKong;
 
     private ProgressDialog progressDialog;
     private AlertDialog alter;
     public static final String DATA_TAG = "DataInfo";
-    private String keyword="";
+    private String keyword = "";
     private List<JCGreenChannelRecData> mList;
     private GreenRecordListAdapter adapter;
 
@@ -138,14 +143,19 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
 
     @Override
     public void setList(List<JCGreenChannelRecData> datas) {
-        if (adapter == null) {
-            mList = datas;
-            adapter = new GreenRecordListAdapter(this, datas);
-            shedRecy.setAdapter(adapter);
-            adapter.setOnItemClickListener(this);
+        if (datas.size() > 0) {
+            if (adapter == null) {
+                mList = datas;
+                adapter = new GreenRecordListAdapter(this, datas);
+                shedRecy.setAdapter(adapter);
+                adapter.setOnItemClickListener(this);
+            } else {
+                mList.addAll(datas);
+                adapter.notifyDataSetChanged();
+            }
         } else {
-            mList.addAll(datas);
-            adapter.notifyDataSetChanged();
+            llContent.setVisibility(View.GONE);
+            llContentKong.setVisibility(View.VISIBLE);
         }
     }
 
@@ -188,7 +198,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
 
     }
 
-    @OnClick({R.id.iv_more, R.id.iv_left, R.id.iv_phone,R.id.iv_search_del})
+    @OnClick({R.id.iv_more, R.id.iv_left, R.id.iv_phone, R.id.iv_search_del})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -202,7 +212,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
                 break;
             case R.id.iv_search_del:
                 etInput.setText("");
-                keyword="";
+                keyword = "";
                 ivSearchDel.setVisibility(View.GONE);
                 onRefresh();
                 break;
@@ -233,7 +243,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
-        keyword=text.replaceAll(" ","");
+        keyword = text.replaceAll(" ", "");
         if (mList != null) {
             mList.clear();
         }
@@ -265,7 +275,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
     }
 
     public void showConfirm(final int code) {
-        final CustomDialog showDialog = new CustomDialog(this,"");
+        final CustomDialog showDialog = new CustomDialog(this, "");
         showDialog.setText("是否确认要删除此条信息");
         showDialog.setNegativeText("确定");
         showDialog.setPositiveText("取消");
@@ -285,7 +295,7 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
     }
 
     public void showSubmit(final int code) {
-        final CustomDialog showDialog = new CustomDialog(this,"userInfo");
+        final CustomDialog showDialog = new CustomDialog(this, "userInfo");
         showDialog.setText("是否确认要提交此条信息");
         showDialog.setNegativeText("确定");
         showDialog.setPositiveText("取消");

@@ -60,14 +60,14 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     @Override
     public void startPresenter(String keyword) {
         List<JCBlackListData> list = listDb.getBlackList(Setting.USERID, keyword);
-        if (list.size() > 0) {
-            getView().setList(list);
+       /* if (list.size() > 0) {
+
             getView().hideLoging();
         } else {
             getView().hideLoging();
             getView().showMes("暂无数据");
-        }
-
+        }*/
+        getView().setList(list);
         getView().hideLoging();
 
     }

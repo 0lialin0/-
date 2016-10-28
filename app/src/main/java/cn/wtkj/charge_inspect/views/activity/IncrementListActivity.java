@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,12 +70,16 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     SwipeRefreshLayout shedRefresh;
     @Bind(R.id.shed_list_recy)
     RecyClerRefresh shedRecy;
+    @Bind(R.id.ll_content)
+    LinearLayout llContent;
+    @Bind(R.id.ll_content_kong)
+    LinearLayout llContentKong;
 
     private IncrementListAdapter adapter;
     private List<JCEscapeBookData> mList;
     public static final String DATA_TAG = "DataInfo";
     private ProgressDialog progressDialog;
-    private String keyword="";
+    private String keyword = "";
 
 
     @Override
@@ -165,14 +170,19 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
 
     @Override
     public void setList(List<JCEscapeBookData> list) {
-        if (adapter == null) {
-            mList = list;
-            adapter = new IncrementListAdapter(this, list);
-            shedRecy.setAdapter(adapter);
-            adapter.setOnItemClickListener(this);
+        if (list.size() > 0) {
+            if (adapter == null) {
+                mList = list;
+                adapter = new IncrementListAdapter(this, list);
+                shedRecy.setAdapter(adapter);
+                adapter.setOnItemClickListener(this);
+            } else {
+                mList.addAll(list);
+                adapter.notifyDataSetChanged();
+            }
         } else {
-            mList.addAll(list);
-            adapter.notifyDataSetChanged();
+            llContent.setVisibility(View.GONE);
+            llContentKong.setVisibility(View.VISIBLE);
         }
 
     }
@@ -191,7 +201,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
         onRefresh();
     }
 
-    @OnClick({R.id.iv_left, R.id.iv_more ,R.id.iv_search_del})
+    @OnClick({R.id.iv_left, R.id.iv_more, R.id.iv_search_del})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -205,7 +215,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
                 break;
             case R.id.iv_search_del:
                 etInput.setText("");
-                keyword="";
+                keyword = "";
                 ivSearchDel.setVisibility(View.GONE);
                 onRefresh();
                 break;
@@ -224,17 +234,17 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
             Intent intent = new Intent(this, IncrementAddActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
-            bundle.putString("editOrlook","edit");
+            bundle.putString("editOrlook", "edit");
             intent.putExtras(bundle);
             startActivity(intent);
         } else if (name.equals("submit")) {
             //showMes("提交");
             showSubmit(code);
-        } else if(name.equals("look")) {
+        } else if (name.equals("look")) {
             Intent intent = new Intent(this, IncrementAddActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(DATA_TAG, mList.get(code));
-            bundle.putString("editOrlook","look");
+            bundle.putString("editOrlook", "look");
             intent.putExtras(bundle);
             startActivity(intent);
         }
@@ -243,7 +253,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
 
 
     public void showConfirm(final int code) {
-        final CustomDialog showDialog = new CustomDialog(this,"");
+        final CustomDialog showDialog = new CustomDialog(this, "");
         showDialog.setText("是否确认要删除此条信息");
         showDialog.setNegativeText("确定");
         showDialog.setPositiveText("取消");
@@ -263,7 +273,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     }
 
     public void showSubmit(final int code) {
-        final CustomDialog showDialog = new CustomDialog(this,"userInfo");
+        final CustomDialog showDialog = new CustomDialog(this, "userInfo");
         showDialog.setText("是否确认要提交此条信息");
         showDialog.setNegativeText("确定");
         showDialog.setPositiveText("取消");
@@ -292,7 +302,7 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
-        keyword=text.replaceAll(" ","");
+        keyword = text.replaceAll(" ", "");
         if (mList != null) {
             mList.clear();
         }
