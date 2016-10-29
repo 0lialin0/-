@@ -80,6 +80,7 @@ public class GreenRecordListPresenterImpl extends MvpBasePresenter<GreenRecordLi
 
     @Override
     public void sendData(final JCGreenChannelRecData data) {
+        data.setOperType(1);
         files = new ArrayList<>();
         fileName = new ArrayList<>();
         map = new HashMap<>();

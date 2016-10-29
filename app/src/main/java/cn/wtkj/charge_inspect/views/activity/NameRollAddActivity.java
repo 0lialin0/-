@@ -681,13 +681,11 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         }
     }
 
-
     public void getShowData() {
         data = new JCBlackListData();
         if (type == 1) {
             uuid = UUID.randomUUID().toString();
         }
-
 
         data.setBlackListID(uuid);
 

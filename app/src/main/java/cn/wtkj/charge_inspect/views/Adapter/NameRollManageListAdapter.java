@@ -55,26 +55,22 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
         String peccancyTypeName="";
         String nameType = "黑名单";
         PhotoVideoDb photoVideoDb = new PhotoVideoDb(context);
-        String id = "";
+        String  id = dataList.get(position).getBlackListID();
         int nameTypeCode = dataList.get(position).getNameType();
 
         if (nameTypeCode == 0) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_black_img);
             nameType = "黑名单";
             peccancyTypeName=dataList.get(position).getPeccancyTypeName();
-            id = dataList.get(position).getBlackListID();
         } else if (nameTypeCode == 1) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_gray_img);
             nameType = "灰名单";
             peccancyTypeName=dataList.get(position).getPeccancyTypeName();
-            id = dataList.get(position).getVehicleID();
         } else if (nameTypeCode == 2) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_yellow_img);
             nameType = "黄名单";
             peccancyTypeName="";
-            id = dataList.get(position).getYListID();
         }
-
 
         final List<PhotoVideoData>  photoVideoDataList = photoVideoDb.getPv(id, nameTypeCode, 0);
         if (photoVideoDataList.size() > 0)

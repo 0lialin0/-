@@ -61,6 +61,8 @@ public class GreenChannelDb {
     public String updateGreenChannelList(JCGreenChannelRecData data) {
         String uuid = "";
         if (getCount(data.getGCListID()) > 0) {
+            String whereSql = " WHERE GCListID='%s' and userID ='%s'";
+
             String sql = String.format(
                     "UPDATE %s SET  GCListID='%s', CardNo='%s', VepPlateNo='%s'," +
                             " VehicleTypeID='%s',VehicleTypeName='%s', FactoryType='%s', " +
@@ -70,7 +72,7 @@ public class GreenChannelDb {
                             "LaneName='%s',OprName='%s', Shiftman='%s',IsMix='%s', " +
                             "IsMixName='%s',GoodsName='%s',MixGoodsName='%s', IsEnjoy='%s'," +
                             " FreeMoney='%s', EscapeMoney='%s', Remark='%s',OperType='%s'," +
-                            " userID='%s'",
+                            " userID='%s'"+ whereSql,
                     tablename, data.getGCListID(), data.getCardNo(), data.getVehPlateNo(),
                     data.getVehicleTypeID(), data.getVehicleTypeIDName(), data.getFactoryType(),
                     data.getCapacity(), data.getAxleCount(), data.getAxleCountName(), data.getTonnage(),
@@ -78,7 +80,7 @@ public class GreenChannelDb {
                     data.getInStationName(), data.getLaneID(), data.getLaneName(), data.getOprName(),
                     data.getShiftman(), data.getIsMix(), data.getIsMixName(), data.getGoodsName(),
                     data.getMixGoodsName(), data.getIsEnjoy(), data.getFreeMoney(), data.getEscapeMoney(),
-                    data.getRemark(), data.getOperType(), data.getUserID());
+                    data.getRemark(), data.getOperType(), data.getUserID(),data.getGCListID(),data.getUserID());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
             DatabaseManager.getInstance().closeDatabase();

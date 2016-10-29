@@ -84,7 +84,19 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
     @Override
     public void sendData(final JCBlackListData data) {
         data.setOperType(1);// 提交到服务器，只能是新增
-        String id = data.getBlackListID();
+
+
+        final String id = data.getBlackListID();
+
+        data.setBlackListID("");
+
+        if (data.getNameType() == 1){
+            data.setVehicleID(id);
+        }else if (data.getNameType() == 2){
+            data.setYListID(id);
+        }else if (data.getNameType() == 0){
+            data.setBlackListID(id);
+        }
 
         List<PhotoVideoData> pvList = getPvList(id, data.getNameType());
         map = new HashMap<>();
@@ -126,9 +138,8 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
             public void success(ResponeData responeData) {
                 getView().hideDialog();
                 if (responeData.getData().getState() == responeData.SUCCESS) {
-                    String id = data.getBlackListID();
-                    int type = data.getNameType();
 
+                    int type = data.getNameType();
                     deleteById(id, type);
                 } else {
                     getView().showMes(responeData.getMsg());

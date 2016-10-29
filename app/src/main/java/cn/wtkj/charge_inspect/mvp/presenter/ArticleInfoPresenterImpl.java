@@ -51,9 +51,9 @@ public class ArticleInfoPresenterImpl extends MvpBasePresenter<ArticleInfoView> 
             @Override
             public void success(ArticleListData articleListData, Response response) {
                 getView().hideLoging();
-                dataList.addAll(articleListData.getMData().getInfo());
-                getView().showList(dataList);
+                getView().showList(articleListData.getMData().getInfo());
             }
+
 
             @Override
             public void failure(RetrofitError error) {

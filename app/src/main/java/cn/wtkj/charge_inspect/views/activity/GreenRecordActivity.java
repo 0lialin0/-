@@ -529,6 +529,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         if (type == 1) {
             uuid = UUID.randomUUID().toString();
         }
+        //26e71660-52b0-4f6e-afe4-b76f4042f77b
         data.setUserID(Setting.USERID);
         data.setOperType(type);//1：新增 2：修改
         data.setGCListID(uuid);
