@@ -90,12 +90,26 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        adapter = null;
+        setContentView(R.layout.activity_name_roll_manage);
+        ButterKnife.bind(this);
+        initToolBar();
+        handleIntent(intent);
+    }
+    private void handleIntent(Intent intent){
+        initView();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_roll_manage);
         ButterKnife.bind(this);
         initToolBar();
-        initView();
+        Intent intent = getIntent();
+        handleIntent(intent);
     }
 
     private void initToolBar() {
@@ -271,7 +285,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             intent.putExtra("nameType", nameType + "");
             intent.putExtra("nameTitle", nameTitle);
             this.startActivity(intent);
-            this.finish();
+            //this.finish();
         }
 
     }

@@ -94,6 +94,19 @@ public class GreenRecordListActivity extends MvpBaseActivity<GreenRecordListPres
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        adapter = null;
+        setContentView(R.layout.activity_green_record_list);
+        ButterKnife.bind(this);
+        initToolBar();
+        handleIntent(intent);
+    }
+    private void handleIntent(Intent intent){
+        initView();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_green_record_list);

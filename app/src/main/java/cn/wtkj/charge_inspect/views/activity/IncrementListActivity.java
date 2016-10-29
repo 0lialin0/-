@@ -86,6 +86,18 @@ public class IncrementListActivity extends MvpBaseActivity<IncrementListPresente
     protected IncrementListPresenter createPresenter() {
         return new IncrementListPresenterImpl();
     }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        adapter = null;
+        setContentView(R.layout.activity_increment_list);
+        ButterKnife.bind(this);
+        initToolBar();
+        handleIntent(intent);
+    }
+    private void handleIntent(Intent intent){
+        initView();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

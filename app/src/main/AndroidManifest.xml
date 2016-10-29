@@ -69,11 +69,13 @@
 
         <activity
             android:name=".views.activity.GreenRecordListActivity"
+            android:launchMode = "singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
         <activity
             android:name=".views.activity.IncrementListActivity"
+            android:launchMode = "singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
@@ -84,6 +86,7 @@
 
         <activity
             android:name=".views.activity.NameRollManageActivity"
+            android:launchMode = "singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
