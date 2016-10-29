@@ -90,7 +90,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         if (isNumber) {
             getView().showLoding();
             String uuid = blackListDb.updateBlackList(data);
-            if (uuid!="" && fileList.size()>0) {
+            if (uuid!="") {
                 photoVideoDb.insertListPvd(newFileList, uuid, data.getNameType());
             }
             getView().himeDialog();

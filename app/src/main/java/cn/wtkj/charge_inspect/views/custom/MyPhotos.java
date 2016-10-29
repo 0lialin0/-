@@ -213,9 +213,9 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
             }
 
             if (id < pvDataList.size()){
-                int pvId = pvDataList.get(id).getPvId();
+              /*  int pvId = pvDataList.get(id).getPvId();
                 PhotoVideoDb photoVideoDb = new PhotoVideoDb(mContext);
-                photoVideoDb.delByPvId(pvId);
+                photoVideoDb.delByPvId(pvId);*/
             }
         }
     }

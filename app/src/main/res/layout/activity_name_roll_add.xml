@@ -354,7 +354,8 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_tongxi" />
+                            android:text="@string/name_roll_tongxi"
+                            android:numeric="integer"/>
 
                         <LinearLayout
                             style="@style/electron_linearLayout"

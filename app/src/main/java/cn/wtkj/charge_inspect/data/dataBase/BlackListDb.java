@@ -78,6 +78,18 @@ public class BlackListDb {
     public String updateBlackList(JCBlackListData data) {
         String uuid = "";
         if (data.getOperType() == 2) {
+            String whereSql = "";
+            if (data.getNameType() == 0) {
+                uuid = data.getBlackListID();
+                whereSql += " WHERE BlackListID='%s' and NameType ='%s' ";
+            } else if (data.getNameType() == 1) {
+                uuid = data.getVehicleID();
+                whereSql += " WHERE VehicleID='%s'  and NameType ='%s' ";
+            } else if (data.getNameType() == 2) {
+                uuid = data.getYListID();
+                whereSql += " WHERE YListID='%s' and  NameType ='%s' ";
+            }
+
             String sql = String.format(
                     "UPDATE %s SET BlackListID='%s', CardNo='%s', VepPlateNo='%s', " +
                             "VehicleTypeID='%s',VehicleTypeName='%s', VehType='%s'," +
@@ -92,7 +104,7 @@ public class BlackListDb {
                             "AxleCountName='%s',VehicleID='%s',YListID='%s',NameType='%s'," +
                             "OwnerAddress='%s',OwnerType='%s',OwnerTypeName='%s'," +
                             "Postalcode='%s',TeletePhone='%s',MobilePhone='%s',Owner='%s'," +
-                            "PeccancyDescription='%s',HistoryInfo='%s'",
+                            "PeccancyDescription='%s',HistoryInfo='%s' " + whereSql,
                     tablename, data.getBlackListID(), data.getCardNo(), data.getVepPlateNo(),
                     data.getVehicleTypeID(), data.getVehicleTypeName(), data.getVehType(),
                     data.getVehTypeName(), data.getVepColor(), data.getVepColorName(),
@@ -106,17 +118,11 @@ public class BlackListDb {
                     data.getNameType(), data.getOwnerAddress(), data.getOwnerType(),
                     data.getOwnerTypeName(), data.getPostalcode(), data.getTeletePhone(),
                     data.getMobilePhone(), data.getOwner(), data.getPeccancyDescription(),
-                    data.getHistoryInfo());
+                    data.getHistoryInfo(), uuid, data.getNameType());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
             DatabaseManager.getInstance().closeDatabase();
-            if (data.getNameType() == 0) {
-                uuid = data.getBlackListID();
-            } else if (data.getNameType() == 1) {
-                uuid = data.getVehicleID();
-            } else if (data.getNameType() == 2) {
-                uuid = data.getYListID();
-            }
+
 
         } else {
             uuid = inertBlackList(data);

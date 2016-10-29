@@ -3,6 +3,7 @@ package cn.wtkj.charge_inspect.data.net;
 import android.content.Context;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
 public final class DataRequester {
@@ -27,6 +28,6 @@ public final class DataRequester {
     public interface DataCallBack<T> {
         void success(T t);
 
-        void error();
+        void error(VolleyError error);
     }
 }

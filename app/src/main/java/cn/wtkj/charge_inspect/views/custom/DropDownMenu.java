@@ -25,6 +25,7 @@ public class DropDownMenu {
     private Context mContext;
     private List<ConstAllData.MData.info> list;
     private int id;
+    private int type = -1;
     private OnItemClickListener onItemClickListener;
 
     public OnItemClickListener getOnItemClickListener() {
@@ -48,6 +49,14 @@ public class DropDownMenu {
     public DropDownMenu(Context context, List<ConstAllData.MData.info> list) {
         this.list = list;
         this.mContext = context;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void setDownValue(final TextView textView, String title) {
@@ -74,7 +83,11 @@ public class DropDownMenu {
             public void onItemClick(int code,int types,String value) {
                 id = list.get(code).getCode();
                 String name=list.get(code).getName();
-                int type=list.get(code).getType();
+
+                if (type == -1){
+                    type=list.get(code).getType();
+                }
+
                 textView.setText(list.get(code).getName());
                 if (popupwindow != null && popupwindow.isShowing()) {
                     popupwindow.dismiss();

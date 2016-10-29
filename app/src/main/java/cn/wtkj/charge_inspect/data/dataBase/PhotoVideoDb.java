@@ -47,7 +47,7 @@ public class PhotoVideoDb {
         }
     }
 
-    public void updatePv(PhotoVideoData data) {
+/*    public void updatePv(PhotoVideoData data) {
         String uuid = "";
         if (getCount(data.getFileName(), data.getNameType()) > 0) {
             String sql = String.format(
@@ -61,7 +61,7 @@ public class PhotoVideoDb {
         } else {
             insertPv(data);
         }
-    }
+    }*/
 
     public int getCount(String name, int type) {
         String sql = String.format("SELECT * FROM %s WHERE fileName = '" + name + "' " +
@@ -127,30 +127,33 @@ public class PhotoVideoDb {
     }
 
     public void insertListPvd(List<File> fileList, String uuid, int type){
+        delData(uuid, type);    // 先把历史数据删掉
         PhotoVideoData data;
-        int fileIndex = 0;
+
         files = new ArrayList<>();
         fileName = new ArrayList<>();
-        for (int i = 0; i < fileList.size(); i++) {
-            File file = fileList.get(i);
 
+        if (fileList.size() > 0){
+            for (int i = 0; i < fileList.size(); i++) {
+                File file = fileList.get(i);
 
-            if (file.exists()) {
-                data = new PhotoVideoData();
-                data.setFileName(fileList.get(i).getName());
+                if (file.exists()) {
+                    data = new PhotoVideoData();
+                    data.setFileName(fileList.get(i).getName());
 
-                data.setBlackListID(uuid);
+                    data.setBlackListID(uuid);
 
-                data.setNameType(type);
-                data.setFileUrl(fileList.get(i).getPath());
+                    data.setNameType(type);
+                    data.setFileUrl(fileList.get(i).getPath());
 
-                int fileType = 0;
-                if (fileList.get(i).getName().endsWith(".mp4")){
-                     fileType = 1;
+                    int fileType = 0;
+                    if (fileList.get(i).getName().endsWith(".mp4")){
+                        fileType = 1;
+                    }
+
+                    data.setFileType(fileType);
+                    this.insertPv(data);
                 }
-
-                data.setFileType(fileType);
-                this.updatePv(data);
             }
         }
     }

@@ -36,11 +36,13 @@ public class ArticleInfoPresenterImpl extends MvpBasePresenter<ArticleInfoView> 
     /**
      * 获取业务单列表
      */
+    @Override
     public void getArticleList() {
         businessInfoDataImpl.getBusinessData(new Callback<ArticleListData>() {
             @Override
             public void success(ArticleListData articleListData, Response response) {
-                getView().showList(articleListData);
+                getView().hideLoging();
+                getView().showList(articleListData.getMData().getInfo());
             }
 
             @Override

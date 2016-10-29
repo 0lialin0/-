@@ -307,13 +307,16 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         //1：站址, 3：车牌颜色, 4：车身颜色, 5：车型类别, 6：车辆类别, 7：违章类型
 
-        dataMapIdList = Arrays.asList(1, 3, 4, 5, 6, 7);
+        dataMapIdList = Arrays.asList(1,1, 3, 4, 5, 6, 7);
+        List<Integer> itemClickIdList =  Arrays.asList(1,110, 3, 4, 5, 6, 7);
         dataMapNameList = Arrays.asList("", "VepPlateNoColorName", "VepColorName", "VehTypeName", "VehicleTypeName", "PeccancyTypeName");
 
         for (int i = 0; i < dataMapIdList.size(); i++) {
             List<ConstAllData.MData.info> dataMap = presenter.getConstByType(dataMapIdList.get(i));
 
             DropDownMenu dropDownMenu = new DropDownMenu(this, dataMap);
+            dropDownMenu.setType(itemClickIdList.get(i));
+
             dropDownMenu.setOnItemClickListener(this);
             dropDownMenuList.add(dropDownMenu);
             dataMapList.add(dataMap);
@@ -427,7 +430,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         inOrgID = data.getInOrgID();
         inOrgName = data.getInOrgName();
-        PeccancyTypeName.setText(data.getInOrgName());
+        InOrgName.setText(data.getInOrgName());
 
         outOrgID = data.getOutOrgID();
         outOrgName = data.getOutOrgName();
@@ -502,7 +505,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             state = false;
         }
         vehTypeName = data.getVehTypeName();
-        VehicleTypeName.setText(data.getVehTypeName());
+        VehTypeName.setText(data.getVehTypeName());
 
         vehicleTypeID = data.getVehicleTypeID();
         vehicleTypeName = data.getVehicleTypeName();
@@ -514,7 +517,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         inOrgID = data.getInOrgID();
         inOrgName = data.getInOrgName();
-        PeccancyTypeName.setText(data.getInOrgName());
+        InOrgName.setText(data.getInOrgName());
 
         outOrgID = data.getOutOrgID();
         outOrgName = data.getOutOrgName();
@@ -642,7 +645,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 dropDownMenuList.get(0).setDownValue(InOrgName, "");
                 break;
             case R.id.OutOrgName:
-                dropDownMenuList.get(0).setDownValue(OutOrgName, "");
+                dropDownMenuList.get(1).setDownValue(OutOrgName, "");
                 break;
 
             case R.id.rl_zhoushuo:
@@ -655,16 +658,15 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 downKeyValueOwner.setDownValue(OwnerTypeName, "");
                 break;
             case R.id.comit_button:
-                if (nameType == 0 || nameType == 1) {
-                    if (TextUtils.isEmpty(VepPlateNo.getText())) {
-                        showToast("车牌号不能为空！");
+
+                if (TextUtils.isEmpty(VepPlateNo.getText())) {
+                    showToast("车牌号不能为空！");
+                    return;
+                }
+                if (state) {
+                    if (TextUtils.isEmpty(Seating.getText())) {
+                        showToast("座位号不能为空！");
                         return;
-                    }
-                    if (state) {
-                        if (TextUtils.isEmpty(Seating.getText())) {
-                            showToast("座位号不能为空！");
-                            return;
-                        }
                     }
                 }
 
@@ -825,6 +827,10 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             case 1:
                 inOrgID = code;
                 inOrgName = name;
+                break;
+            case 110:
+                outOrgID = code;
+                outOrgName = name;
                 break;
             case 111://违章地点
                 peccancyOrgID = code;

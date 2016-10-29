@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 
+import com.android.volley.VolleyError;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -139,7 +141,7 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
             }
 
             @Override
-            public void error() {
+            public void error(VolleyError error) {
                 getView().hideDialog();
                 getView().showMes(ResponeData.NET_ERROR);
             }

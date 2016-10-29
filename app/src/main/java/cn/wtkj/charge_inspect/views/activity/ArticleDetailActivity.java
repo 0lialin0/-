@@ -83,7 +83,7 @@ public class ArticleDetailActivity extends MvpBaseActivity<ArticleInfoPresenter>
 
 
     @Override
-    public void showList(ArticleListData articleListData) {
+    public void showList(List<ArticleListData.MData.info> dataList) {
 
     }
 

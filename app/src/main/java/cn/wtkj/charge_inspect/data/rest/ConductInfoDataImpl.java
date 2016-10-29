@@ -51,7 +51,7 @@ public class ConductInfoDataImpl implements ConductInfoData {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        callBack.error();
+                        callBack.error(error);
                     }
                 }, new Response.Listener<String>() {
             @Override
@@ -102,7 +102,7 @@ public class ConductInfoDataImpl implements ConductInfoData {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        callBack.error();
+                        callBack.error(error);
                     }
                 }, new Response.Listener<String>() {
             @Override

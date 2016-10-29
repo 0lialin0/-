@@ -253,7 +253,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         if (data.getInDecision() == 11 || data.getInDecision() == 12 ||
                 data.getInDecision() == 13 || data.getInDecision() == 14 ||
                 data.getInDecision() == 15) {
-            showExitList(11, 15);
+            showExitList(2);
             llZhoushu.setVisibility(View.VISIBLE);
             llDunshuo.setVisibility(View.VISIBLE);
         }
@@ -340,7 +340,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             inDecisionName = entranList.get(0).getName();
             tvEntranceType.setText(entranList.get(0).getName());
         }
-        showExitList(0, 4);
+        showExitList(1);
 
 
         //查处单位
@@ -356,24 +356,56 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     }
 
+    /**
+     * entranType 1 客车，2 货车，3 免费车
+     * @param entranType
+     */
+    public void showExitList(int entranType) {
 
-    public void showExitList(int start, int end) {
         //出口判型
         if (entranList.size() > 0) {
+
             List<ConstAllData.MData.info> exitList = new ArrayList<>();
+            int[] extCodeList;
+
+            switch (entranType){
+                case 1:
+                    extCodeList = new int[]{1,2,3,4,0};
+                    break;
+                case 2:
+                    extCodeList = new int[]{11,12,13,14,15,0};
+                    break;
+                case 3:
+                    extCodeList = new int[]{1,2,3,4,11,12,13,14,15,0};
+                    break;
+                default:
+                    extCodeList = new int[]{1,2,3,4,11,12,13,14,15,0};
+                    break;
+            }
+
             ConstAllData data = new ConstAllData();
             ConstAllData.MData mData = data.new MData();
-            for (int i = 0; i < entranList.size(); i++) {
-                boolean a = entranList.get(i).getCode() >= start;
-                boolean b = entranList.get(i).getCode() <= end;
-                if (entranList.get(i).getCode() >= start && entranList.get(i).getCode() <= end) {
-                    ConstAllData.MData.info info = mData.new info();
-                    info.setName(entranList.get(i).getName());
-                    info.setCode(entranList.get(i).getCode());
-                    info.setType(55);
-                    exitList.add(info);
+
+            for (int i = 0; i < extCodeList.length; i++) {
+
+                for (int j= 0; j < entranList.size(); j++) {
+
+                    if (entranList.get(j).getCode() == extCodeList[i]){
+
+                        ConstAllData.MData.info info = mData.new info();
+                        info.setName(entranList.get(j).getName());
+                        info.setCode(entranList.get(j).getCode());
+                        info.setType(55);
+                        exitList.add(info);
+
+                       /* ConstAllData.MData.info info = entranList.get(j);
+
+                        info.setType(55);
+                        exitList.add(info);*/
+                    }
                 }
             }
+
             dropDownMenu5 = new DropDownMenu(this, exitList);
             //dropDownMenu5.setId(1);
             dropDownMenu5.setOnItemClickListener(this);
@@ -529,14 +561,16 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     public void onItemClick(int code, int type, String name) {
         switch (type) {
             case 5://入口判型
-                if (code == 0 || code == 1 || code == 2 || code == 3 || code == 4) {
-                    showExitList(0, 4);
+                if ( code == 1 || code == 2 || code == 3 || code == 4) {
+                    showExitList(1);
                     llZhoushu.setVisibility(View.GONE);
                     llDunshuo.setVisibility(View.GONE);
                 } else if (code == 11 || code == 12 || code == 13 || code == 14 || code == 15) {
-                    showExitList(11, 15);
+                    showExitList(2);
                     llZhoushu.setVisibility(View.VISIBLE);
                     llDunshuo.setVisibility(View.VISIBLE);
+                }else if (code == 0){
+                    showExitList(3);
                 }
                 inDecision = code;
                 inDecisionName = name;

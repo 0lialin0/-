@@ -1,6 +1,8 @@
 package cn.wtkj.charge_inspect.mvp.views;
 
 
+import java.util.List;
+
 import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
 import cn.wtkj.charge_inspect.data.bean.ArticleListData;
 import cn.wtkj.charge_inspect.mvp.MvpView;
@@ -11,7 +13,7 @@ import cn.wtkj.charge_inspect.mvp.MvpView;
 public interface ArticleInfoView extends MvpView {
 
     // 业务单列表
-    void showList(ArticleListData articleListData);
+    void showList(List<ArticleListData.MData.info> dataList);
 
     // 业务单详情
     void showDetail(ArticleDetail businessDetail);

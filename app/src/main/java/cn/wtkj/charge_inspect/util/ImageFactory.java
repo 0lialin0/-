@@ -172,15 +172,18 @@ public class ImageFactory {
      * @throws IOException
      */
     public void compressAndGenImage(String imgPath, String outPath, int maxSize, boolean needsDelete) throws IOException {
-        compressAndGenImage(getBitmap(imgPath), outPath, maxSize);
 
+        File file = new File (imgPath);
+        if (file.exists()) {
+            compressAndGenImage(getBitmap(imgPath), outPath, maxSize);
+        }
         // Delete original file
-        if (needsDelete) {
+        /*if (needsDelete) {
             File file = new File (imgPath);
             if (file.exists()) {
                 file.delete();
             }
-        }
+        }*/
     }
 
     /**

@@ -8,16 +8,19 @@
         android:id="@+id/main_toop"
         layout="@layout/toolbar_other" />
 
-     <android.support.v7.widget.RecyclerView
-         android:id="@+id/laws_news_list"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:divider="#ffff0000"
-         android:dividerHeight="@dimen/y12"
-         android:background="#f7f7f7"
-         android:layout_above="@+id/state_layout"
-         android:layout_below="@+id/main_toop">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/shed_list_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-     </android.support.v7.widget.RecyclerView>
-
+        <cn.wtkj.charge_inspect.views.custom.RecyClerRefresh
+            android:id="@+id/laws_news_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/state_layout"
+            android:layout_below="@+id/main_toop"
+            android:background="#f7f7f7"
+            android:divider="#ffff0000"
+            android:dividerHeight="@dimen/y12"></cn.wtkj.charge_inspect.views.custom.RecyClerRefresh>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
