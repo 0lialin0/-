@@ -54,7 +54,7 @@ public class BlackListDb {
                             data.getOwnerTypeName(), data.getPostalcode(), data.getTeletePhone(),
                             data.getMobilePhone(), data.getOwner(), data.getPeccancyDescription(),
                             data.getHistoryInfo());
-            Log.e("AAA",sql);
+
             db = dataBaseHelper.getWritableDatabase();
             db.execSQL(sql);
             Cursor cursor = db.rawQuery(
@@ -80,8 +80,7 @@ public class BlackListDb {
 
                int nameType =  data.getNameType();
 
-               String whereSql = " WHERE BlackListID='%s' and NameType =%s ";
-
+               String whereSql = " WHERE BlackListID='%s' and NameType =%s";
 
                String sql = String.format(
                        "UPDATE %s SET BlackListID='%s', CardNo='%s', VepPlateNo='%s', " +
@@ -112,7 +111,6 @@ public class BlackListDb {
                        data.getMobilePhone(), data.getOwner(), data.getPeccancyDescription(),
                        data.getHistoryInfo(), uuid, nameType);
 
-               Log.e("AAA",sql);
                SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
                database.execSQL(sql);
                DatabaseManager.getInstance().closeDatabase();

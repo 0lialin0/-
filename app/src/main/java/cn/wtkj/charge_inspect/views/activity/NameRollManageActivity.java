@@ -271,6 +271,7 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             intent.putExtra("nameType", nameType + "");
             intent.putExtra("nameTitle", nameTitle);
             this.startActivity(intent);
+            this.finish();
         }
 
     }
