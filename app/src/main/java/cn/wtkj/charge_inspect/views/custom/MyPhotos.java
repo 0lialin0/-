@@ -213,7 +213,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
             }
 
             if (id < pvDataList.size()){
-              /*  int pvId = pvDataList.get(id).getPvId();
+               /* int pvId = pvDataList.get(id).getPvId();
                 PhotoVideoDb photoVideoDb = new PhotoVideoDb(mContext);
                 photoVideoDb.delByPvId(pvId);*/
             }
@@ -301,7 +301,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                 bos.flush();
                 bos.close();
-                files.add(img);
+                //this.files.add(img);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -328,7 +328,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                 bos.flush();
                 bos.close();
-                files.add(img);
+                //this.files.add(img);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -119,6 +119,15 @@ public class NameRollManageListAdapter extends RecyclerView.Adapter<NameRollMana
                 }
             }
         });
+        holder.tvVehplate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //编辑
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, 0, "edit");
+                }
+            }
+        });
         holder.tvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

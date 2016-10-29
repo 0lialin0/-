@@ -115,7 +115,7 @@ public class PhotoVideoDb {
     public void delData(String id, int type) {
 
         SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
-        database.delete(tablename, "blackListID=? and fileType = ?", new String[]{id, type+""});
+        database.delete(tablename, "blackListID=? and nameType = ?", new String[]{id, type+""});
         DatabaseManager.getInstance().closeDatabase();
 
     }
@@ -128,7 +128,6 @@ public class PhotoVideoDb {
 
     public void insertListPvd(List<File> fileList, String uuid, int type){
         delData(uuid, type);    // 先把历史数据删掉
-        PhotoVideoData data;
 
         files = new ArrayList<>();
         fileName = new ArrayList<>();
@@ -138,7 +137,7 @@ public class PhotoVideoDb {
                 File file = fileList.get(i);
 
                 if (file.exists()) {
-                    data = new PhotoVideoData();
+                    PhotoVideoData data = new PhotoVideoData();
                     data.setFileName(fileList.get(i).getName());
 
                     data.setBlackListID(uuid);

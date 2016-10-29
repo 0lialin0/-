@@ -88,12 +88,12 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
         }
 
         if (isNumber) {
-            getView().showLoding();
+           // getView().showLoding();
             String uuid = blackListDb.updateBlackList(data);
             if (uuid!="") {
                 photoVideoDb.insertListPvd(newFileList, uuid, data.getNameType());
             }
-            getView().himeDialog();
+            //getView().himeDialog();
             getView().nextView();
         }
         isNumber = !isNumber;//控制上传时间间隔

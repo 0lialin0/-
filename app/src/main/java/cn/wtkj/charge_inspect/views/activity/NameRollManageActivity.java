@@ -203,6 +203,9 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
                 Intent intent = new Intent(this, NameRollXiafaActivity.class);
                 this.startActivity(intent);
                 break;
+            case R.id.iv_search_del:
+                etInput.setText("");
+                break;
         }
     }
 
@@ -282,13 +285,8 @@ public class NameRollManageActivity extends MvpBaseActivity<NameRollManagePresen
             @Override
             public void onClick(View view) {
                 showDialog.dismiss();
-                if (mList.get(code).getNameType() == 0) {
-                    presenter.deleteById(mList.get(code).getBlackListID(), mList.get(code).getNameType());
-                } else if (mList.get(code).getNameType() == 1) {
-                    presenter.deleteById(mList.get(code).getVehicleID(), mList.get(code).getNameType());
-                } else {
-                    presenter.deleteById(mList.get(code).getYListID(), mList.get(code).getNameType());
-                }
+
+                presenter.deleteById(mList.get(code).getBlackListID(), mList.get(code).getNameType());
             }
         });
         showDialog.setOnPositiveListener(new View.OnClickListener() {

@@ -28,6 +28,12 @@ public class SysUtils {
             int bytesum = 0;
             int byteread = 0;
             File oldfile = new File(oldPath);
+            File newfile = new File(newPath);
+
+            if (newfile.exists()){
+                return true;
+            }
+
             if (oldfile.exists()) { //文件存在时
                 //目标目录
                 File targetDir = new File(newPath);

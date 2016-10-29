@@ -355,7 +355,7 @@
                         <TextView
                             style="@style/electron_tv_title"
                             android:text="@string/name_roll_tongxi"
-                            android:numeric="integer"/>
+                            android:inputType="number"/>
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
@@ -459,6 +459,7 @@
                     <View style="@style/view_line" />
 
                     <RelativeLayout
+                        android:id="@+id/rl_xingshi"
                         style="@style/electron_outer_linearLayout"
                         android:orientation="horizontal">
 

@@ -63,7 +63,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                                 "%s int, %s VARCHAR(120), %s VARCHAR(120), %s int,%s VARCHAR(120), %s int, " +
                                 "%s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120),%s VARCHAR(120), " +
                                 " %s int, %s VARCHAR(120), %s VARCHAR(120)," +
-                        " %s VARCHAR(120), %s VARCHAR(120), %s int, %s VARCHAR(120), " +
+                        "%s int, %s VARCHAR(120), " +
                         "%s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), " +
                         "%s VARCHAR(120),%s VARCHAR(1000),%s VARCHAR(1000))",
                         JC_BLACKLIST, "BlackListID", "CardNo", "VepPlateNo", "VehicleTypeID",
@@ -73,7 +73,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                         "PeccancyOrgID", "PeccancyOrgName","GenCause",
                         "AxleCount", "Tonnage", "Seating", "videoName", "videoList",
                         "photoName", "photoList","OperType","userID","AxleCountName",
-                        "VehicleID","YListID","NameType","OwnerAddress","OwnerType",
+                        "NameType","OwnerAddress","OwnerType",
                         "OwnerTypeName","Postalcode","TeletePhone","MobilePhone",
                         "Owner","PeccancyDescription","HistoryInfo");
         db.execSQL(blacklistSql);

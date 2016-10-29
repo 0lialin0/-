@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     LinearLayout llMyphotos;
     @Bind(R.id.tv_photo_title)
     TextView tvPhotoTitle;
+    @Bind(R.id.rl_xingshi)
+    RelativeLayout rlxingshi;
 
     //   车辆信息
     @Bind(R.id.VepPlateNo)
@@ -226,6 +229,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             llCarOwnerInfo.setVisibility(View.GONE);
             llPeccancyInfo.setVisibility(View.GONE);
         }
+        else if (nameType ==1){
+            rlxingshi.setVisibility(View.GONE);
+        }
         if(nameType==2){
             tvPhotoTitle.setText("上传照片");
         }
@@ -248,9 +254,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         if (outlist != null) {
             type = 1;
             if (outlist.equals("xiafa")) {
-               // BlackListData.MData.info blackListData = (BlackListData.MData.info) getIntent().getSerializableExtra(
-                //        NameRollXiafaActivity.DATA_TAG);
-                //showViewXiafaData(blackListData);
                 String id=getIntent().getStringExtra("id");
                 presenter.getBlackData(id,nameType);
                 comitButton.setVisibility(View.GONE);
@@ -267,7 +270,14 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             if (data != null) {
                 showViewData(data);
                 type = 2;
-                nameTitle = "修改黑名单";
+                if (data.getNameType() == 0){
+                    nameTitle = "修改黑名单";
+                }else if (data.getNameType() == 1){
+                    nameTitle = "修改灰名单";
+                }else {
+                    nameTitle = "修改黄名单";
+                }
+
                 tvTitle.setText(nameTitle);
             } else {
                 type = 1;
@@ -335,26 +345,31 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                         outOrgName = defaultName;
                         break;
                     case 1:
+                        OutOrgName.setText(defaultName);
+                        outOrgID = defaultCode;
+                        outOrgName = defaultName;
+                        break;
+                    case 2:
                         VepPlateNoColorName.setText(defaultName);
                         vepPlateNoColor = defaultCode;
                         vepPlateNoColorName = defaultName;
                         break;
-                    case 2:
+                    case 3:
                         VepColorName.setText(defaultName);
                         vepColor = defaultCode;
                         vepColorName = defaultName;
                         break;
-                    case 3:
+                    case 4:
                         VehTypeName.setText(defaultName);
                         vehType = defaultCode;
                         vehTypeName = defaultName;
                         break;
-                    case 4:
+                    case 5:
                         VehicleTypeName.setText(defaultName);
                         vehicleTypeID = defaultCode;
                         vehicleTypeName = defaultName;
                         break;
-                    case 5:
+                    case 6:
                         PeccancyTypeName.setText(defaultName);
                         peccancyTypeID = defaultCode;
                         peccancyTypeName = defaultName;
@@ -362,7 +377,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 }
             }
         }
-
 
         //违章地点
         List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
@@ -394,8 +408,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         axleCount = info.getAxleNumber();
         AxleCountName.setText(axleCountName);
         CardNo.setText(info.getCardNo() + "");
-
-
     }
 
     //显示下发名单详情内容
@@ -467,18 +479,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         HistoryInfo.setText(data.getHistoryInfo());
 
         uuid = data.getBlackListID();
-
-
-       /* List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
-        if (list.size() > 0) {
-
-            for (int i = 0; i < list.size(); i++) {
-                files.add(new File(list.get(i).getFileUrl()));
-                myphoto.getGlide(list.get(i).getFileUrl());
-            }
-
-            myphoto.setFiles(files);
-        }*/
     }
 
     //显示值在页面上
@@ -550,7 +550,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         HistoryInfo.setText(data.getHistoryInfo());
 
         uuid = data.getBlackListID();
+
         List<PhotoVideoData> list = presenter.getPvList(uuid, nameType);
+
         if (list.size() > 0) {
 
             for (int i = 0; i < list.size(); i++) {
@@ -558,8 +560,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 myphoto.getGlide(list.get(i).getFileUrl());
             }
             myphoto.setPvDataList(list);
-            myphoto.setFiles(files);
         }
+
+        myphoto.setFiles(files);
     }
 
     @Override
@@ -597,7 +600,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         //super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             // Image captured and saved to fileUri specified in the Intent
-            Toast.makeText(this, "拍照成功", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "上传成功", Toast.LENGTH_LONG).show();
             File file = myphoto.setImage(requestCode, resultCode, data);
             if (file != null) {
                 files.add(file);
@@ -606,14 +609,15 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             Toast.makeText(this, "已取消拍照", Toast.LENGTH_LONG).show();
             // User cancelled the image capture
         } else {
-            Toast.makeText(this, "拍照失败，请重试", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "上传失败，请重试", Toast.LENGTH_LONG).show();
             // Image capture failed, advise user
         }
     }
 
     @OnClick({R.id.iv_left, R.id.comit_button, R.id.GenDT, R.id.rl_car_color,
             R.id.rl_car_body_color, R.id.rl_veh_type, R.id.rl_car_type, R.id.rl_weizhang_type,
-            R.id.InOrgName, R.id.OutOrgName, R.id.rl_zhoushuo, R.id.rl_weizhang_addr})
+            R.id.InOrgName, R.id.OutOrgName, R.id.rl_zhoushuo, R.id.rl_weizhang_addr,
+            R.id.rl_owner_type})
     @Override
     public void onClick(View view) {
         //1：站址, 3：车牌颜色, 4：车身颜色, 5：车型类别, 6：车辆类别, 7：违章类型
@@ -627,19 +631,19 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 dateTimePickerDialog.dateTimePicKDialog(GenDT, 0);
                 break;
             case R.id.rl_car_color:
-                dropDownMenuList.get(1).setDownValue(VepPlateNoColorName, "");
+                dropDownMenuList.get(2).setDownValue(VepPlateNoColorName, "");
                 break;
             case R.id.rl_car_body_color:
-                dropDownMenuList.get(2).setDownValue(VepColorName, "");
+                dropDownMenuList.get(3).setDownValue(VepColorName, "");
                 break;
             case R.id.rl_car_type:
-                dropDownMenuList.get(4).setDownValue(VehicleTypeName, "");
+                dropDownMenuList.get(5).setDownValue(VehicleTypeName, "");
                 break;
             case R.id.rl_veh_type:
-                dropDownMenuList.get(3).setDownValue(VehTypeName, "");
+                dropDownMenuList.get(4).setDownValue(VehTypeName, "");
                 break;
             case R.id.rl_weizhang_type:
-                dropDownMenuList.get(5).setDownValue(PeccancyTypeName, "");
+                dropDownMenuList.get(6).setDownValue(PeccancyTypeName, "");
                 break;
             case R.id.InOrgName:
                 dropDownMenuList.get(0).setDownValue(InOrgName, "");
@@ -684,13 +688,8 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             uuid = UUID.randomUUID().toString();
         }
 
-        if (nameType == 0) {
-            data.setBlackListID(uuid);
-        } else if (nameType == 1) {
-            data.setVehicleID(uuid);
-        } else {
-            data.setYListID(uuid);
-        }
+
+        data.setBlackListID(uuid);
 
         data.setUserID(Setting.USERID);
         data.setOperType(type);//1：新增 2：修改
