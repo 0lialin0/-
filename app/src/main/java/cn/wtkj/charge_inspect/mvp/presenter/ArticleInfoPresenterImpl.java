@@ -2,7 +2,10 @@ package cn.wtkj.charge_inspect.mvp.presenter;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
 import cn.wtkj.charge_inspect.data.bean.ArticleListData;
@@ -23,6 +26,9 @@ public class ArticleInfoPresenterImpl extends MvpBasePresenter<ArticleInfoView> 
     private Context context;
     List<String> businessInfoDataList;
     private BusinessInfoDataImpl businessInfoDataImpl;
+    public Map<String, Integer> map;
+    private List<ArticleListData.MData.info> dataList=new ArrayList<>();
+
     public ArticleInfoPresenterImpl(Context context) {
         this.context = context;
         businessInfoDataImpl=new BusinessInfoDataImpl();
@@ -37,12 +43,16 @@ public class ArticleInfoPresenterImpl extends MvpBasePresenter<ArticleInfoView> 
      * 获取业务单列表
      */
     @Override
-    public void getArticleList() {
-        businessInfoDataImpl.getBusinessData(new Callback<ArticleListData>() {
+    public void getArticleList(int page, int pagerSize) {
+        map = new HashMap<>();
+        map.put("PAGENUM",page);
+        map.put("PAGESIZE",pagerSize);
+        businessInfoDataImpl.getBusinessData(map,new Callback<ArticleListData>() {
             @Override
             public void success(ArticleListData articleListData, Response response) {
                 getView().hideLoging();
-                getView().showList(articleListData.getMData().getInfo());
+                dataList.addAll(articleListData.getMData().getInfo());
+                getView().showList(dataList);
             }
 
             @Override

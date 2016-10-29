@@ -1,5 +1,7 @@
 package cn.wtkj.charge_inspect.data.rest;
 
+import java.util.Map;
+
 import cn.wtkj.charge_inspect.data.SeApiManager;
 import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
 import cn.wtkj.charge_inspect.data.net.DangerousApi;
@@ -17,8 +19,8 @@ public class BusinessInfoDataImpl {
         dangerousApi = SeApiManager.apiMangerAdapter();
     }
 
-    public void getBusinessData(Callback<ArticleListData> callback) {
-        dangerousApi.getBusinessData(callback);
+    public void getBusinessData(Map<String, Integer> map, Callback<ArticleListData> callback) {
+        dangerousApi.getBusinessData(map,callback);
     }
 
     public void getBusinessDetail(String articleId,Callback<ArticleDetail> callback) {

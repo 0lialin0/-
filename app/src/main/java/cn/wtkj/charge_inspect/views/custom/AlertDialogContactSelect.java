@@ -69,7 +69,7 @@ public class AlertDialogContactSelect {
         dialogTitle.setText(info.getOrgName()+"-"+info.getSpotName());
         innerPhone.setText("内线：" + info.getInterPhone());
         outsidePhone.setText("外线：" + info.getOutsidePhone());
-        switchPhone.setText("总线：" + info.getSwitchBoard());
+        switchPhone.setText("处总机：" + info.getSwitchBoard());
 
         contactPhone = info.getInterPhone();
         contactList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

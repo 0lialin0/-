@@ -56,6 +56,7 @@ public class ArticleListActivity extends MvpBaseActivity<ArticleInfoPresenter> i
 
     private ArticleListAdapter adapter;
     private List<ArticleListData.MData.info> mList;
+    int pager, size = 10;
     @Override
     protected ArticleInfoPresenter createPresenter() {
         return new ArticleInfoPresenterImpl(this);
@@ -67,7 +68,7 @@ public class ArticleListActivity extends MvpBaseActivity<ArticleInfoPresenter> i
         setContentView(R.layout.activity_article_list);
         ButterKnife.bind(this);
         //presenter.attachContextIntent(this, this.getIntent());
-        presenter.getArticleList();
+        //presenter.getArticleList(++pager,size);
         initToolBar();
         initView();
     }
@@ -88,7 +89,7 @@ public class ArticleListActivity extends MvpBaseActivity<ArticleInfoPresenter> i
                 Convert.dip2px(this.getApplicationContext(), 24));
         lawsNewsList.setLayoutManager(new LinearLayoutManager(this));
         shedRefresh.setOnRefreshListener(this);
-        presenter.getArticleList();
+        presenter.getArticleList(++pager,size);
         shedRefresh.setRefreshing(true);// 显示动画
         lawsNewsList.setRefreshData(this);
     }
@@ -141,7 +142,7 @@ public class ArticleListActivity extends MvpBaseActivity<ArticleInfoPresenter> i
 
     @Override
     public void onItemClick(String name, int id) {
-        String articleId = articleListData.getMData().getInfo().get(id).getArticleId();
+        String articleId = mList.get(id).getArticleId();
 
         Intent intent = new Intent();
         intent.setClass(this, ArticleDetailActivity.class);
@@ -153,12 +154,12 @@ public class ArticleListActivity extends MvpBaseActivity<ArticleInfoPresenter> i
     public void onRefresh() {
         if (mList != null)
             mList.clear();
-        presenter.getArticleList();
+        presenter.getArticleList(++pager,size);
     }
 
     @Override
     public void onRefreshData() {
         shedRefresh.setRefreshing(true);
-        presenter.getArticleList();
+        presenter.getArticleList(++pager,size);
     }
 }

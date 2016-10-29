@@ -110,7 +110,7 @@ public class DateTimePickerDialog implements OnDateChangedListener,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int whichButton) {
-									dateTimeTextEdite.setText("");
+									dateTimeTextEdite.setText(dateTime);
 								}
 							}).show();
 

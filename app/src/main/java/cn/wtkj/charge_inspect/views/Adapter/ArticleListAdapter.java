@@ -46,7 +46,8 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(businessInfoList.get(position).getTextTitle(),position);
+                    onItemClickListener.onItemClick(businessInfoList.get(position).getTextTitle(),
+                            position);
                 }
             }
         });

@@ -29,7 +29,7 @@
     <string name="green_tonnage">吨位(吨)</string>
     <string name="green_jianyan_info">查验信息</string>
     <string name="green_reportOrgID">上报单位</string>
-    <string name="green_check_time">查询时间</string>
+    <string name="green_check_time">查验时间</string>
     <string name="green_entrance">入口站址</string>
     <string name="green_come_dao">出口车道号</string>
 

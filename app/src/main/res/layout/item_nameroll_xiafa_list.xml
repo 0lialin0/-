@@ -19,15 +19,15 @@
             android:layout_marginRight="@dimen/x4"
             android:layout_marginTop="@dimen/y4"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/active_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/corners_img_bg"
-                android:scaleType="fitXY"
-                android:src="@drawable/green_default_img" />
+                android:scaleType="fitXY" />
 
 
         </LinearLayout>

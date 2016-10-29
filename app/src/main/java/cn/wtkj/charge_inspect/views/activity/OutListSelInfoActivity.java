@@ -171,6 +171,8 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(DATA_TAG, data);
                 bundle.putString("type","outlist");
+                intent.putExtra("nameType", 0+"");
+                intent.putExtra("nameTitle", "添加黑名单");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

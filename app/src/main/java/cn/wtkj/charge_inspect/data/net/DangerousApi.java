@@ -47,7 +47,7 @@ public interface DangerousApi {
 
     //获取业务联系单  OK
     @POST("/restApi?businessId=article.articleList&USERID=admin")
-    void getBusinessData(Callback<ArticleListData> callback);
+    void getBusinessData(@QueryMap Map<String, Integer> map,Callback<ArticleListData> callback);
 
     //获取业务联系单详情
     @POST("/restApi?businessId=article.articleInfo")

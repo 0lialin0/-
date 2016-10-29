@@ -9,6 +9,6 @@ import cn.wtkj.charge_inspect.mvp.views.ArticleInfoView;
  */
 public interface ArticleInfoPresenter extends MvpPresenter<ArticleInfoView> {
     void startPresenter();
-    void getArticleList();
+    void getArticleList(int page, int pagerSize);
     void getBusinessDetail(String articleId);
 }

@@ -34,7 +34,7 @@ public class EscapeBookDb {
                             "InStationName,AxleNumberName)  " +
                             "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
                             "'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
-                            "'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                            "'%s','%s','%s',%s,'%s','%s','%s','%s','%s','%s','%s','%s')",
                             tablename,data.getEscapeBookID(),
                             data.getShiftID(),data.getPeccancyTypeID(),data.getFindDT(),
                             data.getOrgID(),data.getOprID(),data.getOprName(),data.getInDecision(),
@@ -70,9 +70,9 @@ public class EscapeBookDb {
                             "IsDeleted='%s',LastOprUser='%s',LastOprDT='%s',CreateUserID='%s'," +
                             "CreateDT='%s',CreateFlag='%s',InStationID='%s',AxleNumber='%s'," +
                             "Weight='%s',MoneyBefore='%s',MoneyAfter='%s',IsChecked='%s'," +
-                            "OrgLevel='%s',OperType='%s',userID='%s',ShiftName='%s',PeccancyTypeName='%s'," +
+                            "OrgLevel='%s',OperType=%s,userID='%s',ShiftName='%s',PeccancyTypeName='%s'," +
                             "UnitName='%s',InDecisionName='%s',OutDecisionName='%s',InStationName='%s'," +
-                            "AxleNumberName='%s'",
+                            "AxleNumberName='%s' where EscapeBookID='%s' ",
                     tablename,data.getShiftID(),
                     data.getPeccancyTypeID(),data.getFindDT(),
                     data.getOrgID(),data.getOprID(),data.getOprName(),data.getInDecision(),
@@ -85,7 +85,7 @@ public class EscapeBookDb {
                     data.getIsChecked(),data.getOrgLevel(),data.getOperType(),data.getUserID(),
                     data.getShiftName(),data.getPeccancyTypeName(),data.getUnitName(),
                     data.getInDecisionName(),data.getOutDecisionName(),data.getInStationName(),
-                    data.getAxleNumberName());
+                    data.getAxleNumberName(),data.getEscapeBookID());
             SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
             database.execSQL(sql);
             DatabaseManager.getInstance().closeDatabase();
