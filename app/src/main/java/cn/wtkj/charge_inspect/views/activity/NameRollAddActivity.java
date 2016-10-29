@@ -228,10 +228,10 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         } else if (nameType == 2) {
             llCarOwnerInfo.setVisibility(View.GONE);
             llPeccancyInfo.setVisibility(View.GONE);
-        }
-        else if (nameType ==1){
+        } else if (nameType ==1){
             rlxingshi.setVisibility(View.GONE);
         }
+
         if(nameType==2){
             tvPhotoTitle.setText("上传照片");
         }

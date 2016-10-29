@@ -79,12 +79,13 @@ public class NameRollXiafaPresenterImpl extends MvpBasePresenter<NameRollXiafaVi
     }
 
     @Override
-    public void startPresenter(String keyword) {
+    public void startPresenter(String keyword,int page, int pagerSize) {
         if (!keyword.replaceAll(" ", "").equals("")) {
             //getView().showLoding();
             map = new HashMap<>();
+            map.put("PAGENUM",page+"");
+            map.put("PAGESIZE",pagerSize+"");
             map.put("VEHPLATENO", keyword);
-
             conductInfoData.selNameXiafa(map, new Callback<NameRollXiafaData>() {
                 @Override
                 public void success(NameRollXiafaData nameRollXiafaData, Response response) {

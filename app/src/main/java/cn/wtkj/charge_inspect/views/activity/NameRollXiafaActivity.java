@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -70,10 +71,12 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
 
 
     private String keyword = "";
-    private List<NameRollXiafaData.MData.info> mList;
+    private List<NameRollXiafaData.MData.info> mList = new ArrayList<>();
     private NameRollXiafaListAdapter adapter;
     private ProgressDialog progressDialog;
     public static final String DATA_TAG = "DataInfo";
+    int page = 1;
+    int pagerSize =10;
 
     @Override
     protected NameRollXiafaPresenter createPresenter() {
@@ -141,10 +144,11 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
 
     @Override
     public void onRefresh() {
-        if (mList != null) {
+        if (mList.size() ==0) {
             mList.clear();
         }
-        presenter.startPresenter(keyword);
+        page++;
+        presenter.startPresenter(keyword, page, pagerSize);
     }
 
     @Override
@@ -208,11 +212,10 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
         keyword = text.replaceAll(" ", "");
-        if (mList != null) {
-            mList.clear();
-        }
-        presenter.startPresenter(keyword);
 
+        mList.clear();
+
+        presenter.startPresenter(keyword, page,pagerSize);
     }
 
     @Override

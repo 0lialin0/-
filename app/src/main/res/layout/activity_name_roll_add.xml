@@ -354,8 +354,7 @@
 
                         <TextView
                             style="@style/electron_tv_title"
-                            android:text="@string/name_roll_tongxi"
-                            android:inputType="number"/>
+                            android:text="@string/name_roll_tongxi" />
 
                         <LinearLayout
                             style="@style/electron_linearLayout"
@@ -364,6 +363,7 @@
                             <EditText
                                 android:id="@+id/CardNo"
                                 style="@style/electron_ed_content"
+                                android:numeric="integer"
                                 android:hint="@string/please_input" />
 
                         </LinearLayout>
@@ -656,6 +656,7 @@
                             <EditText
                                 android:id="@+id/Postalcode"
                                 style="@style/electron_ed_content"
+                                android:maxLength="11"
                                 android:hint="@string/please_input" />
 
                         </LinearLayout>
@@ -705,6 +706,7 @@
                                 android:id="@+id/MobilePhone"
                                 style="@style/electron_ed_content"
                                 android:hint="@string/please_input"
+                                android:maxLength="11"
                                 android:numeric="integer" />
 
                         </LinearLayout>

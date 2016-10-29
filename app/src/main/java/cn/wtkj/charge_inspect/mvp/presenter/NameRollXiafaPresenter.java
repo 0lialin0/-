@@ -13,7 +13,7 @@ import cn.wtkj.charge_inspect.mvp.views.NameRollXiafaView;
  * Created by lxg on 2015/11/5.
  */
 public interface NameRollXiafaPresenter extends MvpPresenter<NameRollXiafaView> {
-    void startPresenter(String keyword);
+    void startPresenter(String keyword,int page, int pagerSize);
     void attachContextIntent(Context context);
     BlackListData.MData.info getBlackData(String id, int type);
 }
