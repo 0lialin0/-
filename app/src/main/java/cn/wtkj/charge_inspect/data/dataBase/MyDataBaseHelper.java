@@ -65,7 +65,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                                 " %s int, %s VARCHAR(120), %s VARCHAR(120)," +
                         "%s int, %s VARCHAR(120), " +
                         "%s int, %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), %s VARCHAR(120), " +
-                        "%s VARCHAR(120),%s VARCHAR(1000),%s VARCHAR(1000))",
+                        "%s VARCHAR(120),%s VARCHAR(1000),%s VARCHAR(1000),%s VARCHAR(300))",
                         JC_BLACKLIST, "BlackListID", "CardNo", "VepPlateNo", "VehicleTypeID",
                         "VehicleTypeName", "VehType", "VehTypeName", "VepColor", "VepColorName",
                         "VepPlateNoColor","VepPlateNoColorName", "PeccancyTypeID", "PeccancyTypeName",
@@ -75,7 +75,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                         "photoName", "photoList","OperType","userID","AxleCountName",
                         "NameType","OwnerAddress","OwnerType",
                         "OwnerTypeName","Postalcode","TeletePhone","MobilePhone",
-                        "Owner","PeccancyDescription","HistoryInfo");
+                        "Owner","PeccancyDescription","HistoryInfo" ,"remark");
         db.execSQL(blacklistSql);
 
         String greenchannelSql = String

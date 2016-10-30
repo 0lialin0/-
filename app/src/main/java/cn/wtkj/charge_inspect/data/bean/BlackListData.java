@@ -22,6 +22,15 @@ public class BlackListData implements Serializable {
     public class MData implements Serializable{
         private int state;
         private info info;
+        private List<FILES> FILES;
+
+        public List<MData.FILES> getFILES() {
+            return FILES;
+        }
+
+        public void setFILES(List<MData.FILES> FILES) {
+            this.FILES = FILES;
+        }
 
         public int getState() {
             return state;
@@ -39,6 +48,48 @@ public class BlackListData implements Serializable {
             this.info = info;
         }
 
+        public class FILES implements Serializable{
+            @SerializedName("FILEEXTENSION")
+            private String FILEEXTENSION;
+            @SerializedName("FILESIZE")
+            private int FILESIZE;
+            @SerializedName("FILENAME")
+            private String FILENAME;
+            @SerializedName("URL")
+            private String URL;
+
+            public String getFILEEXTENSION() {
+                return FILEEXTENSION;
+            }
+
+            public void setFILEEXTENSION(String FILEEXTENSION) {
+                this.FILEEXTENSION = FILEEXTENSION;
+            }
+
+            public int getFILESIZE() {
+                return FILESIZE;
+            }
+
+            public void setFILESIZE(int FILESIZE) {
+                this.FILESIZE = FILESIZE;
+            }
+
+            public String getFILENAME() {
+                return FILENAME;
+            }
+
+            public void setFILENAME(String FILENAME) {
+                this.FILENAME = FILENAME;
+            }
+
+            public String getURL() {
+                return URL;
+            }
+
+            public void setURL(String URL) {
+                this.URL = URL;
+            }
+        }
 
         public class info implements Serializable{
             @SerializedName("BLACKLISTID")
@@ -76,7 +127,7 @@ public class BlackListData implements Serializable {
             @SerializedName("AxleCountName")
             private String AxleCountName; //轴数(轴)
             @SerializedName("TONNAGE")
-            private String Tonnage; //吨位数
+            private Double Tonnage; //吨位数
 
             /* 违章信息 */
             @SerializedName("CARDNO")
@@ -121,6 +172,16 @@ public class BlackListData implements Serializable {
             private String PeccancyDescription;//情况说明
             @SerializedName("HISTORYINFO")
             private String HistoryInfo; //历史违章情况
+            @SerializedName("REMARK")
+            private String REMARK; //备注
+
+            public String getREMARK() {
+                return REMARK;
+            }
+
+            public void setREMARK(String REMARK) {
+                this.REMARK = REMARK;
+            }
 
             public String getBlackListID() {
                 return BlackListID;
@@ -250,11 +311,11 @@ public class BlackListData implements Serializable {
                 AxleCountName = axleCountName;
             }
 
-            public String getTonnage() {
+            public Double getTonnage() {
                 return Tonnage;
             }
 
-            public void setTonnage(String tonnage) {
+            public void setTonnage(Double tonnage) {
                 Tonnage = tonnage;
             }
 

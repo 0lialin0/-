@@ -36,11 +36,11 @@ public class BlackListDb {
                                     "photoName, photoList,OperType,userID,AxleCountName," +
                                     "NameType,OwnerAddress,OwnerType," +
                                     "OwnerTypeName,Postalcode,TeletePhone,MobilePhone,Owner," +
-                                    "PeccancyDescription,HistoryInfo)  " +
+                                    "PeccancyDescription,HistoryInfo,remark)  " +
                                     "VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
                                     "'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'," +
                                     "'%s','%s','%s','%s','%s','%s',%s,'%s','%s','%s','%s','%s'," +
-                                    "'%s','%s','%s','%s')",
+                                    "'%s','%s','%s','%s','%s')",
                             tablename, data.getBlackListID(), data.getCardNo(), data.getVepPlateNo(),
                             data.getVehicleTypeID(), data.getVehicleTypeName(), data.getVehType(),
                             data.getVehTypeName(), data.getVepColor(), data.getVepColorName(),
@@ -53,7 +53,7 @@ public class BlackListDb {
                             data.getAxleCountName(), data.getNameType(), data.getOwnerAddress(), data.getOwnerType(),
                             data.getOwnerTypeName(), data.getPostalcode(), data.getTeletePhone(),
                             data.getMobilePhone(), data.getOwner(), data.getPeccancyDescription(),
-                            data.getHistoryInfo());
+                            data.getHistoryInfo(),data.getRemark());
 
             db = dataBaseHelper.getWritableDatabase();
             db.execSQL(sql);
@@ -96,7 +96,7 @@ public class BlackListDb {
                                "AxleCountName='%s',NameType='%s'," +
                                "OwnerAddress='%s',OwnerType='%s',OwnerTypeName='%s'," +
                                "Postalcode='%s',TeletePhone='%s',MobilePhone='%s',Owner='%s'," +
-                               "PeccancyDescription='%s',HistoryInfo='%s' " + whereSql,
+                               "PeccancyDescription='%s',HistoryInfo='%s',remark='%s' " + whereSql,
                        tablename, data.getBlackListID(), data.getCardNo(), data.getVepPlateNo(),
                        data.getVehicleTypeID(), data.getVehicleTypeName(), data.getVehType(),
                        data.getVehTypeName(), data.getVepColor(), data.getVepColorName(),
@@ -109,7 +109,7 @@ public class BlackListDb {
                        data.getNameType(), data.getOwnerAddress(), data.getOwnerType(),
                        data.getOwnerTypeName(), data.getPostalcode(), data.getTeletePhone(),
                        data.getMobilePhone(), data.getOwner(), data.getPeccancyDescription(),
-                       data.getHistoryInfo(), uuid, nameType);
+                       data.getHistoryInfo(),data.getRemark(), uuid, nameType);
 
                SQLiteDatabase database = DatabaseManager.getInstance().openDatabase();
                database.execSQL(sql);
@@ -148,7 +148,7 @@ public class BlackListDb {
                 "photoName", "photoList", "OperType", "userID", "AxleCountName",
                 "NameType", "OwnerAddress", "OwnerType",
                 "OwnerTypeName", "Postalcode", "TeletePhone", "MobilePhone",
-                "Owner", "PeccancyDescription", "HistoryInfo"};
+                "Owner", "PeccancyDescription", "HistoryInfo","remark"};
         db = dataBaseHelper.getReadableDatabase();
         Cursor cur;
         if (keyword.equals("")) {
@@ -216,6 +216,7 @@ public class BlackListDb {
 
                 data.setPeccancyDescription(cur.getString(40));
                 data.setHistoryInfo(cur.getString(41));
+                data.setRemark(cur.getString(42));
 
                 list.add(data);
                 cur.moveToNext();

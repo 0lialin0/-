@@ -394,9 +394,10 @@ public class NameRollAddGreyActivity extends MvpBaseActivity<NameRollAddPresente
     }
 
     @Override
-    public void showViewXiafaData(BlackListData.MData.info data) {
+    public void showViewXiafaData(BlackListData.MData.info data, List<BlackListData.MData.FILES> filesList) {
 
     }
+
 
     @Override
     public void OnClickAddImg() {

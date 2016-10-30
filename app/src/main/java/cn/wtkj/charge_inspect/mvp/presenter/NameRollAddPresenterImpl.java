@@ -53,6 +53,7 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
     private PhotoVideoDb photoVideoDb;
     private boolean isNumber = true;//控制上传频率
     public BlackListData.MData.info infoData;
+    public List<BlackListData.MData.FILES> filesList;
     private Map<String, String> map;
     private ConductInfoData conductInfoData;
 
@@ -174,7 +175,8 @@ public class NameRollAddPresenterImpl extends MvpBasePresenter<NameRollAddView> 
             public void success(BlackListData data, Response response) {
                 if (data.getMData().getState() == data.SUCCESS) {
                     infoData = data.getMData().getInfo();
-                    getView().showViewXiafaData(infoData);
+                    filesList=data.getMData().getFILES();
+                    getView().showViewXiafaData(infoData,filesList);
                 } else {
                     getView().showToast(data.getMData().getInfo().toString());
                 }

@@ -129,6 +129,11 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     EditText MobilePhone;
     @Bind(R.id.HistoryInfo)
     EditText HistoryInfo;
+    @Bind(R.id.ed_remark)
+    EditText edRemark;
+
+    @Bind(R.id.rl_remak)
+    RelativeLayout rl_remak;
 
     @Bind(R.id.car_owner_info)
     LinearLayout llCarOwnerInfo;
@@ -228,6 +233,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         } else if (nameType == 2) {
             llCarOwnerInfo.setVisibility(View.GONE);
             llPeccancyInfo.setVisibility(View.GONE);
+            rl_remak.setVisibility(View.VISIBLE);
         } else if (nameType ==1){
             rlxingshi.setVisibility(View.GONE);
         }
@@ -412,7 +418,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
     //显示下发名单详情内容
     @Override
-    public void showViewXiafaData(BlackListData.MData.info data) {
+    public void showViewXiafaData(BlackListData.MData.info data, List<BlackListData.MData.FILES> filesList) {
         VepPlateNo.setText(data.getVepPlateNo());
         vepPlateNoColor = data.getVepPlateNoColor();
         vepPlateNoColorName = data.getVepPlateNoColorName();
@@ -458,10 +464,11 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         FactoryType.setText(data.getFactoryType());
         Seating.setText(data.getSeating() + "");
-        Tonnage.setText(data.getTonnage());
+        Tonnage.setText(data.getTonnage().toString());
         CardNo.setText(data.getCardNo());
         GenDT.setText(data.getGenDT());
         GenCause.setText(data.getGenCause());
+        edRemark.setText(data.getREMARK());
 
         /* 车辆所有者信息 */
         Owner.setText(data.getOwner());
@@ -479,6 +486,18 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         HistoryInfo.setText(data.getHistoryInfo());
 
         uuid = data.getBlackListID();
+
+        if (filesList.size() > 0) {
+
+            for (int i = 0; i < filesList.size(); i++) {
+                files.add(new File(filesList.get(i).getURL()));
+                myphoto.getGlide(filesList.get(i).getURL());
+            }
+
+           // myphoto.setPvDataList(filesList);
+        }
+
+        myphoto.setFiles(files);
     }
 
     //显示值在页面上
@@ -548,6 +567,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         TeletePhone.setText(data.getTeletePhone());
         MobilePhone.setText(data.getMobilePhone());
         HistoryInfo.setText(data.getHistoryInfo());
+        edRemark.setText(data.getRemark());
 
         uuid = data.getBlackListID();
 
@@ -744,6 +764,12 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             data.setGenCause("");
         }
 
+        if (!TextUtils.isEmpty(edRemark.getText())) {
+            data.setRemark(edRemark.getText().toString());
+        } else {
+            data.setRemark("");
+        }
+
          /* 车辆所有者信息*/
         if (!TextUtils.isEmpty(Owner.getText())) {
             data.setOwner(Owner.getText().toString());
@@ -796,6 +822,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                     llDunshuo.setVisibility(View.GONE);
                     llSeating.setVisibility(View.VISIBLE);
                     state = true;
+                    if(this.type==1){
+                        Seating.setText(30+"");
+                    }
                 } else if (code == 11 || code == 12 || code == 13 || code == 14 || code == 15) {
                     llZhoushu.setVisibility(View.VISIBLE);
                     llDunshuo.setVisibility(View.VISIBLE);

@@ -325,6 +325,36 @@
                     </LinearLayout>
 
 
+                    <View style="@style/view_line" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_remak"
+                        style="@style/electron_outer_linearLayout"
+                        android:layout_height="@dimen/y200"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            style="@style/electron_tv_title"
+                            android:text="@string/name_roll_remak" />
+
+                        <LinearLayout
+                            style="@style/electron_linearLayout"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/ed_remark"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/y200"
+                                android:layout_gravity="left"
+                                android:gravity="center_vertical"
+                                android:hint="@string/please_input"
+                                android:textSize="@dimen/x28" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -363,8 +393,8 @@
                             <EditText
                                 android:id="@+id/CardNo"
                                 style="@style/electron_ed_content"
-                                android:numeric="integer"
-                                android:hint="@string/please_input" />
+                                android:hint="@string/please_input"
+                                android:numeric="integer" />
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -656,8 +686,8 @@
                             <EditText
                                 android:id="@+id/Postalcode"
                                 style="@style/electron_ed_content"
-                                android:maxLength="11"
-                                android:hint="@string/please_input" />
+                                android:hint="@string/please_input"
+                                android:maxLength="11" />
 
                         </LinearLayout>
 

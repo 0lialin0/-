@@ -33,6 +33,6 @@ public interface NameRollAddView extends MvpView {
      * @param msg
      */
     void showToast(String msg);
-    void showViewXiafaData(BlackListData.MData.info data);
+    void showViewXiafaData(BlackListData.MData.info data, List<BlackListData.MData.FILES> filesList);
 
 }
