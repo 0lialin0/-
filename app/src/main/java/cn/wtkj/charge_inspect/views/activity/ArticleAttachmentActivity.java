@@ -12,8 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.List;
 
 import butterknife.Bind;
@@ -22,7 +20,6 @@ import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ArticleDetail;
 import cn.wtkj.charge_inspect.views.Adapter.ArticleAttachmentListAdapter;
-import cn.wtkj.charge_inspect.views.Adapter.ArticleListAdapter;
 import cn.wtkj.charge_inspect.views.Adapter.OnItemClickListener3;
 
 
@@ -94,15 +91,17 @@ public class ArticleAttachmentActivity extends AppCompatActivity implements View
         String fileName = attachment.getFileName()+"."+attachment.getFileExtension();
 
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        //设置在什么网络情况下进行下载
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+
         //设置通知栏标题
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         request.setTitle("附件下载");
 
         request.setAllowedOverRoaming(false);
+
+        String filePath =  "/稽查APP/资料附件/";
+
         //设置文件存放目录
-        request.setDestinationInExternalFilesDir(ArticleAttachmentActivity.this, Environment.DIRECTORY_DOWNLOADS, fileName);
+        request.setDestinationInExternalPublicDir(filePath, fileName);
         DownloadManager downManager = (DownloadManager)ArticleAttachmentActivity.this.getSystemService(ArticleAttachmentActivity.this.DOWNLOAD_SERVICE);
         long downloadId = downManager.enqueue(request);
     }
