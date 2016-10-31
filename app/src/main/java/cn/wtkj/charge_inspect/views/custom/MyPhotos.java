@@ -202,10 +202,10 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
     @Override
     public void onDeletePics(int id) {
         if (isEnabled) {
-            File file = files.get(id);
+           /* File file = files.get(id);
             if (file.exists()) {
                 file.delete();
-            }
+            }*/
             if (id < mList.size()) {
                 mList.remove(id);
                 files.remove(id);
