@@ -118,7 +118,6 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
     }
 
 
-
     @Override
     public void setView() {
         data = (OutListData.MData.info) getIntent().getSerializableExtra(
@@ -147,11 +146,36 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
         tvZhekouMoney.setText(data.getUcrmoney());
         tvYingshoMoney.setText(data.getCrmoney());
         tvShishouMoney.setText(data.getPaymoney());
-        tvVehNum.setText(data.getInvoiceNo()+"");
-        tvLicheng.setText(data.getMiles()+"");
-        tvZhoushu.setText(data.getAxleNumber()+"轴");
-        tvZhongliang.setText(data.getWeight()+"kg");
-        tvTongCarNum.setText(data.getCardNo()+"");
+        if (data.getInvoiceNo() == 0) {
+            tvVehNum.setText("");
+        } else {
+            tvVehNum.setText(data.getInvoiceNo() + "");
+        }
+        if (data.getMiles() == 0) {
+            tvLicheng.setText("");
+        } else {
+            tvLicheng.setText(data.getMiles() + "");
+        }
+
+        if (data.getAxleNumber() == 0) {
+            tvZhoushu.setText("");
+        } else {
+            tvZhoushu.setText(data.getAxleNumber() + "轴");
+        }
+
+        if (data.getCardNo() == 0) {
+            tvTongCarNum.setText("");
+        } else {
+            tvTongCarNum.setText(data.getCardNo() + "");
+        }
+
+        if (data.getWeight() == 0) {
+            tvZhongliang.setText("");
+        } else {
+            tvZhongliang.setText(data.getWeight() + "kg");
+        }
+
+
         tvSpecialEvent.setText(data.getSpevent());
     }
 
@@ -170,8 +194,8 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
                 Intent intent = new Intent(this, NameRollAddActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(DATA_TAG, data);
-                bundle.putString("type","outlist");
-                intent.putExtra("nameType", 0+"");
+                bundle.putString("type", "outlist");
+                intent.putExtra("nameType", 0 + "");
                 intent.putExtra("nameTitle", "添加黑名单");
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -180,7 +204,7 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
                 Intent intent2 = new Intent(this, GreenRecordActivity.class);
                 Bundle bundle2 = new Bundle();
                 bundle2.putSerializable(DATA_TAG, data);
-                bundle2.putString("type","outlist");
+                bundle2.putString("type", "outlist");
                 intent2.putExtras(bundle2);
                 startActivity(intent2);
                 break;
@@ -188,7 +212,7 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
                 Intent intent3 = new Intent(this, IncrementAddActivity.class);
                 Bundle bundle3 = new Bundle();
                 bundle3.putSerializable(DATA_TAG, data);
-                bundle3.putString("type","outlist");
+                bundle3.putString("type", "outlist");
                 intent3.putExtras(bundle3);
                 startActivity(intent3);
                 break;

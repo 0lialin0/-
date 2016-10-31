@@ -255,7 +255,6 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     public void setView() {
         setDropDown();
         showView();
-
         String outlist = getIntent().getStringExtra("type");
         if (outlist != null) {
             type = 1;
@@ -436,11 +435,11 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             state = false;
         }
         vehTypeName = data.getVehTypeName();
-        VehicleTypeName.setText(data.getVehTypeName());
+        VehTypeName.setText(vehTypeName);
 
         vehicleTypeID = data.getVehicleTypeID();
         vehicleTypeName = data.getVehicleTypeName();
-        VehicleTypeName.setText(data.getVehicleTypeName());
+        VehicleTypeName.setText(vehicleTypeName);
 
         peccancyTypeID = data.getPeccancyTypeID();
         peccancyTypeName = data.getPeccancyTypeName();
@@ -456,7 +455,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         axleCountName = data.getAxleCount() + "轴";
         axleCount = data.getAxleCount();
-        AxleCountName.setText(data.getAxleCountName());
+        AxleCountName.setText(axleCountName);
 
         peccancyOrgID = data.getPeccancyOrgID();
         peccancyOrgName = data.getPeccancyOrgName();
@@ -487,7 +486,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
         uuid = data.getBlackListID();
 
-        if (filesList.size() > 0) {
+        if (filesList != null && filesList.size() > 0) {
 
             for (int i = 0; i < filesList.size(); i++) {
                 files.add(new File(filesList.get(i).getURL()));
@@ -758,10 +757,13 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             data.setCardNo("");
         }
 
+        /*情况说明*/
         if (!TextUtils.isEmpty(GenCause.getText())) {
             data.setGenCause(GenCause.getText().toString());
+            data.setPeccancyDescription(GenCause.getText().toString());
         } else {
             data.setGenCause("");
+            data.setPeccancyDescription("");
         }
 
         if (!TextUtils.isEmpty(edRemark.getText())) {

@@ -226,9 +226,9 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
     public void setDropDown() {
         //车辆类别
         List<KeyValueData> vehType = new ArrayList<>();
-        vehType.add(new KeyValueData("5", "小型货车"));
-        vehType.add(new KeyValueData("11", "中型货车"));
-        vehType.add(new KeyValueData("1", "重型货车"));
+        vehType.add(new KeyValueData("333", "小型货车"));
+        vehType.add(new KeyValueData("333", "中型货车"));
+        vehType.add(new KeyValueData("333", "重型货车"));
         downKeyValue3 = new DropDownKeyValue(this, vehType);
         downKeyValue3.setId(1);
         downKeyValue3.setOnItemClickListener(this);
@@ -327,10 +327,10 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
     //显示流水信息内容在页面上
     private void showViewDataByOutList(OutListData.MData.info info) {
         edCarNum.setText(info.getVehplateNo());
-        axleCountName = info.getAxleNumber()+"轴";
+        axleCountName = info.getAxleNumber() + "轴";
         axleCount = info.getAxleNumber();
         tvAxleCount.setText(axleCountName);
-        edTonnage.setText(info.getWeight()/1000+"");
+        edTonnage.setText(info.getWeight() / 1000 + "");
 
         //入口站址
         inStationID = info.getInstationId();
@@ -593,8 +593,15 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
                 isMix = 2;
             }
             isMixName = name;
-        } else if (id == 1 || id == 11 || id == 5) {
-            vehicleTypeID = id;
+        } else if (id == 333) {
+            if (name.equals("小型货车")) {
+                vehicleTypeID = 5;
+            } else if (name.equals("中型货车")) {
+                vehicleTypeID = 11;
+            } else if (name.equals("重型货车")) {
+                vehicleTypeID = 1;
+            }
+
             vehicleTypeIDName = name;
         } else {
             axleCount = id;

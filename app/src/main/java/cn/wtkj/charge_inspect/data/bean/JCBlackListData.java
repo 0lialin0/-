@@ -65,14 +65,14 @@ public class JCBlackListData implements Serializable {
 
     private String businessId;
 
-    private String remark;
+    private String Remark;
 
     public String getRemark() {
-        return remark;
+        return Remark;
     }
 
     public void setRemark(String remark) {
-        this.remark = remark;
+        this.Remark = remark;
     }
 
     public String getPeccancyDescription() {

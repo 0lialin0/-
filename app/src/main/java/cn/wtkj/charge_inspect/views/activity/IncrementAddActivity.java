@@ -203,7 +203,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
                 if (editOrlook.equals("look")) {
                     llComitBtn.setVisibility(View.GONE);
                     increment_title = "增收";
-                }else{
+                } else {
                     increment_title = "修改增收";
                 }
                 showViewData(data);
@@ -286,7 +286,11 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         edRemark.setText(data.getRemark());
 
         edZhoushou.setText(data.getAxleNumberName());
-        edDunshuo.setText(data.getWeight());
+        if (data.getWeight().equals("0")) {
+            edDunshuo.setText("");
+        } else {
+            edDunshuo.setText(data.getWeight());
+        }
 
         orgCode = data.getOrgID();
         orgLevel = data.getOrgLevel();
@@ -358,6 +362,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
     /**
      * entranType 1 客车，2 货车，3 免费车
+     *
      * @param entranType
      */
     public void showExitList(int entranType) {
@@ -368,18 +373,18 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             List<ConstAllData.MData.info> exitList = new ArrayList<>();
             int[] extCodeList;
 
-            switch (entranType){
+            switch (entranType) {
                 case 1:
-                    extCodeList = new int[]{1,2,3,4,0};
+                    extCodeList = new int[]{1, 2, 3, 4, 0};
                     break;
                 case 2:
-                    extCodeList = new int[]{11,12,13,14,15,0};
+                    extCodeList = new int[]{11, 12, 13, 14, 15, 0};
                     break;
                 case 3:
-                    extCodeList = new int[]{1,2,3,4,11,12,13,14,15,0};
+                    extCodeList = new int[]{1, 2, 3, 4, 11, 12, 13, 14, 15, 0};
                     break;
                 default:
-                    extCodeList = new int[]{1,2,3,4,11,12,13,14,15,0};
+                    extCodeList = new int[]{1, 2, 3, 4, 11, 12, 13, 14, 15, 0};
                     break;
             }
 
@@ -388,9 +393,9 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
             for (int i = 0; i < extCodeList.length; i++) {
 
-                for (int j= 0; j < entranList.size(); j++) {
+                for (int j = 0; j < entranList.size(); j++) {
 
-                    if (entranList.get(j).getCode() == extCodeList[i]){
+                    if (entranList.get(j).getCode() == extCodeList[i]) {
 
                         ConstAllData.MData.info info = mData.new info();
                         info.setName(entranList.get(j).getName());
@@ -561,7 +566,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     public void onItemClick(int code, int type, String name) {
         switch (type) {
             case 5://入口判型
-                if ( code == 1 || code == 2 || code == 3 || code == 4) {
+                if (code == 1 || code == 2 || code == 3 || code == 4) {
                     showExitList(1);
                     llZhoushu.setVisibility(View.GONE);
                     llDunshuo.setVisibility(View.GONE);
@@ -569,7 +574,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
                     showExitList(2);
                     llZhoushu.setVisibility(View.VISIBLE);
                     llDunshuo.setVisibility(View.VISIBLE);
-                }else if (code == 0){
+                } else if (code == 0) {
                     showExitList(3);
                 }
                 inDecision = code;

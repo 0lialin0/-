@@ -129,6 +129,7 @@ public class NameRollManagePresenterImpl extends MvpBasePresenter<NameRollManage
         }
 
         getView().showLoding();
+
         data.setBusinessId("black.blackAct");
         map.put("json", ResponeUtils.dataToJson(data));
         nameRollAddData.nameRoll(map, fileName, files,data.getNameType(),
