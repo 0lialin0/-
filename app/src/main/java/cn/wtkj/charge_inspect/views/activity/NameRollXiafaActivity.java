@@ -132,12 +132,18 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
     }
 
 
-    @OnClick({R.id.iv_left})
+    @OnClick({R.id.iv_left, R.id.iv_search_del})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_left:
                 this.finish();
+                break;
+            case R.id.iv_search_del:
+                etInput.setText("");
+                keyword = "";
+                ivSearchDel.setVisibility(View.GONE);
+                onRefresh();
                 break;
         }
     }
@@ -214,6 +220,9 @@ public class NameRollXiafaActivity extends MvpBaseActivity<NameRollXiafaPresente
         keyword = text.replaceAll(" ", "");
 
         mList.clear();
+
+        page = 1;
+        pagerSize =10;
 
         presenter.startPresenter(keyword, page,pagerSize);
     }

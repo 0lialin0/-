@@ -48,27 +48,25 @@
                             android:layout_marginBottom="@dimen/y33" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/x20"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/list_sub_title"
-                            android:layout_marginBottom="@dimen/y28"
-                            android:text="出口车牌：" />
-
-                        <TextView
-                            android:id="@+id/active_out_vehPlate"
-                            style="@style/list_sub_title"
-                            android:layout_below="@+id/active_title"
-                            android:layout_marginBottom="@dimen/y33" />
-                    </LinearLayout>
-
-
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x20"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/list_sub_title"
+                        android:layout_marginBottom="@dimen/y28"
+                        android:text="出口车牌：" />
+
+                    <TextView
+                        android:id="@+id/active_out_vehPlate"
+                        style="@style/list_sub_title"
+                        android:layout_below="@+id/active_title"
+                        android:layout_marginBottom="@dimen/y33" />
+                </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -92,28 +90,28 @@
                             android:layout_marginBottom="@dimen/y33" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/x20"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/list_sub_title"
-                            android:layout_marginBottom="@dimen/y28"
-                            android:text="收费员工号：" />
-
-                        <TextView
-                            android:id="@+id/active_charge"
-                            style="@style/list_sub_title"
-                            android:layout_below="@+id/active_title"
-                            android:layout_marginBottom="@dimen/y33"
-                             />
-                    </LinearLayout>
-
 
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x20"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/list_sub_title"
+                        android:layout_marginBottom="@dimen/y28"
+                        android:text="收费员工号：" />
+
+                    <TextView
+                        android:id="@+id/active_charge"
+                        style="@style/list_sub_title"
+                        android:layout_below="@+id/active_title"
+                        android:layout_marginBottom="@dimen/y33"
+                        />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"

@@ -24,6 +24,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.data.dataBase.ConstAllDb;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
@@ -132,6 +133,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     private int type = 1;
     private String increment_title = "添加增收";
     private String uuid;
+    List<ViewOrganizationData.MData.info> infos;
 
     @Override
     protected IncrementAddPresenter createPresenter() {
@@ -192,7 +194,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
         String outlist = getIntent().getStringExtra("type");
         if (outlist != null) {
             type = 1;
-            OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
+            OutListInfoData.MData.info info = (OutListInfoData.MData.info) getIntent().getSerializableExtra(
                     OutListSelShowActivity.DATA_TAG);
             showViewDataByOutList(info);
         } else {
@@ -216,7 +218,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
     }
 
     //显示流水信息内容在页面上
-    private void showViewDataByOutList(OutListData.MData.info info) {
+    private void showViewDataByOutList(OutListInfoData.MData.info info) {
         edCarNum.setText(info.getVehplateNo());
         edChargeNum.setText(info.getOprId());
         shiftID = info.getShiftId();
@@ -256,6 +258,8 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
             showExitList(2);
             llZhoushu.setVisibility(View.VISIBLE);
             llDunshuo.setVisibility(View.VISIBLE);
+        }else if(data.getInDecision() == 0){
+            showExitList(3);
         }
 
         edCarNum.setText(data.getVehPlate());
@@ -348,7 +352,7 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
 
 
         //查处单位
-        List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
+        infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
         if (infos.size() > 0) {
             dropDownOrgMenu = new DropDownOrgMenu(this, infos);
             dropDownOrgMenu.setId(1);
@@ -467,7 +471,9 @@ public class IncrementAddActivity extends MvpBaseActivity<IncrementAddPresenter>
                 downKeyValue2.setDownValue(edZhoushou, "");
                 break;
             case R.id.rl_check_unit:
-                dropDownOrgMenu.setDownValue(edCheckUnit, "");
+                if (infos.size() > 0) {
+                    dropDownOrgMenu.setDownValue(edCheckUnit, "");
+                }
                 break;
             case R.id.rl_increment_type:
                 dropDownMenu2.setDownValue(tvIncrementType, "");

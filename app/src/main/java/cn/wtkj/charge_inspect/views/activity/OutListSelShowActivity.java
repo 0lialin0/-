@@ -136,39 +136,20 @@ public class OutListSelShowActivity extends MvpBaseActivity<OutListSelShowPresen
 
     @Override
     public void onItemClick(int code, int type, String name) {
+        Intent intent = new Intent(this, OutListSelInfoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("id",mList.get(code).getListId());
         if (name.equals("name")) {
-            this.finish();
-            Intent intent = new Intent(this, NameRollAddActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(DATA_TAG, mList.get(code));
-            bundle.putString("type","outlist");
-            intent.putExtra("nameType", 0+"");
-            intent.putExtra("nameTitle", "添加黑名单");
-            intent.putExtras(bundle);
-            startActivity(intent);
+            bundle.putString("type","name");
         }else if(name.equals("green")){
-            this.finish();
-            Intent intent = new Intent(this, GreenRecordActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(DATA_TAG, mList.get(code));
-            bundle.putString("type","outlist");
-            intent.putExtras(bundle);
-            startActivity(intent);
+            bundle.putString("type","green");
         }else if(name.equals("increment")){
-            this.finish();
-            Intent intent = new Intent(this, IncrementAddActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(DATA_TAG, mList.get(code));
-            bundle.putString("type","outlist");
-            intent.putExtras(bundle);
-            startActivity(intent);
+            bundle.putString("type","increment");
         }else{
-            Intent intent = new Intent(this, OutListSelInfoActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(DATA_TAG, mList.get(code));
-            intent.putExtras(bundle);
-            startActivity(intent);
+            bundle.putString("type","look");
         }
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 

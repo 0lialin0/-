@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.bean.OutListParamData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.data.dataBase.BlackListDb;
@@ -41,6 +43,7 @@ public class OutListSelPresenterImpl extends MvpBasePresenter<OutListSelView> im
     private OrganizationDb organizationDb;
     private ConductInfoData conductInfoData;
     public Map<String, String> map;
+    public OutListInfoData.MData.info data;
 
     public OutListSelPresenterImpl(Context context) {
         this.context = context;
@@ -74,8 +77,6 @@ public class OutListSelPresenterImpl extends MvpBasePresenter<OutListSelView> im
     }
 
 
-
-
     @Override
     public List<ViewOrganizationData.MData.info> getOrg(int orgId, String orgLevel) {
         List<ViewOrganizationData.MData.info> list = organizationDb.getCheckUnit(orgId, orgLevel);
@@ -86,6 +87,32 @@ public class OutListSelPresenterImpl extends MvpBasePresenter<OutListSelView> im
     public List<ConstAllData.MData.info> getConstByType(int type) {
         List<ConstAllData.MData.info> list_type = constAllDb.getConstList(type);
         return list_type;
+    }
+
+    @Override
+    public void setOutListInfo(String id) {
+        getView().showLoding();
+        map = new HashMap<>();
+        map.put("LISTID", id);
+        conductInfoData.outListSelInfo(map, new Callback<OutListInfoData>() {
+            @Override
+            public void success(OutListInfoData outListData, Response response) {
+                getView().hideLoging();
+                if (outListData.getMData().getState() == outListData.SUCCESS) {
+                    data = outListData.getMData().getInfo();
+                    getView().setView(data);
+                } else {
+                    getView().showToast(outListData.getMData().getInfo().toString());
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                getView().hideLoging();
+                getView().showToast(ResponeData.NET_ERROR);
+            }
+        });
+
     }
 
 

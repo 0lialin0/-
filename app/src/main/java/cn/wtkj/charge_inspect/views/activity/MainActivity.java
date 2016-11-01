@@ -18,6 +18,7 @@ import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.MainPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.MainPresenterImpl;
 import cn.wtkj.charge_inspect.mvp.views.MainView;
+import cn.wtkj.charge_inspect.util.CustomDialog;
 import cn.wtkj.charge_inspect.views.Adapter.MainRecyAdapter;
 
 import static cn.wtkj.charge_inspect.views.custom.ShowToast.show;
@@ -101,5 +102,30 @@ public class MainActivity extends MvpBaseActivity<MainPresenter> implements
                 this.startActivity(intent2);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        showConfirm();
+    }
+
+    public void showConfirm() {
+        final CustomDialog showDialog = new CustomDialog(this,"userInfo");
+        showDialog.setText("是否确认退出");
+        showDialog.setNegativeText("确定");
+        showDialog.setPositiveText("取消");
+        showDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog.dismiss();
+                MainActivity.this.finish();
+            }
+        });
+        showDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog.dismiss();
+            }
+        });
     }
 }

@@ -8,6 +8,7 @@ import cn.wtkj.charge_inspect.data.bean.BlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.net.DataRequester;
 import cn.wtkj.charge_inspect.data.net.ResponeData;
 import retrofit.Callback;
@@ -41,4 +42,7 @@ public interface ConductInfoData {
 
     //流水查询
     void outListSel(Map<String, String> map, Callback<OutListData> callback);
+
+    //流水查询详情
+    void outListSelInfo(Map<String, String> map, Callback<OutListInfoData> callback);
 }

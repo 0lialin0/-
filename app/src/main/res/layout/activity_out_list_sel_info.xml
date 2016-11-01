@@ -573,13 +573,15 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_add_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/y20"
                 android:layout_marginTop="@dimen/y20"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_add_name"
@@ -591,12 +593,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_add_green"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/y20"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_add_green"
@@ -608,12 +612,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_add_increment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/y20"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_add_increment"

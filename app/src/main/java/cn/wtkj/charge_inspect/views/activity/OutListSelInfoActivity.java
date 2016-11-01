@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenter;
 import cn.wtkj.charge_inspect.mvp.presenter.OutListSelPresenterImpl;
@@ -90,10 +92,18 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
     TextView tvTongCarNum;
     @Bind(R.id.tv_special_event)
     TextView tvSpecialEvent;
+    @Bind(R.id.ll_add_name)
+    LinearLayout llAddName;
+    @Bind(R.id.ll_add_green)
+    LinearLayout llAddGreen;
+    @Bind(R.id.ll_add_increment)
+    LinearLayout llAddIncrement;
 
+    private String listId;
+    private String type;
 
     public static final String DATA_TAG = "DataInfo";
-    public OutListData.MData.info data;
+    public OutListInfoData.MData.info data;
 
     @Override
     protected OutListSelPresenter createPresenter() {
@@ -114,22 +124,23 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
         setSupportActionBar(mToolbar);
         ivPhone.setVisibility(View.GONE);
         ivMore.setVisibility(View.GONE);
-        setView();
+
+        listId = getIntent().getStringExtra("id");
+        type = getIntent().getStringExtra("type");
+        presenter.setOutListInfo(listId);
     }
 
 
     @Override
-    public void setView() {
-        data = (OutListData.MData.info) getIntent().getSerializableExtra(
-                OutListSelShowActivity.DATA_TAG);
-
+    public void setView(OutListInfoData.MData.info data) {
         if (data != null) {
+            this.data=data;
             showViewData(data);
         }
     }
 
     //显示值在页面上
-    private void showViewData(OutListData.MData.info data) {
+    private void showViewData(OutListInfoData.MData.info data) {
         tvEntranceLoca.setText(data.getInstationName());
         tvEntranceLane.setText(data.getInlaneName());
         tvEntranceVehplate.setText(data.getInvehplateNo());
@@ -177,6 +188,20 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
 
 
         tvSpecialEvent.setText(data.getSpevent());
+
+
+        if (type.equals("name")) {
+            toName();
+        } else if (type.equals("green")) {
+            toGreen();
+        } else if (type.equals("increment")) {
+            toIncrement();
+        } else if (type.equals("look")) {
+            llAddName.setVisibility(View.VISIBLE);
+            llAddGreen.setVisibility(View.VISIBLE);
+            llAddIncrement.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -191,32 +216,44 @@ public class OutListSelInfoActivity extends MvpBaseActivity<OutListSelPresenter>
                 this.finish();
                 break;
             case R.id.tv_add_name:
-                Intent intent = new Intent(this, NameRollAddActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(DATA_TAG, data);
-                bundle.putString("type", "outlist");
-                intent.putExtra("nameType", 0 + "");
-                intent.putExtra("nameTitle", "添加黑名单");
-                intent.putExtras(bundle);
-                startActivity(intent);
+                toName();
                 break;
             case R.id.tv_add_green:
-                Intent intent2 = new Intent(this, GreenRecordActivity.class);
-                Bundle bundle2 = new Bundle();
-                bundle2.putSerializable(DATA_TAG, data);
-                bundle2.putString("type", "outlist");
-                intent2.putExtras(bundle2);
-                startActivity(intent2);
+                toGreen();
                 break;
             case R.id.tv_add_increment:
-                Intent intent3 = new Intent(this, IncrementAddActivity.class);
-                Bundle bundle3 = new Bundle();
-                bundle3.putSerializable(DATA_TAG, data);
-                bundle3.putString("type", "outlist");
-                intent3.putExtras(bundle3);
-                startActivity(intent3);
+                toIncrement();
                 break;
         }
+    }
+
+    public void toName() {
+        Intent intent = new Intent(this, NameRollAddActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(DATA_TAG, data);
+        bundle.putString("type", "outlist");
+        intent.putExtra("nameType", 0 + "");
+        intent.putExtra("nameTitle", "添加黑名单");
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void toGreen() {
+        Intent intent2 = new Intent(this, GreenRecordActivity.class);
+        Bundle bundle2 = new Bundle();
+        bundle2.putSerializable(DATA_TAG, data);
+        bundle2.putString("type", "outlist");
+        intent2.putExtras(bundle2);
+        startActivity(intent2);
+    }
+
+    public void toIncrement() {
+        Intent intent3 = new Intent(this, IncrementAddActivity.class);
+        Bundle bundle3 = new Bundle();
+        bundle3.putSerializable(DATA_TAG, data);
+        bundle3.putString("type", "outlist");
+        intent3.putExtras(bundle3);
+        startActivity(intent3);
     }
 
     @Override

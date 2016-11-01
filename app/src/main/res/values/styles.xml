@@ -111,7 +111,7 @@
     <style name="radio_rad_bg">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/x20</item>
+        <item name="android:textSize">@dimen/x28</item>
         <item name="android:drawableLeft">@drawable/selector_redio_rad</item>
         <item name="android:button">@null</item>
         <item name="android:textColor">@color/ight_gray</item>

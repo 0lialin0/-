@@ -92,7 +92,7 @@ public class ArticleDetailActivity extends MvpBaseActivity<ArticleInfoPresenter>
         this.articleDetail = articleDetail;
 
         title.setText(articleDetail.getMData().getInfo().getTitle());
-        addTime.setText(articleDetail.getMData().getInfo().getTitle());
+        //addTime.setText(articleDetail.getMData().getInfo().getTitle());
         htmlText.setText(Html.fromHtml(articleDetail.getMData().getInfo().getHtmlText()));
         List<ArticleDetail.MData.info.files> files = articleDetail.getMData().getInfo().getFiles();
 

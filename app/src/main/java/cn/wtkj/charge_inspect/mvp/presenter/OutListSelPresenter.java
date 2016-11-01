@@ -8,6 +8,7 @@ import java.util.Map;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.bean.OutListParamData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpPresenter;
@@ -21,4 +22,5 @@ public interface OutListSelPresenter extends MvpPresenter<OutListSelView> {
     void startPresenter(OutListParamData data);
     List<ViewOrganizationData.MData.info> getOrg(int orgId, String OrgLevel);
     List<ConstAllData.MData.info> getConstByType(int type);
+    void setOutListInfo(String id);
 }

@@ -136,7 +136,7 @@
     <string name="outlist_veh_seed">车种</string>
     <string name="outlist_veh_plate">车牌</string>
     <string name="outlist_car">卡号</string>
-    <string name="outlist_charge">收费员</string>
+    <string name="outlist_charge">收费员工号</string>
 
     <string name="outlist_name">名单</string>
     <string name="outlist_green">绿通</string>
@@ -148,7 +148,7 @@
     <string name="outlist_info_entrance_veh">入口车牌</string>
     <string name="outlist_info_zhong">车种</string>
     <string name="outlist_info_veh_type">车型</string>
-    <string name="outlist_info_chage">收费员</string>
+    <string name="outlist_info_chage">收费员工号</string>
     <string name="outlist_info_time">操作时间</string>
     <string name="outlist_info_out_info">出口信息</string>
     <string name="outlist_info_out_loca">出口站址</string>

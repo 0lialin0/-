@@ -29,6 +29,7 @@ import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.JCGreenChannelRecData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
@@ -144,6 +145,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
     private int type = 1;
     private String increment_title = "添加绿通档案";
     private String uuid;
+    List<ViewOrganizationData.MData.info> infos;
 
     @Override
     protected GreenRecordPresenter createPresenter() {
@@ -203,7 +205,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         String outlist = getIntent().getStringExtra("type");
         if (outlist != null) {
             type = 1;
-            OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
+            OutListInfoData.MData.info info = (OutListInfoData.MData.info) getIntent().getSerializableExtra(
                     OutListSelShowActivity.DATA_TAG);
             showViewDataByOutList(info);
         } else {
@@ -232,7 +234,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         downKeyValue3 = new DropDownKeyValue(this, vehType);
         downKeyValue3.setId(1);
         downKeyValue3.setOnItemClickListener(this);
-        vehicleTypeID = Integer.valueOf(vehType.get(0).getId());
+        vehicleTypeID = 5;
         vehicleTypeIDName = vehType.get(0).getValue();
         tvCarType.setText(vehType.get(0).getValue());
 
@@ -312,7 +314,7 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
         }*/
 
         //上报单位
-        List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
+        infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
         if (infos.size() > 0) {
             dropDownOrgMenu = new DropDownOrgMenu(this, infos);
             dropDownOrgMenu.setId(1);
@@ -325,12 +327,19 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
 
 
     //显示流水信息内容在页面上
-    private void showViewDataByOutList(OutListData.MData.info info) {
+    private void showViewDataByOutList(OutListInfoData.MData.info info) {
         edCarNum.setText(info.getVehplateNo());
         axleCountName = info.getAxleNumber() + "轴";
         axleCount = info.getAxleNumber();
-        tvAxleCount.setText(axleCountName);
-        edTonnage.setText(info.getWeight() / 1000 + "");
+        if (axleCount != 0) {
+            tvAxleCount.setText(axleCountName);
+        }
+
+        if (info.getWeight() != 0) {
+            double tonnage=(double) info.getWeight() / 1000;
+            edTonnage.setText(tonnage+ "");
+        }
+
 
         //入口站址
         inStationID = info.getInstationId();
@@ -477,7 +486,9 @@ public class GreenRecordActivity extends MvpBaseActivity<GreenRecordPresenter> i
                 downKeyValue.setDownValue(tvAxleCount, "");
                 break;
             case R.id.rl_reportOrgID:
-                dropDownOrgMenu.setDownValue(tvReportOrgID, "");
+                if (infos.size() > 0) {
+                    dropDownOrgMenu.setDownValue(tvReportOrgID, "");
+                }
                 break;
             case R.id.comit_button:
                 if (TextUtils.isEmpty(edCarNum.getText())) {

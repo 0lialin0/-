@@ -14,6 +14,7 @@ import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.LoginRespone;
 import cn.wtkj.charge_inspect.data.bean.NameRollXiafaData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -23,7 +24,7 @@ import retrofit.http.QueryMap;
 
 public interface DangerousApi {
 
-     static final String END_POINT = "http://192.162.123.39:8080";// 收费稽查测试服务地
+    static final String END_POINT = "http://192.162.123.39:8080";// 收费稽查测试服务地
     //static final String END_POINT = "http://220.178.67.242:8554/appws";//收费稽查线上地址
 
 
@@ -84,4 +85,8 @@ public interface DangerousApi {
     //流水查询  OK
     @POST("/restApi?businessId=outList.outListList")
     void outListSel(@QueryMap Map<String, String> map,Callback<OutListData> callback);
+
+    //流水查询详情  OK
+    @POST("/restApi?businessId=outList.outListInfo")
+    void outListSelInfo(@QueryMap Map<String, String> map,Callback<OutListInfoData> callback);
 }

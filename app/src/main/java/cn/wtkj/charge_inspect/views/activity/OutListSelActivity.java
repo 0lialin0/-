@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import cn.wtkj.charge_inspect.R;
 import cn.wtkj.charge_inspect.data.bean.ConstAllData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.bean.OutListParamData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
 import cn.wtkj.charge_inspect.mvp.presenter.NameRollAddPresenter;
@@ -131,7 +132,7 @@ public class OutListSelActivity extends MvpBaseActivity<OutListSelPresenter> imp
 
 
     @Override
-    public void setView() {
+    public void setView(OutListInfoData.MData.info data) {
 
     }
 

@@ -30,6 +30,7 @@ import cn.wtkj.charge_inspect.data.bean.JCBlackListData;
 import cn.wtkj.charge_inspect.data.bean.JCEscapeBookData;
 import cn.wtkj.charge_inspect.data.bean.KeyValueData;
 import cn.wtkj.charge_inspect.data.bean.OutListData;
+import cn.wtkj.charge_inspect.data.bean.OutListInfoData;
 import cn.wtkj.charge_inspect.data.bean.PhotoVideoData;
 import cn.wtkj.charge_inspect.data.bean.ViewOrganizationData;
 import cn.wtkj.charge_inspect.mvp.MvpBaseActivity;
@@ -198,7 +199,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
 
     private int nameType = 0;
     private String nameTitle = "添加黑名单";
-
+    List<ViewOrganizationData.MData.info> infos;
     @Override
     protected NameRollAddPresenter createPresenter() {
         return new NameRollAddPresenterImpl(this);
@@ -264,7 +265,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 comitButton.setVisibility(View.GONE);
                 llMyphotos.setVisibility(View.GONE);
             } else {
-                OutListData.MData.info info = (OutListData.MData.info) getIntent().getSerializableExtra(
+                OutListInfoData.MData.info info = (OutListInfoData.MData.info) getIntent().getSerializableExtra(
                         OutListSelShowActivity.DATA_TAG);
                 showViewDataByOutList(info);
             }
@@ -384,7 +385,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         }
 
         //违章地点
-        List<ViewOrganizationData.MData.info> infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
+        infos = presenter.getOrg(Setting.ORGID, Setting.ORGLEVEL);
         if (infos.size() > 0) {
             dropDownOrgMenu = new DropDownOrgMenu(this, infos);
             dropDownOrgMenu.setId(infos.get(0).getOrgCode());
@@ -396,7 +397,7 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
     }
 
     //显示流水信息内容在页面上
-    private void showViewDataByOutList(OutListData.MData.info info) {
+    private void showViewDataByOutList(OutListInfoData.MData.info info) {
         VepPlateNo.setText(info.getVehplateNo());
 
         vehType = info.getVehType();
@@ -406,12 +407,18 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
             llSeating.setVisibility(View.GONE);
             state = false;
         }
+        if (info.getWeight() != 0) {
+            double tonnage=(double) info.getWeight() / 1000;
+            Tonnage.setText(tonnage+ "");
+        }
         vehTypeName = info.getVehTypeName();
         VehTypeName.setText(vehTypeName);
 
         axleCountName = info.getAxleNumber() + "轴";
         axleCount = info.getAxleNumber();
-        AxleCountName.setText(axleCountName);
+        if (axleCount != 0) {
+            AxleCountName.setText(axleCountName);
+        }
         CardNo.setText(info.getCardNo() + "");
     }
 
@@ -421,11 +428,11 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         VepPlateNo.setText(data.getVepPlateNo());
         vepPlateNoColor = data.getVepPlateNoColor();
         vepPlateNoColorName = data.getVepPlateNoColorName();
-        VepPlateNoColorName.setText(data.getVepPlateNoColorName());
+        VepPlateNoColorName.setText(vepPlateNoColorName);
 
         vepColor = data.getVepColor();
         vepColorName = data.getVepColorName();
-        VepColorName.setText(data.getVepColorName());
+        VepColorName.setText(vepColorName);
 
         vehType = data.getVehType();
         if (vehType == 11 || vehType == 12 || vehType == 13 || vehType == 14 || vehType == 15) {
@@ -466,18 +473,23 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
         Tonnage.setText(data.getTonnage().toString());
         CardNo.setText(data.getCardNo());
         GenDT.setText(data.getGenDT());
-        GenCause.setText(data.getGenCause());
+        if(data.getBlackListID()==null){
+            GenCause.setText(data.getPeccancyDescription());
+        }else{
+            GenCause.setText(data.getGenCause());
+        }
+
         edRemark.setText(data.getREMARK());
 
         /* 车辆所有者信息 */
         Owner.setText(data.getOwner());
-        if (data.getOwnerType() == 0) {
+        ownerType = data.getOwnerType();
+        if (ownerType == 0) {
             ownerTypeName = "个人";
         } else {
             ownerTypeName = "单位";
         }
-        ownerType = data.getOwnerType();
-        OwnerTypeName.setText(data.getOwnerTypeName());
+        OwnerTypeName.setText(ownerTypeName);
         OwnerAddress.setText(data.getOwnerAddress());
         Postalcode.setText(data.getPostalcode());
         TeletePhone.setText(data.getTeletePhone());
@@ -675,7 +687,9 @@ public class NameRollAddActivity extends MvpBaseActivity<NameRollAddPresenter> i
                 downKeyValue.setDownValue(AxleCountName, "");
                 break;
             case R.id.rl_weizhang_addr:
-                dropDownOrgMenu.setDownValue(PeccancyOrgName, "");
+                if (infos.size() > 0) {
+                    dropDownOrgMenu.setDownValue(PeccancyOrgName, "");
+                }
                 break;
             case R.id.rl_owner_type:
                 downKeyValueOwner.setDownValue(OwnerTypeName, "");

@@ -347,7 +347,7 @@
                         <EditText
                             android:id="@+id/tv_charge"
                             style="@style/electron_ed_content"
-                            android:hint="@string/please_input" />
+                            android:numeric="integer" />
 
                     </LinearLayout>
 

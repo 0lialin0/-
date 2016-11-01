@@ -50,6 +50,7 @@ public class NameRollXiafaListAdapter extends RecyclerView.Adapter<NameRollXiafa
             holder.llActiveTag.setBackgroundResource(R.drawable.name_black_img);
             nameType = "黑名单";
             peccancyTypeName=dataList.get(position).getPECCANCYNAME();
+            holder.llXiafa.setVisibility(View.VISIBLE);
         } else if (dataList.get(position).getTYPE() == 2) {
             holder.llActiveTag.setBackgroundResource(R.drawable.name_gray_img);
             nameType = "灰名单";
