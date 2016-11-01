@@ -142,7 +142,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                     break;
                 case R.id.btn_pick_photo:
                     Intent intentPickPhoto = new Intent(Intent.ACTION_PICK);
-                    intentPickPhoto.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                    intentPickPhoto.setType("image/*");
                     fragment.startActivityForResult(intentPickPhoto, RESULT_FILE);
                     break;
                 case R.id.btn_take_video:
@@ -157,8 +157,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
                     break;
                 case R.id.btn_pick_video:
                     Intent intentPickVideo = new Intent(Intent.ACTION_PICK);
-                    intentPickVideo.setDataAndType(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                            "video/*");
+                    intentPickVideo.setType("video/*");
                     fragment.startActivityForResult(intentPickVideo, VIDEO_FILE);
                     break;
                 default:
