@@ -255,7 +255,7 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
             img = getPicFile(tempFile.getPath());
         } else if (requestCode == MyPhotos.RESULT_FILE) {
             if (data != null) {
-                String path = getPhotoPathByLocalUri(mContext, data);
+                String path = getFilePathByLocalUri(mContext, data);
                 if (path == null) {
                     img = getPicFile(data.getData().getPath());
                 } else {
@@ -270,9 +270,14 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
             }
         }else if (requestCode == MyPhotos.VIDEO_FILE) {
             if (data != null) {
-                String videoFilePath = data.getData().getPath();
+                String videoFilePath = getFilePathByLocalUri(mContext, data);
                 Log.e(TAG, "onActivityResult: " + videoFilePath);
-                img =   getVideoFile(videoFilePath);
+                if (videoFilePath == null) {    // android 4.4 以后
+                    img = getVideoFile(data.getData().getPath());
+                } else {// android 4.4 及 之前
+                    img =   getVideoFile(videoFilePath);
+                }
+
             }
         }
         return img;
@@ -388,22 +393,23 @@ public class MyPhotos extends FrameLayout implements PhotoAdapter.OnItemClickLis
         return bm;
     }
 
-    public String getPhotoPathByLocalUri(Context context, Intent data) {
-        String picturePath;
+    public String getFilePathByLocalUri(Context context, Intent data) {
+        String filePath;
         try {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
             Cursor cursor = context.getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            picturePath = cursor.getString(columnIndex);
+            filePath = cursor.getString(columnIndex);
             cursor.close();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        return picturePath;
+        return filePath;
     }
 
     public int readPictureDegree(String path) {
